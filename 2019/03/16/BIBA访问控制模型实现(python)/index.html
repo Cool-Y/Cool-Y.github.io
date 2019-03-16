@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="模型实现,">
 
 
 
@@ -79,13 +79,23 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="混元霹雳手">
-<meta property="og:url" content="https://cool-y.github.io/index.html">
+<meta name="description" content="基于python语言的BIBA模型图形界面实现一、实验目的： 查阅资料，了解biba安全模型的相关知识 通过编程实现基于biba模型的完整性访问控制，进一步掌握biba模型的规则 使用python语言实现，熟练pyqt的图形界面设计方法   二、实验环境： 操作系统：Windows10 工具版本：python3.7，pyqt5   三、实验原理：1. 什么是安全模型 系统的元素   具有行为能力的">
+<meta name="keywords" content="模型实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用python实现BIBA模型">
+<meta property="og:url" content="https://cool-y.github.io/2019/03/16/BIBA访问控制模型实现(python)/index.html">
 <meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="基于python语言的BIBA模型图形界面实现一、实验目的： 查阅资料，了解biba安全模型的相关知识 通过编程实现基于biba模型的完整性访问控制，进一步掌握biba模型的规则 使用python语言实现，熟练pyqt的图形界面设计方法   二、实验环境： 操作系统：Windows10 工具版本：python3.7，pyqt5   三、实验原理：1. 什么是安全模型 系统的元素   具有行为能力的">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/Cool-Y/BIBA-model/blob/master/img/login.PNG">
+<meta property="og:image" content="https://github.com/Cool-Y/BIBA-model/blob/master/img/rootUI.PNG">
+<meta property="og:image" content="https://github.com/Cool-Y/BIBA-model/blob/master/img/existUser.PNG">
+<meta property="og:image" content="https://github.com/Cool-Y/BIBA-model/blob/master/img/normal.PNG">
+<meta property="og:updated_time" content="2019-03-16T09:00:20.177Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="混元霹雳手">
+<meta name="twitter:title" content="利用python实现BIBA模型">
+<meta name="twitter:description" content="基于python语言的BIBA模型图形界面实现一、实验目的： 查阅资料，了解biba安全模型的相关知识 通过编程实现基于biba模型的完整性访问控制，进一步掌握biba模型的规则 使用python语言实现，熟练pyqt的图形界面设计方法   二、实验环境： 操作系统：Windows10 工具版本：python3.7，pyqt5   三、实验原理：1. 什么是安全模型 系统的元素   具有行为能力的">
+<meta name="twitter:image" content="https://github.com/Cool-Y/BIBA-model/blob/master/img/login.PNG">
 
 
 
@@ -115,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/03/16/BIBA访问控制模型实现(python)/">
 
 
 
 
 
-  <title>混元霹雳手</title>
+  <title>利用python实现BIBA模型 | 混元霹雳手</title>
   
 
 
@@ -140,8 +150,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,396 +223,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/16/qq数据库的加密解密/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cool-Y">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="混元霹雳手">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/16/qq数据库的加密解密/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T17:04:32+08:00">
-                2019-03-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="qq数据库采用简单加密——异或加密"><a href="#qq数据库采用简单加密——异或加密" class="headerlink" title="qq数据库采用简单加密——异或加密"></a>qq数据库采用简单加密——异或加密</h1><h2 id="数据获取："><a href="#数据获取：" class="headerlink" title="数据获取："></a>数据获取：</h2><p>DENGTA_META.xml—IMEI:867179032952446<br>databases/2685371834.db——数据库文件</p>
-<h2 id="解密方式："><a href="#解密方式：" class="headerlink" title="解密方式："></a>解密方式：</h2><p>明文msg_t   密文msg_Data  key：IMEI<br>msg_t = msg_Data[i]^IMEI[i%15]</p>
-<p>实验：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import sqlite3</span><br><span class="line"></span><br><span class="line">IMEI = &apos;867179032952446&apos;</span><br><span class="line">conn = sqlite3.connect(&apos;2685371834.db&apos;)</span><br><span class="line">c = conn.cursor()</span><br><span class="line"></span><br><span class="line">def _decrypt(foo):</span><br><span class="line">    substr = &apos;&apos;</span><br><span class="line">    #print(len(foo))</span><br><span class="line">    for i in range(0,len(foo)):</span><br><span class="line">        substr += chr(ord(foo[i]) ^ ord(IMEI[i%15]))</span><br><span class="line">    return substr</span><br><span class="line"></span><br><span class="line">#rem = c.execute(&quot;SELECT uin, remark, name FROM Friends&quot;)</span><br><span class="line">Msg = c.execute(&quot;SELECT msgData, senderuin, time FROM mr_friend_0FC9764CD248C8100C82A089152FB98B_New&quot;)</span><br><span class="line"></span><br><span class="line">for msg in Msg:</span><br><span class="line">    uid = _decrypt(msg[1])</span><br><span class="line">    print(&quot;\n&quot;+uid+&quot;:&quot;)</span><br><span class="line">    try:</span><br><span class="line">        msgData = _decrypt(msg[0]).decode(&apos;utf-8&apos;)</span><br><span class="line">        print(msgData)</span><br><span class="line">    except:</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure></p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="./pics/qq.PNG" alt></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cool-Y">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="混元霹雳手">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/16/wwifi半双工侧信道攻击学习笔记/" itemprop="url">wifi半双工侧信道攻击学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T15:35:27+08:00">
-                2019-03-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="TCP侧信道分析及利用的学习报告"><a href="#TCP侧信道分析及利用的学习报告" class="headerlink" title="TCP侧信道分析及利用的学习报告"></a>TCP侧信道分析及利用的学习报告</h1><h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="测信道"><a href="#测信道" class="headerlink" title="测信道"></a>测信道</h3><p><strong>香农信息论</strong></p>
-<p><img src="./1.png" alt="信息熵"></p>
-<p><strong>什么是信息？</strong> 用来减少随机不确定的东西</p>
-<p><strong>什么是加密？</strong> 类似于加噪声，增加随机不确定性</p>
-<blockquote>
-<p>“从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”</p>
-</blockquote>
-<p><strong>侧信道随之出现</strong> 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。</p>
-<ol>
-<li>早期：采集加密电子设备在运行过程中的时间消耗、功率消耗或者电磁辐射消耗等边缘信息的差异性</li>
-<li>而随着研究的深入，逐渐从加密设备延伸到计算机内部CPU、内存等之间的信息传递</li>
-<li>并在Web应用交互信息传递越来越频繁时，延伸到了网络加密数据流的破解方面</li>
-</ol>
-<p><strong>侧信道攻击的流程</strong> 第一个就是侧信道泄露的截取，第二个是信息的恢复。</p>
-<hr>
-<h3 id="网络攻击"><a href="#网络攻击" class="headerlink" title="网络攻击"></a>网络攻击</h3><ol>
-<li>中间人攻击<blockquote>
-<p>“指攻击者与通讯的两端分别创建独立的联系，并交换其所收到的数据，使通讯的两端认为他们正在通过一个私密的连接与对方直接对话，但事实上整个会话都被攻击者完全控制。”</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="./2-Man_in_the_middle_attack.svg.png" alt></p>
-<ul>
-<li>公共wifi、路由器劫持</li>
-<li>一般使用加密来防御</li>
-<li>加密的代价：维护密钥证书、影响功能（运营商无法做缓存）</li>
-</ul>
-<ol start="2">
-<li>非中间人攻击/偏离路径攻击/off-path attack<blockquote>
-<p>通信线路之外，攻击者看不到双方的消息，没办法截获和发送通信包。智能伪造成一方给另一方发消息。</p>
-</blockquote>
-</li>
-</ol>
-<ul>
-<li>攻击成功需要：消息合法+最先到达</li>
-<li>防御措施：challenge-response/询问-应答机制<br>双方在通信前交换一个随机数，这个随机数在每次的通信中都要被附带，而中间人看不见这个随机数，因此伪造的消息被认为不合法。</li>
-<li>攻击者如何得到这个随机数：侧信道</li>
-</ul>
-<hr>
-<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><p><img src="./3-Connection_TCP.png" alt></p>
-<blockquote>
-<ol>
-<li>客户端通过向服务器端发送一个SYN来创建一个主动打开，作为三路握手的一部分。客户端把这段连接的序号设定为<em>随机数A</em>。</li>
-<li>服务器端应当为一个合法的SYN回送一个SYN/ACK。ACK的确认码应为A+1，SYN/ACK包本身又有一个<em>随机产生的序号B</em>。</li>
-<li>最后，客户端再发送一个ACK。当服务端收到这个ACK的时候，就完成了三路握手，并进入了连接创建状态。此时包的序号被设定为收到的确认号A+1，而响应号则为B+1。</li>
-</ol>
-</blockquote>
-<p>通过三次握手，确定对方不是非中间人</p>
-<p><strong><em>TCP序列号的问题</em></strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">1985</th>
-<th style="text-align:center">1995</th>
-<th style="text-align:center">2001</th>
-<th style="text-align:center">2004</th>
-<th style="text-align:center">2007</th>
-<th style="text-align:center">2012</th>
-<th style="text-align:center">2012</th>
-<th style="text-align:center">2016</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Morris</td>
-<td style="text-align:center">Mitnik</td>
-<td style="text-align:center">Zalewsky</td>
-<td style="text-align:center">Waston</td>
-<td style="text-align:center">kLM</td>
-<td style="text-align:center">Herzberg</td>
-<td style="text-align:center">作者</td>
-<td style="text-align:center">作者</td>
-</tr>
-<tr>
-<td style="text-align:center">初始序列可预测</td>
-<td style="text-align:center">真实利用</td>
-<td style="text-align:center">漏洞仍在</td>
-<td style="text-align:center">BGP DoS</td>
-<td style="text-align:center">Windows攻击</td>
-<td style="text-align:center">Puppet-assisted</td>
-<td style="text-align:center">Malware-assisted</td>
-<td style="text-align:center">off-path attack</td>
-</tr>
-</tbody>
-</table>
-<ol>
-<li>90年代时发现并不随机：1995年伪造客户端连接微软大楼的服务器</li>
-<li>2007年在windows场景下用IDID侧信道猜出序列号：只针对Windows，花费几小时</li>
-</ol>
-<hr>
-<h2 id="Malware-assisted"><a href="#Malware-assisted" class="headerlink" title="Malware-assisted"></a>Malware-assisted</h2><p><strong>攻击模型：</strong><br>给受害者安装一个无特权的应用程序（仅能网络连接），这个程序跟非中间人的攻击者里应外合，劫持手机上所有的TCP连接。<br><img src="./5-攻击模型.PNG" alt></p>
-<p><strong>如何劫持TCP</strong></p>
-<ol>
-<li><p>需要的信息：Facebook的连接IP地址和端口号，由此可以知道TCP连接的序列号，利用序列号伪装成Facebook给手机发消息。<br>使用netstat命令获取：<br><img src="./4-netstat获取信息.jpg" alt></p>
-</li>
-<li><p>任务：由于TCP的序列号通常连续，所以要精确猜到它的下一个序列号。</p>
-</li>
-<li>如何验证序列号正确：通过某种侧信道，这个恶意软件在后台可以提供反馈。</li>
-</ol>
-<h3 id="变种一：防火墙"><a href="#变种一：防火墙" class="headerlink" title="变种一：防火墙"></a>变种一：防火墙</h3><p><strong>攻击过程：</strong> TCP三次握手之后产生A和B，将来传输的包序列号必须跟A和B很接近，否则，防火墙会丢弃这个包。因此只有猜对了序列号，包才能到达手机端。到达手机端后，后台的恶意软件可以帮助我们判断手机是否接受了这个数据包。</p>
-<p><strong>具体侧信道方案：</strong> CPU资源使用率（噪音很大）——&gt;TCP计数器（后台软件运行制造噪音）——&gt;低噪音计数器：包被丢掉时，一个相应的错误计数器。</p>
-<p><strong>解决方法：</strong> 关闭防火墙检查序列号的功能</p>
-<h3 id="变种二：无防火墙"><a href="#变种二：无防火墙" class="headerlink" title="变种二：无防火墙"></a>变种二：无防火墙</h3><p>具体侧信道方案：跟TCP业务逻辑有关的计数器——收到的TCP包序列号小于期望时增加，大于时不变。二分查找搜索正确的序列号。<br>影响范围：Android、Linux、MacOS、FreeBSD</p>
-<hr>
-<h2 id="Pure-off-path-无恶意软件协助"><a href="#Pure-off-path-无恶意软件协助" class="headerlink" title="Pure off-path:无恶意软件协助"></a>Pure off-path:无恶意软件协助</h2><blockquote>
-<p>不植入恶意软件，劫持任意两台机器的TCP连接：首先确定是否建立TCP连接，然后推测其序列号A和B。</p>
-</blockquote>
-<h3 id="Global-Rate-Limit"><a href="#Global-Rate-Limit" class="headerlink" title="Global Rate Limit"></a>Global Rate Limit</h3><blockquote>
-<p>USENIX 2016 : Off-Path TCP Exploits: Global Rate Limit Considered Dangerous</p>
-</blockquote>
-<p><strong>侧信道：</strong> 所有的侧信道，本质上就是攻击者和受害者之间共享着某些资源，如之前的全局TCP计数器。这里使用的侧信道是 <strong><em>服务器上</em></strong> 的共享资源，<strong><em>限速器</em></strong>（RFC 5961）限制某一种包的发送速率（默认100p/s）</p>
-<p><strong>如何利用共享限速器：</strong><br>先判断是否建立了连接。然后伪造TCP包，需要猜测源端口，如果猜测正确，服务器会返回一个challenge，攻击者不断触发，一共可以收到99个（还有一个发给了客户端）；如果猜测错误，则一共可以收到100个challenge。</p>
-<p><img src="./6-GRL-R.png" alt></p>
-<p><img src="./7-GRL-L.png" alt></p>
-<p><strong>评估：</strong> 是否建立了连接：&lt;10s  ;  Seq：30s  ； ACK:&lt;10s</p>
-<p><strong>解决方案：</strong> 1. 加噪音，100变成150、200；2. 限速器做成局部的</p>
-<hr>
-<h3 id="Unfixable-WiFi-timing"><a href="#Unfixable-WiFi-timing" class="headerlink" title="Unfixable WiFi timing"></a>Unfixable WiFi timing</h3><blockquote>
-<p>USENIX 2018 : Off-Path TCP Exploit: How Wireless Routers<br>Can Jeopardize Your Secrets<br>之前的漏洞无论是计数器还是限速器都属于软件，很好更正，但这篇文章的漏洞利用无法修复。</p>
-</blockquote>
-<p><strong>TCP收包的原理：</strong> 通常TCP收包要看这个包是否匹配了当前的某一个连接。如果连接匹配上了，就会去看这个包的序列号；如果序列号不对，会触发一个回复，说明这个序列号存在问题；如果序列号正确，但反向序列号不对，也会丢包。当连接匹配、序列号和反向序列号正确时，就会返回一个数据包。<br><img src="./8-收包原理.jpg" alt></p>
-<p><strong>侧信道：</strong> 攻击者伪装成服务器给客户端发包，正确的序列号会有<strong><em>回复</em></strong>，错误则没有。但回复时发送给服务器的，有没有回复攻击者并不知道。那么如何去判断有没有回复，利用无线网络的  <strong><em>半双工</em></strong> 传输。<br>让有回包和没有回包的时间差异放大。</p>
-<p><strong>判断流程：</strong> 客户端和路由器之间wifi通信。攻击者依次发送三个数据包，第一个包用来测试正常的RTT。第2个包是伪装成服务器发送的，如果第2个包猜对了，客户端会向服务器返回数据包，这会导致占用更长时间的wifi信道，从而会使第3个包的RTT更长。<br><img src="./8-noTrigger.PNG" alt></p>
-<p><img src="./8-trigger.PNG" alt></p>
-<p><strong>评估：</strong> 在本地环境下，如果发送40个包，就有20ms的RTT差别。</p>
-<p><strong>攻击应用：</strong><br><strong>1. 攻击模型：</strong> 受害者访问了我们的钓鱼网站，这时javascript（傀儡）会在后台执行，主动建立到攻击者的连接（规避NAT或防火墙造成的不可抵达问题），这时攻击者就可以从外网测试RTT。</p>
-<blockquote>
-<p>与理想情况的不同：客户端通常在NAT或防火墙之后；操作系统不一定严格遵守TCP收包的原则</p>
-</blockquote>
-<pre><code>Attacker -------wire----------|
-                           Router ---------wireless-------Victim (client)
-Server   -------wire----------|
-</code></pre><p><strong>2. 攻击目标：</strong> 推断出客户端和服务器是否建立了连接；合计连接中交换的字节数或强制中断连接；注入恶意payload到连接（不失一般性的关注web缓存投毒）。前两个不需要傀儡初始化连接，第三个不一定需要，但攻击者控制了时序，能够简化攻击。</p>
-<p><strong>3. 攻击过程：</strong> 假设傀儡已经建立了连接，攻击者可以劫持并替换任何不加密的网站（如武汉大学），并在浏览器缓存。这是因为当浏览器请求相同的ip地址时，会复用之前的TCP连接。这意味着恶意网站中的傀儡可以通过重复HTML元素来建立到目标域名的单个持久连接。然后，路径外攻击者可以进行侧信道攻击，以推断目标连接中使用的端口号和序列号，然后注入虚假的http响应，并要求浏览器不重新检查对象的新鲜度，从而达到持续性的缓存投毒。</p>
-<p><strong>4. 细节：</strong></p>
-<ul>
-<li><strong>连接（四元组）推断：</strong> 每一轮使用30个重复包测试一个端口，如果端口号正确，就会发现RTT大幅增加。如果还要完成 <strong><em>web缓存投毒</em></strong>  ，还需要傀儡初始化连接来协助，根据系统不同，有不同的端口选择算法可以优化：<strong><em>windows&amp;macOS</em></strong> 使用全局和顺序端口分配策略为其TCP连接选择短暂的端口号，这意味着攻击者可以在观察到与恶意Web服务器的初始连接后推断出要使用的下一个端口号，这完全消除了对端口号推断的需要。<strong><em>NAT</em></strong> 端口保留，不需要关心外部端口被转换成不可预知的内部端口。<strong><em>来自同一域名的多个IP地址</em></strong>，这意味着攻击者需要付出更大的代价来推断端口号。</li>
-<li><strong>序列号推断：</strong> 通过利用时序侧信道来判断是否存在相应的响应，从而将窗口序列号与窗外序列号区分开来。一旦我们得到一个 <strong><em>窗口内序列号</em></strong>，通过进行二分搜索进一步将序列号空间缩小到单个值  <strong><em>RCV.NXT</em></strong>。如果还要使用傀儡建立的连接发起web缓存投毒，可以进一步优化：<strong><em>增大接收窗口的大小</em></strong>，可以减少猜测的迭代次数，通常可以放大到500000(之前是65535)，而且根据RFC793,窗口放大之后就永远不会缩小。<br><img src="./9-序列号推断.PNG" alt></li>
-<li><p><strong>TCP劫持：</strong> 通过劫持傀儡初始化的连接，可以简化web缓存投毒的过程。三个os在ACK验证上都不符合规范，所以各自处理情况也不同——<strong><em>windows</em></strong>：客户端必须持续发送请求以防止ACK接收窗口仅为一个字节，这要求攻击者必须能准确预期下一个序列号并解决大量流量带来的噪声。<br>因此，作者设计了一种新策略，该策略利用处理重叠数据的TCP行为和处理损坏的HTTP响应的浏览器行为——在Windows主机上缓冲的攻击者注入数据可能会破坏来自服务器的真实HTTP响应。 <strong><em>（1）注入</em></strong>，傀儡不断从服务器上请求脚本，而攻击者发送2^23/|wnd|个欺骗性数据包，这些包的窗口序列号与RCV.NXT加上偏移量相匹配，其中|wnd|为ack接收窗口大小，第i个数据包的ACK号为i*|wnd|，payload为</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocket.send(|wnd|*i)</span><br></pre></td></tr></table></figure>
-<p>  因此，这些数据包中包含有效ACK号的一个包将被缓冲，并破坏真实的HTTP响应头。浏览器执行注入的脚本时，它将通过websocket发送猜测的ACK号，提供有效的窗口内ACK号。<br><img src="./9-http注入.PNG" alt><br><strong><em>（2）利用</em></strong>，由于客户端已经接受了额外的欺骗payload，推进了其预期的序列号，因此客户端和服务器实际上已经被去同步。攻击者现在可以简单地发送欺骗性响应（知道预期的序列号和有效的ACK号）。如果我们只想执行一次性注入，只需用恶意脚本替换第一步中的payload就足够了。<br>此外，针对Windows的注入步骤存在更加通用的替代策略，不依赖于浏览器行为。 具体来说，由于HTTP响应的前几个字节是可预先确定的（即HTTP），不破坏真实的响应，而是覆盖标题和正文以形成合法但恶意的响应。 在这种情况下，浏览器将完全忘记注入的存在。 这表明一旦序列号泄露，就存在各种方法来有效地将数据注入浏览器，而不用进行基于时间信道的慢得多的ACK号推断。</p>
-</li>
-</ul>
-<hr>
-<h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>时序侧信道来自无线网络的半双工性质。由于无线协议中固有的冲突和回退，它被进一步放大。正如我们的测试路由器所证实的那样，现代无线路由器都支持CSMA / CA和RTS / CTS，因为它是802.11标准的一部分，并且该原则不太可能很快改变。<br>虽然作者只讨论威胁模型，其中来自受害客户端的连接是针对性的，但攻击实际上也适用于源自通过同一无线路由器连接的其他客户端的连接。这是因为所有这些客户端（例如，在相同NAT之后）共享了相同的冲突域并因此遭受相同的定时信道。通过探测数据包在任何客户端上触发的响应将有效地延迟探测后查询。在这种情况下，受害者连接（通过傀儡打开）只是为远程攻击者提供了测量碰撞的机会。<br>此外，我们可以扩展威胁模型以考虑无线连接的服务器，例如物联网设备。已经证明，通过公共IP地址和开放端口可以访问数百万个物联网设备。在这种情况下，可以针对此类IoT设备上的连接启动完全偏离路径的攻击。例如，计算在连接上交换的字节，终止与另一主机的连接，在正在进行的telnet连接上注入恶意命令。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -633,9 +255,7 @@ Server   -------wire----------|
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/16/BIBA访问控制模型实现(python)/" itemprop="url">利用python实现BIBA模型</a></h1>
+          <h1 class="post-title" itemprop="name headline">利用python实现BIBA模型</h1>
         
 
         <div class="post-meta">
@@ -685,9 +305,7 @@ Server   -------wire----------|
       
 
       
-        
-          
-            <h1 id="基于python语言的BIBA模型图形界面实现"><a href="#基于python语言的BIBA模型图形界面实现" class="headerlink" title="基于python语言的BIBA模型图形界面实现"></a>基于python语言的BIBA模型图形界面实现</h1><h2 id="一、实验目的："><a href="#一、实验目的：" class="headerlink" title="一、实验目的："></a>一、实验目的：</h2><ol>
+        <h1 id="基于python语言的BIBA模型图形界面实现"><a href="#基于python语言的BIBA模型图形界面实现" class="headerlink" title="基于python语言的BIBA模型图形界面实现"></a>基于python语言的BIBA模型图形界面实现</h1><h2 id="一、实验目的："><a href="#一、实验目的：" class="headerlink" title="一、实验目的："></a>一、实验目的：</h2><ol>
 <li><strong>查阅资料，了解biba安全模型的相关知识</strong></li>
 <li><strong>通过编程实现基于biba模型的完整性访问控制，进一步掌握biba模型的规则</strong></li>
 <li><strong>使用python语言实现，熟练pyqt的图形界面设计方法</strong></li>
@@ -810,8 +428,6 @@ Server   -------wire----------|
    <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">touchfile</span><span class="params">(self)</span>:</span></span><br><span class="line">    urName = self.lineEdit.text()</span><br><span class="line">    filename = self.lineEdit_4.text()</span><br><span class="line">    cur_path = os.getcwd()</span><br><span class="line">    new_path = os.path.join(cur_path + <span class="string">'/file'</span>, urName)</span><br><span class="line">    print(urName)</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(new_path) == <span class="literal">False</span>:</span><br><span class="line">        os.mkdir(new_path)</span><br><span class="line">    os.chdir(new_path)</span><br><span class="line">    fr = open(filename, <span class="string">'w'</span>)</span><br><span class="line">    key = (new_path + <span class="string">'/'</span> + filename).replace(<span class="string">'\\'</span>, <span class="string">'/'</span>)</span><br><span class="line">    fr.close()</span><br><span class="line">    os.chdir(cur_path)</span><br><span class="line">    fa = open(<span class="string">'./etc/ac.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line">    a = fa.read()</span><br><span class="line">    <span class="keyword">if</span> a == <span class="string">''</span>:</span><br><span class="line">        dict = &#123;&#125;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        dict = eval(a)</span><br><span class="line">    dict[key] = self.lineEdit_2.text()</span><br><span class="line">    fr = open(<span class="string">'./etc/ac.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line">    fr.write(str(dict))</span><br><span class="line">    fr.close()</span><br><span class="line">    fa.close()</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="五、心得体会："><a href="#五、心得体会：" class="headerlink" title="五、心得体会："></a>五、心得体会：</h2><h2 id="六、改进部分："><a href="#六、改进部分：" class="headerlink" title="六、改进部分："></a>六、改进部分：</h2>
-          
-        
       
     </div>
     
@@ -826,266 +442,40 @@ Server   -------wire----------|
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/16/小米固件工具mkxqimage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cool-Y">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="混元霹雳手">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/16/小米固件工具mkxqimage/" itemprop="url">小米固件工具mkxqimage</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T14:57:56+08:00">
-                2019-03-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/模型实现/" rel="tag"># 模型实现</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="小米固件工具mkxqimage"><a href="#小米固件工具mkxqimage" class="headerlink" title="小米固件工具mkxqimage"></a>小米固件工具mkxqimage</h1><p>小米自己改了个打包解包固件的工具，基于 trx 改的（本质上还是 trx 格式），加了 RSA 验证和解包功能，路由系统里自带：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br><span class="line">mkxqimg [-o outfile] [-p private_key] [-f file] [-f file [-f file [-f file ]]]</span><br><span class="line">        [-x file]</span><br><span class="line">        [-I]</span><br></pre></td></tr></table></figure></p>
-<h2 id="固件解包"><a href="#固件解包" class="headerlink" title="固件解包"></a>固件解包</h2><p>固件工具mkxqimage完成对固件的解包，在解包前先检查Checksum是否正确，然后利用RSA公钥/usr/share/xiaoqiang/public.pem检查RSA签名，这两个步骤通过后，根据[0x0C]的固件类型，以及[0x10]、[0x14]、[0x18]和[0x1C]的4个偏移量拆分固件。</p>
-<h2 id="固件打包"><a href="#固件打包" class="headerlink" title="固件打包"></a>固件打包</h2><p>小米官方在打包固件时用RSA私钥计算出固件的RSA签名，小米路由器下载固件后用RSA公钥来验证RSA签名，有效地防止固件被篡改。</p>
-<h2 id="固件格式"><a href="#固件格式" class="headerlink" title="固件格式"></a><a href="http://www.iptvfans.cn/wiki/index.php/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%9B%BA%E4%BB%B6%E5%88%86%E6%9E%90" target="_blank" rel="noopener">固件格式</a></h2><p>路由固件的格式，基本是基于 openwrt 的 trx 这个简单的二进制文件格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">48 44 52 30 63 D4 11 03 FE 3D 1A FD 05 00 02 00</span><br><span class="line">20 00 00 00 20 00 FE 00 00 00 00 00 00 00 00 00</span><br><span class="line">FF 04 00 EA 14 F0 9F E5 14 F0 9F E5 14 F0 9F E5</span><br></pre></td></tr></table></figure></p>
-<p>第1～4字节：ASCII字符串“HDR0”，作为固件的标识；<br>第5～8字节：4字节整型数0x0311D464，表示固件的大小：51500132字节；<br>第9~12字节：固件的检查和；<br>第13～14字节：0x0005，表示固件中包含哪些部分；<br>第15～16字节：0x0002，表示固件格式版本号；<br>第17～20字节：0x00000020，表示固件第一部分在整个固件中的偏移量，0.4.85固件的第一部分是brcm4709_nor.bin，也就是Flash中除0xfe0000-0xff0000的board_data外的全镜像；<br>第21～24字节：0x00FE0020，表示固件第二部分在整个固件中的偏移量，0.4.85固件的第二部分是root.ext4.lzma，也就是硬盘中128M固件的压缩包；<br>第33字节开始是固件的正式内容开始。</p>
-<h2 id="小米开启ssh工具包"><a href="#小米开启ssh工具包" class="headerlink" title="小米开启ssh工具包"></a>小米开启ssh工具包</h2><p>使用mkxqimage解包<br>（现在会提示秘钥不存在）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error fopen public key</span><br><span class="line">Image verify failed, not formal image</span><br></pre></td></tr></table></figure></p>
-<p>如果能解包应该可以得到脚本文件upsetting.sh</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">nvram set ssh_en=1</span><br><span class="line">nvram set flag_init_root_pwd=1</span><br><span class="line">nvram commit</span><br></pre></td></tr></table></figure>
-<p>执行脚本文件upsetting.sh后，将ssh_en设置为1，同时设置了flag_init_root_pwd项。当正式启动时，/usr/sbin/boot_check脚本检测到flag_init_root_pwd=1时，自动修改root用户密码，具体脚本为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flg_init_pwd=`nvram get flag_init_root_pwd`</span><br><span class="line">if [ &quot;$flg_init_pwd&quot; = &quot;1&quot; ]; then</span><br><span class="line">	init_pwd=`mkxqimage -I`</span><br><span class="line">	(echo $init_pwd; sleep 1; echo $init_pwd) | passwd root</span><br><span class="line">	nvram unset flag_init_root_pwd</span><br><span class="line">	nvram commit</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
-<p>初始密码是mkxqimage -I的结果，实际是根据路由器的序列号计算得到。路由器的序列号印在底盖上，12位数字，如：561000088888</p>
-<p>初始密码计算算法为：</p>
-<p><code>substr(md5(SN+&quot;A2E371B0-B34B-48A5-8C40-A7133F3B5D88&quot;), 0, 8)</code></p>
-<p><strong><em>A2E371B0-B34B-48A5-8C40-A7133F3B5D88</em></strong> 为分析mkxqimage得到的salt</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cool-Y">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="混元霹雳手">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/16/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T14:53:10+08:00">
-                2019-03-16
-              </time>
+              <a href="/2019/03/16/小米固件工具mkxqimage/" rel="next" title="小米固件工具mkxqimage">
+                <i class="fa fa-chevron-left"></i> 小米固件工具mkxqimage
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/2019/03/16/wwifi半双工侧信道攻击学习笔记/" rel="prev" title="wifi半双工侧信道攻击学习笔记">
+                wifi半双工侧信道攻击学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>你好！我是混元霹雳手</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1095,10 +485,11 @@ Server   -------wire----------|
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1106,6 +497,10 @@ Server   -------wire----------|
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1126,8 +521,17 @@ Server   -------wire----------|
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1178,6 +582,22 @@ Server   -------wire----------|
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于python语言的BIBA模型图形界面实现"><span class="nav-number">1.</span> <span class="nav-text">基于python语言的BIBA模型图形界面实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验目的："><span class="nav-number">1.1.</span> <span class="nav-text">一、实验目的：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实验环境："><span class="nav-number">1.2.</span> <span class="nav-text">二、实验环境：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、实验原理："><span class="nav-number">1.3.</span> <span class="nav-text">三、实验原理：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是安全模型"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">1. 什么是安全模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-biba完整性模型："><span class="nav-number">1.3.0.2.</span> <span class="nav-text">2. biba完整性模型：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实验内容："><span class="nav-number">1.4.</span> <span class="nav-text">四、实验内容：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用户登录实现"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.  用户登录实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-管理员功能实现"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.  管理员功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增加用户的实现"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">增加用户的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询已有用户的实现"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">查询已有用户的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除用户的实现"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">删除用户的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-普通用户功能实现"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.  普通用户功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#读取文件内容"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">读取文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加文件内容"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">增加文件内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建文件"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">创建文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、心得体会："><span class="nav-number">1.5.</span> <span class="nav-text">五、心得体会：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、改进部分："><span class="nav-number">1.6.</span> <span class="nav-text">六、改进部分：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1311,6 +731,10 @@ Server   -------wire----------|
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
