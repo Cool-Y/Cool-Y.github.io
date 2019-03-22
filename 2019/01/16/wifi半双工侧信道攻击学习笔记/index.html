@@ -83,27 +83,27 @@
 <meta name="keywords" content="侧信道攻击,wifi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wifi半双工侧信道攻击学习笔记">
-<meta property="og:url" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/index.html">
+<meta property="og:url" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/index.html">
 <meta property="og:site_name" content="混元霹雳手">
 <meta property="og:description" content="TCP侧信道分析及利用的学习报告背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”  侧信道随之出现 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/1.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/2-Man_in_the_middle_attack.svg.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/3-Connection_TCP.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/5-攻击模型.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/4-netstat获取信息.jpg">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/6-GRL-R.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/7-GRL-L.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/8-收包原理.jpg">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/8-noTrigger.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/8-trigger.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/9-序列号推断.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/9-http注入.PNG">
-<meta property="og:updated_time" content="2019-03-22T09:44:52.656Z">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/2-Man_in_the_middle_attack.svg.png">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/3-Connection_TCP.png">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/5-攻击模型.PNG">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/4-netstat获取信息.jpg">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/6-GRL-R.png">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/7-GRL-L.png">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-收包原理.jpg">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-noTrigger.PNG">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-trigger.PNG">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-序列号推断.PNG">
+<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-http注入.PNG">
+<meta property="og:updated_time" content="2019-03-22T10:00:16.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wifi半双工侧信道攻击学习笔记">
 <meta name="twitter:description" content="TCP侧信道分析及利用的学习报告背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”  侧信道随之出现 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。">
-<meta name="twitter:image" content="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/1.png">
+<meta name="twitter:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/">
 
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/16/wwifi半双工侧信道攻击学习笔记/">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cool-Y">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T15:35:27+08:00">
-                2019-03-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:35:27+08:00">
+                2019-01-16
               </time>
             
 
@@ -356,8 +356,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/16/wwifi半双工侧信道攻击学习笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/16/wwifi半双工侧信道攻击学习笔记/" itemprop="commentsCount"></span>
+                <a href="/2019/01/16/wifi半双工侧信道攻击学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/16/wifi半双工侧信道攻击学习笔记/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -562,8 +562,8 @@ Server   -------wire----------|
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/小米固件工具mkxqimage/" rel="next" title="小米固件工具mkxqimage">
-                <i class="fa fa-chevron-left"></i> 小米固件工具mkxqimage
+              <a href="/2018/11/16/BIBA访问控制模型实现(python)/" rel="next" title="利用python实现BIBA模型">
+                <i class="fa fa-chevron-left"></i> 利用python实现BIBA模型
               </a>
             
           </div>
@@ -572,8 +572,8 @@ Server   -------wire----------|
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/16/BIBA访问控制模型实现(python)/" rel="prev" title="利用python实现BIBA模型">
-                利用python实现BIBA模型 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/22/qq数据库的加密解密/" rel="prev" title="QQ数据库的加密与解密">
+                QQ数据库的加密与解密 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
