@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cool-y.github.io/2019/03/23/miio-control/</loc>
+    <loc>https://cool-y.github.io/2019/03/23/auto-send-WX/</loc>
     
-    <lastmod>2019-03-23T11:26:31.456Z</lastmod>
+    <lastmod>2019-03-23T13:44:58.402Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cool-y.github.io/2018/12/15/miio-control/</loc>
+    
+    <lastmod>2019-03-23T11:32:01.533Z</lastmod>
     
   </url>
   
