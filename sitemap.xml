@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cool-y.github.io/about/index.html</loc>
+    
+    <lastmod>2019-03-23T02:40:48.726Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cool-y.github.io/2019/02/22/qq%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/</loc>
     
     <lastmod>2019-03-22T10:01:06.182Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>https://cool-y.github.io/tags/index.html</loc>
     
     <lastmod>2019-03-22T09:51:33.615Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cool-y.github.io/about/index.html</loc>
-    
-    <lastmod>2019-03-22T09:44:52.635Z</lastmod>
     
   </url>
   
