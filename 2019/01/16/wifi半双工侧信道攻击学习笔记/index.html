@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="TCP侧信道分析及利用的学习报告背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”  侧信道随之出现 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。">
+<meta name="description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
 <meta name="keywords" content="侧信道攻击,wifi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wifi半双工侧信道攻击学习笔记">
 <meta property="og:url" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="TCP侧信道分析及利用的学习报告背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”  侧信道随之出现 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。">
+<meta property="og:description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
 <meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/2-Man_in_the_middle_attack.svg.png">
@@ -99,10 +99,10 @@
 <meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-trigger.PNG">
 <meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-序列号推断.PNG">
 <meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-http注入.PNG">
-<meta property="og:updated_time" content="2019-03-22T10:00:16.256Z">
+<meta property="og:updated_time" content="2019-03-23T04:55:03.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wifi半双工侧信道攻击学习笔记">
-<meta name="twitter:description" content="TCP侧信道分析及利用的学习报告背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”  侧信道随之出现 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。">
+<meta name="twitter:description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
 <meta name="twitter:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
 
 
@@ -424,7 +424,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  13 分钟
                 </span>
               
             </div>
@@ -445,7 +445,8 @@
       
 
       
-        <h1 id="TCP侧信道分析及利用的学习报告"><a href="#TCP侧信道分析及利用的学习报告" class="headerlink" title="TCP侧信道分析及利用的学习报告"></a>TCP侧信道分析及利用的学习报告</h1><h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="测信道"><a href="#测信道" class="headerlink" title="测信道"></a>测信道</h3><p><strong>香农信息论</strong></p>
+        <h1 id="TCP侧信道分析及利用的学习报告"><a href="#TCP侧信道分析及利用的学习报告" class="headerlink" title="TCP侧信道分析及利用的学习报告"></a>TCP侧信道分析及利用的学习报告</h1><p><strong><em>论文来源：</em></strong>USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets<br><strong><em>下载：</em></strong><br><a href="https://www.usenix.org/conference/usenixsecurity18/presentation/chen-weiteng" target="_blank" rel="noopener">原文pdf</a><br><a href="https://res.cloudinary.com/dozyfkbg3/raw/upload/v1553316881/ARE/wifi.pptx" target="_blank" rel="noopener">中文slides</a></p>
+<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="测信道"><a href="#测信道" class="headerlink" title="测信道"></a>测信道</h3><p><strong>香农信息论</strong></p>
 <p><img src="./1.png" alt="信息熵"></p>
 <p><strong>什么是信息？</strong> 用来减少随机不确定的东西</p>
 <p><strong>什么是加密？</strong> 类似于加噪声，增加随机不确定性</p>
