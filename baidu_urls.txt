@@ -1,5 +1,5 @@
+https://cool-y.github.io/2019/03/25/Samba-CVE/
 https://cool-y.github.io/2019/03/23/auto-send-WX/
 https://cool-y.github.io/2019/03/16/小米固件工具mkxqimage/
 https://cool-y.github.io/2019/02/22/qq数据库的加密解密/
 https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/
-https://cool-y.github.io/2018/12/25/TCPDUMP拒绝服务攻击漏洞/
