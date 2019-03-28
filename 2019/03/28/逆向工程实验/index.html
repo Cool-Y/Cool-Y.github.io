@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553759246/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E5%9B%BE%E7%89%871.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553772615/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B71.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553773066/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B72.png">
-<meta property="og:updated_time" content="2019-03-28T12:37:51.266Z">
+<meta property="og:updated_time" content="2019-03-28T12:49:04.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向工程实验">
 <meta name="twitter:description" content="软件保护方式 功能限制 时间限制   运行时长限制 使用日期限制 使用次数限制   警告窗口   分析工具 静态分析工具   IDA W32Dasm lordPE Resource Hacker   动态分析工具   OllyDbg WinDbg  对抗分析技术 反静态分析技术   花指令 自修改代码技术 多态技术 变形技术 虚拟机保护技术   反动态分析技术   检测调试状态 检测用户态调试器">
@@ -411,7 +411,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  928 字
+                  934 字
                 </span>
               
 
@@ -509,22 +509,13 @@
 <li>用户名至少要5个字节</li>
 <li>输入错误验证码时输出：“Bad Boy!”</li>
 </ul>
-<h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><ol>
-<li><p>查找显示注册结果相关代码<br>当输入错误验证码时，程序会输出“Bad Boy”，因此我们将程序拖入IDA，以流程图显示函数内部的跳转。查找“Bad Boy”字符串，我们可以定位到显示注册结果的相关代码：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553772615/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B71.png" alt></p>
-</li>
-<li><p>查找注册码验证相关代码<br>用鼠标选中程序分支点，按空格切换回汇编指令界面<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553773066/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B72.png" alt></p>
-</li>
-</ol>
-<p>可以看到，这条指令位于PE文件的.text节，并且IDA已经自动将地址转换为运行时的内存地址VA:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3. 修改程序跳转</span><br><span class="line">现在关闭IDA，换用OllyDbg进行动态调试来看看程序时如何分支跳转的</span><br><span class="line">```Ctrl+G``` 直接跳到由IDA得到的VA:```004010F9```处查看那条引起程序分支的关键指令</span><br><span class="line">选中这条指令，按F2设置断点，再按F9运行程序，这时候控制权会回到程序，OllyDbg暂时挂起。到程序提示输入名字和序列号，随意输入（名字大于五个字节），点击ok后，OllyDbg会重新中断程序，收回控制权，如图：</span><br><span class="line">![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1553775053/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B74.png)</span><br><span class="line">验证函数的返回值存于EAX寄存器中，if语句通过以下两条指令执行</span><br></pre></td></tr></table></figure></p>
+<h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><h3 id="1-查找显示注册结果相关代码"><a href="#1-查找显示注册结果相关代码" class="headerlink" title="1. 查找显示注册结果相关代码"></a>1. 查找显示注册结果相关代码</h3><p>当输入错误验证码时，程序会输出“Bad Boy”，因此我们将程序拖入IDA，以流程图显示函数内部的跳转。查找“Bad Boy”字符串，我们可以定位到显示注册结果的相关代码：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553772615/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B71.png" alt></p>
+<h3 id="2-查找注册码验证相关代码"><a href="#2-查找注册码验证相关代码" class="headerlink" title="2. 查找注册码验证相关代码"></a>2. 查找注册码验证相关代码</h3><p>用鼠标选中程序分支点，按空格切换回汇编指令界面<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553773066/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B72.png" alt></p>
+<p>可以看到，这条指令位于PE文件的.text节，并且IDA已经自动将地址转换为运行时的内存地址VA:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 3. 修改程序跳转</span><br><span class="line">现在关闭IDA，换用OllyDbg进行动态调试来看看程序时如何分支跳转的```Ctrl+G``` 直接跳到由IDA得到的VA:```004010F9```处查看那条引起程序分支的关键指令</span><br><span class="line">选中这条指令，按F2设置断点，再按F9运行程序，这时候控制权会回到程序，OllyDbg暂时挂起。到程序提示输入名字和序列号，随意输入（名字大于五个字节），点击ok后，OllyDbg会重新中断程序，收回控制权，如图：</span><br><span class="line">![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1553775053/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B74.png)</span><br><span class="line">验证函数的返回值存于EAX寄存器中，if语句通过以下两条指令执行</span><br></pre></td></tr></table></figure></p>
 <p>cmp eax,ecx<br>jnz xxxxxxx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">也就是说，当序列号输入错误时，EAX中的值为0，跳转将被执行。</span><br><span class="line">如果我们把jnz这条指令修改为jz，那么整个程序的逻辑就会反过来。</span><br><span class="line">双击jnz这条指令，将其改为jz，单击&quot;汇编&quot;将其写入内存</span><br><span class="line">![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1553775817/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B75.png)</span><br><span class="line">可以看到此时程序执行了相反的路径</span><br><span class="line"></span><br><span class="line">上面只是在内存中修改程序，我们还需要在二进制文件中也修改相应的字节，这里考察VA与文件地址之间的关系</span><br><span class="line">用LordPE打开.exe文件，查看PE文件的节信息</span><br><span class="line">![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1553776239/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B76.png)</span><br><span class="line">VA:```004010F9</span><br></pre></td></tr></table></figure></p>
 <p>根据VA与文件地址的换算公式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">文件偏移地址 = VA - Image Base - 节偏移</span><br><span class="line">            = 0x004010F9 - 0x00400000 - 0</span><br><span class="line">            = 0x10F9</span><br></pre></td></tr></table></figure></p>
 <p>也就是说，这条指令在PE文件中位于10F9字节处，使用010Editer打开crack.exe，将这一字节的75(JNZ)改为74(JZ)，保存后重新执行，破解成功！</p>
-<h2 id="编写注册机"><a href="#编写注册机" class="headerlink" title="编写注册机"></a>编写注册机</h2><ol>
-<li>查找显示注册结果相关代码</li>
-<li>查找注册码验证相关代码</li>
-<li>根据注册码验证代码编写注册机</li>
-</ol>
-
+<h2 id="编写注册机"><a href="#编写注册机" class="headerlink" title="编写注册机"></a>编写注册机</h2><h3 id="1-查找显示注册结果相关代码-1"><a href="#1-查找显示注册结果相关代码-1" class="headerlink" title="1. 查找显示注册结果相关代码"></a>1. 查找显示注册结果相关代码</h3><h3 id="2-查找注册码验证相关代码-1"><a href="#2-查找注册码验证相关代码-1" class="headerlink" title="2. 查找注册码验证相关代码"></a>2. 查找注册码验证相关代码</h3><h3 id="3-根据注册码验证代码编写注册机"><a href="#3-根据注册码验证代码编写注册机" class="headerlink" title="3. 根据注册码验证代码编写注册机"></a>3. 根据注册码验证代码编写注册机</h3>
       
     </div>
     
@@ -760,7 +751,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件保护方式"><span class="nav-number">1.</span> <span class="nav-text">软件保护方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析工具"><span class="nav-number">2.</span> <span class="nav-text">分析工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对抗分析技术"><span class="nav-number">3.</span> <span class="nav-text">对抗分析技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE文件格式基础"><span class="nav-number">4.</span> <span class="nav-text">PE文件格式基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验1：软件破解"><span class="nav-number">5.</span> <span class="nav-text">实验1：软件破解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">5.1.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破"><span class="nav-number">5.2.</span> <span class="nav-text">爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写注册机"><span class="nav-number">5.3.</span> <span class="nav-text">编写注册机</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件保护方式"><span class="nav-number">1.</span> <span class="nav-text">软件保护方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析工具"><span class="nav-number">2.</span> <span class="nav-text">分析工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对抗分析技术"><span class="nav-number">3.</span> <span class="nav-text">对抗分析技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE文件格式基础"><span class="nav-number">4.</span> <span class="nav-text">PE文件格式基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验1：软件破解"><span class="nav-number">5.</span> <span class="nav-text">实验1：软件破解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">5.1.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破"><span class="nav-number">5.2.</span> <span class="nav-text">爆破</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查找显示注册结果相关代码"><span class="nav-number">5.2.1.</span> <span class="nav-text">1. 查找显示注册结果相关代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查找注册码验证相关代码"><span class="nav-number">5.2.2.</span> <span class="nav-text">2. 查找注册码验证相关代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写注册机"><span class="nav-number">5.3.</span> <span class="nav-text">编写注册机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查找显示注册结果相关代码-1"><span class="nav-number">5.3.1.</span> <span class="nav-text">1. 查找显示注册结果相关代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查找注册码验证相关代码-1"><span class="nav-number">5.3.2.</span> <span class="nav-text">2. 查找注册码验证相关代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-根据注册码验证代码编写注册机"><span class="nav-number">5.3.3.</span> <span class="nav-text">3. 根据注册码验证代码编写注册机</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
