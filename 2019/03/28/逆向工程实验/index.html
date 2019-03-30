@@ -82,7 +82,7 @@
 <meta name="description" content="软件保护方式 功能限制 时间限制   运行时长限制 使用日期限制 使用次数限制   警告窗口   分析工具 静态分析工具   IDA W32Dasm lordPE Resource Hacker   动态分析工具   OllyDbg WinDbg  对抗分析技术 反静态分析技术   花指令 自修改代码技术 多态技术 变形技术 虚拟机保护技术   反动态分析技术   检测调试状态 检测用户态调试器">
 <meta name="keywords" content="-逆向">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逆向工程实验">
+<meta property="og:title" content="逆向工程与软件破解">
 <meta property="og:url" content="https://cool-y.github.io/2019/03/28/逆向工程实验/index.html">
 <meta property="og:site_name" content="混元霹雳手">
 <meta property="og:description" content="软件保护方式 功能限制 时间限制   运行时长限制 使用日期限制 使用次数限制   警告窗口   分析工具 静态分析工具   IDA W32Dasm lordPE Resource Hacker   动态分析工具   OllyDbg WinDbg  对抗分析技术 反静态分析技术   花指令 自修改代码技术 多态技术 变形技术 虚拟机保护技术   反动态分析技术   检测调试状态 检测用户态调试器">
@@ -93,9 +93,12 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553775053/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B74.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553775817/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B75.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553776239/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B76.png">
-<meta property="og:updated_time" content="2019-03-29T01:20:28.921Z">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553858953/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B77.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553937461/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B79.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553937531/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B711.png">
+<meta property="og:updated_time" content="2019-03-30T09:19:58.159Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逆向工程实验">
+<meta name="twitter:title" content="逆向工程与软件破解">
 <meta name="twitter:description" content="软件保护方式 功能限制 时间限制   运行时长限制 使用日期限制 使用次数限制   警告窗口   分析工具 静态分析工具   IDA W32Dasm lordPE Resource Hacker   动态分析工具   OllyDbg WinDbg  对抗分析技术 反静态分析技术   花指令 自修改代码技术 多态技术 变形技术 虚拟机保护技术   反动态分析技术   检测调试状态 检测用户态调试器">
 <meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553759246/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E5%9B%BE%E7%89%871.png">
 
@@ -133,7 +136,7 @@
 
 
 
-  <title>逆向工程实验 | 混元霹雳手</title>
+  <title>逆向工程与软件破解 | 混元霹雳手</title>
   
 
 
@@ -329,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">逆向工程实验</h1>
+          <h1 class="post-title" itemprop="name headline">逆向工程与软件破解</h1>
         
 
         <div class="post-meta">
@@ -391,7 +394,7 @@
 
           
           
-             <span id="/2019/03/28/逆向工程实验/" class="leancloud_visitors" data-flag-title="逆向工程实验">
+             <span id="/2019/03/28/逆向工程实验/" class="leancloud_visitors" data-flag-title="逆向工程与软件破解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +417,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  1.6k 字
                 </span>
               
 
@@ -428,7 +431,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -529,7 +532,14 @@
 </li>
 </ul>
 <p>也就是说，这条指令在PE文件中位于10F9字节处，使用010Editer打开crack.exe，将这一字节的75(JNZ)改为74(JZ)，保存后重新执行，破解成功！</p>
-<h2 id="编写注册机"><a href="#编写注册机" class="headerlink" title="编写注册机"></a>编写注册机</h2><h3 id="查找显示注册结果相关代码-1"><a href="#查找显示注册结果相关代码-1" class="headerlink" title="查找显示注册结果相关代码"></a>查找显示注册结果相关代码</h3><h3 id="查找注册码验证相关代码-1"><a href="#查找注册码验证相关代码-1" class="headerlink" title="查找注册码验证相关代码"></a>查找注册码验证相关代码</h3><h3 id="根据注册码验证代码编写注册机"><a href="#根据注册码验证代码编写注册机" class="headerlink" title="根据注册码验证代码编写注册机"></a>根据注册码验证代码编写注册机</h3><h1 id="实验二：软件反动态调试技术分析"><a href="#实验二：软件反动态调试技术分析" class="headerlink" title="实验二：软件反动态调试技术分析"></a>实验二：软件反动态调试技术分析</h1><h2 id="对象-1"><a href="#对象-1" class="headerlink" title="对象"></a>对象</h2><p><a href="https://res.cloudinary.com/dozyfkbg3/raw/upload/v1553779243/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/CrackMe1.exe1" target="_blank" rel="noopener">CrackMe1.exe</a> 1641.0 KB<br>无保护措施：无壳、未加密、无反调试措施<br>使用OllyDbg对该程序进行调试时，程序会自动退出</p>
+<h2 id="编写注册机"><a href="#编写注册机" class="headerlink" title="编写注册机"></a>编写注册机</h2><h3 id="查找显示注册结果相关代码-1"><a href="#查找显示注册结果相关代码-1" class="headerlink" title="查找显示注册结果相关代码"></a>查找显示注册结果相关代码</h3><p>通过查找字符串“good boy”等，我们可以找到显示注册结果的相关代码</p>
+<h3 id="查找注册码验证相关代码-1"><a href="#查找注册码验证相关代码-1" class="headerlink" title="查找注册码验证相关代码"></a>查找注册码验证相关代码</h3><p>因为检测密钥是否正确时会将结果返回到EAX寄存器中，因此，在检测密钥前必然会对EAX寄存器清空，由此我们可以找到注册码验证的相关代码。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553858953/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B77.png" alt></p>
+<h3 id="根据注册码验证代码编写注册机"><a href="#根据注册码验证代码编写注册机" class="headerlink" title="根据注册码验证代码编写注册机"></a>根据注册码验证代码编写注册机</h3><p>分析上图算法，按tab键转换为高级语言<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for ( i = 0; i &lt; v6; v12 = v10 )</span><br><span class="line">  v10 = (v6 + v12) * lpStringa[i++];</span><br><span class="line">if ( (v12 ^ 0xA9F9FA) == atoi(v15) )</span><br><span class="line">  MessageBoxA(hDlg, aTerimaKasihKer, aGoodBoy, 0);</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，生成注册码主要在for循环中完成，之后将生成的注册码与输入相比较，判断是否正确。<br>所以，只要能弄明白v6，v12，v10，v15的含义，我们就可以轻松的编写注册机。<br>打开ollybdg，在进入循环之前设下断点，动态调试程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">004010CC  |&gt; /8B4D 10       |mov ecx,[arg.3]  //此时ecx为name</span><br><span class="line">004010CF  |.  8B55 0C       |mov edx,[arg.2]  //edx为0x1908</span><br><span class="line">004010D2  |.  03D3          |add edx,ebx      //edx加上name的长度（ebx）</span><br><span class="line">004010D4  |.  0FBE0C08      |movsx ecx,byte ptr ds:[eax+ecx]  //ecx=61h</span><br><span class="line">004010D8  |.  0FAFCA        |imul ecx,edx     //61h(a) * edx</span><br><span class="line">004010DB  |.  40            |inc eax          //eax加1（初始为0）</span><br><span class="line">004010DC  |.  894D 0C       |mov [arg.2],ecx</span><br><span class="line">004010DF  |.  3BC3          |cmp eax,ebx      //循环是否结束</span><br></pre></td></tr></table></figure></p>
+<p>arg.3为输入的name，arg.2初始为0x1908，ebx为name的长度，eax每次循环加1直到等于长度<br>因此，我们可以对参数的含义进行解释如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">v12 = 6408;   //0x1908</span><br><span class="line">v10 = 6408;   //0x1908</span><br><span class="line">v6 = len(name);</span><br><span class="line">v12 = input_serial;</span><br><span class="line">for ( i = 0; i &lt; v6; i++ )&#123;</span><br><span class="line">  v12 = v10；</span><br><span class="line">  v10 = (v6 + v12) * lpStringa[i];</span><br><span class="line">&#125;</span><br><span class="line">if ((v12 ^ 0xA9F9FA) == atoi(v15))&#123;</span><br><span class="line">  MessageBoxA(hDlg, aTerimaKasihKer, aGoodBoy, 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可见，v12^0xA9F9FA的结果即是正确的注册码，我们编写一个简单的程序帮助我们生成注册码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace::std;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int v12;</span><br><span class="line">	int v10 = 6408;   //0x1908</span><br><span class="line">	string name;</span><br><span class="line">	cout &lt;&lt; &quot;请输入name:  &quot;;</span><br><span class="line">	cin &gt;&gt; name;</span><br><span class="line">	int len = name.size();</span><br><span class="line">	for(int i = 0; i &lt; len+1; i++ )&#123;</span><br><span class="line">  		v12 = v10;</span><br><span class="line">  		v10 = (len + v12) * name[i];</span><br><span class="line">	&#125;</span><br><span class="line"> 	cout&lt;&lt;&quot;\n&quot;&lt;&lt;&quot;注册码为:  &quot;&lt;&lt;(v12 ^ 0xA9F9FA)&lt;&lt;endl;</span><br><span class="line"> 	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>计算出”testname”的对应注册码<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553937461/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B79.png" alt><br>注册成功！<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553937531/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B711.png" alt></p>
+<h1 id="实验二：软件反动态调试技术分析"><a href="#实验二：软件反动态调试技术分析" class="headerlink" title="实验二：软件反动态调试技术分析"></a>实验二：软件反动态调试技术分析</h1><h2 id="对象-1"><a href="#对象-1" class="headerlink" title="对象"></a>对象</h2><p><a href="https://res.cloudinary.com/dozyfkbg3/raw/upload/v1553779243/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/CrackMe1.exe1" target="_blank" rel="noopener">CrackMe1.exe</a> 1641.0 KB<br>无保护措施：无壳、未加密、无反调试措施<br>使用OllyDbg对该程序进行调试时，程序会自动退出</p>
 <h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><ol>
 <li>分析CrackMe1.exe是如何通过父进程检测实现反OllyDbg调试的</li>
 <li>分析除父进程检测外，该程序用到的反动态调试技术</li>
@@ -811,7 +821,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">15.8k</span>
+    <span title="Site words total count">16.3k</span>
   
 </div>
 
