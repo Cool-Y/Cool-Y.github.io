@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553858953/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B77.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553937461/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B79.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1553937531/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/%E6%8D%95%E8%8E%B711.png">
-<meta property="og:updated_time" content="2019-04-01T07:26:01.149Z">
+<meta property="og:updated_time" content="2019-04-01T07:30:54.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向工程与软件破解">
 <meta name="twitter:description" content="软件保护方式 功能限制 时间限制   运行时长限制 使用日期限制 使用次数限制   警告窗口  分析工具 静态分析工具   IDA W32Dasm lordPE Resource Hacker   动态分析工具   OllyDbg WinDbg   对抗分析技术 反静态分析技术   花指令 自修改代码技术 多态技术 变形技术 虚拟机保护技术   反动态分析技术   检测调试状态 检测用户态调试器">
@@ -523,7 +523,10 @@
 <li>检测NTGlobalFlag</li>
 </ul>
 <ol start="3">
-<li>系统痕迹检测<br>通常，我们使用调试工具来分析程序，但这些工具会在系统中驻留一些痕迹。程序通过搜索这种系统的痕迹，来确定你是否试图分析它。例如，查找调试器引用的注册表项。同时，程序也可以查找系统的文件和目录，查找当前内存的痕迹，或者查看当前进程列表，更普遍的做法是通过FindWindows来查找调试器。<h2 id="识别调试器的行为"><a href="#识别调试器的行为" class="headerlink" title="识别调试器的行为"></a>识别调试器的行为</h2>在逆向工程中，可以使用断点或单步调试来帮助分析，但执行这些操作时，会修改进程中的代码。因此可以使用几种反调试技术探测INT扫描、完整性校验以及时钟检测等几种类型的调试器行为。</li>
+<li>系统痕迹检测<br>通常，我们使用调试工具来分析程序，但这些工具会在系统中驻留一些痕迹。程序通过搜索这种系统的痕迹，来确定你是否试图分析它。例如，查找调试器引用的注册表项。同时，程序也可以查找系统的文件和目录，查找当前内存的痕迹，或者查看当前进程列表，更普遍的做法是通过FindWindows来查找调试器。</li>
+</ol>
+<h2 id="识别调试器的行为"><a href="#识别调试器的行为" class="headerlink" title="识别调试器的行为"></a>识别调试器的行为</h2><p>在逆向工程中，可以使用断点或单步调试来帮助分析，但执行这些操作时，会修改进程中的代码。因此可以使用几种反调试技术探测INT扫描、完整性校验以及时钟检测等几种类型的调试器行为。</p>
+<ol>
 <li>INT扫描<br>调试器设置断点的基本机制是用软件中断INT 3，机器码为0xCC，临时替换程序中的一条指令。因此可以通过扫描INT 3修改来检测。</li>
 <li>执行代码校验和检查<br>与INT扫描目的相同，但仅执行机器码的CRC或MD5校验和检查。</li>
 <li>时钟检测<br>被调试时，进程的运行速度大大降低，常用指令有：<code>rdstc</code> <code>QueryPerformanceCounter</code> <code>GetTickCount</code>,有如下两种方式探测时钟：</li>
