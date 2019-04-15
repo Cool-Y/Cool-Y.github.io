@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="数据库,复原文件,取证,">
 
 
 
@@ -79,13 +79,31 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="混元霹雳手">
-<meta property="og:url" content="https://cool-y.github.io/tags/微信/index.html">
+<meta name="description" content="Carving database storage to detect and trace security breaches 复原数据库存储以检测和跟踪安全漏洞原文下载  MotivationDBMS(数据库管理系统) 通常用于存储和处理敏感数据，因此，投入了大量精力使用访问控制策略来保护DBMS。 一旦用户在DBMS中获得提升权限（无论是合理的还是通过攻击的），实施的安全方案可以绕过，因此无法再">
+<meta name="keywords" content="数据库,复原文件,取证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caving_db_storage">
+<meta property="og:url" content="https://cool-y.github.io/2019/04/15/Caving-db-storage/index.html">
 <meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="Carving database storage to detect and trace security breaches 复原数据库存储以检测和跟踪安全漏洞原文下载  MotivationDBMS(数据库管理系统) 通常用于存储和处理敏感数据，因此，投入了大量精力使用访问控制策略来保护DBMS。 一旦用户在DBMS中获得提升权限（无论是合理的还是通过攻击的），实施的安全方案可以绕过，因此无法再">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310640/paper/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310736/paper/%E6%8D%95%E8%8E%B7.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310863/paper/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311090/paper/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311166/paper/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311315/paper/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311991/paper/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312072/paper/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312183/paper/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312234/paper/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312316/paper/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312359/paper/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:updated_time" content="2019-04-15T07:56:38.871Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="混元霹雳手">
+<meta name="twitter:title" content="Caving_db_storage">
+<meta name="twitter:description" content="Carving database storage to detect and trace security breaches 复原数据库存储以检测和跟踪安全漏洞原文下载  MotivationDBMS(数据库管理系统) 通常用于存储和处理敏感数据，因此，投入了大量精力使用访问控制策略来保护DBMS。 一旦用户在DBMS中获得提升权限（无论是合理的还是通过攻击的），实施的安全方案可以绕过，因此无法再">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310640/paper/%E5%9B%BE%E7%89%871.png">
 
 
 
@@ -115,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/tags/微信/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/04/15/Caving-db-storage/">
 
 
 
 
 
-  <title>标签: 微信 | 混元霹雳手</title>
+  <title>Caving_db_storage | 混元霹雳手</title>
   
 
 
@@ -140,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -286,52 +304,308 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>微信<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/04/15/Caving-db-storage/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/03/23/auto-send-WX/" itemprop="url">
-              
-                <span itemprop="name">利用itchat定时转发微信消息</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Caving_db_storage</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-23T19:48:46+08:00" content="2019-03-23">
-          03-23
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T15:38:47+08:00">
+                2019-04-15
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/顶会论文/" itemprop="url" rel="index">
+                    <span itemprop="name">顶会论文</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/15/Caving-db-storage/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/04/15/Caving-db-storage/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/15/Caving-db-storage/" class="leancloud_visitors" data-flag-title="Caving_db_storage">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  2.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Carving-database-storage-to-detect-and-trace-security-breaches"><a href="#Carving-database-storage-to-detect-and-trace-security-breaches" class="headerlink" title="Carving database storage to detect and trace security breaches"></a>Carving database storage to detect and trace security breaches</h1><blockquote>
+<p>复原数据库存储以检测和跟踪安全漏洞<br><a href="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312497/paper/2016-paper_carving_database_storage_to_detect_and.pdf" target="_blank" rel="noopener">原文下载</a></p>
+</blockquote>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><h3 id="DBMS-数据库管理系统"><a href="#DBMS-数据库管理系统" class="headerlink" title="DBMS(数据库管理系统)"></a>DBMS(数据库管理系统)</h3><ul>
+<li>通常用于存储和处理敏感数据，因此，投入了大量精力使用访问控制策略来保护DBMS。</li>
+<li>一旦用户在DBMS中获得提升权限（无论是合理的还是通过攻击的），实施的安全方案可以绕过，因此无法再根据政策保证数据受到保护。<br>1）访问控制策略可能不完整，允许用户执行他们不能执行的命令<br>2）用户可能通过使用DB或OS代码中的安全漏洞或通过其他方式非法获取权限</li>
+<li>部署预防措施<br>1）在及时发生安全漏洞时检测安全漏洞;<br>2）在检测到攻击时收集有关攻击的证据，以便设计对抗措施并评估损害程度</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>Malice是政府机构的数据库管理员，为公民提供犯罪记录。 Malice最近被判犯有欺诈罪，并决定滥用她的特权，并通过运行DELETE FROM Record WHERE name = ‘Malice’来删除她的犯罪记录。<br>但是，她知道数据库操作需要定期审核，以检测对机构存储的高度敏感数据的篡改。为了覆盖她的操作，Malice在运行DELETE操作之前停用审计日志，然后再次激活日志。因此，在数据库中没有她的非法操纵的日志跟踪。<br>但是，磁盘上的数据库存储仍将包含已删除行的证据。<br>作者的方法检测已删除的痕迹和过期的记录版本，并将它们与审核日志进行匹配，以检测此类攻击，并提供数据库操作方式的证据。<br>作者将检测已删除的行，因为它与审计日志中的任何操作都不对应，我们会将其标记为篡改的潜在证据。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310640/paper/%E5%9B%BE%E7%89%871.png" alt></p>
+<h3 id="思路一览"><a href="#思路一览" class="headerlink" title="思路一览"></a>思路一览</h3><p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310736/paper/%E6%8D%95%E8%8E%B7.png" alt></p>
+<h3 id="提出方法"><a href="#提出方法" class="headerlink" title="提出方法"></a>提出方法</h3><p>使用称为DICE的现有取证工具（Wagner等，2017）来重建数据库存储<br>通过匹配提取的存储条目，报告任何无法通过操作记录解释的工件来自动检测潜在的攻击</p>
+<ol>
+<li>DBDetective检查数据库存储和RAM快照，并将它找到的内容与审计日志进行比较</li>
+<li>然后，在不影响数据库操作的情况下，对核心数据进行分析。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555310863/paper/%E5%9B%BE%E7%89%872.png" alt></li>
+</ol>
+<p>确定数据库篡改的可能性，并指出数据库存储中发现的具体不一致性。<br>由于数据库存储的易变性，无法保证将发现所有攻击。<br>在对于我们评估的每个主要DBMS，我们假设DBMS已启用审计日志来捕获与调查相关的SQL命令。<br>我们进一步假设一名攻击者通过以下方式阻止记录已执行的恶意命令：</p>
+<ul>
+<li>停用审计策略并暂时挂起日志记录</li>
+<li>更改现有审计日志（两者都在数据库日志可靠性部分中讨论）。<br>通过将取证分析技术应用于数据库存储或缓冲区缓存，并将发现的证据与审计日志相匹配，可以：</li>
+<li>检测DBMS审核日志中未显示的多种类型的数据库访问和操作。</li>
+<li>将未归因的记录修改分类为模糊的INSERT，DELETE或UPDATE命令。</li>
+<li>检测无法从审核日志中的活动派生的（只读）SELECT查询中的缓存数据。</li>
+</ul>
+<h2 id="Reliability-of-database-logs"><a href="#Reliability-of-database-logs" class="headerlink" title="Reliability of database logs"></a>Reliability of database logs</h2><p>攻击者可以更改两种类型的日志： write-ahead logs (WAL) and audit logs (event history records)</p>
+<ul>
+<li>WALs以低级别记录数据库修改以支持ACID保证，提供最近表修改的历史记录。<br>通常无法禁用或轻松修改WAL，并且需要读取专用工具（例如，Oracle LogMiner或PostgreSQL pg_xlogdump）。<br>某些DBMS允许为特定操作禁用WAL，例如批量加载或结构重建。因此，可以通过此功能插入记录而不留下日志跟踪。</li>
+<li>audit logs记录配置的用户数据库操作。包括SQL操作和其他用户活动。审计日志根据数据库管理员配置的日志记录策略存储已执行的SQL命令。 因此，管理员可以根据需要禁用日志记录或修改单个日志记录。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311090/paper/%E5%9B%BE%E7%89%873.png" alt></li>
+</ul>
+<h2 id="Detecting-hidden-record-modifications"><a href="#Detecting-hidden-record-modifications" class="headerlink" title="Detecting hidden record modifications"></a>Detecting hidden record modifications</h2><p>插入或修改表记录时，数据库中会发生一连串的存储更改。 除了受影响记录的数据本身之外，页面元数据会更新（例如，设置删除标记），并且存储记录的索引的页面会改变（例如，以反映记录的删除）。 如果尚未缓存，则每个访问的页面都将被带入RAM。 行标识符和结构标识符可用于将所有这些更改绑定在一起。<br>此外，DBA（数据库管理员）还可以禁用批量修改的日志记录（出于性能考虑）——可以利用此权限来隐藏恶意修改。<br>在本节中，我们将描述如何检测已修改记录与已记录命令之间的不一致。</p>
+<h3 id="Deleted-records"><a href="#Deleted-records" class="headerlink" title="Deleted records"></a>Deleted records</h3><ol>
+<li>算法<br>删除的记录不会被物理删除，而是在页面中标记为“已删除”; 已删除行占用的存储空间将成为未分配的空间，最终将被新行覆盖。这些对数据库存储的更改不能被绕过或控制。<br>识别存储中与日志中的任何删除操作都不匹配的已删除行。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311166/paper/%E5%9B%BE%E7%89%874.png" alt></li>
+<li>实例</li>
+</ol>
+<ul>
+<li>DICE从Customer表重建了三个删除的行<br>（1，Christine，Chicago）<br>（3，Christopher，Seattle）<br>（4，Thomas，Austin）</li>
+<li>日志文件包含两个操作<br>在算法1中，DeletedRows被设置为三个重建的已删除行。<br>算法1返回（4，Thomas，Austin），表示该删除的记录不能归因于任何删除。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311315/paper/%E5%9B%BE%E7%89%875.png" alt></li>
+</ul>
+<h3 id="Inserted-records"><a href="#Inserted-records" class="headerlink" title="Inserted records"></a>Inserted records</h3><ol>
+<li>算法<br>新插入的行将附加到表的最后一页的末尾（如果最后一页已满，则为新页）或覆盖由先前删除的行创建的可用空间。<br>如果“活跃”新表行与审核日志中的任何插入操作都不匹配，则此行是可疑活动的标志。<br>算法2中使用这些“活跃”记录来确定重构行是否可归因于审计日志中的插入。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555311991/paper/%E5%9B%BE%E7%89%876.png" alt></li>
+<li>实例</li>
+</ol>
+<ul>
+<li>该日志包含六个操作。<br>当行从T1插入到T4时，它们将附加到表的末尾。<br>在T5，删除（3，Lamp）<br>然后在T6插入（5，Bookcase）。<br>由于row（5，Bookcase）大于删除的行（3，Lamp），因此它将附加到表的末尾。</li>
+<li>DICE重建了五个活动记录<br>包括（0，Dog）和（2，Monkey）<br>行被初始化为算法2的五个重建活动行<br>算法2因此返回（0，Dog）和（2，Monkey）<br>因为这些记录无法与记录的插入匹配。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312072/paper/%E5%9B%BE%E7%89%877.png" alt></li>
+</ul>
+<h3 id="Updated-records"><a href="#Updated-records" class="headerlink" title="Updated records"></a>Updated records</h3><ol>
+<li>算法<br>UPDATE操作本质上是一个DELETE操作，后跟一个INSERT操作。<br>为了考虑更新的行，我们使用算法1返回的未标记删除行和算法2返回的未标记插入行作为算法3的输入。如果删除的行可以与更新的WHERE子句匹配，那么此删除的行操作 被标记为存在于日志中。 接下来，如果未标记的插入行可以与SET子句中的值匹配，并且插入的行匹配已删除行中除SET子句值之外的所有值，则此插入的行操作将出现在日志中。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312183/paper/%E5%9B%BE%E7%89%878.png" alt></li>
+<li>实例<br>算法1返回行（2，Desk）<br>算法2返回行（0，Dog）和（2，Monkey）<br>使用这些记录集，算法3返回（2，Desk）作为已删除记录的列表，并将（0，Dog）和（2，Monkey）作为插入记录的列表。<br>此外，算法3识别（2，Desk）和（2，Monkey）中第一列的共享值2。 虽然这不能单独确认UPDATE操作，但可以合理地得出结论：<br>（2，Desk）已更新为（2，Monkey）。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312234/paper/%E5%9B%BE%E7%89%879.png" alt></li>
+</ol>
+<h2 id="Detecting-inconsistencies-for-read-only-queries"><a href="#Detecting-inconsistencies-for-read-only-queries" class="headerlink" title="Detecting inconsistencies for read-only queries"></a>Detecting inconsistencies for read-only queries</h2><p>DBMS使用称为缓冲区管理器的组件将页面从磁盘缓存到内存中。数据以页为单位读入缓冲池，可以通过DICE重建。<br>在本节中，将描述如何将缓冲池中的工件与审计日志中的只读查询进行匹配。<br>数据库查询可以使用两种可能的访问表的方式之一：<br>全表扫描（FTS）或索引扫描（IS）。<br>FTS读取所有表页，而IS使用索引结构来检索引用基于搜索关键字的指针列表。</p>
+<h3 id="Full-table-scan"><a href="#Full-table-scan" class="headerlink" title="Full table scan"></a>Full table scan</h3><p>当查询使用FTS时，只会缓存大表的一小部分。 可以完整地缓存小表（相对于缓冲池大小）。 每个数据库都在页眉中存储唯一的页面标识符，这使我们能够有效地将缓存的页面与磁盘上的对应页面进行匹配。<br>我们可以通过SID=131识别属于Employee的页面，该SID=131存储在页面标题中。 DICE只能以更快的速度返回页面结构标识符（无需解析页面内容）。<br>Q2和Q4都通过FTS访问员工。 每次扫描Employee表时，表中相同的四个页面（PID：97,98,99和100）都会加载到缓冲池中。<br>因此，当在存储器中找到具有PID:97,98,99和100以及SID:131的四个页面时，可以假设FTS应用在Employee表上。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312316/paper/%E5%9B%BE%E7%89%8710.png" alt></p>
+<h3 id="Index-access"><a href="#Index-access" class="headerlink" title="Index access"></a>Index access</h3><p>Customer表的SID=124，C_City列上的二级索引的SID=126.<br>Q1在城市Dallas上进行过滤，并使用PID=2缓存索引页。此页面的最小值为Chicago和最大值为Detroit 。<br>Q3在城市Jackson上过滤，并缓存索引页面，页面标识符为4.此页面的最小值为Houston，最大值为Lincoln。<br>如果审核日志中的查询过滤了索引页的最小值和最大值范围内的值，则该页可以归因于该查询。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312359/paper/%E5%9B%BE%E7%89%8711.png" alt></p>
+<h3 id="Conclusions-and-future-work"><a href="#Conclusions-and-future-work" class="headerlink" title="Conclusions and future work"></a>Conclusions and future work</h3><ul>
+<li>审计日志和其他内置DBMS安全机制旨在检测或阻止攻击者执行的恶意操作。这种机制的固有缺点是具有足够权限的攻击者可以绕过它们来隐藏它们的踪迹。</li>
+<li>我们提供并全面评估DBDetective，它可以检测攻击者通过从审计日志中删除从而隐藏的数据库操作，并收集有关攻击者访问和修改哪些数据的证据。</li>
+<li>我们的方法依赖于对数据库存储的取证检查，并将此信息与审核日志中的条目相关联，以发现恶意操作的证据。</li>
+<li>重要的是，数据库存储几乎不可能被欺骗，因此，与例如审计日志相比，它是更可靠的篡改证据来源。</li>
+<li>鉴于存储快照提供的信息不完整，我们将探索概率匹配，确定存储工件由审计日志中的操作引起的可能性，根据操作的时间顺序利用其他约束，模拟审计中SQL命令的部分历史记录获得更精确的匹配，并根据检测到的异常动态调整拍摄快照的频率。</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/复原文件/" rel="tag"># 复原文件</a>
+          
+            <a href="/tags/取证/" rel="tag"># 取证</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/逆向工程实验/" rel="next" title="逆向工程与软件破解">
+                <i class="fa fa-chevron-left"></i> 逆向工程与软件破解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +613,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -359,8 +644,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -444,6 +738,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Carving-database-storage-to-detect-and-trace-security-breaches"><span class="nav-number">1.</span> <span class="nav-text">Carving database storage to detect and trace security breaches</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.1.</span> <span class="nav-text">Motivation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DBMS-数据库管理系统"><span class="nav-number">1.1.1.</span> <span class="nav-text">DBMS(数据库管理系统)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.1.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路一览"><span class="nav-number">1.1.3.</span> <span class="nav-text">思路一览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提出方法"><span class="nav-number">1.1.4.</span> <span class="nav-text">提出方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reliability-of-database-logs"><span class="nav-number">1.2.</span> <span class="nav-text">Reliability of database logs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detecting-hidden-record-modifications"><span class="nav-number">1.3.</span> <span class="nav-text">Detecting hidden record modifications</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deleted-records"><span class="nav-number">1.3.1.</span> <span class="nav-text">Deleted records</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inserted-records"><span class="nav-number">1.3.2.</span> <span class="nav-text">Inserted records</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Updated-records"><span class="nav-number">1.3.3.</span> <span class="nav-text">Updated records</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detecting-inconsistencies-for-read-only-queries"><span class="nav-number">1.4.</span> <span class="nav-text">Detecting inconsistencies for read-only queries</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-table-scan"><span class="nav-number">1.4.1.</span> <span class="nav-text">Full table scan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Index-access"><span class="nav-number">1.4.2.</span> <span class="nav-text">Index access</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusions-and-future-work"><span class="nav-number">1.4.3.</span> <span class="nav-text">Conclusions and future work</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -607,6 +917,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -653,6 +967,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 

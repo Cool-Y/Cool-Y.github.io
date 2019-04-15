@@ -1,5 +1,5 @@
+https://cool-y.github.io/2019/04/15/Caving-db-storage/
 https://cool-y.github.io/2019/03/28/逆向工程实验/
 https://cool-y.github.io/2019/03/25/Samba-CVE/
 https://cool-y.github.io/2019/03/23/auto-send-WX/
 https://cool-y.github.io/2019/03/16/小米固件工具mkxqimage/
-https://cool-y.github.io/2019/02/22/qq数据库的加密解密/
