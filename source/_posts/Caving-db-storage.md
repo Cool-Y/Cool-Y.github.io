@@ -1,5 +1,5 @@
 ---
-title: Caving_db_storage
+title: 复原数据库存储以检测和跟踪安全漏洞
 date: 2019-04-15 15:38:47
 tags:
 - 数据库
@@ -8,7 +8,7 @@ tags:
 categories: "顶会论文"
 ---
 
-# Carving database storage to detect and trace security breaches
+# Carving Database Storage to Detect and Trace Security Breaches
 > 复原数据库存储以检测和跟踪安全漏洞
 > [原文下载](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555312497/paper/2016-paper_carving_database_storage_to_detect_and.pdf)
 
