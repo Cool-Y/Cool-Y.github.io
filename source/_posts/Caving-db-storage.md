@@ -6,7 +6,7 @@ tags:
 - 复原文件
 - 取证
 categories:
-论文
+顶会论文
 ---
 
 # Carving database storage to detect and trace security breaches
