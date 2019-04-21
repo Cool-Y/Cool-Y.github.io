@@ -45,13 +45,13 @@ UPnP实施可能会受到安全漏洞的影响。 错误执行或配置的UPnP I
 
 ## 协议栈
 工作流程
-![](https://img-blog.csdn.net/20130705200535562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830377/paper/111.png)
 
 Linux体系结构
-![](https://img-blog.csdn.net/20130705200956281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830425/paper/112.png)
 
 ### 发现
-![](https://img-blog.csdn.net/20130705200558421?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830465/paper/113.png)
 给定一个IP地址（通过DHCP获得），UPnP网络中的第一步是发现。
 当一个设备被加入到网络中并想知道网络上可用的UPnP服务时，UPnP检测协议允许该设备向控制点广播自己的服务。通过UDP协议向端口1900上的多播地址239.255.255.250发送发现消息。此消息包含标头，类似于HTTP请求。此协议有时称为HTTPU（HTTP over UDP）：
 ```
@@ -76,11 +76,11 @@ UPnP检测协议是 ***基于简单服务发现协议（SSDP）*** 的。
 
 ### 描述
 UPnP网络的下一步是描述。当一个控制点检测到一个设备时，它对该设备仍然知之甚少。为了使控制点了解更多关于该设备的信息或者和设备进行交互，控制点必须从设备发出的检测信息中包含的URL获取更多的信息。
-![](https://img-blog.csdn.net/20130705200648437?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830499/paper/114.png)
 某个设备的UPnP描述是 **XML** 的方式,通过http协议，包括品牌、厂商相关信息，如型号名和编号、序列号、厂商名、品牌相关URL等。描述还包括一个嵌入式设备和服务列表，以及控制、事件传递和存在相关的URL。对于每种设备，描述还包括一个命令或动作列表，包括响应何种服务，针对各种动作的参数；这些变量描述出运行时设备的状态信息，并通过它们的数据类型、范围和事件来进行描述。
 
 ### 控制
-![](https://img-blog.csdn.net/20130705200702468?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830533/paper/1133.png)
 UPnP网络的下一步是控制。当一个控制点获取到设备描述信息之后，它就可以向该设备发送指令了。为了实现此，控制点发送一个合适的控制消息至服务相关控制URL（包含在设备描述中）。
 ```
 <service>
@@ -95,7 +95,7 @@ UPnP网络的下一步是控制。当一个控制点获取到设备描述信息�
 
 ### 事件通知
 下一步是事件通知。UPnP中的事件 ***协议基于GENA*** 。一个UPnP描述包括一组命令列表和刻画运行时状态信息的变量。服务在这些变量改变的时候进行更新，控制点可以进行订阅以获取相关改变。
-![](https://img-blog.csdn.net/20130705200749218?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830573/paper/115.png)
 服务通过发送事件消息来发布更新。事件消息包括一个或多个状态信息变量以及它们的当前数值。这些消息也是采用XML的格式，用通用事件通知体系进行格式化。一个特殊的初始化消息会在控制点第一次订阅的时候发送，它包括服务相关的变量名及值。为了支持多个控制点并存的情形，事件通知被设计成对于所有的控制点都平行通知。因此，所有的订阅者同等地收到所有事件通知。
 当状态变量更改时，新状态将发送到已订阅该事件的所有程序/设备。程序/设备可以通过eventSubURL来订阅服务的状态变量，该URL可以在LOCATION指向的URL中找到。
 ```
@@ -110,7 +110,7 @@ UPnP网络的下一步是控制。当一个控制点获取到设备描述信息�
 
 ### 展示
 最后一步是展示。如果设备带有存在URL，那么控制点可以通过它来获取设备存在信息，即在浏览器中加载URL，并允许用户来进行相关控制或查看操作。具体支持哪些操作则是由存在页面和设备完成的。
-![](https://img-blog.csdn.net/20130705200800015?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZWFzdG1vb241MDIxMzY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555830618/paper/1111.png)
 
 ### NAT穿透
 UPnP为NAT（网络地址转换）穿透带来了一个解决方案：**互联网网关设备协议（IGD）**。NAT穿透允许UPnP数据包在没有用户交互的情况下，无障碍的通过路由器或者防火墙（假如那个路由器或者防火墙支持NAT）。
