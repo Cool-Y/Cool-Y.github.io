@@ -242,6 +242,7 @@ Miranda – http://code.google.com/p/miranda-upnp/
 ## 对小米WIFI路由器的UPnP分析
 ### 使用工具扫描
 1. 使用Metasploit检查
+
 ```
 msfconsole
 msf5 > use auxiliary/scanner/upnp/ssdp_msearch
@@ -259,6 +260,7 @@ msf5 auxiliary(scanner/upnp/ssdp_msearch) > run
 - MiniUPnPd/2.0
 
 2. 使用nmap进行扫描
+
 ```
 nmap -p1900，5351 192.168.31.1
 
@@ -273,6 +275,7 @@ NAT-PMP是端口控制协议（PCP）的前身。
 2014年10月，Rapid7安全研究员Jon Hart公布，因厂商对NAT-PMP协议设计不当，估计公网上有1200万台网络设备受到NAT-PMP漏洞的影响。NAT-PMP协议的规范中特别指明，NAT网关不能接受来自外网的地址映射请求，但一些厂商的设计并未遵守此规定。黑客可能对这些设备进行恶意的端口映射，进行流量反弹、代理等攻击。
 
 3. netstat扫描
+
 ```
 Proto Recv-Q Send-Q Local Address         Foreign Address    State    in out PID/Program name
 tcp   0      0      :::5351               :::*               LISTEN   0 0 18068/miniupnpd
@@ -281,7 +284,275 @@ udp   0      0      0.0.0.0:1900          0.0.0.0:*          1414113  1827652 18
 ```
 端口1900在UPnP发现的过程中使用，5351通常为端口映射协议NAT-PMP运行的端口
 
+4. [miranda](https://www.ethicalhacker.net/columns/heffner/plug-n-play-network-hacking/)
+
+```
+sudo python2 miranda.py -i wlx44334c388fbd -v
+
+Miranda v1.3
+The interactive UPnP client
+Craig Heffner, http://www.devttys0.com
+
+
+Binding to interface wlx44334c388fbd ...
+
+Verbose mode enabled!
+upnp> msearch
+
+Entering discovery mode for 'upnp:rootdevice', Ctl+C to stop...
+
+****************************************************************
+SSDP reply message from 192.168.31.1:5351
+XML file is located at http://192.168.31.1:5351/rootDesc.xml
+Device is running MiWiFi/x UPnP/1.1 MiniUPnPd/2.0
+****************************************************************
+
+upnp> host get 0
+
+Requesting device and service info for 192.168.31.1:5351 (this could take a few seconds)...
+
+Device urn:schemas-upnp-org:device:WANDevice:1 does not have a presentationURL
+Device urn:schemas-upnp-org:device:WANConnectionDevice:1 does not have a presentationURL
+Host data enumeration complete!
+
+upnp> host list
+
+	[0] 192.168.31.1:5351
+
+upnp> host info 0
+
+xmlFile : http://192.168.31.1:5351/rootDesc.xml
+name : 192.168.31.1:5351
+proto : http://
+serverType : MiWiFi/x UPnP/1.1 MiniUPnPd/2.0
+upnpServer : MiWiFi/x UPnP/1.1 MiniUPnPd/2.0
+dataComplete : True
+deviceList : {}
+
+upnp> host info 0 deviceList
+
+InternetGatewayDevice : {}
+WANDevice : {}
+WANConnectionDevice : {}
+
+upnp> host info 0 deviceList WANConnectionDevice
+
+  manufacturerURL : http://miniupnp.free.fr/
+  modelName : MiniUPnPd
+  UPC : 000000000000
+  modelNumber : 20180830
+  friendlyName : WANConnectionDevice
+  fullName : urn:schemas-upnp-org:device:WANConnectionDevice:1
+  modelDescription : MiniUPnP daemon
+  UDN : uuid:f3539dd5-8dc5-420c-9070-c6f66d27fc8e
+  modelURL : http://miniupnp.free.fr/
+  manufacturer : MiniUPnP
+  services : {}
+
+upnp> host info 0 deviceList WANConnectionDevice services WANIPConnection
+
+    eventSubURL : /evt/IPConn
+    controlURL : /ctl/IPConn
+    serviceId : urn:upnp-org:serviceId:WANIPConn1
+    SCPDURL : /WANIPCn.xml
+    fullName : urn:schemas-upnp-org:service:WANIPConnection:1
+    actions : {}
+    serviceStateVariables : {}
+
+upnp> host info 0 deviceList WANConnectionDevice services WANIPConnection actions
+
+      AddPortMapping : {}
+      GetNATRSIPStatus : {}
+      GetGenericPortMappingEntry : {}
+      GetSpecificPortMappingEntry : {}
+      ForceTermination : {}
+      GetExternalIPAddress : {}
+      GetConnectionTypeInfo : {}
+      GetStatusInfo : {}
+      SetConnectionType : {}
+      DeletePortMapping : {}
+      RequestConnection : {}
+
+upnp> host info 0 deviceList WANConnectionDevice services WANIPConnection serviceStateVariables
+
+        InternalClient : {}
+        Uptime : {}
+        PortMappingLeaseDuration : {}
+        PortMappingDescription : {}
+        RemoteHost : {}
+        PossibleConnectionTypes : {}
+        ExternalPort : {}
+        RSIPAvailable : {}
+        ConnectionStatus : {}
+        PortMappingNumberOfEntries : {}
+        ExternalIPAddress : {}
+        ConnectionType : {}
+        NATEnabled : {}
+        LastConnectionError : {}
+        InternalPort : {}
+        PortMappingProtocol : {}
+        PortMappingEnabled : {}
+
+upnp> host summary 0
+
+          Host: 192.168.31.1:5351
+          XML File: http://192.168.31.1:5351/rootDesc.xml
+          InternetGatewayDevice
+          	manufacturerURL: http://www.mi.com
+          	modelName: MiWiFi Router
+          	UPC: 000000000000
+          	modelNumber: 20180830
+          	presentationURL: http://miwifi.com/
+          	friendlyName: MiWiFi router
+          	fullName: urn:schemas-upnp-org:device:InternetGatewayDevice:1
+          	modelDescription: MiWiFi Router
+          	UDN: uuid:f3539dd5-8dc5-420c-9070-c6f66d27fc8c
+          	modelURL: http://www1.miwifi.com
+          	manufacturer: Xiaomi
+          WANDevice
+          	manufacturerURL: http://miniupnp.free.fr/
+          	modelName: WAN Device
+          	UPC: 000000000000
+          	modelNumber: 20180830
+          	friendlyName: WANDevice
+          	fullName: urn:schemas-upnp-org:device:WANDevice:1
+          	modelDescription: WAN Device
+          	UDN: uuid:f3539dd5-8dc5-420c-9070-c6f66d27fc8d
+          	modelURL: http://miniupnp.free.fr/
+          	manufacturer: MiniUPnP
+          WANConnectionDevice
+          	manufacturerURL: http://miniupnp.free.fr/
+          	modelName: MiniUPnPd
+          	UPC: 000000000000
+          	modelNumber: 20180830
+          	friendlyName: WANConnectionDevice
+          	fullName: urn:schemas-upnp-org:device:WANConnectionDevice:1
+          	modelDescription: MiniUPnP daemon
+          	UDN: uuid:f3539dd5-8dc5-420c-9070-c6f66d27fc8e
+          	modelURL: http://miniupnp.free.fr/
+          	manufacturer: MiniUPnP
+```
+
+- 使用miranda发送UPnP命令
+**获取外部IP地址**
+
+```
+upnp> host send 0 WANConnectionDevice WANIPConnection GetExternalIPAddress
+
+NewExternalIPAddress : 172.16.173.231
+```
+**增加一个端口映射，将路由器上端口为1900的服务映射到外网端口8080**
+
+```
+upnp> host send 0 WANConnectionDevice WANIPConnection AddPortMapping
+
+Required argument:
+	Argument Name:  NewPortMappingDescription
+	Data Type:      string
+	Allowed Values: []
+	Set NewPortMappingDescription value to: HACK
+
+Required argument:
+	Argument Name:  NewLeaseDuration
+	Data Type:      ui4
+	Allowed Values: []
+	Value Min:      0
+	Value Max:      604800
+	Set NewLeaseDuration value to: 0
+
+Required argument:
+	Argument Name:  NewInternalClient
+	Data Type:      string
+	Allowed Values: []
+	Set NewInternalClient value to: 192.168.31.1
+
+Required argument:
+	Argument Name:  NewEnabled
+	Data Type:      boolean
+	Allowed Values: []
+	Set NewEnabled value to: 1
+
+Required argument:
+	Argument Name:  NewExternalPort
+	Data Type:      ui2
+	Allowed Values: []
+	Set NewExternalPort value to: 8080
+
+Required argument:
+	Argument Name:  NewRemoteHost
+	Data Type:      string
+	Allowed Values: []
+	Set NewRemoteHost value to:
+
+Required argument:
+	Argument Name:  NewProtocol
+	Data Type:      string
+	Allowed Values: ['TCP', 'UDP']
+	Set NewProtocol value to: TCP
+
+Required argument:
+	Argument Name:  NewInternalPort
+	Data Type:      ui2
+	Allowed Values: []
+	Value Min:      1
+	Value Max:      65535
+	Set NewInternalPort value to: 1900
+```
+
+
+```
+upnp> host send 0 WANConnectionDevice WANIPConnection GetSpecificPortMappingEntry
+
+  Required argument:
+  	Argument Name:  NewExternalPort
+  	Data Type:      ui2
+  	Allowed Values: []
+  	Set NewExternalPort value to: 8080
+
+  Required argument:
+  	Argument Name:  NewRemoteHost
+  	Data Type:      string
+  	Allowed Values: []
+  	Set NewRemoteHost value to:
+
+  Required argument:
+  	Argument Name:  NewProtocol
+  	Data Type:      string
+  	Allowed Values: ['TCP', 'UDP']
+  	Set NewProtocol value to: TCP
+
+  NewPortMappingDescription : HACK
+  NewLeaseDuration : 0
+  NewInternalClient : 192.168.31.1
+  NewEnabled : 1
+  NewInternalPort : 1900
+```
+
+**可以无需验证地删除映射**
+```
+upnp> host send 0 WANConnectionDevice WANIPConnection DeletePortMapping
+```
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1555918880/paper/2231.png)
+虽然UPnP是一种很少理解的协议，但它在绝大多数家庭网络上都很活跃，甚至在某些公司网络上也是如此。许多设备支持UPnP以便于消费者使用，但是，它们通常支持不允许任何服务自动执行的操作，尤其是未经授权的情况下。更糟糕的是，协议实现本身很少以安全思维构建，使其可以进一步利用。
+防止本地/远程利用UPnP的最佳方法是在任何/所有网络设备上禁用该功能。然而，考虑到这个协议和其他“自动魔术”协议旨在帮助懒惰的用户，他们可能不知道这些协议的危险，唯一真正的解决方案是让供应商更加关注他们的设计和实施，并且更加安全。
+
 ### 浏览配置文件
+<pre>root@XiaoQiang:/# find -name *upnp*
+./etc/rc.d/S95miniupnpd
+./etc/init.d/miniupnpd
+./etc/hotplug.d/iface/50-miniupnpd
+./etc/config/upnpd
+./tmp/upnp.leases
+./tmp/etc/miniupnpd.conf
+./tmp/run/miniupnpd.pid
+./usr/lib/lua/luci/view/web/setting/upnp.htm
+./usr/sbin/miniupnpd
+./usr/share/miniupnpd
+./www/xiaoqiang/web/css/upnp.css
+./data/etc/rc.d/S95miniupnpd
+./data/etc/init.d/miniupnpd
+./data/etc/hotplug.d/iface/50-miniupnpd
+./data/etc/config/upnpd</pre>
 # SmartController
 
 # messagingagent

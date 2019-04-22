@@ -28,7 +28,7 @@ comments: false
 > [codeforces](http://codeforces.com/)&nbsp; [leetcode](https://leetcode-cn.com/)
 
 ## 工具
-> [mitmproxy](https://mitmproxy.org/)&nbsp; [msfvenom](https://www.offensive-security.com/metasploit-unleashed/msfvenom/)&nbsp; [shellphish](https://github.com/shellphish)
+> [mitmproxy](https://mitmproxy.org/)&nbsp; [msfvenom](https://www.offensive-security.com/metasploit-unleashed/msfvenom/)&nbsp; [shellphish](https://github.com/shellphish)&nbsp; [KALItools](https://tools.kali.org/)
 
 ## 资源下载
 > [Emoji表情](https://emojipedia.org/)&nbsp;  [Apk镜像](https://www.apkmirror.com/)
