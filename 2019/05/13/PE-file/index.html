@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="itchat,微信,">
+  <meta name="keywords" content="文件格式,PE,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
-<meta name="keywords" content="itchat,微信">
+<meta name="description" content="PE文件格式PE(Portable Executable)是Win32平台下可执行文件遵守的数据格式。常见的可执行文件（如exe和dll）都是典型的PE文件。PE文件格式其实是一种数据结构，包含Windows操作系统加载管理可执行代码时所必要的信息，如二进制机器代码、字符串、菜单、图标、位图、字体等。PE文件格式规定了所有这些信息在可执行文件中如何组织。在程序被执行时，操作系统会按照PE文件格式的">
+<meta name="keywords" content="文件格式,PE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用itchat定时转发微信消息">
-<meta property="og:url" content="https://cool-y.github.io/2019/03/23/auto-send-WX/index.html">
+<meta property="og:title" content="PE文件格式学习">
+<meta property="og:url" content="https://cool-y.github.io/2019/05/13/PE-file/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
+<meta property="og:description" content="PE文件格式PE(Portable Executable)是Win32平台下可执行文件遵守的数据格式。常见的可执行文件（如exe和dll）都是典型的PE文件。PE文件格式其实是一种数据结构，包含Windows操作系统加载管理可执行代码时所必要的信息，如二进制机器代码、字符串、菜单、图标、位图、字体等。PE文件格式规定了所有这些信息在可执行文件中如何组织。在程序被执行时，操作系统会按照PE文件格式的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T07:35:38.081Z">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg">
+<meta property="og:updated_time" content="2019-05-13T12:43:24.447Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用itchat定时转发微信消息">
-<meta name="twitter:description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
+<meta name="twitter:title" content="PE文件格式学习">
+<meta name="twitter:description" content="PE文件格式PE(Portable Executable)是Win32平台下可执行文件遵守的数据格式。常见的可执行文件（如exe和dll）都是典型的PE文件。PE文件格式其实是一种数据结构，包含Windows操作系统加载管理可执行代码时所必要的信息，如二进制机器代码、字符串、菜单、图标、位图、字体等。PE文件格式规定了所有这些信息在可执行文件中如何组织。在程序被执行时，操作系统会按照PE文件格式的">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/2019/03/23/auto-send-WX/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/05/13/PE-file/">
 
 
 
 
 
-  <title>利用itchat定时转发微信消息 | 混元霹雳手</title>
+  <title>PE文件格式学习 | 混元霹雳手</title>
   
 
 
@@ -305,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/23/auto-send-WX/">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/05/13/PE-file/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cool-Y">
@@ -322,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">利用itchat定时转发微信消息</h1>
+          <h1 class="post-title" itemprop="name headline">PE文件格式学习</h1>
         
 
         <div class="post-meta">
@@ -334,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T19:48:46+08:00">
-                2019-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T20:37:00+08:00">
+                2019-05-13
               </time>
             
 
@@ -357,8 +359,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂七杂八/" itemprop="url" rel="index">
-                    <span itemprop="name">杂七杂八</span>
+                  <a href="/categories/二进制/" itemprop="url" rel="index">
+                    <span itemprop="name">二进制</span>
                   </a>
                 </span>
 
@@ -375,8 +377,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/23/auto-send-WX/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/23/auto-send-WX/" itemprop="commentsCount"></span>
+                <a href="/2019/05/13/PE-file/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/05/13/PE-file/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -384,7 +386,7 @@
 
           
           
-             <span id="/2019/03/23/auto-send-WX/" class="leancloud_visitors" data-flag-title="利用itchat定时转发微信消息">
+             <span id="/2019/05/13/PE-file/" class="leancloud_visitors" data-flag-title="PE文件格式学习">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -407,7 +409,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  989 字
+                  2.8k 字
                 </span>
               
 
@@ -421,7 +423,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  10 分钟
                 </span>
               
             </div>
@@ -442,31 +444,121 @@
       
 
       
-        <p>我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）<br>而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o<br>为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。<br>这就是这片po文的由来啦！</p>
-<h1 id="大杀器itchat"><a href="#大杀器itchat" class="headerlink" title="大杀器itchat"></a>大杀器itchat</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><p>先来一段<a href="https://itchat.readthedocs.io/zh/latest/" target="_blank" rel="noopener">itchat</a>的官方介绍吧</p>
-<blockquote>
-<p>itchat是一个开源的微信个人号接口，使用python调用微信从未如此简单。<br>使用不到三十行的代码，你就可以完成一个能够处理所有信息的微信机器人。<br>当然，该api的使用远不止一个机器人，更多的功能等着你来发现，比如这些。<br>该接口与公众号接口itchatmp共享类似的操作方式，学习一次掌握两个工具。<br>如今微信已经成为了个人社交的很大一部分，希望这个项目能够帮助你扩展你的个人的微信号、方便自己的生活。</p>
-</blockquote>
-<p>实际上，itchat是对微信网页端的爬虫，所以，网页端可以实现的功能都有，那么，我想要的定时群发微信消息，自然不在话下！</p>
-<h2 id="初步尝试"><a href="#初步尝试" class="headerlink" title="初步尝试"></a>初步尝试</h2><ul>
-<li><p>安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install itchat</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个简单实例：实现给文件传输助手发送消息</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">itchat.auto_login()</span><br><span class="line">itchat.send(&apos;Hello, filehelper&apos;, toUserName=&apos;filehelper&apos;)</span><br></pre></td></tr></table></figure>
-<h1 id="实现定时转发"><a href="#实现定时转发" class="headerlink" title="实现定时转发"></a>实现定时转发</h1><p>这个的实现需要注册msg_register,逻辑很简单，当收到指定群里的指定消息时，将消息转发到另一个群。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">from datetime import datetime</span><br><span class="line">import time</span><br><span class="line">import re</span><br><span class="line">import threading</span><br><span class="line">from itchat.content import TEXT</span><br><span class="line">from itchat.content import *</span><br><span class="line">from apscheduler.schedulers.blocking import BlockingScheduler</span><br><span class="line"></span><br><span class="line">@itchat.msg_register([TEXT], isFriendChat=True, isGroupChat=True, isMpChat=True)</span><br><span class="line">def getContent(msg):</span><br><span class="line">    global g_msg</span><br><span class="line">    groups = itchat.get_chatrooms(update = True)</span><br><span class="line">    for g in groups:</span><br><span class="line">        #print(g[&apos;NickName&apos;])</span><br><span class="line">        if g[&apos;NickName&apos;] == &apos;被转发的群名&apos;:</span><br><span class="line">            from_group = g[&apos;UserName&apos;]</span><br><span class="line">    if &apos;每日安全简讯&apos; in msg[&apos;Content&apos;]:</span><br><span class="line">        print(&quot;get message from &quot; + msg[&apos;FromUserName&apos;])</span><br><span class="line">        if msg[&apos;FromUserName&apos;] == from_group:</span><br><span class="line">            g_msg = msg[&apos;Content&apos;]</span><br><span class="line">            print(&apos;成功获得群消息，等待转发&apos;)</span><br><span class="line">            print(int(time.strftime(&quot;%H%M%S&quot;)))</span><br><span class="line">            while(1):</span><br><span class="line">                if int(time.strftime(&quot;%H%M%S&quot;)) &gt; 80000:</span><br><span class="line">                    SendMessage(g_msg,&apos;发送的对象群名&apos;)</span><br><span class="line">                    g_msg = &apos;&apos;</span><br><span class="line">                    break</span><br><span class="line"></span><br><span class="line">def SendMessage(context,gname):</span><br><span class="line">    itchat.get_chatrooms(update = True)</span><br><span class="line">    users = itchat.search_chatrooms(name=gname)</span><br><span class="line">    userName = users[0][&apos;UserName&apos;]</span><br><span class="line">    itchat.send_msg(context,toUserName=userName)</span><br><span class="line">    print(&quot;\n发送时间: &quot; + datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) + &quot;\n&quot; &quot;发送到：&quot; + gname + &quot;\n&quot; + &quot;发送内容：&quot; + context + &quot;\n&quot;)</span><br><span class="line">    print(&quot;*********************************************************************************&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    itchat.auto_login(hotReload=True,enableCmdQR=2)</span><br><span class="line">    itchat.run(blockThread=False)</span><br></pre></td></tr></table></figure></p>
-<h1 id="添加周期防掉线"><a href="#添加周期防掉线" class="headerlink" title="添加周期防掉线"></a>添加周期防掉线</h1><p>据说每三十分钟发送一次消息可防止网页端微信掉线~~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def loop_send():</span><br><span class="line">    nowTime = datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">    context = &apos;现在是北京时间 :\n&apos;+ nowTime +&apos;\n\n我们还活着&apos;</span><br><span class="line">    itchat.get_chatrooms(update = True)</span><br><span class="line">    users = itchat.search_friends(name=u&apos;chengkun&apos;)</span><br><span class="line">    userName = users[0][&apos;UserName&apos;]</span><br><span class="line">    itchat.send_msg(context,toUserName=userName)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    sched = BlockingScheduler()</span><br><span class="line">    sched.add_job(loop_send,&apos;interval&apos;,minutes=30)</span><br><span class="line">    sched.start()</span><br></pre></td></tr></table></figure></p>
-<h1 id="把程序放在服务器上"><a href="#把程序放在服务器上" class="headerlink" title="把程序放在服务器上"></a>把程序放在服务器上</h1><p>我是在腾讯云有个服务器，因为自己的电脑不可能时时刻刻开机，所以就放在服务器上，方法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nohup python -u auto_Send.py &gt;&gt; auto_Send.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
+        <h1 id="PE文件格式"><a href="#PE文件格式" class="headerlink" title="PE文件格式"></a>PE文件格式</h1><p>PE(Portable Executable)是Win32平台下可执行文件遵守的数据格式。常见的可执行文件（如exe和dll）都是典型的PE文件。PE文件格式其实是一种数据结构，包含Windows操作系统加载管理可执行代码时所必要的信息，如二进制机器代码、字符串、菜单、图标、位图、字体等。PE文件格式规定了所有这些信息在可执行文件中如何组织。<strong>在程序被执行时，操作系统会按照PE文件格式的约定去相应地方准确定位各种类型的资源，并分别装入内存的不同区域。</strong><br>PE文件格式把可执行文件分成若干个数据节（section），不同资源被存放在不同的节中，一个典型的PE文件中包含的节如下：</p>
 <ul>
-<li>使用nohup可以让程序在后台运行</li>
-<li>然后将日志输出到auto_Send.log，方便我们后期出bug了排错</li>
-<li>-u可以防止输出到python缓冲区</li>
+<li><code>.text</code>     由编译器产生，存放着二进制的机器代码，也是反汇编和调试的对象</li>
+<li><code>.data</code>     初始化的数据块，如宏定义、全局变量、静态变量等</li>
+<li><code>.idata</code>    可执行文件所使用的动态链接库等外来函数与文件信息</li>
+<li><code>.rsrc</code>     存放程序的资源，如图标、菜单等<br>除此之外，还有可能有<code>.reloc</code>,<code>.edata</code>,<code>.tls</code>,<code>.rdata</code></li>
 </ul>
-<h1 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h1><h2 id="线程阻塞问题"><a href="#线程阻塞问题" class="headerlink" title="线程阻塞问题"></a>线程阻塞问题</h2><p>这里有两个线程，一个是定时转发，一个是循环发送，因此要设置为itchat.run(blockThread=False)以及sched = BlockingScheduler()否则会卡在某个方法。</p>
-<h2 id="找不到群组"><a href="#找不到群组" class="headerlink" title="找不到群组"></a>找不到群组</h2><p>这是因为users = itchat.search_chatrooms(name=gname)，在搜索的是你保存到通讯录的群组。</p>
-<h2 id="二维码显示不全"><a href="#二维码显示不全" class="headerlink" title="二维码显示不全"></a>二维码显示不全</h2><p>itchat.auto_login(hotReload=True,enableCmdQR=2)，需要设置为2</p>
+<h1 id="0x01-PE文件与虚拟内存之间的映射"><a href="#0x01-PE文件与虚拟内存之间的映射" class="headerlink" title="0x01 PE文件与虚拟内存之间的映射"></a>0x01 PE文件与虚拟内存之间的映射</h1><h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>Windows的内存可以被分为两个层面：物理内存和虚拟内存。其中，物理内存比较复杂，需要进入Windows内核级别ring0才能看到。通常，在用户模式下，我们用调试器看到的都是虚拟内存。<br>如果我们把这看成银行，那么就很好理解了。</p>
+<ul>
+<li>进程相当于储户</li>
+<li>内存管理器相当于银行</li>
+<li>物理内存相当于钞票</li>
+<li>虚拟内存相当于存款</li>
+</ul>
+<h2 id="映射关系"><a href="#映射关系" class="headerlink" title="映射关系"></a>映射关系</h2><ol>
+<li>在漏洞挖掘中,经常需要的两种操作：</li>
+</ol>
+<ul>
+<li>静态反编译工具看到的是PE文件中某条指令的位置是相对与磁盘而言的，就是所谓的 <strong>文件偏移</strong> ，我们可能还需要知道这条指令在内存中的位置，这个位置就是虚拟内存地址(VA)</li>
+<li>反过来，在调试时看到的某条指令的地址是 <strong>虚拟内存地址（VA）</strong>，也就是我们需要回到PE文件中找到这条指令对应的机器码</li>
+</ul>
+<ol start="2">
+<li>几个重要概念</li>
+</ol>
+<ul>
+<li>文件偏移地址(File Offset)：<br>数据在PE文件中的地址叫做文件偏移地址,可以理解为就是文件地址。这是文件在磁盘上存放相对与文件开头的偏移。</li>
+<li>装载基址(Image Base):<br>PE装入内存时的基地址。默认情况下，EXE文件在内存中对应的基地址是<code>0x00400000</code>,DLL文件是<code>0x10000000</code>。这些位置可能通过编译选项修改</li>
+<li>虚拟内存地址(Virtual Address,VA )：<br>PE文件中的指令装入内存后的地址。</li>
+<li>相对虚拟地址(Relative Virtual Address, RVA)：<br>相对虚拟地址是内存地址相对于映射基址的偏移量。</li>
+</ul>
+<ol start="3">
+<li><p>虚拟内存地址，装载基址，相对虚拟内存地址三者之间的关系:</p>
+<blockquote>
+<p>VA = Image Base + RVA</p>
+</blockquote>
+</li>
+<li><p>文件偏移地址与相对虚拟地址：<br>文件偏移地址是相对于文件开始处0字节的偏移,RVA(相对虚拟地址)则是相对于装载基址0x00400000处的偏移.由于操作系统在装载时“基本”上保持PE中的数据结构，所以文件偏移地址和RVA有很大的一致性。（不是全部相同）<br>PE文件中的数据按照磁盘数据标准存放，以0x200为基本单位进行组织。当一个数据节(stction)不足0x200字节时，不足的地方将用0x00填充，当一个数据节超过0x200时，下一个0x200块将分配给这个节使用。所以PE数据节大小永远是0x200的整数倍<br>当代码装入后，将按照内存数据标准存放，并以0x1000字节为基本的存储单位进行组织，不足和超过的情况类似上面。因此，内存中的节总是0x1000的整倍数。<br>由于内存中数据节相对于装载基址的偏移量和文件中数据节的偏移量有上述差异，所以进行文件偏移到内存地址之间的换算时，还要看所转换的地址位于第几个节内:</p>
+<blockquote>
+<p>文件偏移地址 = 虚拟内存地址(VA) - 装载基址(Image Base) - 节偏移<br>​ = RVA - 节偏移</p>
+</blockquote>
+</li>
+<li><p>工具<br><a href="https://tools.pediy.com/win/PE_tools/Lordpe/LPE-DLX.rar" target="_blank" rel="noopener">LordPE DLX增强版(2017..6.08)</a><br><a href="https://tools.pediy.com/win/Resource/Resource%20Hacker/reshhack3.4.zip" target="_blank" rel="noopener">Resource Hacker 3.4.0</a><br><a href="https://download.cnet.com/PE-Viewer/3000-2352_4-10966763.html" target="_blank" rel="noopener">PE viewer</a></p>
+</li>
+</ol>
+<h1 id="0x02-链接库与函数"><a href="#0x02-链接库与函数" class="headerlink" title="0x02 链接库与函数"></a>0x02 链接库与函数</h1><p>对于一个可执行程序，可以收集到最有用的信息就是导入表。导入函数是程序所使用的但存储在另一程序中的那些函数。通过导入函数连接，使得不必重新在多个程序中重复实现特定功能。</p>
+<ol>
+<li>静态链接、运行时链接与动态链接。<br>静态链接：当一个库被静态链接到可执行程序时，所有这个库中的代码都会被复制到可执行程序中，这使得可执行程序增大许多，而且在分析代码时，很难区分静态链接的代码和自身代码。<br>运行时链接：在恶意代码中常用（加壳或混淆时），只有当需要使用函数时，才链接到库。<br>动态链接：当代码被动态链接时，宿主操作系统会在程序装载时搜索所需代码库，如果程序调用了被链接的库函数，这个函数会在代码库中执行。<br>LoadLibrary和GetProcAddress允许一个程序访问系统上任何库中的函数，因此当它们被使用时，无法静态分析出程序会链接哪些函数。<br>PE文件头存储了每个将被装载的库文件，以及每个会被程序使用的函数信息。</li>
+<li>工具Dependency Walker<br><a href="http://www.dependencywalker.com/" target="_blank" rel="noopener">Dependency Walker</a></li>
+<li><p>常见dll程序<br><strong><em>kernel32.dll</em></strong><br>kernel32.dll是Windows 9x/Me中非常重要的32位动态链接库文件，属于内核级文件。它控制着系统的内存管理、数据的输入输出操作和中断处理，当Windows启动时，kernel32.dll就驻留在内存中特定的写保护区域，使别的程序无法占用这个内存区域。<br><strong><em>user32.dll</em></strong><br>user32.dll是Windows用户界面相关应用程序接口，用于包括Windows处理，基本用户界面等特性，如创建窗口和发送消息。<br>在早期32-bit 版本的Windows中，用户控件是在ComCtl32中实现的，但是一些控件的显示功能是在User32.dll中实现的。例如在一个窗口中非客户区域（边框和菜单）的绘制就是由User32.dll来完成的。User32.dll 是操作系统的一个核心控件，它和操作系统是紧密联系在一起的。也就是说，不同版本的Windows中User32.dll 是不同。因此，应用程序在不同版本的Windows中运行的时候，由于User32.dll的不同，会导致应用程序的界面通常会有微小的不同。<br><strong><em>gdi32.dll</em></strong><br>gdi32.dll是Windows GDI图形用户界面相关程序，包含的函数用来绘制图像和显示文字<br><strong><em>comdlg32.dll</em></strong><br>comdlg32.dll是Windows应用程序公用对话框模块，用于例如打开文件对话框。<br><strong><em>advapi32.dll</em></strong><br>advapi32.dll是一个高级API应用程序接口服务库的一部分，包含的函数与对象的安全性，注册表的操控以及事件日志有关。<br><strong><em>shell32.dll</em></strong><br>shell32.dll是Windows的32位外壳动态链接库文件，用于打开网页和文件，建立文件时的默认文件名的设置等大量功能。<br>严格来讲，它只是代码的合集，真正执行这些功能的是操作系统的相关程序，dll文件只是根据设置调用这些程序的相关功能罢了。<br><strong><em>ole32.dll</em></strong><br>ole32.dll是对象链接和嵌入相关模块。<br><strong><em>odbc32.dll</em></strong><br>odbc32.dll是ODBC数据库查询相关文件。</p>
+</li>
+<li><p>导入函数与导出函数<br>导入函数和导出函数都是用来和其他程序和代码进行交互时使用的，通常一个DLL会实现一个或多个功能函数，然后将他们导出，使得别的程序可以导入并使用这些函数，导出函数在DLL文件中是最常见的。</p>
+</li>
+</ol>
+<h1 id="0x03-PE文件的结构"><a href="#0x03-PE文件的结构" class="headerlink" title="0x03 PE文件的结构"></a>0x03 PE文件的结构</h1><table>
+<thead>
+<tr>
+<th>PE文件结构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MZ文件头</td>
+</tr>
+<tr>
+<td>DOS插桩程序</td>
+</tr>
+<tr>
+<td>字串“PE\0\0”(4字节)</td>
+</tr>
+<tr>
+<td>映像文件头</td>
+</tr>
+<tr>
+<td>可选映像头</td>
+</tr>
+<tr>
+<td>Section table(节表)</td>
+</tr>
+<tr>
+<td>Section 1</td>
+</tr>
+<tr>
+<td>Section 2</td>
+</tr>
+<tr>
+<td>…..</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>DOS程序头(4H字节)<br>包括MZ文件头和DOS插桩程序。MZ文件头开始两个字节为4D5A。</li>
+<li>NT映像头(14H字节)<br>存放PE整个文件信息分布的重要字段。包括：</li>
+</ol>
+<ul>
+<li>签名（signature）：值为’50450000h’，字串为’PE\0\0’，可以在DOS程序头的3CH处的四个字节找到该字串的偏移位置</li>
+<li>映像文件头（FileHeader）：是映像头的主要部分，包含PE文件最基本的信息。结构体为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_FILE_HEADER &#123;   </span><br><span class="line">        WORD      Machine;                 //运行平台</span><br><span class="line">        WORD      NumberOfSections;        //节(section)数目      </span><br><span class="line">        DWORD     TimeDateStamp;           //时间日期标记     </span><br><span class="line">        DWORD     PointerToSymbolTable;    //COFF符号指针，这是程序调试信息    </span><br><span class="line">        DWORD     NumberOfSymbols;         //符号数  </span><br><span class="line">        WORD      SizeOfOptionalHeader;    //可选部首长度，是IMAGE_OPTIONAL_HEADER的长度    </span><br><span class="line">        WORD      Characteristics;         //文件属性</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li><p>可选映像头(OptionalHeader)<br>包含PE文件的逻辑分布信息，共有13个域。具体结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_OPTIONAL_HEADER &#123;</span><br><span class="line">  WORD                 Magic;                               //代表的是文件的格式</span><br><span class="line">  BYTE                 MajorLinkerVersion;</span><br><span class="line">  BYTE                 MinorLinkerVersion;</span><br><span class="line">  DWORD                SizeOfCode;</span><br><span class="line">  DWORD                SizeOfInitializedData;</span><br><span class="line">  DWORD                SizeOfUninitializedData;</span><br><span class="line">  DWORD                AddressOfEntryPoint;                 //保存着EP的RVA。也就是最先执行代码起始地址。</span><br><span class="line">  DWORD                BaseOfCode;                          //表示代码段起始RVA先看他的值，是1000</span><br><span class="line">  DWORD                BaseOfData;</span><br><span class="line">  DWORD                ImageBase;                           //默认装入基地址</span><br><span class="line">  DWORD                SectionAlignment;                    //节区在内存中的最下单位</span><br><span class="line">  DWORD                FileAlignment;                       //节区在磁盘中的最小单位</span><br><span class="line">  WORD                 MajorOperatingSystemVersion;</span><br><span class="line">  WORD                 MinorOperatingSystemVersion;</span><br><span class="line">  WORD                 MajorImageVersion;</span><br><span class="line">  WORD                 MinorImageVersion;</span><br><span class="line">  WORD                 MajorSubsystemVersion;</span><br><span class="line">  WORD                 MinorSubsystemVersion;</span><br><span class="line">  DWORD                Win32VersionValue;</span><br><span class="line">  DWORD                SizeOfImage;                         //装入内存后的总尺寸</span><br><span class="line">  DWORD                SizeOfHeaders;                       //头尺寸=NT映像头+节表</span><br><span class="line">  DWORD                CheckSum;</span><br><span class="line">  WORD                 Subsystem;</span><br><span class="line">  WORD                 DllCharacteristics;</span><br><span class="line">  DWORD                SizeOfStackReserve;</span><br><span class="line">  DWORD                SizeOfStackCommit;</span><br><span class="line">  DWORD                SizeOfHeapReserve;</span><br><span class="line">  DWORD                SizeOfHeapCommit;</span><br><span class="line">  DWORD                LoaderFlags;</span><br><span class="line">  DWORD                NumberOfRvaAndSizes;</span><br><span class="line">  IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];</span><br><span class="line">&#125; IMAGE_OPTIONAL_HEADER, *PIMAGE_OPTIONAL_HEADER;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>节表<br>实际上是一个结构数组，其中每个结构包含了一个节的具体信息（每个结构占用28H字节）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_SECTION_HEADER &#123;</span><br><span class="line">  BYTE  Name[IMAGE_SIZEOF_SHORT_NAME];</span><br><span class="line">  union &#123;</span><br><span class="line">    DWORD PhysicalAddress;</span><br><span class="line">    DWORD VirtualSize;                          //该节的实际字节数</span><br><span class="line">  &#125; Misc;</span><br><span class="line">  DWORD VirtualAddress;                         //本节的相对虚拟地址</span><br><span class="line">  DWORD SizeOfRawData;                          //对齐后的节尺寸</span><br><span class="line">  DWORD PointerToRawData;                       //本节在文件中的地址</span><br><span class="line">  DWORD PointerToRelocations;                   //本节调入内存后的存放位置</span><br><span class="line">  DWORD PointerToLinenumbers;</span><br><span class="line">  WORD  NumberOfRelocations;</span><br><span class="line">  WORD  NumberOfLinenumbers;</span><br><span class="line">  DWORD Characteristics;                        //节的属性</span><br><span class="line">&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>节</p>
+</li>
+</ol>
+<ul>
+<li><p>引入函数节(.rdata/.idata)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;</span><br><span class="line">    union &#123;</span><br><span class="line">        DWORD   Characteristics;            // 0 for terminating null import descriptor</span><br><span class="line">        DWORD   OriginalFirstThunk;         // RVA to original unbound IAT (PIMAGE_THUNK_DATA)</span><br><span class="line">    &#125;;</span><br><span class="line">    DWORD   TimeDateStamp;                  // 0 if not bound,</span><br><span class="line">                                            // -1 if bound, and real datetime stamp</span><br><span class="line">                                            //     in IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT (new BIND)</span><br><span class="line">                                            // O.W. date/time stamp of DLL bound to (Old BIND)</span><br><span class="line"></span><br><span class="line">    DWORD   ForwarderChain;                 // -1 if no forwarders</span><br><span class="line">    DWORD   Name;</span><br><span class="line">    DWORD   FirstThunk;                     // RVA to IAT (if bound this IAT has actual addresses)</span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个exe程序加载dll的IMAGE_IMPORT_DESCRIPTOR<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg" alt></p>
+</li>
+</ul>
 
       
     </div>
@@ -513,9 +605,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/itchat/" rel="tag"># itchat</a>
+            <a href="/tags/文件格式/" rel="tag"># 文件格式</a>
           
-            <a href="/tags/微信/" rel="tag"># 微信</a>
+            <a href="/tags/PE/" rel="tag"># PE</a>
           
         </div>
       
@@ -528,8 +620,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/小米固件工具mkxqimage/" rel="next" title="小米固件工具mkxqimage">
-                <i class="fa fa-chevron-left"></i> 小米固件工具mkxqimage
+              <a href="/2019/04/21/XIAOMI-UPnP/" rel="next" title="小米路由器_MiniUPnP协议">
+                <i class="fa fa-chevron-left"></i> 小米路由器_MiniUPnP协议
               </a>
             
           </div>
@@ -537,10 +629,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/25/Samba-CVE/" rel="prev" title="小米路由器与Samba漏洞CVE-2017-7494">
-                小米路由器与Samba漏洞CVE-2017-7494 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -703,7 +791,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大杀器itchat"><span class="nav-number">1.</span> <span class="nav-text">大杀器itchat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步尝试"><span class="nav-number">1.2.</span> <span class="nav-text">初步尝试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现定时转发"><span class="nav-number">2.</span> <span class="nav-text">实现定时转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加周期防掉线"><span class="nav-number">3.</span> <span class="nav-text">添加周期防掉线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#把程序放在服务器上"><span class="nav-number">4.</span> <span class="nav-text">把程序放在服务器上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遇到的坑"><span class="nav-number">5.</span> <span class="nav-text">遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程阻塞问题"><span class="nav-number">5.1.</span> <span class="nav-text">线程阻塞问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找不到群组"><span class="nav-number">5.2.</span> <span class="nav-text">找不到群组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维码显示不全"><span class="nav-number">5.3.</span> <span class="nav-text">二维码显示不全</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PE文件格式"><span class="nav-number">1.</span> <span class="nav-text">PE文件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-PE文件与虚拟内存之间的映射"><span class="nav-number">2.</span> <span class="nav-text">0x01 PE文件与虚拟内存之间的映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-number">2.1.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射关系"><span class="nav-number">2.2.</span> <span class="nav-text">映射关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-链接库与函数"><span class="nav-number">3.</span> <span class="nav-text">0x02 链接库与函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-PE文件的结构"><span class="nav-number">4.</span> <span class="nav-text">0x03 PE文件的结构</span></a></li></ol></div>
             
 
           </div>
