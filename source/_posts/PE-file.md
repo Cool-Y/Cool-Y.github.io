@@ -1,9 +1,11 @@
 ---
 title: PE文件格式学习
 date: 2019-05-13 20:37:00
-tags: -PE
+tags:
+- PE
 - 文件格式
-categories: -二进制
+categories:
+- 二进制
 ---
 
 # PE文件格式
