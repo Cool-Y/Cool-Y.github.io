@@ -17,6 +17,8 @@ categories: 二进制
 模糊测试的过程，就好像是一个不断探测系统可以承受的输入极限的过程，让我想起学电子的时候对一个滤波器进行带宽的评估，如果我们知道内部电路原理，那么这个器件对于我们就是白盒了，可以直接通过公式计算理论带宽，现在系统对于我们而言是一个黑盒，我们通过在足够大频率范围内对其不断输入信号，就能测试出其实际带宽。
 
 **模糊测试方法一览**
+
+{% raw %}
 <table>
     <tr>
         <th rowspan=2>基于变种的Fuzzer</th>
@@ -43,6 +45,7 @@ categories: 二进制
         <td>AFL</td>
     </tr>
 </table>
+{% endraw %}
 
 ------------------------------------
 
@@ -79,7 +82,7 @@ AFL的变体和衍生物允许您模糊Python，Go，Rust，OCaml，GCJ Java，�
 
 ------------------------------
 
-# 0x03 [AFL](http://lcamtuf.coredump.cx/afl/)
+# 0x03 [AFL特点](http://lcamtuf.coredump.cx/afl/)
 
 1. **非常复杂**。它是一种插桩器（instrumentation）引导的遗传模糊器，能够在各种非平凡的目标中[合成复杂的文件语义](http://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html)，减少了对专用的语法识别工具的需求。它还带有一个独特的[崩溃浏览器](http://lcamtuf.blogspot.com/2014/11/afl-fuzz-crash-exploration-mode.html)，一个[测试用例最小化器](https://groups.google.com/d/msg/afl-users/eWb2PgjLnUo/8AKqadYzSBoJ)，一个[故障触发分配器](https://groups.google.com/forum/#!topic/afl-users/RW4RF6x9aBc)和一个[语法分析器](https://lcamtuf.blogspot.com/2016/02/say-hello-to-afl-analyze.html) - 使评估崩溃错误的影响变得简单。
 2. **智能**。它围绕一系列经过[精心研究](http://lcamtuf.blogspot.com/2014/08/binary-fuzzing-strategies-what-works.html)，高增益的测试用例预处理和模糊测试策略而构建，在其他模糊测试框架中很少采用与之相当的严格性。结果，它发现了真正的[漏洞](http://lcamtuf.coredump.cx/afl/#bugs)。
