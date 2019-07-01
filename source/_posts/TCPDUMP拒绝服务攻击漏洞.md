@@ -5,7 +5,7 @@ tags:
 - TCPDUMP
 - 拒绝服务攻击
 categories:
-二进制
+- 二进制
 ---
 # TCPDUMP 4.5.1 拒绝服务攻击漏洞分析
 
