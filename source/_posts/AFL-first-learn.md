@@ -1,12 +1,18 @@
 ---
 title: AFL初探
 date: 2019-07-01 17:25:36
-tags: 
+tags:
+- AFL
+- 模糊测试
 categories: 二进制
 ---
 
 接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白
+
+------------------------------------------
+
 # 0x01 模糊测试
+
 首先，模糊测试（Fuzzing）是一种测试手段，它把系统看成一个摸不清内部结构的黑盒，只是向其输入接口随机地发送合法测试用例，这些用例并不是开发者所预期的输入，所以极有可能会造成系统的崩溃，通过分析崩溃信息，测试人员（黑客）就可以评估系统是否存在可利用的漏洞。
 模糊测试的过程，就好像是一个不断探测系统可以承受的输入极限的过程，让我想起学电子的时候对一个滤波器进行带宽的评估，如果我们知道内部电路原理，那么这个器件对于我们就是白盒了，可以直接通过公式计算理论带宽，现在系统对于我们而言是一个黑盒，我们通过在足够大频率范围内对其不断输入信号，就能测试出其实际带宽。
 
@@ -38,7 +44,10 @@ categories: 二进制
     </tr>
 </table>
 
+------------------------------------
+
 # 0x02 [AFL快速入门](http://lcamtuf.coredump.cx/afl/QuickStartGuide.txt)
+
 1）用`make`编译AFL。如果构建失败，请参阅docs / INSTALL以获取提示。
 2）查找或编写一个相当快速和简单的程序，该程序从文件或标准输入中获取数据，以一种有价值的方式处理它，然后干净地退出。如果测试网络服务，请将其修改为在前台运行并从stdin读取。在对使用校验和的格式进行模糊测试时，也要注释掉校验和验证码。
 遇到故障时，程序必须正常崩溃。注意自定义SIGSEGV或SIGABRT处理程序和后台进程。有关检测非崩溃缺陷的提示，请参阅docs/README中的第11节。
@@ -52,6 +61,7 @@ CC = / path / to / afl-gcc CXX = / path / to / afl-g ++ ./configure --disable sh
 `   ./afl-fuzz -i testcase_dir -o findings_dir  -- \ /path/to/tested/program [... program's cmdline ...]`
    如果程序从文件中获取输入，则可以在程序的命令行中输入@@; AFL会为您放置一个自动生成的文件名。
 
+**一些参考文档**
 >[docs/README](http://lcamtuf.coredump.cx/afl/README.txt)  -  AFL的一般介绍，
 >[docs/perf_tips.txt](https://github.com/mirrorer/afl/blob/master/docs/perf_tips.txt)  - 关于如何快速模糊的简单提示，
 >[docs/status_screen.txt](http://lcamtuf.coredump.cx/afl/status_screen.txt)  -  UI中显示的花絮的解释，
@@ -60,19 +70,26 @@ CC = / path / to / afl-gcc CXX = / path / to / afl-g ++ ./configure --disable sh
 >[Technical "whitepaper" for afl-fuzz](http://lcamtuf.coredump.cx/afl/technical_details.txt) - 技术白皮书
 >
 
+**适用环境**
 该工具已确认适用于32位和64位的x86 Linux，OpenBSD，FreeBSD和NetBSD。 它也适用于MacOS X和Solaris，但有一些限制。 它支持用C，C ++或Objective C编写的程序，使用gcc或clang编译。 在Linux上，可选的QEMU模式也允许对黑盒二进制文件进行模糊测试。
 
 AFL的变体和衍生物允许您模糊Python，Go，Rust，OCaml，GCJ Java，内核系统调用，甚至整个虚拟机。 还有一个密切启发的进程模糊器，它在LLVM中运行，并且是一个在Windows上运行的分支。 最后，AFL是[OSS-Fuzz](https://github.com/google/oss-fuzz/)背后的模糊引擎之一。
 
 哦 - 如果你安装了gnuplot，你可以使用afl-plot来获得漂亮的进度图。
 
+------------------------------
+
 # 0x03 [AFL](http://lcamtuf.coredump.cx/afl/)
+
 1. **非常复杂**。它是一种插桩器（instrumentation）引导的遗传模糊器，能够在各种非平凡的目标中[合成复杂的文件语义](http://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html)，减少了对专用的语法识别工具的需求。它还带有一个独特的[崩溃浏览器](http://lcamtuf.blogspot.com/2014/11/afl-fuzz-crash-exploration-mode.html)，一个[测试用例最小化器](https://groups.google.com/d/msg/afl-users/eWb2PgjLnUo/8AKqadYzSBoJ)，一个[故障触发分配器](https://groups.google.com/forum/#!topic/afl-users/RW4RF6x9aBc)和一个[语法分析器](https://lcamtuf.blogspot.com/2016/02/say-hello-to-afl-analyze.html) - 使评估崩溃错误的影响变得简单。
 2. **智能**。它围绕一系列经过[精心研究](http://lcamtuf.blogspot.com/2014/08/binary-fuzzing-strategies-what-works.html)，高增益的测试用例预处理和模糊测试策略而构建，在其他模糊测试框架中很少采用与之相当的严格性。结果，它发现了真正的[漏洞](http://lcamtuf.coredump.cx/afl/#bugs)。
 3. **它很快**。由于其低级编译时间或仅二进制检测和[其他优化](http://lcamtuf.blogspot.com/2014/10/fuzzing-binaries-without-execve.html)，该工具提供了针对常见现实世界目标的近原生或优于原生的模糊测试速度。新增的[持久模式](http://lcamtuf.blogspot.com/2015/06/new-in-afl-persistent-mode.html)允许在最少的代码修改的帮助下，对许多程序进行异常快速的模糊测试。
 4. **可以链接到其他工具**。模糊器可以生成优质，紧凑的测试语料库，可以作为更专业，更慢或劳动密集型流程和测试框架的种子。它还能够与任何其他软件进行即时语料库同步。
 
+------------------------------------
+
 # 0x04 [AFL README](http://lcamtuf.coredump.cx/afl/README.txt)
+
 > Written and maintained by Michal Zalewski <lcamtuf@google.com>
 >
 >   Copyright 2013, 2014, 2015, 2016 Google Inc. All rights reserved.
@@ -235,6 +252,8 @@ https://www.fastly.com/blog/how-to-fuzz-server-american-fuzzy-lop
 -  AFL不输出人类可读的覆盖数据。如果你想监控覆盖，请使用Michael Rash的afl-cov：https：//github.com/mrash/afl-cov
 -  偶尔，敏感的机器会对抗他们的创造者。如果您遇到这种情况，请访问http://lcamt​​uf.coredump.cx/prep/。除此之外，请参阅安装以获取特定于平台的提示。
 
+--------------------------------------
+
 # 0x05 [afl-fuzz白皮书](http://lcamtuf.coredump.cx/afl/technical_details.txt)
 本文档提供了American Fuzzy Lop的简单的概述。想了解一般的使用说明，请参见README 。想了解AFL背后的动机和设计目标，请参见[historical_notes.txt](http://lcamtuf.coredump.cx/afl/historical_notes.txt)。
 ## 0）设计说明(Design statement)
@@ -369,7 +388,7 @@ afl-fuzz内置的修剪器(trimmer)使用变化的长度和步距(variable lengt
 这个修剪器的设计并不算特别地周密(thorough)，相反地，它试着在精确度(precision)和进程调用execve()的次数之间选取一个平衡，找到一个合适的block size和stepover。平均每个文件将增大约5-20%。
 独立的**afl-tmin工具**使用更完整(exhaustive)、迭代次数更多(iteractive)的算法，并尝试对被修剪的文件采用字母标准化的方式处理。
 
-## 6)模糊测试策略(Fuzzing strategies)
+## 6) 模糊测试策略(Fuzzing strategies)
 插桩提供的反馈(feedback)使得我们更容易理解各种不同fuzzing策略的价值，从而优化(optimize)他们的参数。使得他们对不同的文件类型都能同等地进行工作。afl-fuzz用的策略通常是与格式无关（format-agnostic），详细说明在下边的连接中：
 [binary-fuzzing-strategies-what-works](http://lcamtuf.blogspot.com/2014/08/binary-fuzzing-strategies-what-works.html)
 值得注意的一点是，afl-fuzz大部分的(尤其是前期的)工作都是高度确定的(highly deterministic)，随机性修改和测试用例拼接(random stacked modifications和test case splicing)只在后期的部分进行。确定性的策略包括：
@@ -391,7 +410,7 @@ fuzzing的步骤名义上来说是盲目的(nominally blind)，只被输入队�
 当一个新的队列条目，经过初始的确定性fuzzing步骤集合时，并且文件的部分区域被观测到对执行路径的校验和没有影响，这些队列条目在接下来的确定性fuzzing阶段可能会被排除。
 尤其是对那些冗长的数据格式，这可以在保持覆盖率不变的情况下，减少10-40%的执行次数。在一些极端情况下，比如一些block-aligned的tar文件，这个数字可以达到90%。
 
-## 7)字典(Dictionaries)
+## 7) 字典(Dictionaries)
 插桩提供的反馈能够让它自动地识别出一些输入文件中的语法(syntax)符号(tokens)，并且能够为测试器(tested parser)检测到一些组合，这些组合是由预定义(predefined)的或自动检测到的(auto-detected)字典项(dictionary terms)构成的合法语法(valid grammar)。
 关于这些特点在afl-fuzz是如何实现的，可以看一下这个链接：
 [afl-fuzz-making-up-grammar-with](http://lcamtuf.blogspot.com/2015/01/afl-fuzz-making-up-grammar-with.html)
@@ -399,7 +418,7 @@ fuzzing的步骤名义上来说是盲目的(nominally blind)，只被输入队�
 这样构建的字典能够让fuzzer快速地重构非常详细(highly verbose)且复杂的(complex)语法，比如JavaScript, SQL,XML。一些生成SQL语句的例子已经在之前提到的博客中给出了。
 有趣的是，AFL的插桩也允许fuzzer自动地隔离(isolate)已经在输入文件中出现过的句法(syntax)符号(tokens)。
 
-## 8)崩溃去重（De-duping crashes）
+## 8) 崩溃去重（De-duping crashes）
 崩溃去重是fuzzing工具里很重要的问题之一。很多naive的解决方式都会有这样的问题：如果这个错误发生在一个普通的库函数中(如say, strcmp, strcpy)，只关注出错地址(faulting address)的话，那么可能导致一些完全不相关的问题被分在一类(clustered together)。如果错误发生在一些不同的、可能递归的代码路径中，那么校验和(checksumming)调用栈回溯(call stack backtraces)时可能导致crash count inflation(通胀)。
 
 afl-fuzz的解决方案认为满足一下两个条件，那么这个crash就是唯一的(unique)：
@@ -409,7 +428,7 @@ afl-fuzz的解决方案认为满足一下两个条件，那么这个crash就是�
 ```
 这种方式一开始容易受到count inflation的影响，但实验表明其有很强的自我限制效果。和执行路径分析一样，这种崩溃去重的方式是afl-fuzz的基石(cornerstone)。
 
-## 9)崩溃调查(Investigating crashes)
+## 9) 崩溃调查(Investigating crashes)
 不同的crash的可用性(exploitability)是不同的。afl-fuzz提供一个crash的探索模式(exploration mode)来解决这个问题。
 对一个已知的出错测试用例，它被fuzz的方式和正常fuzz的操作没什么不同，但是有一个限制能让任何non-crashing 的变异(mutations)会被丢弃(thrown away)。
 这种方法的意义在以下链接中会进一步讨论：
@@ -418,13 +437,13 @@ afl-fuzz的解决方案认为满足一下两个条件，那么这个crash就是�
 对于crashes来说，值得注意的是和正常的队列条目对比，导致crash的input没有被去掉，为了和它们的父条目（队列中没有导致crash的条目）对比，它们被保存下来，
 这就是说afl-tmin可以被用来随意缩减它们。
 
-## 10)The fork server
+## 10) The fork server
 为了提升性能，afl-fuzz使用了一个"fork server"，fuzz的进程只进行一次execve(), 连接(linking), 库初始化(libc initialization)。fuzz进程通过copy-on-write(写时拷贝技术)从已停止的fuzz进程中clone下来。实现细节在以下链接中：
 [afl-fuzz-crash-exploration-mode](http://lcamtuf.blogspot.com/2014/10/fuzzing-binaries-without-execve.html)
 fork server被集成在了instrumentation的程序下，在第一个instrument函数执行时，fork server就停止并等待afl-fuzz的命令。
 对于需要快速发包的测试，fork server可以提升1.5到2倍的性能。
 
-## 11)并行机制
+## 11) 并行机制
 实现并行的机制是，定期检查不同cpu core或不同机器产生的队列，然后有选择性的把队列中的条目放到test cases中。
 详见： parallel_fuzzing.txt.
 
