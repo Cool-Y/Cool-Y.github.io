@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837250/%E5%8A%A0%E5%A3%B3/9.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837519/%E5%8A%A0%E5%A3%B3/10.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837859/%E5%8A%A0%E5%A3%B3/11.png">
-<meta property="og:updated_time" content="2019-05-17T08:21:24.916Z">
+<meta property="og:updated_time" content="2019-05-18T06:52:27.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pack and unpack">
 <meta name="twitter:description" content="壳是最早出现的一种专用加密软件技术。一些软件会采取加壳保护的方式。壳附加在原始程序上，通过Windows加载器载入内存后，先于原始程序执行，以得到控制权，在执行的过程中对原始程序进行解密还原，然后把控制权还给原始程序，执行原来的代码。加上外壳后，原始程序在磁盘文件中一般是以加密后的形式存在的，只在执行时在内存中还原。这样可以有效防止破解者对程序文件进行非法修改，也可以防止程序被静态反编译。 壳的加">
@@ -396,7 +396,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  3.6k 字
+                  4.3k 字
                 </span>
               
 
@@ -410,7 +410,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  15 分钟
                 </span>
               
             </div>
@@ -443,14 +443,18 @@
 <li>跳转到OEP</li>
 </ol>
 <h1 id="通用脱壳方法"><a href="#通用脱壳方法" class="headerlink" title="通用脱壳方法"></a>通用脱壳方法</h1><p>通常脱壳的基本步骤如下:<br>1:寻找OEP<br>2:转储(PS:传说中的dump)<br>3:修复IAT(修复导入表)<br>4:检查目标程序是否存在AntiDump等阻止程序被转储的保护措施,并尝试修复这些问题。<br>以上是脱壳的经典步骤,可能具体到不同的壳的话会有细微的差别。</p>
-<h2 id="寻找OEP"><a href="#寻找OEP" class="headerlink" title="寻找OEP"></a>寻找OEP</h2><h3 id="搜索JMP或者CALL指令的机器码-即一步直达法-只适用于少数壳-包括UPX-ASPACK壳"><a href="#搜索JMP或者CALL指令的机器码-即一步直达法-只适用于少数壳-包括UPX-ASPACK壳" class="headerlink" title="搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)"></a>搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)</h3><p> 对于一些简单的壳可以用这种方式来定位OEP,但是对于像AsProtect这类强壳(PS:AsProtect在04年算是强壳了,嘿嘿)就不适用了,我们可以直接搜索长跳转JMP(0E9)或者CALL(0E8)这类长转移的机器码,一般情况下(理想情况)壳在解密完原程序各个区段以后,需要一个长JMP或者CALL跳转到原程序代码段中的OEP处开始执行原程序代码。按CTRL+B组合键搜索一下JMP的机器码E9(CTRL+L查看下一个）,看看有没有这样一个JMP跳转到原程序的代码段。</p>
-<h3 id="使用OllyDbg自带的功能定位OEP-SFX法"><a href="#使用OllyDbg自带的功能定位OEP-SFX法" class="headerlink" title="使用OllyDbg自带的功能定位OEP(SFX法)"></a>使用OllyDbg自带的功能定位OEP(SFX法)</h3><p>演示这种方法目标程序我们还是选择CRACKME UPX.EXE,用OD加载该程序,然后选择菜单项Options-Debugging options-SFX。该选项只有当OllyDbg发现壳的入口点位于代码段之外的时候才会起作用,壳的入口点位于代码段中的情况还是比较少见的。</p>
-<h3 id="使用Patch过的OD来定位OEP-即内存映像法"><a href="#使用Patch过的OD来定位OEP-即内存映像法" class="headerlink" title="使用Patch过的OD来定位OEP(即内存映像法)"></a>使用Patch过的OD来定位OEP(即内存映像法)</h3><p>正常的内存访问断点读取,写入,执行的时候都会断下来,该Patch过的OD内存访问断点仅当执行的时候才会断下来,我们可以利用这一点来定位OEP。<br>UPX壳的解密例程会解密原程序的各个区段并将各个区段原始字节写回到原处,我们最好不要在解密区段的过程中断下来,说不定要断成千上万次才能到达OEP,这里有了这个Patch过的OD就方便多了,其内存访问断点仅当执行的时候才会断下来,当其在执行第一个区段中的代码时,基本上就可以断定是OEP了。</p>
-<h3 id="堆栈平衡法-即ESP定律法"><a href="#堆栈平衡法-即ESP定律法" class="headerlink" title="堆栈平衡法(即ESP定律法)"></a>堆栈平衡法(即ESP定律法)</h3><p>这种方法适用于一些古老的壳。这些壳首先会使用PUSHAD指令保存寄存器环境,在解密各个区段完毕,跳往OEP之前,会使用POPAD指令恢复寄存器环境。<br>有的情况下保存寄存器环境可能不是第一条指令,但也在附近了,还有些情况下,有些壳不使用PUSHAD,而是逐一PUSH各个寄存器(例如:PUSH EAX,PUSH EBX等等),总而言之,在解密完区段,跳往OEP之前会恢复寄存器环境。<br>按F7键执行PUSHAD:可以看到各个寄存器的初始值被压入到堆栈中了,这里我们可以对这些初始值设置内存或者硬件访问断点,当解密例程读取这些初始值的时候就会断下来,断下来处基本上就在OEP附近了。<br>这里我们可以通过在ESP寄存器值上面单击鼠标右键选择-Follow in dump在数据窗口中定位到这些寄存器的初始值。对这些初始值的第一个字节或者前4个字节设置硬件访问断点。当壳的解密例程读取该值的时候断了下来，停在popad的下一行,紧接着下面就是跳往OEP处,说明这个方法起作用了。</p>
-<h3 id="VB应用程序定位OEP法-Native-或者-P-CODE"><a href="#VB应用程序定位OEP法-Native-或者-P-CODE" class="headerlink" title="VB应用程序定位OEP法(Native 或者 P-CODE)"></a>VB应用程序定位OEP法(Native 或者 P-CODE)</h3><p>定位VB程序的OEP比较容易,因为VB应用程序都有一个特点-开始都是一个PUSH指令,紧接着一个CALL指令调用一个VB API函数。我们可以使用Patch过的OD,首先定位到VB的动态库,接着给该动态库的代码段设置内存访问断点,<br>当壳的解密例程解密完原程序各个区段,接着就会断在VB DLL的第一条指令处,接着我们可以在堆栈中定位到返回地址,就可以来到OEP的下一条指令处。这里我们也可以使用前面介绍的方法-跟逐一给各个区段设置内存访问断点(使用Patch过的OD),但是很多壳会检测这种方法,所以大家可能根据需要不同的情况来尝试这不同的方法。这种方法很容易理解,我就不举例子了,以后大家如果遇到了VB程序可以试试这种方法。</p>
-<h3 id="最后一次异常法"><a href="#最后一次异常法" class="headerlink" title="最后一次异常法"></a>最后一次异常法</h3><p>如果我们在脱壳的过程中发现目标程序产生大量异常的话,就可以使用最后一次异常法,将EXCEPTIONS菜单项中的忽略各个异常的选项都勾选上,运行起来。这里我们可以看到产生了好几处异常,但是都不是位于第一个区段,说明这些异常不是在原程序运行期间发生的,是在壳的解密例程执行期间产生的异常。重新启动OD,将EXCEPTIONS菜单项中忽略的异常选项的对勾都去掉,仅保留Ignore memory access violations in KERNEL32这个选项的对勾。按SHIFT + F9忽略异常继续运行,我们直到最后一次异常。<br>接着我们可以 <strong><em>对代码段设置内存访问断点</em></strong> ,可能有人会问,为什么不在一开始设置内存访问断点呢?原因是很多壳会检测程序在开始时是否自身被设置内存访问断点,如果执行到了最后一次异常处的话,很可能已经绕过了壳的检测时机！</p>
-<h3 id="用壳最常用的API函数来定位OEP"><a href="#用壳最常用的API函数来定位OEP" class="headerlink" title="用壳最常用的API函数来定位OEP"></a>用壳最常用的API函数来定位OEP</h3><p>将忽略的异常选项都勾选上,我们来定位一下壳最常用的API函数,比如GetProcAddress,LoadLibrary。ExitThread有些壳会用。<br>使用bp GetProcAddress命令给该API函数设置一个断点。我们只需要知道壳在哪些地方调用GetProcAddress,所以我们在断下来的这一行上面单击鼠标右键选择-Breakpoint-Conditional log,来设置条件记录。将Pause program这一项勾选上Never,记录的表达式设置为[ESP],也就是记录返回地址,这样我们就能知道哪些地方调用GetProcAddress。接着在日志窗口中单击鼠标右键选择-Clear Log(清空日志)。运行起来,我们可以看到程序的主窗口弹了出来,打开日志窗口,看看最后一次GetProcAddress(排除掉第一个区段中调用的位置)是在哪里被调用的。<br>我们可以在 <strong><em>对代码段设置内存访问断点</em></strong> 之前尝试一下这种方法,这样就可以绕过很多壳对内存断点的检测,但是有一些壳也会对API函数断点进行检测,所以说我们需要各种方式都尝试一下,找到最合适的。</p>
-<h3 id="利用应用程序调用的第一个API函数来定位OEP"><a href="#利用应用程序调用的第一个API函数来定位OEP" class="headerlink" title="利用应用程序调用的第一个API函数来定位OEP"></a>利用应用程序调用的第一个API函数来定位OEP</h3><h1 id="压缩壳"><a href="#压缩壳" class="headerlink" title="压缩壳"></a>压缩壳</h1><p>压缩壳的特点就是减小软件的体积，加密保护不是重点。目前，兼容性和稳定性较好的压缩壳有UPX、ASPack、PECompact等。</p>
+<h2 id="寻找OEP"><a href="#寻找OEP" class="headerlink" title="寻找OEP"></a>寻找OEP</h2><ol>
+<li>搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)<br>对于一些简单的壳可以用这种方式来定位OEP,但是对于像AsProtect这类强壳(PS:AsProtect在04年算是强壳了,嘿嘿)就不适用了,我们可以直接搜索长跳转JMP(0E9)或者CALL(0E8)这类长转移的机器码,一般情况下(理想情况)壳在解密完原程序各个区段以后,需要一个长JMP或者CALL跳转到原程序代码段中的OEP处开始执行原程序代码。按CTRL+B组合键搜索一下JMP的机器码E9(CTRL+L查看下一个）,看看有没有这样一个JMP跳转到原程序的代码段。</li>
+<li>使用OllyDbg自带的功能定位OEP(SFX法)<br>演示这种方法目标程序我们还是选择CRACKME UPX.EXE,用OD加载该程序,然后选择菜单项Options-Debugging options-SFX。该选项只有当OllyDbg发现壳的入口点位于代码段之外的时候才会起作用,壳的入口点位于代码段中的情况还是比较少见的。</li>
+<li>使用Patch过的OD来定位OEP(即内存映像法)<br>正常的内存访问断点读取,写入,执行的时候都会断下来,该Patch过的OD内存访问断点仅当执行的时候才会断下来,我们可以利用这一点来定位OEP。<br>UPX壳的解密例程会解密原程序的各个区段并将各个区段原始字节写回到原处,我们最好不要在解密区段的过程中断下来,说不定要断成千上万次才能到达OEP,这里有了这个Patch过的OD就方便多了,其内存访问断点仅当执行的时候才会断下来,当其在执行第一个区段中的代码时,基本上就可以断定是OEP了。</li>
+<li>堆栈平衡法(即ESP定律法)<br>这种方法适用于一些古老的壳。这些壳首先会使用PUSHAD指令保存寄存器环境,在解密各个区段完毕,跳往OEP之前,会使用POPAD指令恢复寄存器环境。<br>有的情况下保存寄存器环境可能不是第一条指令,但也在附近了,还有些情况下,有些壳不使用PUSHAD,而是逐一PUSH各个寄存器(例如:PUSH EAX,PUSH EBX等等),总而言之,在解密完区段,跳往OEP之前会恢复寄存器环境。<br>按F7键执行PUSHAD:可以看到各个寄存器的初始值被压入到堆栈中了,这里我们可以对这些初始值设置内存或者硬件访问断点,当解密例程读取这些初始值的时候就会断下来,断下来处基本上就在OEP附近了。<br>这里我们可以通过在ESP寄存器值上面单击鼠标右键选择-Follow in dump在数据窗口中定位到这些寄存器的初始值。对这些初始值的第一个字节或者前4个字节设置硬件访问断点。当壳的解密例程读取该值的时候断了下来，停在popad的下一行,紧接着下面就是跳往OEP处,说明这个方法起作用了。</li>
+<li>VB应用程序定位OEP法(Native 或者 P-CODE)<br>定位VB程序的OEP比较容易,因为VB应用程序都有一个特点-开始都是一个PUSH指令,紧接着一个CALL指令调用一个VB API函数。我们可以使用Patch过的OD,首先定位到VB的动态库,接着给该动态库的代码段设置内存访问断点,<br>当壳的解密例程解密完原程序各个区段,接着就会断在VB DLL的第一条指令处,接着我们可以在堆栈中定位到返回地址,就可以来到OEP的下一条指令处。这里我们也可以使用前面介绍的方法-跟逐一给各个区段设置内存访问断点(使用Patch过的OD),但是很多壳会检测这种方法,所以大家可能根据需要不同的情况来尝试这不同的方法。这种方法很容易理解,我就不举例子了,以后大家如果遇到了VB程序可以试试这种方法。</li>
+<li>最后一次异常法<br>如果我们在脱壳的过程中发现目标程序产生大量异常的话,就可以使用最后一次异常法,将EXCEPTIONS菜单项中的忽略各个异常的选项都勾选上,运行起来。这里我们可以看到产生了好几处异常,但是都不是位于第一个区段,说明这些异常不是在原程序运行期间发生的,是在壳的解密例程执行期间产生的异常。重新启动OD,将EXCEPTIONS菜单项中忽略的异常选项的对勾都去掉,仅保留Ignore memory access violations in KERNEL32这个选项的对勾。按SHIFT + F9忽略异常继续运行,我们直到最后一次异常。<br>接着我们可以 <strong><em>对代码段设置内存访问断点</em></strong> ,可能有人会问,为什么不在一开始设置内存访问断点呢?原因是很多壳会检测程序在开始时是否自身被设置内存访问断点,如果执行到了最后一次异常处的话,很可能已经绕过了壳的检测时机！</li>
+<li>用壳最常用的API函数来定位OEP<br>将忽略的异常选项都勾选上,我们来定位一下壳最常用的API函数,比如GetProcAddress,LoadLibrary。ExitThread有些壳会用。<br>使用bp GetProcAddress命令给该API函数设置一个断点。我们只需要知道壳在哪些地方调用GetProcAddress,所以我们在断下来的这一行上面单击鼠标右键选择-Breakpoint-Conditional log,来设置条件记录。将Pause program这一项勾选上Never,记录的表达式设置为[ESP],也就是记录返回地址,这样我们就能知道哪些地方调用GetProcAddress。接着在日志窗口中单击鼠标右键选择-Clear Log(清空日志)。运行起来,我们可以看到程序的主窗口弹了出来,打开日志窗口,看看最后一次GetProcAddress(排除掉第一个区段中调用的位置)是在哪里被调用的。<br>我们可以在 <strong><em>对代码段设置内存访问断点</em></strong> 之前尝试一下这种方法,这样就可以绕过很多壳对内存断点的检测,但是有一些壳也会对API函数断点进行检测,所以说我们需要各种方式都尝试一下,找到最合适的。</li>
+<li>利用应用程序调用的第一个API函数来定位OEP</li>
+</ol>
+<h2 id="IAT表修复"><a href="#IAT表修复" class="headerlink" title="IAT表修复"></a>IAT表修复</h2><p>为了确保操作系统将正确的API函数地址填充到IAT中,应该满足一下几点要求:<br>1:可执行文件各IAT项所在的文件偏移处必须是一个指针,指向一个字符串。<br>2:该字符串为API函数的名称。<br>如果这两项满足,就可以确保程序在启动时,操作系统会将正确的API函数地址填充到IAT中。<br>假如,我们当前位于被加壳程序的OEP处,我们接下来可以将程序dump出来,但是在dump之前我们必须修复IAT,为什么要修复IAT呢?难道壳将IAT破坏了吗?对,的确是这样,壳压根不需要原程序的IAT,因为被加壳程序首先会执行解密例程,读取IAT中所需要的API的名称指针,然后定位到API函数地址,将其填入到IAT中,这个时候,IAT中已经被填充了正确的API函数地址,对应的API函数名称的字符串已经不需要了,可以清除掉。<br>大部分的壳会将API函数名称对应的字符串以密文的形式保存到某个地址处,让Cracker们不能那么容易找到它们。</p>
+<h1 id="压缩壳"><a href="#压缩壳" class="headerlink" title="压缩壳"></a>压缩壳</h1><p>压缩壳的特点就是减小软件的体积，加密保护不是重点。目前，兼容性和稳定性较好的压缩壳有UPX、ASPack、PECompact等。</p>
 <h2 id="UPX"><a href="#UPX" class="headerlink" title="UPX"></a><a href="https://upx.github.io/" target="_blank" rel="noopener">UPX</a></h2><p>UPX-the Ultimate Packer for eXecutables是以命令行方式操作的可执行文件压缩程序。<br>UPX早期的压缩引擎是有UPX自己实现的，其3.x版本也支持LZMA第三方压缩引擎。UPX除了对目标程序进行压缩，也可以解压缩。它不包含任何反调试或保护策略。另外，UPX保护工具UPXPR、UPX-sCRAMBLER等可修改UPX加壳标志，使其自解压功能失效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage: upx [-123456789dlthVL] [-qvfk] [-o file] file</span><br></pre></td></tr></table></figure></p>
 <h3 id="识别UPX加壳"><a href="#识别UPX加壳" class="headerlink" title="识别UPX加壳"></a>识别UPX加壳</h3><p>被加壳程序：点击按钮之后弹框</p>
 <ol>
@@ -470,8 +474,11 @@
 </li>
 </ol>
 <h3 id="UPX手动脱壳"><a href="#UPX手动脱壳" class="headerlink" title="UPX手动脱壳"></a>UPX手动脱壳</h3><p>根据 <strong><em>栈平衡原理</em></strong> 寻找OEP<br>在编写加壳软件时，必须保证外壳初始化的现场环境（各寄存器值）与原程序的现场环境相同。因此，加壳程序在初始化时保存各寄存器的值，待外壳执行完毕后恢复寄存器的内容，最后跳转到原程序执行。通常用pushad（push eax/ecx/edx/ebx/esp/ebp/esi/edi）、popad来保存和恢复现场环境。<br>首先用Ollydbg加载已加壳的程序，起始代码如下：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557836854/%E5%8A%A0%E5%A3%B3/7.png" alt><br>此时现场环境（寄存器值）如下：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837144/%E5%8A%A0%E5%A3%B3/8.png" alt><br>在执行pushad指令后，寄存器的值被压入栈中，如下所示：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837250/%E5%8A%A0%E5%A3%B3/9.png" alt><br>此时esp指向12FFA4h，对这个地址设置硬件访问断点，然后运行程序，在调用popad恢复现场环境时会访问12FFA4h，造成中断，此时离OEP已经不远了：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837519/%E5%8A%A0%E5%A3%B3/10.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">005B5155   .- E9 9506F4FF   jmp carckUPX.004F57EF</span><br></pre></td></tr></table></figure></p>
-<p>即为跳转到OEP的指令，设置断点，跟进到004F57EF<br>然后就可以使用Ollydump进行程序脱壳和IAT表修复。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837859/%E5%8A%A0%E5%A3%B3/11.png" alt></p>
-<p>使用PEiD检查，果然壳已经脱掉！</p>
+<p>即为跳转到OEP的指令，设置断点，跟进到004F57EF，此时我们就来到了OEP。<br>dump和修复IAT表的工具很多。</p>
+<ol>
+<li>使用Ollydump进行程序脱壳和IAT表修复。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1557837859/%E5%8A%A0%E5%A3%B3/11.png" alt><br>使用PEiD检查，果然壳已经脱掉！</li>
+<li>使用PETools dump和Import Reconstruct修复IAT<br>使用PETools出来的程序不能运行，提示win32无法识别，这是因为IAT表没有重建。<br>使用Import Reconstruct需要知道IAT表的起始位置。<br>我们知道API函数的调用通常是通过间接跳转或者间接CALL来实现的。<br>即JMP [XXXXXXX] or CALL [XXXXXX]，这样是直接调用IAT中保存的API函数地址。<br>首先，定位到获取IAT中函数地址的跳转表,这里就是该程序将要调用到的一些API函数,我们可以看到这些跳转指令的都是以机器码FF 25开头的,有些教程里面说直接搜索二进制FF 25就可以快速的定位该跳表。<br>看到整个IAT后,我们直接下拉到IAT的尾部,我们知道属于同一个动态库的API函数地址都是连续存放的,不同的动态库函数地址列表是用零隔开的。<br>Import REConstructor重建IAT需要三项指标:<br>1)IAT的起始地址,这里是403184,减去映像基址400000就得到了3184(RVA:相对虚拟地址)。<br>2)IAT的大小<br>IAT的大小 = 40328C - 403184 = 108(十六进制)<br>3)OEP = 401000(虚拟地址)- 映像基址400000 = 1000(OEP的RVA)。</li>
+</ol>
 <h2 id="ASPack"><a href="#ASPack" class="headerlink" title="ASPack"></a><a href="http://www.aspack.com/" target="_blank" rel="noopener">ASPack</a></h2><p>ASPack是一款Win32可执行文件压缩软件，可压缩Win32可执行文件EXE、DLL、OCX，具有很高的兼容性和稳定性。</p>
 <h1 id="加密壳"><a href="#加密壳" class="headerlink" title="加密壳"></a>加密壳</h1><p>加密壳种类较多，一些壳只保护程序，另一些壳提供额外的功能如注册、使用次数、时间限制。越有名的加密壳，其破解可能性越大。</p>
 <h2 id="ASProtect"><a href="#ASProtect" class="headerlink" title="ASProtect"></a>ASProtect</h2><p>这个壳在pack界当选老大是毫无异议的，当然这里的老大不仅指它的加密强度，而是在于它开创了壳的新时代，SEH,BPM断点的清除都出自这里，更为有名的当属RSA的使用，使得Demo版无法被crack成完整版本,code_dips也源于这里。IAT的处理即使到到现在看来也是很强的。他的特长在于各种加密算法的运用，这也是各种壳要学习的地方。<br>它可以压缩、加密、反跟踪代码、CRC校验和花指令等保护措施。<br>使用Blowfish、Twofish、TEA等加密算法，以RSA1024为注册密钥生成器，通过API钩子与加壳程序通信。<br>ASProtect为软件开发人员提供了SDK，从而实现了加密程序的内外结合。<br>ASProtect 1.x系列，低版本用Stripper工具可自动脱壳。ASProtect的SKE系列主要在protect OEP和SDK上采用了虚拟机技术。</p>
@@ -544,6 +551,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/01/AFL-first-learn/" rel="prev" title="AFL初探">
+                AFL初探 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -629,7 +640,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -706,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#壳的加载过程"><span class="nav-number">1.</span> <span class="nav-text">壳的加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用脱壳方法"><span class="nav-number">2.</span> <span class="nav-text">通用脱壳方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找OEP"><span class="nav-number">2.1.</span> <span class="nav-text">寻找OEP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索JMP或者CALL指令的机器码-即一步直达法-只适用于少数壳-包括UPX-ASPACK壳"><span class="nav-number">2.1.1.</span> <span class="nav-text">搜索JMP或者CALL指令的机器码(即一步直达法,只适用于少数壳,包括UPX,ASPACK壳)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用OllyDbg自带的功能定位OEP-SFX法"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用OllyDbg自带的功能定位OEP(SFX法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Patch过的OD来定位OEP-即内存映像法"><span class="nav-number">2.1.3.</span> <span class="nav-text">使用Patch过的OD来定位OEP(即内存映像法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆栈平衡法-即ESP定律法"><span class="nav-number">2.1.4.</span> <span class="nav-text">堆栈平衡法(即ESP定律法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VB应用程序定位OEP法-Native-或者-P-CODE"><span class="nav-number">2.1.5.</span> <span class="nav-text">VB应用程序定位OEP法(Native 或者 P-CODE)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后一次异常法"><span class="nav-number">2.1.6.</span> <span class="nav-text">最后一次异常法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用壳最常用的API函数来定位OEP"><span class="nav-number">2.1.7.</span> <span class="nav-text">用壳最常用的API函数来定位OEP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用应用程序调用的第一个API函数来定位OEP"><span class="nav-number">2.1.8.</span> <span class="nav-text">利用应用程序调用的第一个API函数来定位OEP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩壳"><span class="nav-number">3.</span> <span class="nav-text">压缩壳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UPX"><span class="nav-number">3.1.</span> <span class="nav-text">UPX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#识别UPX加壳"><span class="nav-number">3.1.1.</span> <span class="nav-text">识别UPX加壳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UPX手动脱壳"><span class="nav-number">3.1.2.</span> <span class="nav-text">UPX手动脱壳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPack"><span class="nav-number">3.2.</span> <span class="nav-text">ASPack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加密壳"><span class="nav-number">4.</span> <span class="nav-text">加密壳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ASProtect"><span class="nav-number">4.1.</span> <span class="nav-text">ASProtect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加密后的特征"><span class="nav-number">4.1.1.</span> <span class="nav-text">加密后的特征</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#壳的加载过程"><span class="nav-number">1.</span> <span class="nav-text">壳的加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用脱壳方法"><span class="nav-number">2.</span> <span class="nav-text">通用脱壳方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找OEP"><span class="nav-number">2.1.</span> <span class="nav-text">寻找OEP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IAT表修复"><span class="nav-number">2.2.</span> <span class="nav-text">IAT表修复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩壳"><span class="nav-number">3.</span> <span class="nav-text">压缩壳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UPX"><span class="nav-number">3.1.</span> <span class="nav-text">UPX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#识别UPX加壳"><span class="nav-number">3.1.1.</span> <span class="nav-text">识别UPX加壳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UPX手动脱壳"><span class="nav-number">3.1.2.</span> <span class="nav-text">UPX手动脱壳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPack"><span class="nav-number">3.2.</span> <span class="nav-text">ASPack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加密壳"><span class="nav-number">4.</span> <span class="nav-text">加密壳</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ASProtect"><span class="nav-number">4.1.</span> <span class="nav-text">ASProtect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加密后的特征"><span class="nav-number">4.1.1.</span> <span class="nav-text">加密后的特征</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -738,7 +749,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">29.5k</span>
+    <span title="Site words total count">41.4k</span>
   
 </div>
 
