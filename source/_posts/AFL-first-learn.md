@@ -268,9 +268,9 @@ operation)，也不是一个针对任何特定理论的概念验证(proof of con
 在编译过的程序中插桩能够捕获分支（边缘）的覆盖率，并且还能检测到粗略的分支执行命中次数(branch-taken hit counts)。在分支点注入的代码大致如下：
 
 ```
-  cur_location = <COMPILE_TIME_RANDOM>;
-  shared_mem[cur_location ^ prev_location]++;
-  prev_location = cur_location >> 1;
+  cur_location = <COMPILE_TIME_RANDOM>;            //用一个随机数标记当前基本块
+  shared_mem[cur_location ^ prev_location]++;        //将当前块和前一块异或保存到shared_mem[]
+  prev_location = cur_location >> 1;                //cur_location右移1位区分从当前块到当前块的转跳
 ```
 cur_location的值是随机产生的，为的是简化连接复杂对象的过程和保持XOR输出分布是均匀的。
 shared_mem[] 数组是一个调用者 (caller) 传给被插桩的二进制程序的64kB的共享空间。其中的每一字节可以理解成对于插桩代码中特别的元组(branch_src, branch_dst)的一次命中（hit）。
@@ -290,7 +290,7 @@ shared_mem[] 数组是一个调用者 (caller) 传给被插桩的二进制程序
 >   A -> B -> D -> C -> E (tuples: AB, BD, DC, CE)
 >   
 这有助于发现底层代码的微小错误条件。因为安全漏洞通常是一些非预期(或不正确)的语句转移(一个tuple就是一个语句转移)，而不是没覆盖到某块代码。
-上边伪代码的最后一行移位操作是为了让tuple具有定向性(没有这一行的话，A^B和B^A就没区别了，同样，A^A和B^B也没区别了)。采用左移的原因跟Intel CPU的一些特性有关。
+上边伪代码的最后一行移位操作是为了让tuple具有定向性(没有这一行的话，A^B和B^A就没区别了，同样，A^A和B^B也没区别了)。采用右移的原因跟Intel CPU的一些特性有关。
 
 ## 2）发现新路径(Detecting new behaviors)
 AFL的fuzzers使用一个**全局Map**来存储之前执行时看到的tuple。这些数据可以被用来对不同的trace进行快速对比，从而可以计算出是否新执行了一个dword指令/一个qword-wide指令/一个简单的循环。

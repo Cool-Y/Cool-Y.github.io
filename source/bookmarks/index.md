@@ -28,7 +28,7 @@ comments: false
 > [codeforces](http://codeforces.com/)&nbsp; [leetcode](https://leetcode-cn.com/)
 
 ## 工具
-> [mitmproxy](https://mitmproxy.org/)&nbsp; [msfvenom](https://www.offensive-security.com/metasploit-unleashed/msfvenom/)&nbsp; [shellphish](https://github.com/shellphish)&nbsp; [KALItools](https://tools.kali.org/)
+> [mitmproxy](https://mitmproxy.org/)&nbsp; [msfvenom](https://www.offensive-security.com/metasploit-unleashed/msfvenom/)&nbsp; [shellphish](https://github.com/shellphish)&nbsp; [KALItools](https://tools.kali.org/)&nbsp;[valgrind-内存泄露扫描利器](http://www.valgrind.org/)
 
 ## 资源下载
 > [Emoji表情](https://emojipedia.org/)&nbsp;  [Apk镜像](https://www.apkmirror.com/)
