@@ -53,14 +53,14 @@ categories: 二进制
 
 1）用`make`编译AFL。如果构建失败，请参阅docs / INSTALL以获取提示。
 2）查找或编写一个相当快速和简单的程序，该程序从***文件或标准输入***中获取数据，以一种有价值的方式处理它，然后干净地退出。如果测试网络服务，请将其修改为在前台运行并从stdin读取。在对使用校验和的格式进行模糊测试时，也要注释掉校验和验证码。
-遇到故障时，程序必须正常崩溃。注意自定义SIGSEGV或SIGABRT处理程序和后台进程。有关检测非崩溃缺陷的提示，请参阅```docs/README```中的第11节。
+遇到故障时，程序必须正常崩溃。注意自定义SIGSEGV或SIGABRT处理程序和后台进程。有关检测非崩溃缺陷的提示，请参阅`docs/README`中的第11节。
 3）使用afl-gcc编译要模糊的程序/库。一种常见的方法是：
 ```
 $ CC = /path/to/afl-gcc CXX =/path/to/afl-g++ ./configure --disable-shared
 $ make clean all
 ```
 如果程序构建失败，请联系 <afl-users@googlegroups.com>。
-4）获取一个对程序有意义的小而有效的输入文件。在模糊详细语法（SQL，HTTP等）时，也要创建字典，如```dictionaries/README.dictionaries```中所述。
+4）获取一个对程序有意义的小而有效的输入文件。在模糊详细语法（SQL，HTTP等）时，也要创建字典，如`dictionaries/README.dictionaries`中所述。
 5）如果程序从stdin读取，则运行`afl-fuzz`，如下所示：
 `./afl-fuzz -i testcase_dir -o findings_dir  -- /path/to/tested/program [... program's cmdline ...] `
    如果程序从文件中获取输入，则可以在程序的命令行中输入@@; AFL会为您放置一个自动生成的文件名。
