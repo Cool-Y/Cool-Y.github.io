@@ -1,5 +1,5 @@
 ---
-title: AFL初次实践
+title: AFL-爱之初体验
 date: 2019-07-09 14:46:07
 tags:
 - AFL
@@ -32,7 +32,7 @@ categories: 二进制
 
 -------------
 
-# 白盒测试
+# 0x01白盒测试
 ## 目标程序编译
 1. 源代码
 ```
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 ```
 
 2. gcc编译（不插桩）
-```-fprofile-arcs -ftest-coverage
+```
 $ gcc v1.c -o v1
 $ ./v1
 what
@@ -265,7 +265,6 @@ $ tree ../vuln/out/
 ## 崩溃类型和可利用性
 1. triage_crashes
 AFL源码的experimental目录中有一个名为triage_crashes.sh的脚本，可以帮助我们触发收集到的crashes。例如下面的例子中，11代表了SIGSEGV信号，有可能是因为缓冲区溢出导致进程引用了无效的内存；06代表了SIGABRT信号，可能是执行了abort\assert函数或double free导致，这些结果可以作为简单的参考。
-
 ```
 $ experimental/crash_triage/triage_crashes.sh ../vuln/out/ ../vuln/v1-afl 2>&1 | grep SIGNAL
 +++ ID 000000, SIGNAL 11 +++
@@ -295,7 +294,7 @@ $ afl-collect -d crashes.db -e gdb_script -j 8 -r ../vuln/out/ ../vuln/testcase 
 
 -------------
 
-# 代码覆盖率及其相关概念
+# 0x02代码覆盖率及其相关概念
 > 代码覆盖率是模糊测试中一个极其重要的概念，使用代码覆盖率可以评估和改进测试过程，执行到的代码越多，找到bug的可能性就越大，毕竟，在覆盖的代码中并不能100%发现bug，在未覆盖的代码中却是100%找不到任何bug的。
 > 代码覆盖率是一种度量代码的覆盖程度的方式，也就是指源代码中的某行代码是否已执行；对二进制程序，还可将此概念理解为汇编代码中的某条指令是否已执行。其计量方式很多，但无论是GCC的GCOV还是LLVM的SanitizerCoverage，都提供函数（function）、基本块（basic-block）、边界（edge）三种级别的覆盖率检测。
 
@@ -303,6 +302,7 @@ $ afl-collect -d crashes.db -e gdb_script -j 8 -r ../vuln/out/ ../vuln/testcase 
 **GCOV**：插桩生成覆盖率 **LCOV**：图形展示覆盖率 **afl-cov**：调用前两个工具计算afl测试用例的覆盖率
 
 1. gcc插桩
+**-fprofile-arcs -ftest-coverage**
 ```
 $ gcc -fprofile-arcs -ftest-coverage ./v1.c -o v1-cov
 ```
@@ -356,7 +356,7 @@ $ ../afl-2.52b/afl-cov/afl-cov -d ./out/ --enable-branch-coverage -c . -e "cat A
 
 ------------------
 
-# 黑盒测试（使用qemu
+# 0x03黑盒测试（使用qemu
 
 ```
 $ ./afl-fuzz -i ../vuln/testcase/ -o ../vuln/outQemu -Q ../vuln/v1
