@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AFL,模糊测试,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。参考：https://paper.seebug.org/841/#_1 部署afl  123456&amp;gt; wget http://lcamtuf.coredump.cx/afl/releases/">
+<meta name="keywords" content="AFL,模糊测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFL初次实践">
+<meta property="og:url" content="https://cool-y.github.io/2019/07/09/afl-first-try/index.html">
+<meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。参考：https://paper.seebug.org/841/#_1 部署afl  123456&amp;gt; wget http://lcamtuf.coredump.cx/afl/releases/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562570048/afl/1.png">
+<meta property="og:updated_time" content="2019-07-09T06:47:08.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AFL初次实践">
+<meta name="twitter:description" content="这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。参考：https://paper.seebug.org/841/#_1 部署afl  123456&amp;gt; wget http://lcamtuf.coredump.cx/afl/releases/">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562570048/afl/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cool-y.github.io/2019/07/09/afl-first-try/">
+
+
+
+
+
+  <title>AFL初次实践 | 混元霹雳手</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">混元霹雳手</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmarks">
+          <a href="/bookmarks/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-map"></i> <br>
+            
+            书签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/07/09/afl-first-try/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AFL初次实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T14:46:07+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/二进制/" itemprop="url" rel="index">
+                    <span itemprop="name">二进制</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/09/afl-first-try/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/09/afl-first-try/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/09/afl-first-try/" class="leancloud_visitors" data-flag-title="AFL初次实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  3.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。<br>参考：<a href="https://paper.seebug.org/841/#_1" target="_blank" rel="noopener">https://paper.seebug.org/841/#_1</a></p>
+<p><strong>部署afl</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; wget http://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz</span><br><span class="line">&gt; tar -zxvf afl-latest.tgz</span><br><span class="line">&gt; cd afl-2.52b/</span><br><span class="line">&gt; make</span><br><span class="line">&gt; sudo make install</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>部署qemu</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ CPU_TARGET=x86_64 ./build_qemu_support.sh</span><br><span class="line">&gt; [+] Build process successful!</span><br><span class="line">&gt; [*] Copying binary...</span><br><span class="line">&gt; -rwxr-xr-x 1 han han 10972920 7月   9 10:43 ../afl-qemu-trace</span><br><span class="line">&gt; [+] Successfully created &apos;../afl-qemu-trace&apos;.</span><br><span class="line">&gt; [!] Note: can&apos;t test instrumentation when CPU_TARGET set.</span><br><span class="line">&gt; [+] All set, you can now (hopefully) use the -Q mode in afl-fuzz!</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<hr>
+<h1 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h1><h2 id="目标程序编译"><a href="#目标程序编译" class="headerlink" title="目标程序编译"></a>目标程序编译</h2><ol>
+<li><p>源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#undef _FORTIFY_SOURCE</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void vulnerable_function() &#123;</span><br><span class="line">	char buf[128];</span><br><span class="line">	read(STDIN_FILENO, buf, 256);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv) &#123;</span><br><span class="line">	vulnerable_function();</span><br><span class="line">	write(STDOUT_FILENO, &quot;Hello, World\n&quot;, 13);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gcc编译（不插桩）</p>
+<figure class="highlight plain"><figcaption><span>-ftest-coverage</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gcc v1.c -o v1</span><br><span class="line">$ ./v1</span><br><span class="line">what</span><br><span class="line">Hello, World</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>生成v1的目的一是为了和afl-gcc的编译做对比，二是为黑盒测试做铺垫。</p>
+<ol start="3">
+<li>使用afl-gcc进行编译<br><em>-fno-stack-protector 该选项会禁止stack canary保护<br>-z execstack 允许堆栈可执行</em><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ../afl-2.52b/afl-gcc -fno-stack-protector -z execstack v1.c -o v1-afl   </span><br><span class="line">afl-cc 2.52b by &lt;lcamtuf@google.com&gt;</span><br><span class="line">afl-as 2.52b by &lt;lcamtuf@google.com&gt;</span><br><span class="line">[+] Instrumented 2 locations (64-bit, non-hardened mode, ratio 100%).</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="测试插桩程序"><a href="#测试插桩程序" class="headerlink" title="测试插桩程序"></a>测试插桩程序</h2><p><strong>afl-showmap</strong> 跟踪单个输入的执行路径，并打印程序执行的输出、捕获的元组（tuples），tuple用于获取分支信息，从而衡量衡量程序覆盖情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-showmap -o /dev/null -- ../vuln/v1  &lt;&lt;(echo test)</span><br><span class="line">afl-showmap 2.52b by &lt;lcamtuf@google.com&gt;</span><br><span class="line">[*] Executing &apos;../vuln/v1&apos;...</span><br><span class="line"></span><br><span class="line">-- Program output begins --</span><br><span class="line">Hello, World</span><br><span class="line">-- Program output ends --</span><br><span class="line"></span><br><span class="line">[-] PROGRAM ABORT : No instrumentation detected</span><br><span class="line">         Location : main(), afl-showmap.c:773</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-showmap -o /dev/null -- ../vuln/v1-afl &lt;&lt;(echo test)</span><br><span class="line">afl-showmap 2.52b by &lt;lcamtuf@google.com&gt;</span><br><span class="line">[*] Executing &apos;../vuln/v1-afl&apos;...</span><br><span class="line"></span><br><span class="line">-- Program output begins --</span><br><span class="line">Hello, World</span><br><span class="line">-- Program output ends --</span><br><span class="line">[+] Captured 1 tuples in &apos;/dev/null&apos;.</span><br></pre></td></tr></table></figure>
+<p>可见，afl-gcc相对于gcc的不同在于采用了插桩计算覆盖率，在这个实例程序中捕捉到了一个元组</p>
+<h2 id="执行FUZZER"><a href="#执行FUZZER" class="headerlink" title="执行FUZZER"></a>执行FUZZER</h2><ol>
+<li>修改core<br>在执行afl-fuzz前，如果系统配置为将核心转储文件（core）通知发送到外部程序。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-fuzz  -i ../vuln/testcase/ -o ../vuln/out/ ../vuln/v1-afl</span><br><span class="line">afl-fuzz 2.52b by &lt;lcamtuf@google.com&gt;</span><br><span class="line">[+] You have 2 CPU cores and 2 runnable tasks (utilization: 100%).</span><br><span class="line">[*] Checking CPU core loadout...</span><br><span class="line">[+] Found a free CPU core, binding to #0.</span><br><span class="line">[*] Checking core_pattern...</span><br><span class="line"></span><br><span class="line">[-] Hmm, your system is configured to send core dump notifications to an</span><br><span class="line">    external utility. This will cause issues: there will be an extended delay</span><br><span class="line">    between stumbling upon a crash and having this information relayed to the</span><br><span class="line">    fuzzer via the standard waitpid() API.</span><br><span class="line"></span><br><span class="line">    To avoid having crashes misinterpreted as timeouts, please log in as root</span><br><span class="line">    and temporarily modify /proc/sys/kernel/core_pattern, like so:</span><br><span class="line"></span><br><span class="line">    echo core &gt;/proc/sys/kernel/core_pattern</span><br><span class="line"></span><br><span class="line">[-] PROGRAM ABORT : Pipe at the beginning of &apos;core_pattern&apos;</span><br><span class="line">         Location : check_crash_handling(), afl-fuzz.c:7275</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>将导致将崩溃信息发送到Fuzzer之间的延迟增大，进而可能将崩溃被误报为超时，所以我们得临时修改core_pattern文件，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo core &gt;/proc/sys/kernel/core_pattern</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>通用fuzz语法<br>afl-fuzz对于直接从stdin接受输入的目标二进制文件，通常的语法是：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-fuzz -i testcase_dir -o findings_dir / path / to / program [... params ...]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>对于从文件中获取输入的程序，使用“@@”标记目标命令行中应放置输入文件名的位置。模糊器将替换为您：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-fuzz -i testcase_dir -o findings_dir / path / to / program @@</span><br></pre></td></tr></table></figure></p>
+<p>此时afl会给我们返回一些信息，这里提示我们有些测试用例无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">afl-fuzz 2.52b by &lt;lcamtuf@google.com&gt;</span><br><span class="line">[+] You have 2 CPU cores and 2 runnable tasks (utilization: 100%).</span><br><span class="line">[*] Checking CPU core loadout...</span><br><span class="line">[+] Found a free CPU core, binding to #0.</span><br><span class="line">[*] Checking core_pattern...</span><br><span class="line">[*] Setting up output directories...</span><br><span class="line">[+] Output directory exists but deemed OK to reuse.</span><br><span class="line">[*] Deleting old session data...</span><br><span class="line">[+] Output dir cleanup successful.</span><br><span class="line">[*] Scanning &apos;../vuln/testcase/&apos;...</span><br><span class="line">[+] No auto-generated dictionary tokens to reuse.</span><br><span class="line">[*] Creating hard links for all input files...</span><br><span class="line">[*] Validating target binary...</span><br><span class="line">[*] Attempting dry run with &apos;id:000000,orig:1&apos;...</span><br><span class="line">[*] Spinning up the fork server...</span><br><span class="line">[+] All right - fork server is up.</span><br><span class="line">    len = 3, map size = 1, exec speed = 295 us</span><br><span class="line">[*] Attempting dry run with &apos;id:000001,orig:2&apos;...</span><br><span class="line">    len = 23, map size = 1, exec speed = 125 us</span><br><span class="line">[!] WARNING: No new instrumentation output, test case may be useless.</span><br><span class="line">[+] All test cases processed.</span><br><span class="line"></span><br><span class="line">[!] WARNING: Some test cases look useless. Consider using a smaller set.</span><br><span class="line">[+] Here are some useful stats:</span><br><span class="line"></span><br><span class="line">    Test case count : 1 favored, 0 variable, 2 total</span><br><span class="line">       Bitmap range : 1 to 1 bits (average: 1.00 bits)</span><br><span class="line">        Exec timing : 125 to 295 us (average: 210 us)</span><br><span class="line"></span><br><span class="line">[*] No -t option specified, so I&apos;ll use exec timeout of 20 ms.</span><br><span class="line">[+] All set and ready to roll!</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>状态窗口<br>我们可以看到afl很快就给我们制造了崩溃</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">                       american fuzzy lop 2.52b (v1-afl)</span><br><span class="line"></span><br><span class="line">┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐</span><br><span class="line">│        run time : 0 days, 0 hrs, 4 min, 19 sec       │  cycles done : 2477   │</span><br><span class="line">│   last new path : 0 days, 0 hrs, 2 min, 27 sec       │  total paths : 3      │</span><br><span class="line">│ last uniq crash : 0 days, 0 hrs, 4 min, 19 sec       │ uniq crashes : 1      │</span><br><span class="line">│  last uniq hang : 0 days, 0 hrs, 2 min, 12 sec       │   uniq hangs : 1      │</span><br><span class="line">├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤</span><br><span class="line">│  now processing : 2 (66.67%)        │    map density : 0.00% / 0.00%         │</span><br><span class="line">│ paths timed out : 0 (0.00%)         │ count coverage : 1.00 bits/tuple       │</span><br><span class="line">├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤</span><br><span class="line">│  now trying : havoc                 │ favored paths : 1 (33.33%)             │</span><br><span class="line">│ stage execs : 1433/1536 (93.29%)    │  new edges on : 2 (66.67%)             │</span><br><span class="line">│ total execs : 2.32M                 │ total crashes : 93.1k (1 unique)       │</span><br><span class="line">│  exec speed : 0.00/sec (zzzz...)    │  total tmouts : 8 (1 unique)           │</span><br><span class="line">├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤</span><br><span class="line">│   bit flips : 0/1152, 0/1149, 0/1143                │    levels : 2          │</span><br><span class="line">│  byte flips : 0/144, 0/14, 0/10                     │   pending : 0          │</span><br><span class="line">│ arithmetics : 0/888, 0/25, 0/0                      │  pend fav : 0          │</span><br><span class="line">│  known ints : 0/98, 0/390, 0/440                    │ own finds : 1          │</span><br><span class="line">│  dictionary : 0/0, 0/0, 0/0                         │  imported : n/a        │</span><br><span class="line">│       havoc : 2/1.50M, 0/819k                       │ stability : 100.00%    │</span><br><span class="line">│        trim : 11.88%/64, 80.00%                     ├────────────────────────┘</span><br><span class="line">└─────────────────────────────────────────────────────┘          [cpu000:102%] │</span><br><span class="line">│ stage execs : 1432/1536 (93.23%)    │  new edges on : 2 (66.67%)             │</span><br><span class="line">+++ Testing aborted by user +++       │ total crashes : 93.1k (1 unique)       │</span><br><span class="line">[+] We&apos;re done here. Have a nice day! │  total tmouts : 8 (1 unique)           │</span><br><span class="line">├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤</span><br></pre></td></tr></table></figure>
+<p>由上面AFL状态窗口：<br>① Process timing:Fuzzer运行时长、以及距离最近发现的路径、崩溃和挂起（超时）经过了多长时间。<br>已经运行4m19s，距离上一个最新路径已经过去2min27s，距离上一个独特崩溃已经过去4min19s（可见找到崩溃的速度非常快），距离上一次挂起已经过去2m12s。</p>
+<p>② Overall results：Fuzzer当前状态的概述。</p>
+<p>③ Cycle progress：我们输入队列的距离。队列一共有3个用例，现在是第二个，66.67%</p>
+<p>④ Map coverage：目标二进制文件中的插桩代码所观察到覆盖范围的细节。</p>
+<p>⑤ Stage progress：Fuzzer现在正在执行的文件变异策略、执行次数和执行速度。</p>
+<p>⑥ Findings in depth：有关我们找到的执行路径，异常和挂起数量的信息。</p>
+<p>⑦ Fuzzing strategy yields：关于突变策略产生的最新行为和结果的详细信息。</p>
+<p>⑧ Path geometry：有关Fuzzer找到的执行路径的信息。</p>
+<p>⑨ CPU load：CPU利用率</p>
+<h2 id="afl何时结束"><a href="#afl何时结束" class="headerlink" title="afl何时结束"></a>afl何时结束</h2><p>(1) 状态窗口中”cycles done”字段颜色变为绿色该字段的颜色可以作为何时停止测试的参考，随着周期数不断增大，其颜色也会由洋红色，逐步变为黄色、蓝色、绿色。当其变为绿色时，继续Fuzzing下去也很难有新的发现了，这时便可以通过Ctrl-C停止afl-fuzz。<br>(2) 距上一次发现新路径（或者崩溃）已经过去很长时间<br>(3) 目标程序的代码几乎被测试用例完全覆盖</p>
+<h2 id="处理输出结果"><a href="#处理输出结果" class="headerlink" title="处理输出结果"></a>处理输出结果</h2><blockquote>
+<p>确定造成这些crashes的bug是否可以利用，怎么利用？</p>
+</blockquote>
+<p>afl在fuzzing的过程中同时也产生了这些文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ tree ../vuln/out/</span><br><span class="line">../vuln/out/</span><br><span class="line">├── crashes</span><br><span class="line">│   ├── id:000000,sig:11,src:000000,op:havoc,rep:64</span><br><span class="line">│   └── README.txt</span><br><span class="line">├── fuzz_bitmap</span><br><span class="line">├── fuzzer_stats</span><br><span class="line">├── hangs</span><br><span class="line">├── plot_data</span><br><span class="line">└── queue</span><br><span class="line">    ├── id:000000,orig:1</span><br><span class="line">    └── id:000001,orig:2</span><br><span class="line"></span><br><span class="line">3 directories, 7 files</span><br></pre></td></tr></table></figure></p>
+<p>在输出目录中创建了三个子目录并实时更新：</p>
+<ul>
+<li>queue： 测试每个独特执行路径的案例，以及用户提供的所有起始文件。</li>
+<li>crashes： 导致被测程序接收致命信号的独特测试用例（例如，SIGSEGV，SIGILL，SIGABRT）。条目按接收信号分组。</li>
+<li>hangs： 导致测试程序超时的独特测试用例。将某些内容归类为挂起之前的默认时间限制是1秒内的较大值和-t参数的值。可以通过设置AFL_HANG_TMOUT来微调该值，但这很少是必需的。</li>
+<li>崩溃和挂起被视为“唯一” :如果相关的执行路径涉及在先前记录的故障中未见的任何状态转换。如果可以通过多种方式达到单个错误，那么在此过程中会有一些计数通货膨胀，但这应该会迅速逐渐减少。</li>
+<li>fuzzer_stats：afl-fuzz的运行状态。</li>
+<li>plot_data：用于afl-plot绘图。</li>
+</ul>
+<h2 id="崩溃类型和可利用性"><a href="#崩溃类型和可利用性" class="headerlink" title="崩溃类型和可利用性"></a>崩溃类型和可利用性</h2><ol>
+<li>triage_crashes<br>AFL源码的experimental目录中有一个名为triage_crashes.sh的脚本，可以帮助我们触发收集到的crashes。例如下面的例子中，11代表了SIGSEGV信号，有可能是因为缓冲区溢出导致进程引用了无效的内存；06代表了SIGABRT信号，可能是执行了abort\assert函数或double free导致，这些结果可以作为简单的参考。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ experimental/crash_triage/triage_crashes.sh ../vuln/out/ ../vuln/v1-afl 2&gt;&amp;1 | grep SIGNAL</span><br><span class="line">+++ ID 000000, SIGNAL 11 +++</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>crashwalk<br>如果你想得到更细致的crashes分类结果，以及导致crashes的具体原因，那么crashwalk就是不错的选择之一。这个工具基于gdb的exploitable插件，安装也相对简单，在ubuntu上，只需要如下几步即可：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install gdb golang</span><br><span class="line">$ mkdir tools</span><br><span class="line">$ cd tools</span><br><span class="line">$ git clone https://github.com/jfoote/exploitable.git</span><br><span class="line">$ mkdir go</span><br><span class="line">$ export GOPATH=~/tools/go</span><br><span class="line">$ export CW_EXPLOITABLE=~/tools/exploitable/exploitable/exploitable.py</span><br><span class="line">$ go get -u github.com/bnagy/crashwalk/cmd/...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 这部分我好像还没完成</li>
+</ul>
+<ol start="3">
+<li>afl-collect<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ afl-collect -d crashes.db -e gdb_script -j 8 -r ../vuln/out/ ../vuln/testcase -- ../vuln/v1-afl</span><br><span class="line"></span><br><span class="line">*** GDB+EXPLOITABLE SCRIPT OUTPUT ***</span><br><span class="line">[00001] out:id:000000,sig:11,src:000000,op:havoc,rep:64.................: EXPLOITABLE [ReturnAv (1/22)]</span><br><span class="line">*** ***************************** ***</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="代码覆盖率及其相关概念"><a href="#代码覆盖率及其相关概念" class="headerlink" title="代码覆盖率及其相关概念"></a>代码覆盖率及其相关概念</h1><blockquote>
+<p>代码覆盖率是模糊测试中一个极其重要的概念，使用代码覆盖率可以评估和改进测试过程，执行到的代码越多，找到bug的可能性就越大，毕竟，在覆盖的代码中并不能100%发现bug，在未覆盖的代码中却是100%找不到任何bug的。<br>代码覆盖率是一种度量代码的覆盖程度的方式，也就是指源代码中的某行代码是否已执行；对二进制程序，还可将此概念理解为汇编代码中的某条指令是否已执行。其计量方式很多，但无论是GCC的GCOV还是LLVM的SanitizerCoverage，都提供函数（function）、基本块（basic-block）、边界（edge）三种级别的覆盖率检测。</p>
+</blockquote>
+<h2 id="计算代码覆盖率"><a href="#计算代码覆盖率" class="headerlink" title="计算代码覆盖率"></a>计算代码覆盖率</h2><p><strong>GCOV</strong>：插桩生成覆盖率 <strong>LCOV</strong>：图形展示覆盖率 <strong>afl-cov</strong>：调用前两个工具计算afl测试用例的覆盖率</p>
+<ol>
+<li><p>gcc插桩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fprofile-arcs -ftest-coverage ./v1.c -o v1-cov</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>afl-cov计算之前fuzzer的过程（结束后）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">$ ../afl-2.52b/afl-cov/afl-cov -d ./out/ --enable-branch-coverage -c . -e &quot;cat AFL_FILE | ./v1-cov AFL_FILE&quot;</span><br><span class="line"></span><br><span class="line">   Non-zero exit status &apos;1&apos; for CMD: /usr/bin/readelf -a cat</span><br><span class="line"></span><br><span class="line">*** Imported 2 new test cases from: ./out//queue</span><br><span class="line"></span><br><span class="line">    [+] AFL test case: id:000000,orig:1 (0 / 2), cycle: 0</span><br><span class="line">        lines......: 100.0% (6 of 6 lines)</span><br><span class="line">        functions..: 100.0% (2 of 2 functions)</span><br><span class="line">        branches...: no data found</span><br><span class="line"></span><br><span class="line">    Coverage diff (init) id:000000,orig:1</span><br><span class="line">    diff (init) -&gt; id:000000,orig:1</span><br><span class="line">    New src file: /home/han/ck/vuln/v1.c</span><br><span class="line">      New &apos;function&apos; coverage: main()</span><br><span class="line">      New &apos;function&apos; coverage: vulnerable_function()</span><br><span class="line">      New &apos;line&apos; coverage: 11</span><br><span class="line">      New &apos;line&apos; coverage: 12</span><br><span class="line">      New &apos;line&apos; coverage: 13</span><br><span class="line">      New &apos;line&apos; coverage: 6</span><br><span class="line">      New &apos;line&apos; coverage: 8</span><br><span class="line">      New &apos;line&apos; coverage: 9</span><br><span class="line"></span><br><span class="line">++++++ BEGIN - first exec output for CMD: cat ./out//queue/id:000000,orig:1 | ./v1-cov ./out//queue/id:000000,orig:1</span><br><span class="line">        Hello, World</span><br><span class="line">    ++++++ END</span><br><span class="line"></span><br><span class="line">    [+] AFL test case: id:000001,orig:2 (1 / 2), cycle: 0</span><br><span class="line">        lines......: 100.0% (6 of 6 lines)</span><br><span class="line">        functions..: 100.0% (2 of 2 functions)</span><br><span class="line">        branches...: no data found</span><br><span class="line">    [+] Processed 2 / 2 test cases.</span><br><span class="line"></span><br><span class="line">    [+] Final zero coverage report: ./out//cov/zero-cov</span><br><span class="line">    [+] Final positive coverage report: ./out//cov/pos-cov</span><br><span class="line">        lines......: 100.0% (6 of 6 lines)</span><br><span class="line">        functions..: 100.0% (2 of 2 functions)</span><br><span class="line">        branches...: no data found</span><br><span class="line">    [+] Final lcov web report: ./out//cov/web/index.html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LCOV展示</p>
+</li>
+</ol>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562570048/afl/1.png" alt></p>
+<hr>
+<h1 id="黑盒测试（使用qemu"><a href="#黑盒测试（使用qemu" class="headerlink" title="黑盒测试（使用qemu"></a>黑盒测试（使用qemu</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-fuzz -i ../vuln/testcase/ -o ../vuln/outQemu -Q ../vuln/v1</span><br><span class="line">american fuzzy lop 2.52b (v1)</span><br><span class="line"></span><br><span class="line">┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐</span><br><span class="line">│        run time : 0 days, 0 hrs, 0 min, 41 sec       │  cycles done : 232    │</span><br><span class="line">│   last new path : none yet (odd, check syntax!)      │  total paths : 2      │</span><br><span class="line">│ last uniq crash : 0 days, 0 hrs, 0 min, 41 sec       │ uniq crashes : 1      │</span><br><span class="line">│  last uniq hang : none seen yet                      │   uniq hangs : 0      │</span><br><span class="line">├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤</span><br><span class="line">│  now processing : 0* (0.00%)        │    map density : 0.04% / 0.04%         │</span><br><span class="line">│ paths timed out : 0 (0.00%)         │ count coverage : 1.00 bits/tuple       │</span><br><span class="line">├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤</span><br><span class="line">│  now trying : havoc                 │ favored paths : 1 (50.00%)             │</span><br><span class="line">│ stage execs : 255/256 (99.61%)      │  new edges on : 1 (50.00%)             │</span><br><span class="line">│ total execs : 121k                  │ total crashes : 33 (1 unique)          │</span><br><span class="line">│  exec speed : 2860/sec              │  total tmouts : 0 (0 unique)           │</span><br><span class="line">├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤</span><br><span class="line">│   bit flips : 0/56, 0/54, 0/50                      │    levels : 1          │</span><br><span class="line">│  byte flips : 0/7, 0/5, 0/1                         │   pending : 0          │</span><br><span class="line">│ arithmetics : 0/392, 0/25, 0/0                      │  pend fav : 0          │</span><br><span class="line">│  known ints : 0/36, 0/138, 0/44                     │ own finds : 0          │</span><br><span class="line">│  dictionary : 0/0, 0/0, 0/0                         │  imported : n/a        │</span><br><span class="line">│       havoc : 1/120k, 0/0                           │ stability : 100.00%    │</span><br><span class="line">│        trim : 82.61%/5, 0.00%                       ├────────────────────────┘</span><br><span class="line">^C────────────────────────────────────────────────────┘          [cpu000:102%]</span><br></pre></td></tr></table></figure>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 待完成对黑盒测试原理的分析</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AFL/" rel="tag"># AFL</a>
+          
+            <a href="/tags/模糊测试/" rel="tag"># 模糊测试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/01/AFL-first-learn/" rel="next" title="AFL初探">
+                <i class="fa fa-chevron-left"></i> AFL初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Cool-Y">
+            
+              <p class="site-author-name" itemprop="name">Cool-Y</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Cool-Y" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cool.yim@whu.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/yan__han/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#白盒测试"><span class="nav-text">白盒测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标程序编译"><span class="nav-text">目标程序编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试插桩程序"><span class="nav-text">测试插桩程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行FUZZER"><span class="nav-text">执行FUZZER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl何时结束"><span class="nav-text">afl何时结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理输出结果"><span class="nav-text">处理输出结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃类型和可利用性"><span class="nav-text">崩溃类型和可利用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码覆盖率及其相关概念"><span class="nav-text">代码覆盖率及其相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算代码覆盖率"><span class="nav-text">计算代码覆盖率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#黑盒测试（使用qemu"><span class="nav-text">黑盒测试（使用qemu</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cool-Y</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Site words total count">48k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EWwoJgHNdlj6iBjiFlMcabUO-gzGzoHsz", "x8FxDrYG79C8YFrTww9ljo8K");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
