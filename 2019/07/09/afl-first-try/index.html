@@ -82,15 +82,15 @@
 <meta name="description" content="这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。参考：https://paper.seebug.org/841/#_1 部署afl  123456&amp;gt; wget http://lcamtuf.coredump.cx/afl/releases/">
 <meta name="keywords" content="AFL,模糊测试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AFL初次实践">
+<meta property="og:title" content="AFL-爱之初体验">
 <meta property="og:url" content="https://cool-y.github.io/2019/07/09/afl-first-try/index.html">
 <meta property="og:site_name" content="混元霹雳手">
 <meta property="og:description" content="这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。参考：https://paper.seebug.org/841/#_1 部署afl  123456&amp;gt; wget http://lcamtuf.coredump.cx/afl/releases/">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562570048/afl/1.png">
-<meta property="og:updated_time" content="2019-07-09T06:47:08.044Z">
+<meta property="og:updated_time" content="2019-07-09T08:57:59.215Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AFL初次实践">
+<meta name="twitter:title" content="AFL-爱之初体验">
 <meta name="twitter:description" content="这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。参考：https://paper.seebug.org/841/#_1 部署afl  123456&amp;gt; wget http://lcamtuf.coredump.cx/afl/releases/">
 <meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562570048/afl/1.png">
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>AFL初次实践 | 混元霹雳手</title>
+  <title>AFL-爱之初体验 | 混元霹雳手</title>
   
 
 
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AFL初次实践</h1>
+          <h1 class="post-title" itemprop="name headline">AFL-爱之初体验</h1>
         
 
         <div class="post-meta">
@@ -386,7 +386,7 @@
 
           
           
-             <span id="/2019/07/09/afl-first-try/" class="leancloud_visitors" data-flag-title="AFL初次实践">
+             <span id="/2019/07/09/afl-first-try/" class="leancloud_visitors" data-flag-title="AFL-爱之初体验">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -454,12 +454,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ CPU_TARGET=x86_64 ./build_qemu_support.sh</span><br><span class="line">&gt; [+] Build process successful!</span><br><span class="line">&gt; [*] Copying binary...</span><br><span class="line">&gt; -rwxr-xr-x 1 han han 10972920 7月   9 10:43 ../afl-qemu-trace</span><br><span class="line">&gt; [+] Successfully created &apos;../afl-qemu-trace&apos;.</span><br><span class="line">&gt; [!] Note: can&apos;t test instrumentation when CPU_TARGET set.</span><br><span class="line">&gt; [+] All set, you can now (hopefully) use the -Q mode in afl-fuzz!</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <hr>
-<h1 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h1><h2 id="目标程序编译"><a href="#目标程序编译" class="headerlink" title="目标程序编译"></a>目标程序编译</h2><ol>
+<h1 id="0x01白盒测试"><a href="#0x01白盒测试" class="headerlink" title="0x01白盒测试"></a>0x01白盒测试</h1><h2 id="目标程序编译"><a href="#目标程序编译" class="headerlink" title="目标程序编译"></a>目标程序编译</h2><ol>
 <li><p>源代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#undef _FORTIFY_SOURCE</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void vulnerable_function() &#123;</span><br><span class="line">	char buf[128];</span><br><span class="line">	read(STDIN_FILENO, buf, 256);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv) &#123;</span><br><span class="line">	vulnerable_function();</span><br><span class="line">	write(STDOUT_FILENO, &quot;Hello, World\n&quot;, 13);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>gcc编译（不插桩）</p>
-<figure class="highlight plain"><figcaption><span>-ftest-coverage</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gcc v1.c -o v1</span><br><span class="line">$ ./v1</span><br><span class="line">what</span><br><span class="line">Hello, World</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gcc v1.c -o v1</span><br><span class="line">$ ./v1</span><br><span class="line">what</span><br><span class="line">Hello, World</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>生成v1的目的一是为了和afl-gcc的编译做对比，二是为黑盒测试做铺垫。</p>
@@ -509,11 +509,11 @@
 <li>plot_data：用于afl-plot绘图。</li>
 </ul>
 <h2 id="崩溃类型和可利用性"><a href="#崩溃类型和可利用性" class="headerlink" title="崩溃类型和可利用性"></a>崩溃类型和可利用性</h2><ol>
-<li>triage_crashes<br>AFL源码的experimental目录中有一个名为triage_crashes.sh的脚本，可以帮助我们触发收集到的crashes。例如下面的例子中，11代表了SIGSEGV信号，有可能是因为缓冲区溢出导致进程引用了无效的内存；06代表了SIGABRT信号，可能是执行了abort\assert函数或double free导致，这些结果可以作为简单的参考。</li>
-</ol>
+<li><p>triage_crashes<br>AFL源码的experimental目录中有一个名为triage_crashes.sh的脚本，可以帮助我们触发收集到的crashes。例如下面的例子中，11代表了SIGSEGV信号，有可能是因为缓冲区溢出导致进程引用了无效的内存；06代表了SIGABRT信号，可能是执行了abort\assert函数或double free导致，这些结果可以作为简单的参考。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ experimental/crash_triage/triage_crashes.sh ../vuln/out/ ../vuln/v1-afl 2&gt;&amp;1 | grep SIGNAL</span><br><span class="line">+++ ID 000000, SIGNAL 11 +++</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>crashwalk<br>如果你想得到更细致的crashes分类结果，以及导致crashes的具体原因，那么crashwalk就是不错的选择之一。这个工具基于gdb的exploitable插件，安装也相对简单，在ubuntu上，只需要如下几步即可：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install gdb golang</span><br><span class="line">$ mkdir tools</span><br><span class="line">$ cd tools</span><br><span class="line">$ git clone https://github.com/jfoote/exploitable.git</span><br><span class="line">$ mkdir go</span><br><span class="line">$ export GOPATH=~/tools/go</span><br><span class="line">$ export CW_EXPLOITABLE=~/tools/exploitable/exploitable/exploitable.py</span><br><span class="line">$ go get -u github.com/bnagy/crashwalk/cmd/...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>crashwalk<br>如果你想得到更细致的crashes分类结果，以及导致crashes的具体原因，那么crashwalk就是不错的选择之一。这个工具基于gdb的exploitable插件，安装也相对简单，在ubuntu上，只需要如下几步即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install gdb golang</span><br><span class="line">$ mkdir tools</span><br><span class="line">$ cd tools</span><br><span class="line">$ git clone https://github.com/jfoote/exploitable.git</span><br><span class="line">$ mkdir go</span><br><span class="line">$ export GOPATH=~/tools/go</span><br><span class="line">$ export CW_EXPLOITABLE=~/tools/exploitable/exploitable/exploitable.py</span><br><span class="line">$ go get -u github.com/bnagy/crashwalk/cmd/...</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ul>
@@ -524,12 +524,12 @@
 </li>
 </ol>
 <hr>
-<h1 id="代码覆盖率及其相关概念"><a href="#代码覆盖率及其相关概念" class="headerlink" title="代码覆盖率及其相关概念"></a>代码覆盖率及其相关概念</h1><blockquote>
+<h1 id="0x02代码覆盖率及其相关概念"><a href="#0x02代码覆盖率及其相关概念" class="headerlink" title="0x02代码覆盖率及其相关概念"></a>0x02代码覆盖率及其相关概念</h1><blockquote>
 <p>代码覆盖率是模糊测试中一个极其重要的概念，使用代码覆盖率可以评估和改进测试过程，执行到的代码越多，找到bug的可能性就越大，毕竟，在覆盖的代码中并不能100%发现bug，在未覆盖的代码中却是100%找不到任何bug的。<br>代码覆盖率是一种度量代码的覆盖程度的方式，也就是指源代码中的某行代码是否已执行；对二进制程序，还可将此概念理解为汇编代码中的某条指令是否已执行。其计量方式很多，但无论是GCC的GCOV还是LLVM的SanitizerCoverage，都提供函数（function）、基本块（basic-block）、边界（edge）三种级别的覆盖率检测。</p>
 </blockquote>
 <h2 id="计算代码覆盖率"><a href="#计算代码覆盖率" class="headerlink" title="计算代码覆盖率"></a>计算代码覆盖率</h2><p><strong>GCOV</strong>：插桩生成覆盖率 <strong>LCOV</strong>：图形展示覆盖率 <strong>afl-cov</strong>：调用前两个工具计算afl测试用例的覆盖率</p>
 <ol>
-<li><p>gcc插桩</p>
+<li><p>gcc插桩<br><strong>-fprofile-arcs -ftest-coverage</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fprofile-arcs -ftest-coverage ./v1.c -o v1-cov</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>afl-cov计算之前fuzzer的过程（结束后）</p>
@@ -540,7 +540,7 @@
 </ol>
 <p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562570048/afl/1.png" alt></p>
 <hr>
-<h1 id="黑盒测试（使用qemu"><a href="#黑盒测试（使用qemu" class="headerlink" title="黑盒测试（使用qemu"></a>黑盒测试（使用qemu</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-fuzz -i ../vuln/testcase/ -o ../vuln/outQemu -Q ../vuln/v1</span><br><span class="line">american fuzzy lop 2.52b (v1)</span><br><span class="line"></span><br><span class="line">┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐</span><br><span class="line">│        run time : 0 days, 0 hrs, 0 min, 41 sec       │  cycles done : 232    │</span><br><span class="line">│   last new path : none yet (odd, check syntax!)      │  total paths : 2      │</span><br><span class="line">│ last uniq crash : 0 days, 0 hrs, 0 min, 41 sec       │ uniq crashes : 1      │</span><br><span class="line">│  last uniq hang : none seen yet                      │   uniq hangs : 0      │</span><br><span class="line">├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤</span><br><span class="line">│  now processing : 0* (0.00%)        │    map density : 0.04% / 0.04%         │</span><br><span class="line">│ paths timed out : 0 (0.00%)         │ count coverage : 1.00 bits/tuple       │</span><br><span class="line">├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤</span><br><span class="line">│  now trying : havoc                 │ favored paths : 1 (50.00%)             │</span><br><span class="line">│ stage execs : 255/256 (99.61%)      │  new edges on : 1 (50.00%)             │</span><br><span class="line">│ total execs : 121k                  │ total crashes : 33 (1 unique)          │</span><br><span class="line">│  exec speed : 2860/sec              │  total tmouts : 0 (0 unique)           │</span><br><span class="line">├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤</span><br><span class="line">│   bit flips : 0/56, 0/54, 0/50                      │    levels : 1          │</span><br><span class="line">│  byte flips : 0/7, 0/5, 0/1                         │   pending : 0          │</span><br><span class="line">│ arithmetics : 0/392, 0/25, 0/0                      │  pend fav : 0          │</span><br><span class="line">│  known ints : 0/36, 0/138, 0/44                     │ own finds : 0          │</span><br><span class="line">│  dictionary : 0/0, 0/0, 0/0                         │  imported : n/a        │</span><br><span class="line">│       havoc : 1/120k, 0/0                           │ stability : 100.00%    │</span><br><span class="line">│        trim : 82.61%/5, 0.00%                       ├────────────────────────┘</span><br><span class="line">^C────────────────────────────────────────────────────┘          [cpu000:102%]</span><br></pre></td></tr></table></figure>
+<h1 id="0x03黑盒测试（使用qemu"><a href="#0x03黑盒测试（使用qemu" class="headerlink" title="0x03黑盒测试（使用qemu"></a>0x03黑盒测试（使用qemu</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ ./afl-fuzz -i ../vuln/testcase/ -o ../vuln/outQemu -Q ../vuln/v1</span><br><span class="line">american fuzzy lop 2.52b (v1)</span><br><span class="line"></span><br><span class="line">┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐</span><br><span class="line">│        run time : 0 days, 0 hrs, 0 min, 41 sec       │  cycles done : 232    │</span><br><span class="line">│   last new path : none yet (odd, check syntax!)      │  total paths : 2      │</span><br><span class="line">│ last uniq crash : 0 days, 0 hrs, 0 min, 41 sec       │ uniq crashes : 1      │</span><br><span class="line">│  last uniq hang : none seen yet                      │   uniq hangs : 0      │</span><br><span class="line">├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤</span><br><span class="line">│  now processing : 0* (0.00%)        │    map density : 0.04% / 0.04%         │</span><br><span class="line">│ paths timed out : 0 (0.00%)         │ count coverage : 1.00 bits/tuple       │</span><br><span class="line">├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤</span><br><span class="line">│  now trying : havoc                 │ favored paths : 1 (50.00%)             │</span><br><span class="line">│ stage execs : 255/256 (99.61%)      │  new edges on : 1 (50.00%)             │</span><br><span class="line">│ total execs : 121k                  │ total crashes : 33 (1 unique)          │</span><br><span class="line">│  exec speed : 2860/sec              │  total tmouts : 0 (0 unique)           │</span><br><span class="line">├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤</span><br><span class="line">│   bit flips : 0/56, 0/54, 0/50                      │    levels : 1          │</span><br><span class="line">│  byte flips : 0/7, 0/5, 0/1                         │   pending : 0          │</span><br><span class="line">│ arithmetics : 0/392, 0/25, 0/0                      │  pend fav : 0          │</span><br><span class="line">│  known ints : 0/36, 0/138, 0/44                     │ own finds : 0          │</span><br><span class="line">│  dictionary : 0/0, 0/0, 0/0                         │  imported : n/a        │</span><br><span class="line">│       havoc : 1/120k, 0/0                           │ stability : 100.00%    │</span><br><span class="line">│        trim : 82.61%/5, 0.00%                       ├────────────────────────┘</span><br><span class="line">^C────────────────────────────────────────────────────┘          [cpu000:102%]</span><br></pre></td></tr></table></figure>
 <ul>
 <li style="list-style: none"><input type="checkbox"> 待完成对黑盒测试原理的分析</li>
 </ul>
@@ -776,7 +776,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#白盒测试"><span class="nav-text">白盒测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标程序编译"><span class="nav-text">目标程序编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试插桩程序"><span class="nav-text">测试插桩程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行FUZZER"><span class="nav-text">执行FUZZER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl何时结束"><span class="nav-text">afl何时结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理输出结果"><span class="nav-text">处理输出结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃类型和可利用性"><span class="nav-text">崩溃类型和可利用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码覆盖率及其相关概念"><span class="nav-text">代码覆盖率及其相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算代码覆盖率"><span class="nav-text">计算代码覆盖率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#黑盒测试（使用qemu"><span class="nav-text">黑盒测试（使用qemu</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01白盒测试"><span class="nav-text">0x01白盒测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标程序编译"><span class="nav-text">目标程序编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试插桩程序"><span class="nav-text">测试插桩程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行FUZZER"><span class="nav-text">执行FUZZER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl何时结束"><span class="nav-text">afl何时结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理输出结果"><span class="nav-text">处理输出结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃类型和可利用性"><span class="nav-text">崩溃类型和可利用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02代码覆盖率及其相关概念"><span class="nav-text">0x02代码覆盖率及其相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算代码覆盖率"><span class="nav-text">计算代码覆盖率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03黑盒测试（使用qemu"><span class="nav-text">0x03黑盒测试（使用qemu</span></a></li></ol></div>
             
 
           </div>
@@ -808,7 +808,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">48k</span>
+    <span title="Site words total count">48.3k</span>
   
 </div>
 
