@@ -32,7 +32,7 @@ categories: 二进制
 
 -------------
 
-# 0x01白盒测试
+# 0x01 白盒测试
 ## 目标程序编译
 1. 源代码
 ```
@@ -294,7 +294,7 @@ $ afl-collect -d crashes.db -e gdb_script -j 8 -r ../vuln/out/ ../vuln/testcase 
 
 -------------
 
-# 0x02代码覆盖率及其相关概念
+# 0x02 代码覆盖率及其相关概念
 > 代码覆盖率是模糊测试中一个极其重要的概念，使用代码覆盖率可以评估和改进测试过程，执行到的代码越多，找到bug的可能性就越大，毕竟，在覆盖的代码中并不能100%发现bug，在未覆盖的代码中却是100%找不到任何bug的。
 > 代码覆盖率是一种度量代码的覆盖程度的方式，也就是指源代码中的某行代码是否已执行；对二进制程序，还可将此概念理解为汇编代码中的某条指令是否已执行。其计量方式很多，但无论是GCC的GCOV还是LLVM的SanitizerCoverage，都提供函数（function）、基本块（basic-block）、边界（edge）三种级别的覆盖率检测。
 
@@ -356,7 +356,7 @@ $ ../afl-2.52b/afl-cov/afl-cov -d ./out/ --enable-branch-coverage -c . -e "cat A
 
 ------------------
 
-# 0x03黑盒测试（使用qemu
+# 0x03 黑盒测试（使用qemu
 
 ```
 $ ./afl-fuzz -i ../vuln/testcase/ -o ../vuln/outQemu -Q ../vuln/v1
