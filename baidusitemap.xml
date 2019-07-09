@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://cool-y.github.io/2019/07/09/afl-first-try/</loc>
+    <loc>https://cool-y.github.io/2019/07/01/AFL-first-learn/</loc>
     <lastmod>2019-07-09</lastmod>
   </url>  <url>
-    <loc>https://cool-y.github.io/2019/07/01/AFL-first-learn/</loc>
+    <loc>https://cool-y.github.io/2019/07/09/afl-first-try/</loc>
     <lastmod>2019-07-09</lastmod>
   </url>  <url>
     <loc>https://cool-y.github.io/2019/05/14/pack-and-unpack/</loc>
