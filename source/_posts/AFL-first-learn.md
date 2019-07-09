@@ -1,5 +1,5 @@
 ---
-title: AFL初探
+title: 模糊测试与AFL
 date: 2019-07-01 17:25:36
 tags:
 - AFL
@@ -122,7 +122,9 @@ American Fuzzy Lop是一种暴力模糊测试，配有极其简单但坚如磐�
 * 4）使用平衡且经过充分研究的各种传统模糊测试策略反复改变文件，
 * 5）如果任何生成的编译导致由instrumentation记录的新状态转换，则将变异输出添加为队列中的新条目。
 * 6）转到2。
-![](https://image.3001.net/images/20181207/1544168163_5c0a22e3eedce.jpg)
+
+<img src="https://image.3001.net/images/20181207/1544168163_5c0a22e3eedce.jpg" width = 60% div align=center/>
+
 发现的测试用例也会定期被淘汰，以消除那些被更新，更高覆盖率的发现所淘汰的测试用例。并经历其他几个插桩驱动（instrumentation-driven）的努力最小化步骤。
 作为模糊测试过程的一个副作用，该工具创建了一个小型，独立的有趣测试用例集。这些对于播种其他劳动力或资源密集型测试方案非常有用 - 例如，用于压力测试浏览器，办公应用程序，图形套件或闭源工具。
 该模糊器经过全面测试，可提供远远优于盲目模糊或仅覆盖工具的开箱即用性能。
@@ -311,7 +313,7 @@ AFL的fuzzers使用一个**全局Map**来存储之前执行时看到的tuple。�
 ## 3）输入队列的进化(Evolving the input queue)
 经变异的测试用例，会使程序产生 ***新的状态转移*** 。这些测试用例稍后被添加到 input 队列中，用作下一个 fuzz 循环。它们补充但不替换现有的发现。
 这种算法允许工具可以持续探索不同的代码路径，即使底层的数据格式可能是完全不同的。如下图：
-![](http://lcamtuf.coredump.cx/afl/afl_gzip.png)
+<img src="http://lcamtuf.coredump.cx/afl/afl_gzip.png" width = 60% div align=center/>
 
 这里有一些这种算法在实际情况下例子：
 
