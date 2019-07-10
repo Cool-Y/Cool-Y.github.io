@@ -1,5 +1,5 @@
+https://cool-y.github.io/2019/07/10/x86basic/
 https://cool-y.github.io/2019/07/09/afl-first-try/
 https://cool-y.github.io/2019/07/01/AFL-first-learn/
 https://cool-y.github.io/2019/05/14/pack-and-unpack/
 https://cool-y.github.io/2019/05/13/PE-file/
-https://cool-y.github.io/2019/04/21/XIAOMI-UPnP/
