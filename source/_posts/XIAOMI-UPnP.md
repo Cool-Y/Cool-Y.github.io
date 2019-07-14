@@ -15,6 +15,10 @@ categories: IOT
 在MiniUPnPd中添加了NAT-PMP和PCP支持。 对于客户端（MiniUPnPc）使用libnatpmp来支持NAT-PMP。
 MiniUPnP守护程序（MiniUPnPd）支持OpenBSD，FreeBSD，NetBSD，DragonFly BSD（Open）Solaris和Mac OS X以及pf或ipfw（ipfirewall）或ipf和Linux with netfilter。 MiniUPnP客户端（MiniUPnPc）和MiniSSDPd是便携式的，可以在任何POSIX系统上运行。 MiniUPnPc也适用于MS Windows和AmigaOS（版本3和4）。
 
+https://2014.ruxcon.org.au/assets/2014/slides/rux-soap_upnp_ruxcon2014.pptx
+https://www.akamai.com/us/en/multimedia/documents/white-paper/upnproxy-blackhat-proxies-via-nat-injections-white-paper.pdf
+https://www.defcon.org/images/defcon-19/dc-19-presentations/Garcia/DEFCON-19-Garcia-UPnP-Mapping.pdf
+
 ## UPnP IGD客户端轻量级库和UPnP IGD守护进程
 大多数家庭adsl /有线路由器和Microsoft Windows 2K/XP都支持UPnP协议。 MiniUPnP项目的目标是提供一个免费的软件解决方案来支持协议的“Internet网关设备”部分。
 >用于UPnP设备的Linux SDK（libupnp）对我来说似乎太沉重了。 我想要最简单的库，占用空间最小，并且不依赖于其他库，例如XML解析器或HTTP实现。 所有代码都是纯ANSI C.

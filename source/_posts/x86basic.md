@@ -8,6 +8,9 @@ tags:
 categories: 二进制
 ---
 这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。
+
+---------------
+
 # 0x00 漏洞利用开发简介
 （1）需要什么
 - Immunity Debugger -[Download](http://debugger.immunityinc.com/ID_register.py)
@@ -46,6 +49,7 @@ voidfunc(int a, int b, int c)
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742079/%E6%8D%95%E8%8E%B71.png)
 
 # 0x01 简单栈溢出
+
 > **目标程序:**
 > [bof-server source code](http://redstack.net/blog/static/uploads/2008/01/bof-server.c)
 > [bof-server binary for Windows](http://redstack.net/blog/wp-content/uploads/2008/01/bof-server.exe)
@@ -79,7 +83,7 @@ telnet 192.168.64.138 4242
 ASLR在xp下不用考虑，DEP可通过修改boot.ini中的nonexecute来完成（AlwaysOff、OptOut）
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742486/%E5%9B%BE%E7%89%874.png)
 
-## 整体的攻击流程：
+## 整体的攻击流程
 1. 任意非00的指令覆盖buffer和EBP
 2. 从程序已经加载的dll中获取他们的jmp esp指令地址。
 3. 使用jmp esp的指令地址覆盖ReturnAddress
@@ -188,8 +192,10 @@ meterpreter >
 
 ```
 
+------------
 
 # 0x02 基于SEH的栈溢出
+
 > **目标程序** Easy File Sharing Web Server 7.2
 >
 > **漏洞点**
@@ -309,7 +315,11 @@ meterpreter > getuid
 Server username: WHU-3E3EECEBFD1\Administrator
 ```
 
+
+-------------
+
 # 0x03 绕过DEP
+
 > **目标程序** [Introducing Vulnserver](http://www.thegreycorner.com/2010/12/introducing-vulnserver.html)
 > **使用** vulnserver.exe 6666
 > **漏洞点** ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744461/%E5%9B%BE%E7%89%8712.png)
