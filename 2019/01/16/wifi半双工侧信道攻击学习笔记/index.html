@@ -585,7 +585,7 @@ Server   -------wire----------|
 <li><strong>连接（四元组）推断：</strong> 每一轮使用30个重复包测试一个端口，如果端口号正确，就会发现RTT大幅增加。如果还要完成 <strong><em>web缓存投毒</em></strong>  ，还需要傀儡初始化连接来协助，根据系统不同，有不同的端口选择算法可以优化：<strong><em>windows&amp;macOS</em></strong> 使用全局和顺序端口分配策略为其TCP连接选择短暂的端口号，这意味着攻击者可以在观察到与恶意Web服务器的初始连接后推断出要使用的下一个端口号，这完全消除了对端口号推断的需要。<strong><em>NAT</em></strong> 端口保留，不需要关心外部端口被转换成不可预知的内部端口。<strong><em>来自同一域名的多个IP地址</em></strong>，这意味着攻击者需要付出更大的代价来推断端口号。</li>
 <li><strong>序列号推断：</strong> 通过利用时序侧信道来判断是否存在相应的响应，从而将窗口序列号与窗外序列号区分开来。一旦我们得到一个 <strong><em>窗口内序列号</em></strong>，通过进行二分搜索进一步将序列号空间缩小到单个值  <strong><em>RCV.NXT</em></strong>。如果还要使用傀儡建立的连接发起web缓存投毒，可以进一步优化：<strong><em>增大接收窗口的大小</em></strong>，可以减少猜测的迭代次数，通常可以放大到500000(之前是65535)，而且根据RFC793,窗口放大之后就永远不会缩小。<br><img src="./9-序列号推断.PNG" alt></li>
 <li><p><strong>TCP劫持：</strong> 通过劫持傀儡初始化的连接，可以简化web缓存投毒的过程。三个os在ACK验证上都不符合规范，所以各自处理情况也不同——<strong><em>windows</em></strong>：客户端必须持续发送请求以防止ACK接收窗口仅为一个字节，这要求攻击者必须能准确预期下一个序列号并解决大量流量带来的噪声。<br>因此，作者设计了一种新策略，该策略利用处理重叠数据的TCP行为和处理损坏的HTTP响应的浏览器行为——在Windows主机上缓冲的攻击者注入数据可能会破坏来自服务器的真实HTTP响应。 <strong><em>（1）注入</em></strong>，傀儡不断从服务器上请求脚本，而攻击者发送2^23/|wnd|个欺骗性数据包，这些包的窗口序列号与RCV.NXT加上偏移量相匹配，其中|wnd|为ack接收窗口大小，第i个数据包的ACK号为i*|wnd|，payload为</p>
-  <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocket.send(|<span class="type">wnd</span>|<span class="type">*i</span>)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocket.send(|wnd|*i)</span><br></pre></td></tr></table></figure>
 <p>  因此，这些数据包中包含有效ACK号的一个包将被缓冲，并破坏真实的HTTP响应头。浏览器执行注入的脚本时，它将通过websocket发送猜测的ACK号，提供有效的窗口内ACK号。<br><img src="./9-http注入.PNG" alt><br><strong><em>（2）利用</em></strong>，由于客户端已经接受了额外的欺骗payload，推进了其预期的序列号，因此客户端和服务器实际上已经被去同步。攻击者现在可以简单地发送欺骗性响应（知道预期的序列号和有效的ACK号）。如果我们只想执行一次性注入，只需用恶意脚本替换第一步中的payload就足够了。<br>此外，针对Windows的注入步骤存在更加通用的替代策略，不依赖于浏览器行为。 具体来说，由于HTTP响应的前几个字节是可预先确定的（即HTTP），不破坏真实的响应，而是覆盖标题和正文以形成合法但恶意的响应。 在这种情况下，浏览器将完全忘记注入的存在。 这表明一旦序列号泄露，就存在各种方法来有效地将数据注入浏览器，而不用进行基于时间信道的慢得多的ACK号推断。</p>
 </li>
 </ul>
@@ -750,7 +750,7 @@ Server   -------wire----------|
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -761,7 +761,7 @@ Server   -------wire----------|
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -772,7 +772,7 @@ Server   -------wire----------|
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -859,7 +859,7 @@ Server   -------wire----------|
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">50.1k</span>
+    <span title="Site words total count">56.4k</span>
   
 </div>
 

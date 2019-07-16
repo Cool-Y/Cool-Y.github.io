@@ -399,7 +399,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  127 字
+                  143 字
                 </span>
               
 
@@ -436,7 +436,7 @@
       
         <h1 id="qq数据库采用简单加密——异或加密"><a href="#qq数据库采用简单加密——异或加密" class="headerlink" title="qq数据库采用简单加密——异或加密"></a>qq数据库采用简单加密——异或加密</h1><h2 id="数据获取："><a href="#数据获取：" class="headerlink" title="数据获取："></a>数据获取：</h2><p>DENGTA_META.xml—IMEI:867179032952446<br>databases/2685371834.db——数据库文件</p>
 <h2 id="解密方式："><a href="#解密方式：" class="headerlink" title="解密方式："></a>解密方式：</h2><p>明文msg_t   密文msg_Data  key：IMEI<br>msg_t = msg_Data[i]^IMEI[i%15]</p>
-<h2 id="实验："><a href="#实验：" class="headerlink" title="实验："></a>实验：</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"></span><br><span class="line">IMEI = <span class="string">'867179032952446'</span></span><br><span class="line">conn = sqlite3.connect(<span class="string">'2685371834.db'</span>)</span><br><span class="line">c = conn.cursor()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_decrypt</span><span class="params">(foo)</span>:</span></span><br><span class="line">    substr = <span class="string">''</span></span><br><span class="line">    <span class="comment">#print(len(foo))</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(foo)):</span><br><span class="line">        substr += chr(ord(foo[i]) ^ ord(IMEI[i%<span class="number">15</span>]))</span><br><span class="line">    <span class="keyword">return</span> substr</span><br><span class="line"></span><br><span class="line"><span class="comment">#rem = c.execute("SELECT uin, remark, name FROM Friends")</span></span><br><span class="line">Msg = c.execute(<span class="string">"SELECT msgData, senderuin, time FROM mr_friend_0FC9764CD248C8100C82A089152FB98B_New"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> msg <span class="keyword">in</span> Msg:</span><br><span class="line">    uid = _decrypt(msg[<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">"\n"</span>+uid+<span class="string">":"</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        msgData = _decrypt(msg[<span class="number">0</span>]).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">        print(msgData)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h2 id="实验："><a href="#实验：" class="headerlink" title="实验："></a>实验：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import sqlite3</span><br><span class="line"></span><br><span class="line">IMEI = &apos;867179032952446&apos;</span><br><span class="line">conn = sqlite3.connect(&apos;2685371834.db&apos;)</span><br><span class="line">c = conn.cursor()</span><br><span class="line"></span><br><span class="line">def _decrypt(foo):</span><br><span class="line">    substr = &apos;&apos;</span><br><span class="line">    #print(len(foo))</span><br><span class="line">    for i in range(0,len(foo)):</span><br><span class="line">        substr += chr(ord(foo[i]) ^ ord(IMEI[i%15]))</span><br><span class="line">    return substr</span><br><span class="line"></span><br><span class="line">#rem = c.execute(&quot;SELECT uin, remark, name FROM Friends&quot;)</span><br><span class="line">Msg = c.execute(&quot;SELECT msgData, senderuin, time FROM mr_friend_0FC9764CD248C8100C82A089152FB98B_New&quot;)</span><br><span class="line"></span><br><span class="line">for msg in Msg:</span><br><span class="line">    uid = _decrypt(msg[1])</span><br><span class="line">    print(&quot;\n&quot;+uid+&quot;:&quot;)</span><br><span class="line">    try:</span><br><span class="line">        msgData = _decrypt(msg[0]).decode(&apos;utf-8&apos;)</span><br><span class="line">        print(msgData)</span><br><span class="line">    except:</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1552728077/qq.png" alt></p>
 
       
@@ -599,7 +599,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -610,7 +610,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -621,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -708,7 +708,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">50.1k</span>
+    <span title="Site words total count">56.4k</span>
   
 </div>
 

