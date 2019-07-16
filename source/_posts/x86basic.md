@@ -5,7 +5,7 @@ tags:
 - 二进制
 - Windows
 - 漏洞
-categories: 二进制
+categories: Pwn二进制漏洞
 ---
 这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。
 
