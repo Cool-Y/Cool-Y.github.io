@@ -13,6 +13,7 @@ categories:
 **ref：**
 > CTF-WIKI：https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/
 > 蒸米大佬的一步一步学rop http://www.anquan.us/static/drops/tips-6597.html
+> https://bbs.pediy.com/thread-221734.htm
 
 **工具：**
 > objdump、ldd、ROPgadget、readelf、https://ctf-wiki.github.io/ctf-tools/
