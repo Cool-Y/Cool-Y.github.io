@@ -10,15 +10,17 @@ categories:
 ---
 
 # 0x00 背景与简介
+--------------
 在分析嵌入式设备的固件时，只采用静态分析方式通常是不够的，你需要实际执行你的分析目标来观察它的行为。在嵌入式Linux设备的世界里，很容易把一个调试器放在目标硬件上进行调试。如果你能在自己的系统上运行二进制文件，而不是拖着硬件做分析, 将会方便很多，这就需要用QEMU进行仿真。
 虽然QEMU在模拟核心芯片组包括CPU上都做的很不错，但是QEMU往往不能提供你想运行的二进制程序需要的硬件。最常见问题是在运行系统服务，如Web服务器或UPnP守护进程时，缺乏NVRAM。解决方法是使用nvram-faker库拦截由libnvram.so提供的nvram_get()调用。即使解决了NVRAM问题，该程序还可能会假设某些硬件是存在的，如果硬件不存在，该程序可能无法运行，或者即便它运行了，行为可能也与在其目标硬件上运行时有所不同。针对这种情况下，我认为有三种解决方法：
 1. 修补二进制文件。这取决于期望什么硬件，以及它不存在时的行为是什么。
 2. 把复杂的依赖于硬件的系统服务拆分成小的二级制文件。如跳过运行Web服务器，仅仅从shell脚本运行cgi二进制文件。因为大多数cgi二进制文件将来自Web服务器的输入作为标准输入和环境变量的组合，并通过标准输出将响应发送到Web服务器。
 3. 拿到设备的shell，直接在真机上进行调试，这是最接近真实状况的方法。
 
---------------
+
 
 # REF
+------------
 **综合：**
 [国外大神的博客](https://shadow-file.blogspot.com/2015/01/dynamically-analyzing-wifi-routers-upnp.html)
 [通过QEMU和IDAPro远程调试设备固件](https://wooyun.js.org/drops/%E9%80%9A%E8%BF%87QEMU%20%E5%92%8C%20IDA%20Pro%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E8%AE%BE%E5%A4%87%E5%9B%BA%E4%BB%B6.html)
@@ -43,25 +45,27 @@ categories:
 [《家用路由器0day漏洞挖掘》部分案例](https://ray-cp.github.io/archivers/router_vuln_book_note)
 [TP-LINK WR941N路由器研究](https://paper.seebug.org/448/)
 
-------------
+
 
 # 0x01 基础条件
+----------
 - 一系列的工具，包括：
-**binwalk**帮助你解包固件
-**buildroot**mips交叉编译环境帮助你在x86平台下编译mips架构的目标程序 https://xz.aliyun.com/t/2505#toc-6
-**qemu**帮助你模拟mips环境
-**MIPS gdbinit**文件使得使用gdb调试mips程序时更方便 https://github.com/zcutlip/gdbinit-mips
-**miranda工具**用于UPnP分析 https://code.google.com/p/miranda-upnp/
-**MIPS静态汇编审计**辅助脚本 https://github.com/giantbranch/mipsAudit
-**静态编译的gdbserver** https://github.com/rapid7/embedded-tools/tree/master/binaries/gdbserver
+**binwalk** 帮助你解包固件
+**buildroot** mips交叉编译环境帮助你在x86平台下编译mips架构的目标程序 https://xz.aliyun.com/t/2505#toc-6
+**qemu** 帮助你模拟mips环境
+**MIPS gdbinit** 文件使得使用gdb调试mips程序时更方便 https://github.com/zcutlip/gdbinit-mips
+**miranda工具** 用于UPnP分析 https://code.google.com/p/miranda-upnp/
+**MIPS静态汇编审计** 辅助脚本 https://github.com/giantbranch/mipsAudit
+**静态编译的gdbserver**  https://github.com/rapid7/embedded-tools/tree/master/binaries/gdbserver
 
 - 一个**mips Linux**环境：
 在qemu系统模式下，需要模拟整个计算机系统
 
 
-----------
+
 
 # 0x02 qemu-用户模式
+----------
 在user mode下使用qemu执行程序有两种情况，一是目标程序为**静态链接**，那么可以直接使用qemu。另一种是目标程序依赖于**动态链接**库，这时候就需要我们来**指明库的位置**，否则目标程序回到系统`/lib`文件下寻找共享库文件。
 在 *《揭秘家用路由器0day》* 这本书里面，他给出的方法是：
 ```shell
@@ -141,9 +145,10 @@ miniupnpd[7687]: iptc_init() failed : iptables who? (do you need to insmod?)
 miniupnpd[7687]: Failed to init redirection engine. EXITING
 ```
 
------------
+
 
 # 0x03 qemu-系统模式
+-----------
 系统模式命令格式：`$qemu system-mips [option][disk_image]`
 
 ## MIPS系统网络配置
@@ -198,9 +203,10 @@ $ sudo ifup br0
 
 我自闭了，ubuntu18根本没法联网，于是我用了ubuntu14.0
 
-------------
+
 
 # 0x04 在mips虚拟机中调试
+------------
 现在通过上面的配置我得到了这样一台虚拟机，并通过ssh连接上去。
 ```shell
 root@debian-mipsel:/home/user/mi_wifi_r3_112# ifconfig
@@ -292,10 +298,11 @@ root@debian-mipsel:/home/user/mi_wifi_r3_112# daemon(): No such file or director
 但是，我们不是可以拿到路由器的shell吗！干嘛还要用qemu模拟再调试，直接上真机！
 
 
----------------
+
 
 
 # 0x05 设备上调试程序
+---------------
 > 1、有shell权限
 > 2、有静态编译的gdbserver或者gdb
 >
