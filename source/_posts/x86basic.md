@@ -18,7 +18,7 @@ categories: Pwn二进制漏洞
 - Metasploit框架-[下载](https://www.metasploit.com/)
 - 靶机–Windows XP sp3
 
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562741903/%E6%8D%95%E8%8E%B7.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562741903/pwn/%E6%8D%95%E8%8E%B7.png)
 - 函数调用与栈：调用、返回
 - 寄存器与函数栈帧：ESP、EBP
 - 函数栈帧：局部变量、栈帧状态值、函数返回地址
@@ -46,7 +46,7 @@ voidfunc(int a, int b, int c)
 * pop ebp
 * RETN【弹出返回地址，跳转】
 3. 栈帧结构
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742079/%E6%8D%95%E8%8E%B71.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742079/pwn/%E6%8D%95%E8%8E%B71.png)
 
 # 0x01 简单栈溢出
 
@@ -63,7 +63,7 @@ voidfunc(int a, int b, int c)
 > `quit`
 
 ## 漏洞点
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742316/%E5%9B%BE%E7%89%871.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742316/pwn/%E5%9B%BE%E7%89%871.png)
 
 **产生崩溃**
 将输出的1024个A发送给靶机程序
@@ -71,44 +71,44 @@ voidfunc(int a, int b, int c)
 python -c "print('A' * 1024)"
 telnet 192.168.64.138 4242
 ```
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742366/%E5%9B%BE%E7%89%872.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742366/pwn/%E5%9B%BE%E7%89%872.png)
 
 ## 关闭防御措施
 使用**PESecurity**检查可执行文件本身的防御措施开启情况
 注意设置：Set-ExecutionPolicyUnrestricted
 
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742444/%E5%9B%BE%E7%89%873.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742444/pwn/%E5%9B%BE%E7%89%873.png)
 
 **ASLR和DEP**
 ASLR在xp下不用考虑，DEP可通过修改boot.ini中的nonexecute来完成（AlwaysOff、OptOut）
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742486/%E5%9B%BE%E7%89%874.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742486/pwn/%E5%9B%BE%E7%89%874.png)
 
 ## 整体的攻击流程
 1. 任意非00的指令覆盖buffer和EBP
 2. 从程序已经加载的dll中获取他们的jmp esp指令地址。
 3. 使用jmp esp的指令地址覆盖ReturnAddress
 4. 从下一行开始填充Shellcode
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742543/%E5%9B%BE%E7%89%875.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742543/pwn/%E5%9B%BE%E7%89%875.png)
 
 ## 确定溢出点的位置
 1. 生成字符序列 **pattern_create.rb**
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742622/%E5%9B%BE%E7%89%876.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742622/pwn/%E5%9B%BE%E7%89%876.png)
 
 2. 发送给目标程序
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742623/%E5%9B%BE%E7%89%877.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742623/pwn/%E5%9B%BE%E7%89%877.png)
 
 3. 计算偏移量 **pattern_offset.rb**
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742685/%E5%9B%BE%E7%89%878.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742685/pwn/%E5%9B%BE%E7%89%878.png)
 
 4. 确定payload结构
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742686/%E5%9B%BE%E7%89%879.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742686/pwn/%E5%9B%BE%E7%89%879.png)
 
 ## 寻找jmp esp跳板
 1. OD附加进程看一下服务器加载了哪些模块
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742794/%E5%9B%BE%E7%89%8710.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742794/pwn/%E5%9B%BE%E7%89%8710.png)
 2. 查找JMP ESP指令的地址
 在这里选择了ws2_32.dll作为对象，通过Metasploit的msfbinscan进行搜索
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742793/%E5%9B%BE%E7%89%8711.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742793/pwn/%E5%9B%BE%E7%89%8711.png)
 
 ## 自动化攻击
 ```ruby=
@@ -226,7 +226,7 @@ vim -bz.txt
 - 将Easy File Sharing Web Server 7.2加载到ImmunityDebugger中，并处于运行状态。
 - 发送溢出字符序列
 - 查看Easy File Sharing Web Server 7.2溢出地址
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744240/231.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744240/pwn/231.png)
 
 3. 计算偏移量
 计算catch块偏移量&计算下一条SEH记录偏移量
@@ -325,7 +325,7 @@ Server username: WHU-3E3EECEBFD1\Administrator
 > **漏洞点** ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744461/%E5%9B%BE%E7%89%8712.png)
 
 ## 设置DEP保护
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744518/%E6%8D%9511%E8%8E%B7.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744518/pwn/%E6%8D%9511%E8%8E%B7.png)
 *构建ROP链来调用VirtualProtect()关闭DEP并执行Shellcode*
 
 ## 计算偏移量
