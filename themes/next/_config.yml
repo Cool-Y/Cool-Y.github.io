@@ -101,7 +101,7 @@ menu:
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
   bookmarks: /bookmarks/ || map
-  hack之外: /hack之外/ || airbnb
+  HACK之外: /hack之外/ || heartbeat
 
 # Enable/Disable menu icons.
 menu_icons:
