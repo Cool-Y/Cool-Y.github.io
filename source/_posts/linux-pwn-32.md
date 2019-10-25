@@ -6,7 +6,7 @@ tags:
 - pwn
 - 栈溢出
 categories:
-- Pwn二进制漏洞
+- Pwn
 ---
 之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。
 
