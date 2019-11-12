@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cool-y.github.io/2019/11/12/web-information-collect/</loc>
+    
+    <lastmod>2019-11-12T13:05:50.020Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cool-y.github.io/2019/10/25/PWNtw-start/</loc>
     
-    <lastmod>2019-10-25T13:13:04.741Z</lastmod>
+    <lastmod>2019-10-26T02:44:23.409Z</lastmod>
     
   </url>
   
@@ -135,14 +142,14 @@
   </url>
   
   <url>
-    <loc>https://cool-y.github.io/categories/index.html</loc>
+    <loc>https://cool-y.github.io/tags/index.html</loc>
     
     <lastmod>2019-04-15T07:35:38.085Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cool-y.github.io/tags/index.html</loc>
+    <loc>https://cool-y.github.io/categories/index.html</loc>
     
     <lastmod>2019-04-15T07:35:38.085Z</lastmod>
     
@@ -170,7 +177,7 @@
   </url>
   
   <url>
-    <loc>https://cool-y.github.io/2019/02/22/qq%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/</loc>
+    <loc>https://cool-y.github.io/2019/01/16/wifi%E5%8D%8A%E5%8F%8C%E5%B7%A5%E4%BE%A7%E4%BF%A1%E9%81%93%E6%94%BB%E5%87%BB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2019-04-15T07:35:38.082Z</lastmod>
     
@@ -184,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://cool-y.github.io/2019/01/16/wifi%E5%8D%8A%E5%8F%8C%E5%B7%A5%E4%BE%A7%E4%BF%A1%E9%81%93%E6%94%BB%E5%87%BB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://cool-y.github.io/2019/02/22/qq%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/</loc>
     
     <lastmod>2019-04-15T07:35:38.082Z</lastmod>
     

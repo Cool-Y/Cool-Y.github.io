@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web,ctf,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="信息收集+常规owasp top 10+逻辑漏洞https://www.freebuf.com/sectool/94777.html  测试范围：.i.mi.com     .cloud.mi.com  0x01 信息收集https://wh0ale.github.io/2019/02/22/SRC%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/http">
+<meta name="keywords" content="web,ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【web】信息收集">
+<meta property="og:url" content="https://cool-y.github.io/2019/11/12/web-information-collect/index.html">
+<meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="信息收集+常规owasp top 10+逻辑漏洞https://www.freebuf.com/sectool/94777.html  测试范围：.i.mi.com     .cloud.mi.com  0x01 信息收集https://wh0ale.github.io/2019/02/22/SRC%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/http">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://image.3001.net/images/20150202/14228625211610.jpg">
+<meta property="og:updated_time" content="2019-11-12T13:05:50.020Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【web】信息收集">
+<meta name="twitter:description" content="信息收集+常规owasp top 10+逻辑漏洞https://www.freebuf.com/sectool/94777.html  测试范围：.i.mi.com     .cloud.mi.com  0x01 信息收集https://wh0ale.github.io/2019/02/22/SRC%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/http">
+<meta name="twitter:image" content="https://image.3001.net/images/20150202/14228625211610.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cool-y.github.io/2019/11/12/web-information-collect/">
+
+
+
+
+
+  <title>【web】信息收集 | 混元霹雳手</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">混元霹雳手</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmarks">
+          <a href="/bookmarks/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-map"></i> <br>
+            
+            书签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hack之外">
+          <a href="/hack之外/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            HACK之外
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/11/12/web-information-collect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【web】信息收集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T21:04:37+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/12/web-information-collect/" class="leancloud_visitors" data-flag-title="【web】信息收集">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  4.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  19 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>信息收集+常规owasp top 10+逻辑漏洞<br><a href="https://www.freebuf.com/sectool/94777.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/94777.html</a></p>
+<blockquote>
+<p>测试范围：<em>.i.mi.com     </em>.cloud.mi.com</p>
+</blockquote>
+<h1 id="0x01-信息收集"><a href="#0x01-信息收集" class="headerlink" title="0x01 信息收集"></a>0x01 信息收集</h1><p><a href="https://wh0ale.github.io/2019/02/22/SRC%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" target="_blank" rel="noopener">https://wh0ale.github.io/2019/02/22/SRC%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</a><br><a href="http://www.polaris-lab.com/index.php/archives/69/" target="_blank" rel="noopener">http://www.polaris-lab.com/index.php/archives/69/</a></p>
+<h2 id="域名信息收集"><a href="#域名信息收集" class="headerlink" title="域名信息收集"></a>域名信息收集</h2><h3 id="whois反查"><a href="#whois反查" class="headerlink" title="whois反查"></a>whois反查</h3><p>当你知道目标的域名，你首先要做的就是通过Whoist数据库查询域名的注册信息，Whois数据库是提供域名的注册人信息，包括联系方式，管理员名字，管理员邮箱等等，其中也包括DNS服务器的信息。<br>默认情况下，Kali已经安装了Whois。你只需要输入要查询的域名即可：<code>whois mi.com</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# whois mi.com</span><br><span class="line">Domain Name: MI.COM</span><br><span class="line">Registry Domain ID: 2502844_DOMAIN_COM-VRSN</span><br><span class="line">Registrar WHOIS Server: whois.networksolutions.com</span><br><span class="line">Registrar URL: http://networksolutions.com</span><br><span class="line">Updated Date: 2017-12-20T07:20:54Z</span><br><span class="line">Creation Date: 1998-11-06T05:00:00Z</span><br><span class="line">Registrar Registration Expiration Date: 2023-11-05T04:00:00Z</span><br><span class="line">Registrar: NETWORK SOLUTIONS, LLC.</span><br><span class="line">Registrar IANA ID: 2</span><br><span class="line">Reseller:</span><br><span class="line">Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited</span><br><span class="line">Registry Registrant ID:</span><br><span class="line">Registrant Name: XIAOMI INC</span><br><span class="line">Registrant Organization: XIAOMI INC</span><br><span class="line">Registrant Street: The Rainbow City Office Building</span><br><span class="line">Registrant City: Beijing</span><br><span class="line">Registrant State/Province: Beijing</span><br><span class="line">Registrant Postal Code: 100085</span><br><span class="line">Registrant Country: CN</span><br><span class="line">Registrant Phone: +86.13911275905</span><br><span class="line">Registrant Phone Ext:</span><br><span class="line">Registrant Fax: +86.1060606666</span><br><span class="line">Registrant Fax Ext:</span><br><span class="line">Registrant Email: dns-admin@xiaomi.com</span><br><span class="line">Registry Admin ID:</span><br><span class="line">Admin Name: Ma, Hongjie</span><br><span class="line">Admin Organization: XIAOMI INC</span><br><span class="line">Admin Street: The Rainbow City Office Building</span><br><span class="line">Admin City: Beijing</span><br><span class="line">Admin State/Province: Beijing</span><br><span class="line">Admin Postal Code: 100085</span><br><span class="line">Admin Country: CN</span><br><span class="line">Admin Phone: +86.13911275905</span><br><span class="line">Admin Phone Ext:</span><br><span class="line">Admin Fax: +86.1060606666</span><br><span class="line">Admin Fax Ext:</span><br><span class="line">Admin Email: dns-admin@xiaomi.com</span><br><span class="line">Registry Tech ID:</span><br><span class="line">Tech Name: Ma, Hongjie</span><br><span class="line">Tech Organization: XIAOMI INC</span><br><span class="line">Tech Street: The Rainbow City Office Building</span><br><span class="line">Tech City: Beijing</span><br><span class="line">Tech State/Province: Beijing</span><br><span class="line">Tech Postal Code: 100085</span><br><span class="line">Tech Country: CN</span><br><span class="line">Tech Phone: +86.13911275905</span><br><span class="line">Tech Phone Ext:</span><br><span class="line">Tech Fax: +86.1060606666</span><br><span class="line">Tech Fax Ext:</span><br><span class="line">Tech Email: dns-admin@xiaomi.com</span><br><span class="line">Name Server: NS3.DNSV5.COM</span><br><span class="line">Name Server: NS4.DNSV5.COM</span><br><span class="line">DNSSEC: unsigned</span><br><span class="line">Registrar Abuse Contact Email: abuse@web.com</span><br><span class="line">Registrar Abuse Contact Phone: +1.8003337680</span><br><span class="line">URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/</span><br></pre></td></tr></table></figure></p>
+<p>除了使用whois命令，也有一些网站提供在线whois信息查询：<br>whois.chinaz.com/<br>然后可以看到注册人信息，邮箱等等这样我们可以进行邮箱反查域名，爆破邮箱，社工，域名劫持等等</p>
+<h3 id="DNS服务器查询"><a href="#DNS服务器查询" class="headerlink" title="DNS服务器查询"></a>DNS服务器查询</h3><p><img src="https://image.3001.net/images/20150202/14228625211610.jpg" alt></p>
+<p><strong>1. host</strong><br>在kali下我们还可以通过host命令来查询dns服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# host www.mi.com</span><br><span class="line">www.mi.com is an alias for www.mi.com.wscdns.com.</span><br><span class="line">www.mi.com.wscdns.com has address 116.211.251.22</span><br><span class="line">www.mi.com.wscdns.com has address 221.235.187.82</span><br><span class="line">www.mi.com.wscdns.com has IPv6 address 240e:95e:1001::18</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DNS查询：</span><br><span class="line">host -t a domainName</span><br><span class="line">host -t mx domainName</span><br><span class="line"></span><br><span class="line">优点：非常直观，通过查询DNS服务器的A记录、CNAME等，可以准确得到相关信息，较全。</span><br><span class="line">缺点：有很大的局限性，很多DNS是禁止查询的。</span><br></pre></td></tr></table></figure>
+<p><strong>2. dig</strong><br>除了host命令，你也可以使用dig命令对DNS服务器进行挖掘。相对于host命令，dig命令更具有灵活和清晰的显示信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# dig mi.com any</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-3-Debian &lt;&lt;&gt;&gt; mi.com any</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 8930</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 7, AUTHORITY: 2, ADDITIONAL: 22</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">; COOKIE: b8b49b6c9f27b6bb4704b2375d3bf751d8231fd911f3b57e (good)</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;mi.com.				IN	ANY</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">mi.com.			600	IN	SOA	ns3.dnsv5.com. enterprise3dnsadmin.dnspod.com. 1564128772 3600 180 1209600 180</span><br><span class="line">mi.com.			600	IN	TXT	&quot;g5482dbvg8n9bo3vedav36m63q&quot;</span><br><span class="line">mi.com.			600	IN	TXT	&quot;n9rmdqaed6q0502f6t3mfj89i5&quot;</span><br><span class="line">mi.com.			600	IN	TXT	&quot;v=spf1 include:spf_bj.mxmail.xiaomi.com include:spf_hk.mxmail.xiaomi.com  ~all&quot;</span><br><span class="line">mi.com.			65	IN	A	58.83.160.156</span><br><span class="line">mi.com.			2841	IN	NS	ns4.dnsv5.com.</span><br><span class="line">mi.com.			2841	IN	NS	ns3.dnsv5.com.</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">mi.com.			2841	IN	NS	ns3.dnsv5.com.</span><br><span class="line">mi.com.			2841	IN	NS	ns4.dnsv5.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	61.151.180.51</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	117.135.170.109</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	162.14.18.188</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	182.140.167.191</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	223.166.151.16</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	14.215.150.16</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	18.194.2.137</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	52.77.238.92</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	58.251.86.12</span><br><span class="line">ns3.dnsv5.com.		12665	IN	A	59.36.120.148</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	14.215.150.13</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	18.235.54.99</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	52.198.159.146</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	59.36.120.147</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	61.151.180.52</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	101.226.220.12</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	125.39.213.166</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	162.14.18.121</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	180.163.19.12</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	182.254.20.44</span><br><span class="line">ns4.dnsv5.com.		129705	IN	A	223.166.151.126</span><br><span class="line"></span><br><span class="line">;; Query time: 1070 msec</span><br><span class="line">;; SERVER: 192.168.64.2#53(192.168.64.2)</span><br><span class="line">;; WHEN: Sat Jul 27 03:03:01 EDT 2019</span><br><span class="line">;; MSG SIZE  rcvd: 717</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. DNS域传送漏洞</strong><br><a href="http://www.lijiejie.com/dns-zone-transfer-2/" target="_blank" rel="noopener">http://www.lijiejie.com/dns-zone-transfer-2/</a><br>DNS区域传送（DNS zone transfer）指的是一台备用服务器使用来自主服务器的数据刷新自己的域（zone）数据库，目的是为了做冗余备份，防止主服务器出现故障时 dns 解析不可用。然而主服务器对来请求的备用服务器未作访问控制，验证身份就做出相应故而出现这个漏洞。<br>收集dns服务器信息\手工使用nslookup命令、whois查询等手段进行对某个域名的dns服务器信息的收集,利用网络空间搜索引擎收集域名服务器信息。如（shadon、zoomeye、fofa等）,使用MASSCAN 进行端口扫描后，获取开放53号端口的dns服务器地址 <a href="http://www.freebuf.com/sectool/112583.html" target="_blank" rel="noopener">http://www.freebuf.com/sectool/112583.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# dig +short @8.8.8.8 mi.com ns</span><br><span class="line">ns3.dnsv5.com.</span><br><span class="line">ns4.dnsv5.com.</span><br><span class="line">root@kali:~# dig +nocmd @ns4.dnsv5.com mi.com axfr</span><br><span class="line">;; communications error to 14.215.150.13#53: end of file</span><br><span class="line">;; communications error to 14.215.150.13#53: end of file</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;nslookup</span><br><span class="line">默认服务器:  XiaoQiang</span><br><span class="line">Address:  192.168.31.1</span><br><span class="line"></span><br><span class="line">&gt; server ns4.dnsv5.com</span><br><span class="line">默认服务器:  ns4.dnsv5.com</span><br><span class="line">Addresses:  182.254.20.44</span><br><span class="line">          180.163.19.12</span><br><span class="line">          18.235.54.99</span><br><span class="line">          162.14.18.121</span><br><span class="line">          61.151.180.52</span><br><span class="line">          52.198.159.146</span><br><span class="line">          59.36.120.147</span><br><span class="line">          223.166.151.126</span><br><span class="line">          14.215.150.13</span><br><span class="line">          101.226.220.12</span><br><span class="line">          125.39.213.166</span><br><span class="line"></span><br><span class="line">&gt; ls mi.com</span><br><span class="line">ls: connect: No error</span><br><span class="line">*** 无法列出域 mi.com: Unspecified error</span><br><span class="line">DNS 服务器拒绝将区域 mi.com 传送到你的计算机。如果这不正确，</span><br><span class="line">请检查 IP 地址 182.254.20.44 的 DNS 服务器上 mi.com 的</span><br><span class="line">区域传送安全设置。</span><br></pre></td></tr></table></figure>
+<h2 id="子域名"><a href="#子域名" class="headerlink" title="子域名"></a>子域名</h2><p><a href="https://github.com/ring04h/wydomain" target="_blank" rel="noopener">https://github.com/ring04h/wydomain</a><br>在渗透测试的时候，往往主站的防御会很强，常常无从下手，那么子站就是一个重要的突破口，因此子域名是渗透测试的主要关注对象，子域名搜集的越完整，那么挖到的漏洞就可能更多，甚至漏洞的级别也会更高。常用的工具有下面这些：<br><strong>1. 子域名挖掘机Layer</strong></p>
+<table>
+<thead>
+<tr>
+<th>域名</th>
+<th>解析IP</th>
+<th>开放端口</th>
+<th>WEB服务器</th>
+<th>网站状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cn.i.mi.com</td>
+<td>120.92.65.26</td>
+<td>80,443</td>
+<td>-</td>
+<td>80:(405) 不允许的方法</td>
+</tr>
+<tr>
+<td>daily.i.mi.com</td>
+<td>10.108.230.153</td>
+<td>-</td>
+<td>端口未开放</td>
+<td>端口未开放</td>
+</tr>
+<tr>
+<td>in.i.mi.com</td>
+<td>104.211.73.78</td>
+<td>80,443</td>
+<td>Tengine</td>
+<td>80:(405) 不允许的方法</td>
+</tr>
+<tr>
+<td>us.i.mi.com</td>
+<td>54.148.120.178,35.162.30.45</td>
+<td>80,443</td>
+<td>Tengine</td>
+<td>80:(405) 不允许的方法</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. subdomain lijiejie的子域名收集工具</strong><br><a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ python subDomainsBrute.py -t 10 i.mi.com  </span><br><span class="line">  SubDomainsBrute v1.2</span><br><span class="line">  https://github.com/lijiejie/subDomainsBrute</span><br><span class="line"></span><br><span class="line">[+] Validate DNS servers                                                      </span><br><span class="line">[+] Server 182.254.116.116  &lt; OK &gt;   Found 4                                  </span><br><span class="line">[+] 4 DNS Servers found                                                      </span><br><span class="line">[+] Run wildcard test</span><br><span class="line">[+] Start 6 scan process</span><br><span class="line">[+] Please wait while scanning ...</span><br><span class="line"></span><br><span class="line">All Done. 4 found, 16185 scanned in 74.0 seconds.                             </span><br><span class="line">Output file is i.mi.com.txt</span><br><span class="line">cn.i.mi.com                   	120.92.65.26</span><br><span class="line">daily.i.mi.com                	10.108.230.153</span><br><span class="line">in.i.mi.com                   	104.211.73.78</span><br><span class="line">us.i.mi.com                   	35.162.30.45, 54.148.120.178</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. google hacking</strong><br><a href="https://github.com/K0rz3n/GoogleHacking-Page" target="_blank" rel="noopener">https://github.com/K0rz3n/GoogleHacking-Page</a></p>
+<ul>
+<li>搜集域名和mail地址：</li>
+<li>搜集敏感文件：<code>site:xxx.com filetype:doc|mdb|ini|php|asp|jsp</code></li>
+<li>搜集管理后台：<code>site:xxx.com 管理／site:xxx.com admin／site:xxx.com login</code></li>
+<li>搜集mail：<code>site:xxx.com intext:@xxx.com／intext:@xxx.com</code></li>
+<li>搜集敏感web路径：<code>site:xxx.com intitle:登录／site:xxx.com inurl:sql.php</code></li>
+</ul>
+<p>批量查找学校网站的后台 输入如下关键字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">site:hdu.edu.cn  intext:管理|后台|登录|用户名|密码|验证码|系统|账号|后台管理|后台登录</span><br><span class="line"></span><br><span class="line">intext: 把网页中的正文内容中的某个字符做为搜索条件.</span><br><span class="line"></span><br><span class="line">例如在google里输入:intext:杭电.将返回所有在网页正文部分包含”杭电”的网页</span><br><span class="line"></span><br><span class="line">allintext:使用方法和intext类似.</span><br><span class="line"></span><br><span class="line">intitle: 搜索网页标题中是否有我们所要找的字符.</span><br><span class="line"></span><br><span class="line">例如搜索:intitle:杭电.将返回所有网页标题中包含”杭电”的网页.同理allintitle:也同intitle类似.</span><br><span class="line"></span><br><span class="line">cache: 搜索google里关于某些内容的缓存,有时候往往能找到一些好东西.</span><br><span class="line"></span><br><span class="line">define: 搜索某个词的定义,例如搜索:define:杭电,将返回关于“杭电”的定义.</span><br><span class="line"></span><br><span class="line">filetype: 搜索制定类型的文件，例如：filetype:doc.将返回所有以doc结尾的文件URL.</span><br><span class="line"></span><br><span class="line">info: 查找指定站点的一些基本信息.</span><br><span class="line"></span><br><span class="line">inurl: 搜索我们指定的字符是否存在于URL中.</span><br><span class="line"></span><br><span class="line">例如输入:inurl:admin,将返回N个类似于这样的连接:http://xxx/admin,</span><br><span class="line"></span><br><span class="line">常用于查找通用漏洞、注入点、管理员登录的URL</span><br><span class="line"></span><br><span class="line">allinurl:也同inurl类似,可指定多个字符.</span><br><span class="line"></span><br><span class="line">linkurl: 例如搜索:inurl:hdu.edu.cn可以返回所有和hdu.edu.cn做了链接的URL.</span><br><span class="line"></span><br><span class="line">site: 搜索指定域名,如site:hdu.edu.cn.将返回所有和hdu.edu.cn有关的URL.</span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 爬虫</strong><br>一些网站里面的跳转请求（也可以关注一下app）<br>还有就是百度，有些会在title 和 copyright信息里面出现该公司的信息<br>网站html源码：主要就是一些图片、js、css等，也会出现一些域名<br>apk反编译源码里面</p>
+<h2 id="敏感信息收集"><a href="#敏感信息收集" class="headerlink" title="敏感信息收集"></a>敏感信息收集</h2><p>用扫描器扫描目录，这时候你需要一本强大的字典，重在平时积累。字典越强扫描处的结果可能越多。常见有.git文件泄露，.svn文件泄露，.DB_store文件泄露，WEB-INF/web.xml泄露。目录扫描有两种方式，使用目录字典进行暴力才接存在该目录或文件返回200或者403；使用爬虫爬行主页上的所有链接，对每个链接进行再次爬行，收集这个域名下的所有链接，然后总结出需要的信息。<br>路径fuzz： <a href="https://github.com/ring04h/weakfilescan" target="_blank" rel="noopener">https://github.com/ring04h/weakfilescan</a><br>敏感文件扫描: <a href="https://github.com/Mosuan/FileScan" target="_blank" rel="noopener">https://github.com/Mosuan/FileScan</a><br>web模糊测试: <a href="https://github.com/xmendez/wfuzz" target="_blank" rel="noopener">https://github.com/xmendez/wfuzz</a></p>
+<ol>
+<li>github项目<br>GitPrey是根据企业关键词进行项目检索以及相应敏感文件和敏感文件内容扫描的工具 <a href="https://github.com/repoog/GitPrey" target="_blank" rel="noopener">https://github.com/repoog/GitPrey</a></li>
+<li>svn 泄漏<br>svn 文件是 subversion 的版本控制信息文件 当某个目录处于 subversion 的版本控制时，在这个目录中就会 .svn 这个文件夹，这个 .svn 文件夹中的文件就是一些版本信息文件，供 subversion 使用。由于部署上线的时候没有删除这个文件夹，导致代码泄漏。<br><a href="https://i.mi.com//.svn/entries" target="_blank" rel="noopener">https://i.mi.com//.svn/entries</a></li>
+<li>敏感文件</li>
+</ol>
+<ul>
+<li>DS_Store 文件泄露 <a href="https://github.com/lijiejie/ds_store_exp" target="_blank" rel="noopener">https://github.com/lijiejie/ds_store_exp</a></li>
+<li>备份文件</li>
+<li>WEB-INF泄露</li>
+<li>WEB-INF 是 Java 的 WEB 应用的安全目录。如果想在页面中直接访问其中的文件，必须通过 web.xml 文件对要访问的文件进行相应映射才能访问。</li>
+<li>测试文件</li>
+<li>phpinfo</li>
+</ul>
+<ol start="4">
+<li>敏感目录：网站后台目录／一些登录地址／一些接口目录</li>
+</ol>
+<h2 id="端口信息"><a href="#端口信息" class="headerlink" title="端口信息"></a>端口信息</h2><p><a href="https://github.com/ring04h/wyportmap" target="_blank" rel="noopener">https://github.com/ring04h/wyportmap</a><br>服务和安全是相对应的，每开启一个端口，那么攻击面就大了一点，开启的端口越多，也就意味着服务器面临的威胁越大。开始扫描之前不妨使用telnet先简单探测下某些端口是否开放，避免使用扫描器而被封IP，扫描全端口一般使用Nmap，masscan进行扫描探测，尽可能多的搜集开启的端口好已经对应的服务版本，得到确切的服务版本后可以搜索有没有对应版本的漏洞。<br>端口渗透过程中我们需要关注几个问题：</p>
+<ul>
+<li>端口的banner信息</li>
+<li>端口上运行的服务</li>
+<li>常见应用的默认端口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口服务/协议简要说明</th>
+<th>关于端口可能的一些渗透用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tcp 20,21</td>
+<td>ftp 默认的数据和命令传输端口[可明文亦可加密传输]</td>
+<td>允许匿名的上传下载,爆破,嗅探,win提权,远程执行(proftpd 1.3.5),各类后门(proftpd,vsftp 2.3.4)</td>
+</tr>
+<tr>
+<td>tcp 22</td>
+<td>ssh[数据ssl加密传输]</td>
+<td>可根据已搜集到的信息尝试爆破,v1版本可中间人,ssh隧道及内网代理转发,文件传输,等等…常用于linux远程管理…</td>
+</tr>
+<tr>
+<td>tcp 23</td>
+<td>telnet[明文传输]</td>
+<td>爆破,嗅探,一般常用于路由,交换登陆,可尝试弱口令,也许会有意想不到的收获</td>
+</tr>
+<tr>
+<td>tcp 25</td>
+<td>smtp[简单邮件传输协议,多数linux发行版可能会默认开启此服务]</td>
+<td>邮件伪造,vrfy/expn 查询邮件用户信息,可使用smtp-user-enum工具来自动跑</td>
+</tr>
+<tr>
+<td>tcp/udp 53</td>
+<td>dns[域名解析]</td>
+<td>允许区域传送,dns劫持,缓存投毒,欺骗以及各种基于dns隧道的远控</td>
+</tr>
+<tr>
+<td>tcp/udp 69</td>
+<td>tftp[简单文件传输协议,无认证]</td>
+<td>尝试下载目标及其的各类重要配置文件</td>
+</tr>
+<tr>
+<td>tcp 80-89,443,8440-8450,8080-8089</td>
+<td>web[各种常用的web服务端口]</td>
+<td>各种常用web服务端口,可尝试经典的top n,vpn,owa,webmail,目标oa,各类java控制台,各类服务器web管理面板,各类web中间件漏洞利用,各类web框架漏洞利用等等……</td>
+</tr>
+<tr>
+<td>tcp 110</td>
+<td>[邮局协议,可明文可密文]</td>
+<td>可尝试爆破,嗅探</td>
+</tr>
+<tr>
+<td>tcp 137,139,445</td>
+<td>samba[smb实现windows和linux间文件共享,明文]</td>
+<td>可尝试爆破以及smb自身的各种远程执行类漏洞利用,如,ms08-067,ms17-010,嗅探等……</td>
+</tr>
+<tr>
+<td>tcp 143</td>
+<td>imap[可明文可密文]</td>
+<td>可尝试爆破</td>
+</tr>
+<tr>
+<td>udp 161</td>
+<td>snmp[明文]</td>
+<td>爆破默认团队字符串,搜集目标内网信息</td>
+</tr>
+<tr>
+<td>tcp 389</td>
+<td>ldap[轻量级目录访问协议]</td>
+<td>ldap注入,允许匿名访问,弱口令</td>
+</tr>
+<tr>
+<td>tcp 512,513,514</td>
+<td>linux rexec</td>
+<td>可爆破,rlogin登陆</td>
+</tr>
+<tr>
+<td>tcp 873</td>
+<td>rsync备份服务</td>
+<td>匿名访问,文件上传</td>
+</tr>
+<tr>
+<td>tcp 1194</td>
+<td>openvpn</td>
+<td>想办法钓vpn账号,进内网</td>
+</tr>
+<tr>
+<td>tcp 1352</td>
+<td>Lotus domino邮件服务</td>
+<td>弱口令,信息泄漏,爆破</td>
+</tr>
+<tr>
+<td>tcp 1433</td>
+<td>mssql数据库</td>
+<td>注入,提权,sa弱口令,爆破</td>
+</tr>
+<tr>
+<td>tcp 1521</td>
+<td>oracle数据库</td>
+<td>tns爆破,注入,弹shell…</td>
+</tr>
+<tr>
+<td>tcp 1500</td>
+<td>ispmanager 主机控制面板</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 1025,111,2049</td>
+<td>nfs</td>
+<td>权限配置不当</td>
+</tr>
+<tr>
+<td>tcp 1723</td>
+<td>pptp</td>
+<td>爆破,想办法钓vpn账号,进内网</td>
+</tr>
+<tr>
+<td>tcp 2082,2083</td>
+<td>cpanel主机管理面板登录</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 2181</td>
+<td>zookeeper</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>tcp 2601,2604</td>
+<td>zebra路由</td>
+<td>默认密码zerbra</td>
+</tr>
+<tr>
+<td>tcp 3128</td>
+<td>squid代理服务</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 3312,3311</td>
+<td>kangle主机管理登录</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 3306</td>
+<td>mysql数据库</td>
+<td>注入,提权,爆破</td>
+</tr>
+<tr>
+<td>tcp 3389</td>
+<td>windows rdp远程桌面</td>
+<td>shift后门[需要03以下的系统],爆破,ms12-020[蓝屏exp]</td>
+</tr>
+<tr>
+<td>tcp 4848</td>
+<td>glassfish控制台</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 4899</td>
+<td>radmin远程桌面管理工具,现在已经非常非常少了</td>
+<td>抓密码拓展机器</td>
+</tr>
+<tr>
+<td>tcp 5000</td>
+<td>sybase/DB2数据库</td>
+<td>爆破,注入</td>
+</tr>
+<tr>
+<td>tcp 5432</td>
+<td>postgresql数据库</td>
+<td>爆破,注入,弱口令</td>
+</tr>
+<tr>
+<td>tcp 5632</td>
+<td>pcanywhere远程桌面管理工具</td>
+<td>抓密码,代码执行,已经快退出历史舞台了</td>
+</tr>
+<tr>
+<td>tcp 5900,5901,5902</td>
+<td>vnc远程桌面管理工具</td>
+<td>弱口令爆破,如果信息搜集不到位,成功几率很小</td>
+</tr>
+<tr>
+<td>tcp 5984</td>
+<td>CouchDB</td>
+<td>未授权导致的任意指令执行</td>
+</tr>
+<tr>
+<td>tcp 6379</td>
+<td>redis未授权</td>
+<td>可尝试未授权访问,弱口令爆破</td>
+</tr>
+<tr>
+<td>tcp 7001,7002</td>
+<td>weblogic控制台</td>
+<td>java反序列化,弱口令</td>
+</tr>
+<tr>
+<td>tcp 7778</td>
+<td>kloxo</td>
+<td>主机面板登录</td>
+</tr>
+<tr>
+<td>tcp 8000</td>
+<td>Ajenti主机控制面板</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 8443</td>
+<td>plesk主机控制面板</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 8069</td>
+<td>zabbix</td>
+<td>远程执行,sql注入</td>
+</tr>
+<tr>
+<td>tcp 8080-8089</td>
+<td>Jenkins,jboss</td>
+<td>反序列化,控制台弱口令</td>
+</tr>
+<tr>
+<td>tcp 9080-9081,9090</td>
+<td>websphere控制台</td>
+<td>java反序列化/弱口令</td>
+</tr>
+<tr>
+<td>tcp 9200,9300</td>
+<td>elasticsearch</td>
+<td>远程执行</td>
+</tr>
+<tr>
+<td>tcp 10000</td>
+<td>webmin linux主机web控制面板入口</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>tcp 11211</td>
+<td>memcached</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>tcp 27017,27018</td>
+<td>mongodb</td>
+<td>爆破,未授权访问</td>
+</tr>
+<tr>
+<td>tcp 3690</td>
+<td>svn服务</td>
+<td>svn泄露,未授权访问</td>
+</tr>
+<tr>
+<td>tcp 50000</td>
+<td>SAP Management Console</td>
+<td>远程执行</td>
+</tr>
+<tr>
+<td>tcp 50070,50030</td>
+<td>hadoop</td>
+<td>默认端口未授权访问</td>
+</tr>
+</tbody>
+</table>
+<h2 id="WAF检测"><a href="#WAF检测" class="headerlink" title="WAF检测"></a>WAF检测</h2><ul>
+<li>waf00f：是kali下的识别WAF的老工具 <a href="https://github.com/Ekultek/WhatWaf" target="_blank" rel="noopener">https://github.com/Ekultek/WhatWaf</a> <code>waf00f mi.com</code></li>
+<li>从乌云镜像站、CNVD搜集网站历史漏洞</li>
+<li>SQLMAP自带的WAF识别功能，我移植出来了，可以自定义新规则。发布在T00ls <a href="https://www.t00ls.net/thread-46639-1-1.html" target="_blank" rel="noopener">https://www.t00ls.net/thread-46639-1-1.html</a></li>
+<li>使用云悉也可以查询出WAF</li>
+<li>输入一个错误的页面，查看返回的头部信息或者body信息</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过搜索引擎获取系统管理页面，直接越权访问；<br>通过github直接找到管理后台账号密码；<br>通过目录／文件扫描直接得到系统信息（ip、管理员账号密码）连入服务器；</p>
+<h1 id="0x02-信息处理"><a href="#0x02-信息处理" class="headerlink" title="0x02 信息处理"></a>0x02 信息处理</h1><ol>
+<li>信息整理<br>分类：</li>
+</ol>
+<ul>
+<li>哪些网站功能类似；</li>
+<li>哪些网站可能使用的同一模版；</li>
+<li>哪些网站有waf（这个一般在url中标明就好）；</li>
+<li>哪些网站能登录（注册的账号也一定要记住，最好可以准备两个手机号，两个邮箱方便注册）；</li>
+<li>哪些网站暴露过哪些类型的漏洞（这个只能去乌云上面找）；</li>
+<li>网站目前有哪些功能（这个稍微关注一下网站公告，看最近是否会有业务更迭）；</li>
+</ul>
+<ol start="2">
+<li>漏洞整理</li>
+</ol>
+<h1 id="0x03-漏洞挖掘"><a href="#0x03-漏洞挖掘" class="headerlink" title="0x03 漏洞挖掘"></a>0x03 漏洞挖掘</h1><p>owasp top 10、逻辑</p>
+<ol>
+<li>首先我们需要对一个网站／app有一个了解要知道它的功能点有哪些</li>
+<li>其次我们要分析这个网站／app里面的请求哪些是我们可以控制的参数，这些地方就是漏洞经常出没的点</li>
+<li>最后就是分析逻辑</li>
+</ol>
+<p>例：”我们买东西”</p>
+<ul>
+<li>首先我们要选择：筛选涉及查询（是否可以SQL注入）</li>
+<li><p>加入购物车：商品数量是否可以为负</p>
+</li>
+<li><p>询问商家：<br>跳转客服系统，跳转url中是否含有用户参数<br>xss打客服cookie<br>钓鱼+社工</p>
+</li>
+<li><p>下单：<br>填地址，涉及插入（注入）、xss<br>修改单价<br>修改总额（这里说明一下修改总额：情况1，就是我们可能会遇到可以使用优惠卷的情况，比如我们买了100的东西只能使用5块的优惠价，但是我有一张50的优惠卷是否可以使用；情况2，打折我们是否可以修改打折的折扣；情况3，我们是否可以修改运费，将运费改为负数；情况n）</p>
+</li>
+<li><p>备注：xss，sql注入</p>
+</li>
+<li><p>电子票据：会写抬头</p>
+</li>
+<li><p>支付：<br>传输过程中是否可以修改，如果是扫描二维码支付，我们可以分析一下二维码中的请求url看是否可以修改以后重新生成二维码（这里不讨论后面具体了支付了，因为微信和支付宝）</p>
+</li>
+<li><p>订单完成：是否可以遍历订单</p>
+</li>
+<li>评价：注入、上传图片、xss</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/25/PWNtw-start/" rel="next" title="【Pwnable.tw】start">
+                <i class="fa fa-chevron-left"></i> 【Pwnable.tw】start
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Cool-Y">
+            
+              <p class="site-author-name" itemprop="name">Cool-Y</p>
+              <p class="site-description motion-element" itemprop="description">没人比我更懂中医#MAGA</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Cool-Y" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cool.yim@whu.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/yan__han/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          <div id="music163player">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="//music.163.com/outchain/player?type=4&id=334277093&auto=1&height=430"></iframe>
+          </div>
+
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-信息收集"><span class="nav-text">0x01 信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#域名信息收集"><span class="nav-text">域名信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#whois反查"><span class="nav-text">whois反查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS服务器查询"><span class="nav-text">DNS服务器查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子域名"><span class="nav-text">子域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#敏感信息收集"><span class="nav-text">敏感信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口信息"><span class="nav-text">端口信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WAF检测"><span class="nav-text">WAF检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-信息处理"><span class="nav-text">0x02 信息处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-漏洞挖掘"><span class="nav-text">0x03 漏洞挖掘</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cool-Y</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Site words total count">72k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+        <script src="https://jjeejj.github.io/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EWwoJgHNdlj6iBjiFlMcabUO-gzGzoHsz", "x8FxDrYG79C8YFrTww9ljo8K");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,5 +1,5 @@
+https://cool-y.github.io/2019/11/12/web-information-collect/
 https://cool-y.github.io/2019/10/25/PWNtw-start/
 https://cool-y.github.io/2019/07/25/Debug-a-router-firmware/
 https://cool-y.github.io/2019/07/24/获取固件/
 https://cool-y.github.io/2019/07/24/web-dvwa/
-https://cool-y.github.io/2019/07/16/linux-pwn-32/
