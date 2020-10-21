@@ -87,23 +87,23 @@
 <meta property="og:site_name" content="混元霹雳手">
 <meta property="og:description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/2-Man_in_the_middle_attack.svg.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/3-Connection_TCP.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/5-攻击模型.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/4-netstat获取信息.jpg">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/6-GRL-R.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/7-GRL-L.png">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-收包原理.jpg">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-noTrigger.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/8-trigger.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-序列号推断.PNG">
-<meta property="og:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/9-http注入.PNG">
-<meta property="og:updated_time" content="2019-04-15T07:35:38.082Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cool-Y/tcp_exploit/master/pic/1.PNG">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/2-Man_in_the_middle_attack.svg.png?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/3-Connection_TCP.png?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/5-%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9E%8B.PNG?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/4-netstat%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF.jpg?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/6-GRL-R.PNG?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/7-GRL-L.PNG?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-%E6%94%B6%E5%8C%85%E5%8E%9F%E7%90%86.jpg?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-Trigger.PNG?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-noTrigger.PNG?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/9-%E5%BA%8F%E5%88%97%E5%8F%B7%E6%8E%A8%E6%96%AD.PNG?raw=true">
+<meta property="og:image" content="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/9-http%E6%B3%A8%E5%85%A5.PNG?raw=true">
+<meta property="og:updated_time" content="2020-10-19T04:44:41.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wifi半双工侧信道攻击学习笔记">
 <meta name="twitter:description" content="TCP侧信道分析及利用的学习报告论文来源：USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets下载：原文pdf中文slides 背景知识测信道香农信息论  什么是信息？ 用来减少随机不确定的东西 什么是加密？ 类似于加噪声，增加随机不确定性  “从密码分析者来看，一个保">
-<meta name="twitter:image" content="https://cool-y.github.io/2019/01/16/wifi半双工侧信道攻击学习笔记/1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Cool-Y/tcp_exploit/master/pic/1.PNG">
 
 
 
@@ -457,7 +457,7 @@
       
         <h1 id="TCP侧信道分析及利用的学习报告"><a href="#TCP侧信道分析及利用的学习报告" class="headerlink" title="TCP侧信道分析及利用的学习报告"></a>TCP侧信道分析及利用的学习报告</h1><p><strong><em>论文来源：</em></strong>USENIX SECURITY 2018：Off-Path TCP Exploit: How Wireless Routers Can Jeopardize Your Secrets<br><strong><em>下载：</em></strong><br><a href="https://www.usenix.org/conference/usenixsecurity18/presentation/chen-weiteng" target="_blank" rel="noopener">原文pdf</a><br><a href="https://res.cloudinary.com/dozyfkbg3/raw/upload/v1553316881/ARE/wifi.pptx" target="_blank" rel="noopener">中文slides</a></p>
 <h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="测信道"><a href="#测信道" class="headerlink" title="测信道"></a>测信道</h3><p><strong>香农信息论</strong></p>
-<p><img src="./1.png" alt="信息熵"></p>
+<p><img src="https://raw.githubusercontent.com/Cool-Y/tcp_exploit/master/pic/1.PNG" alt="信息熵"></p>
 <p><strong>什么是信息？</strong> 用来减少随机不确定的东西</p>
 <p><strong>什么是加密？</strong> 类似于加噪声，增加随机不确定性</p>
 <blockquote>
@@ -477,7 +477,7 @@
 </blockquote>
 </li>
 </ol>
-<p><img src="./2-Man_in_the_middle_attack.svg.png" alt></p>
+<p><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/2-Man_in_the_middle_attack.svg.png?raw=true" alt></p>
 <ul>
 <li>公共wifi、路由器劫持</li>
 <li>一般使用加密来防御</li>
@@ -495,7 +495,7 @@
 <li>攻击者如何得到这个随机数：侧信道</li>
 </ul>
 <hr>
-<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><p><img src="./3-Connection_TCP.png" alt></p>
+<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><p><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/3-Connection_TCP.png?raw=true" alt></p>
 <blockquote>
 <ol>
 <li>客户端通过向服务器端发送一个SYN来创建一个主动打开，作为三路握手的一部分。客户端把这段连接的序号设定为<em>随机数A</em>。</li>
@@ -546,10 +546,10 @@
 <li>2007年在windows场景下用IDID侧信道猜出序列号：只针对Windows，花费几小时</li>
 </ol>
 <hr>
-<h2 id="Malware-assisted"><a href="#Malware-assisted" class="headerlink" title="Malware-assisted"></a>Malware-assisted</h2><p><strong>攻击模型：</strong><br>给受害者安装一个无特权的应用程序（仅能网络连接），这个程序跟非中间人的攻击者里应外合，劫持手机上所有的TCP连接。<br><img src="./5-攻击模型.PNG" alt></p>
+<h2 id="Malware-assisted"><a href="#Malware-assisted" class="headerlink" title="Malware-assisted"></a>Malware-assisted</h2><p><strong>攻击模型：</strong><br>给受害者安装一个无特权的应用程序（仅能网络连接），这个程序跟非中间人的攻击者里应外合，劫持手机上所有的TCP连接。<br><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/5-%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9E%8B.PNG?raw=true" alt></p>
 <p><strong>如何劫持TCP</strong></p>
 <ol>
-<li><p>需要的信息：Facebook的连接IP地址和端口号，由此可以知道TCP连接的序列号，利用序列号伪装成Facebook给手机发消息。<br>使用netstat命令获取：<br><img src="./4-netstat获取信息.jpg" alt></p>
+<li><p>需要的信息：Facebook的连接IP地址和端口号，由此可以知道TCP连接的序列号，利用序列号伪装成Facebook给手机发消息。<br>使用netstat命令获取：<br><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/4-netstat%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF.jpg?raw=true" alt></p>
 </li>
 <li><p>任务：由于TCP的序列号通常连续，所以要精确猜到它的下一个序列号。</p>
 </li>
@@ -568,18 +568,18 @@
 </blockquote>
 <p><strong>侧信道：</strong> 所有的侧信道，本质上就是攻击者和受害者之间共享着某些资源，如之前的全局TCP计数器。这里使用的侧信道是 <strong><em>服务器上</em></strong> 的共享资源，<strong><em>限速器</em></strong>（RFC 5961）限制某一种包的发送速率（默认100p/s）</p>
 <p><strong>如何利用共享限速器：</strong><br>先判断是否建立了连接。然后伪造TCP包，需要猜测源端口，如果猜测正确，服务器会返回一个challenge，攻击者不断触发，一共可以收到99个（还有一个发给了客户端）；如果猜测错误，则一共可以收到100个challenge。</p>
-<p><img src="./6-GRL-R.png" alt></p>
-<p><img src="./7-GRL-L.png" alt></p>
+<p><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/6-GRL-R.PNG?raw=true" alt></p>
+<p><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/7-GRL-L.PNG?raw=true" alt></p>
 <p><strong>评估：</strong> 是否建立了连接：&lt;10s  ;  Seq：30s  ； ACK:&lt;10s</p>
 <p><strong>解决方案：</strong> 1. 加噪音，100变成150、200；2. 限速器做成局部的</p>
 <hr>
 <h3 id="Unfixable-WiFi-timing"><a href="#Unfixable-WiFi-timing" class="headerlink" title="Unfixable WiFi timing"></a>Unfixable WiFi timing</h3><blockquote>
 <p>USENIX 2018 : Off-Path TCP Exploit: How Wireless Routers<br>Can Jeopardize Your Secrets<br>之前的漏洞无论是计数器还是限速器都属于软件，很好更正，但这篇文章的漏洞利用无法修复。</p>
 </blockquote>
-<p><strong>TCP收包的原理：</strong> 通常TCP收包要看这个包是否匹配了当前的某一个连接。如果连接匹配上了，就会去看这个包的序列号；如果序列号不对，会触发一个回复，说明这个序列号存在问题；如果序列号正确，但反向序列号不对，也会丢包。当连接匹配、序列号和反向序列号正确时，就会返回一个数据包。<br><img src="./8-收包原理.jpg" alt></p>
+<p><strong>TCP收包的原理：</strong> 通常TCP收包要看这个包是否匹配了当前的某一个连接。如果连接匹配上了，就会去看这个包的序列号；如果序列号不对，会触发一个回复，说明这个序列号存在问题；如果序列号正确，但反向序列号不对，也会丢包。当连接匹配、序列号和反向序列号正确时，就会返回一个数据包。<br><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-%E6%94%B6%E5%8C%85%E5%8E%9F%E7%90%86.jpg?raw=true" alt></p>
 <p><strong>侧信道：</strong> 攻击者伪装成服务器给客户端发包，正确的序列号会有<strong><em>回复</em></strong>，错误则没有。但回复时发送给服务器的，有没有回复攻击者并不知道。那么如何去判断有没有回复，利用无线网络的  <strong><em>半双工</em></strong> 传输。<br>让有回包和没有回包的时间差异放大。</p>
-<p><strong>判断流程：</strong> 客户端和路由器之间wifi通信。攻击者依次发送三个数据包，第一个包用来测试正常的RTT。第2个包是伪装成服务器发送的，如果第2个包猜对了，客户端会向服务器返回数据包，这会导致占用更长时间的wifi信道，从而会使第3个包的RTT更长。<br><img src="./8-noTrigger.PNG" alt></p>
-<p><img src="./8-trigger.PNG" alt></p>
+<p><strong>判断流程：</strong> 客户端和路由器之间wifi通信。攻击者依次发送三个数据包，第一个包用来测试正常的RTT。第2个包是伪装成服务器发送的，如果第2个包猜对了，客户端会向服务器返回数据包，这会导致占用更长时间的wifi信道，从而会使第3个包的RTT更长。<br><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-Trigger.PNG?raw=true" alt></p>
+<p><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-noTrigger.PNG?raw=true" alt></p>
 <p><strong>评估：</strong> 在本地环境下，如果发送40个包，就有20ms的RTT差别。</p>
 <p><strong>攻击应用：</strong><br><strong>1. 攻击模型：</strong> 受害者访问了我们的钓鱼网站，这时javascript（傀儡）会在后台执行，主动建立到攻击者的连接（规避NAT或防火墙造成的不可抵达问题），这时攻击者就可以从外网测试RTT。</p>
 <blockquote>
@@ -593,10 +593,10 @@ Server   -------wire----------|
 <p><strong>4. 细节：</strong></p>
 <ul>
 <li><strong>连接（四元组）推断：</strong> 每一轮使用30个重复包测试一个端口，如果端口号正确，就会发现RTT大幅增加。如果还要完成 <strong><em>web缓存投毒</em></strong>  ，还需要傀儡初始化连接来协助，根据系统不同，有不同的端口选择算法可以优化：<strong><em>windows&amp;macOS</em></strong> 使用全局和顺序端口分配策略为其TCP连接选择短暂的端口号，这意味着攻击者可以在观察到与恶意Web服务器的初始连接后推断出要使用的下一个端口号，这完全消除了对端口号推断的需要。<strong><em>NAT</em></strong> 端口保留，不需要关心外部端口被转换成不可预知的内部端口。<strong><em>来自同一域名的多个IP地址</em></strong>，这意味着攻击者需要付出更大的代价来推断端口号。</li>
-<li><strong>序列号推断：</strong> 通过利用时序侧信道来判断是否存在相应的响应，从而将窗口序列号与窗外序列号区分开来。一旦我们得到一个 <strong><em>窗口内序列号</em></strong>，通过进行二分搜索进一步将序列号空间缩小到单个值  <strong><em>RCV.NXT</em></strong>。如果还要使用傀儡建立的连接发起web缓存投毒，可以进一步优化：<strong><em>增大接收窗口的大小</em></strong>，可以减少猜测的迭代次数，通常可以放大到500000(之前是65535)，而且根据RFC793,窗口放大之后就永远不会缩小。<br><img src="./9-序列号推断.PNG" alt></li>
+<li><strong>序列号推断：</strong> 通过利用时序侧信道来判断是否存在相应的响应，从而将窗口序列号与窗外序列号区分开来。一旦我们得到一个 <strong><em>窗口内序列号</em></strong>，通过进行二分搜索进一步将序列号空间缩小到单个值  <strong><em>RCV.NXT</em></strong>。如果还要使用傀儡建立的连接发起web缓存投毒，可以进一步优化：<strong><em>增大接收窗口的大小</em></strong>，可以减少猜测的迭代次数，通常可以放大到500000(之前是65535)，而且根据RFC793,窗口放大之后就永远不会缩小。<br><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/9-%E5%BA%8F%E5%88%97%E5%8F%B7%E6%8E%A8%E6%96%AD.PNG?raw=true" alt></li>
 <li><p><strong>TCP劫持：</strong> 通过劫持傀儡初始化的连接，可以简化web缓存投毒的过程。三个os在ACK验证上都不符合规范，所以各自处理情况也不同——<strong><em>windows</em></strong>：客户端必须持续发送请求以防止ACK接收窗口仅为一个字节，这要求攻击者必须能准确预期下一个序列号并解决大量流量带来的噪声。<br>因此，作者设计了一种新策略，该策略利用处理重叠数据的TCP行为和处理损坏的HTTP响应的浏览器行为——在Windows主机上缓冲的攻击者注入数据可能会破坏来自服务器的真实HTTP响应。 <strong><em>（1）注入</em></strong>，傀儡不断从服务器上请求脚本，而攻击者发送2^23/|wnd|个欺骗性数据包，这些包的窗口序列号与RCV.NXT加上偏移量相匹配，其中|wnd|为ack接收窗口大小，第i个数据包的ACK号为i*|wnd|，payload为</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocket.send(|wnd|*i)</span><br></pre></td></tr></table></figure>
-<p>  因此，这些数据包中包含有效ACK号的一个包将被缓冲，并破坏真实的HTTP响应头。浏览器执行注入的脚本时，它将通过websocket发送猜测的ACK号，提供有效的窗口内ACK号。<br><img src="./9-http注入.PNG" alt><br><strong><em>（2）利用</em></strong>，由于客户端已经接受了额外的欺骗payload，推进了其预期的序列号，因此客户端和服务器实际上已经被去同步。攻击者现在可以简单地发送欺骗性响应（知道预期的序列号和有效的ACK号）。如果我们只想执行一次性注入，只需用恶意脚本替换第一步中的payload就足够了。<br>此外，针对Windows的注入步骤存在更加通用的替代策略，不依赖于浏览器行为。 具体来说，由于HTTP响应的前几个字节是可预先确定的（即HTTP），不破坏真实的响应，而是覆盖标题和正文以形成合法但恶意的响应。 在这种情况下，浏览器将完全忘记注入的存在。 这表明一旦序列号泄露，就存在各种方法来有效地将数据注入浏览器，而不用进行基于时间信道的慢得多的ACK号推断。</p>
+<p>  因此，这些数据包中包含有效ACK号的一个包将被缓冲，并破坏真实的HTTP响应头。浏览器执行注入的脚本时，它将通过websocket发送猜测的ACK号，提供有效的窗口内ACK号。<br><img src="https://github.com/Cool-Y/tcp_exploit/blob/master/pic/9-http%E6%B3%A8%E5%85%A5.PNG?raw=true" alt><br><strong><em>（2）利用</em></strong>，由于客户端已经接受了额外的欺骗payload，推进了其预期的序列号，因此客户端和服务器实际上已经被去同步。攻击者现在可以简单地发送欺骗性响应（知道预期的序列号和有效的ACK号）。如果我们只想执行一次性注入，只需用恶意脚本替换第一步中的payload就足够了。<br>此外，针对Windows的注入步骤存在更加通用的替代策略，不依赖于浏览器行为。 具体来说，由于HTTP响应的前几个字节是可预先确定的（即HTTP），不破坏真实的响应，而是覆盖标题和正文以形成合法但恶意的响应。 在这种情况下，浏览器将完全忘记注入的存在。 这表明一旦序列号泄露，就存在各种方法来有效地将数据注入浏览器，而不用进行基于时间信道的慢得多的ACK号推断。</p>
 </li>
 </ul>
 <hr>
@@ -760,7 +760,7 @@ Server   -------wire----------|
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -782,7 +782,7 @@ Server   -------wire----------|
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -862,7 +862,7 @@ Server   -------wire----------|
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -874,7 +874,7 @@ Server   -------wire----------|
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">72k</span>
+    <span title="Site words total count">74.5k</span>
   
 </div>
 

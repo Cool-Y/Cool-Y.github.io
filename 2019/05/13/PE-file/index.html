@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="混元霹雳手">
 <meta property="og:description" content="PE文件格式PE(Portable Executable)是Win32平台下可执行文件遵守的数据格式。常见的可执行文件（如exe和dll）都是典型的PE文件。PE文件格式其实是一种数据结构，包含Windows操作系统加载管理可执行代码时所必要的信息，如二进制机器代码、字符串、菜单、图标、位图、字体等。PE文件格式规定了所有这些信息在可执行文件中如何组织。在程序被执行时，操作系统会按照PE文件格式的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg">
-<meta property="og:updated_time" content="2019-05-13T12:43:24.447Z">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/pwn/1506049226526485.jpg">
+<meta property="og:updated_time" content="2020-10-19T04:14:48.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PE文件格式学习">
 <meta name="twitter:description" content="PE文件格式PE(Portable Executable)是Win32平台下可执行文件遵守的数据格式。常见的可执行文件（如exe和dll）都是典型的PE文件。PE文件格式其实是一种数据结构，包含Windows操作系统加载管理可执行代码时所必要的信息，如二进制机器代码、字符串、菜单、图标、位图、字体等。PE文件格式规定了所有这些信息在可执行文件中如何组织。在程序被执行时，操作系统会按照PE文件格式的">
-<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/pwn/1506049226526485.jpg">
 
 
 
@@ -556,7 +556,7 @@
 <li><p>引入函数节(.rdata/.idata)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;</span><br><span class="line">    union &#123;</span><br><span class="line">        DWORD   Characteristics;            // 0 for terminating null import descriptor</span><br><span class="line">        DWORD   OriginalFirstThunk;         // RVA to original unbound IAT (PIMAGE_THUNK_DATA)</span><br><span class="line">    &#125;;</span><br><span class="line">    DWORD   TimeDateStamp;                  // 0 if not bound,</span><br><span class="line">                                            // -1 if bound, and real datetime stamp</span><br><span class="line">                                            //     in IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT (new BIND)</span><br><span class="line">                                            // O.W. date/time stamp of DLL bound to (Old BIND)</span><br><span class="line"></span><br><span class="line">    DWORD   ForwarderChain;                 // -1 if no forwarders</span><br><span class="line">    DWORD   Name;</span><br><span class="line">    DWORD   FirstThunk;                     // RVA to IAT (if bound this IAT has actual addresses)</span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>一个exe程序加载dll的IMAGE_IMPORT_DESCRIPTOR<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg" alt></p>
+<li><p>一个exe程序加载dll的IMAGE_IMPORT_DESCRIPTOR<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/pwn/1506049226526485.jpg" alt></p>
 </li>
 </ul>
 
@@ -718,7 +718,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -740,7 +740,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -820,7 +820,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -832,7 +832,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">72k</span>
+    <span title="Site words total count">74.5k</span>
   
 </div>
 
