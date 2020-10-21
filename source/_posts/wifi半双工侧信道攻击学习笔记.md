@@ -22,7 +22,7 @@ categories:
 
 **香农信息论**
 
-![信息熵](./1.png)
+![信息熵](https://raw.githubusercontent.com/Cool-Y/tcp_exploit/master/pic/1.PNG)
 
 **什么是信息？** 用来减少随机不确定的东西
 
@@ -42,7 +42,7 @@ categories:
 1. 中间人攻击
 > "指攻击者与通讯的两端分别创建独立的联系，并交换其所收到的数据，使通讯的两端认为他们正在通过一个私密的连接与对方直接对话，但事实上整个会话都被攻击者完全控制。"
 
-![](./2-Man_in_the_middle_attack.svg.png)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/2-Man_in_the_middle_attack.svg.png?raw=true)
 * 公共wifi、路由器劫持
 * 一般使用加密来防御
 * 加密的代价：维护密钥证书、影响功能（运营商无法做缓存）
@@ -59,7 +59,7 @@ categories:
 ----------------
 
 ### TCP三次握手
-![](./3-Connection_TCP.png)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/3-Connection_TCP.png?raw=true)
 >1. 客户端通过向服务器端发送一个SYN来创建一个主动打开，作为三路握手的一部分。客户端把这段连接的序号设定为*随机数A*。
 >2. 服务器端应当为一个合法的SYN回送一个SYN/ACK。ACK的确认码应为A+1，SYN/ACK包本身又有一个*随机产生的序号B*。
 >3. 最后，客户端再发送一个ACK。当服务端收到这个ACK的时候，就完成了三路握手，并进入了连接创建状态。此时包的序号被设定为收到的确认号A+1，而响应号则为B+1。
@@ -82,12 +82,12 @@ categories:
 
 **攻击模型：**
 给受害者安装一个无特权的应用程序（仅能网络连接），这个程序跟非中间人的攻击者里应外合，劫持手机上所有的TCP连接。
-![](./5-攻击模型.PNG)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/5-%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9E%8B.PNG?raw=true)
 
 **如何劫持TCP**
 1. 需要的信息：Facebook的连接IP地址和端口号，由此可以知道TCP连接的序列号，利用序列号伪装成Facebook给手机发消息。
 使用netstat命令获取：
-![](./4-netstat获取信息.jpg)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/4-netstat%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF.jpg?raw=true)
 
 2. 任务：由于TCP的序列号通常连续，所以要精确猜到它的下一个序列号。
 3. 如何验证序列号正确：通过某种侧信道，这个恶意软件在后台可以提供反馈。
@@ -116,9 +116,9 @@ categories:
 **如何利用共享限速器：**
 先判断是否建立了连接。然后伪造TCP包，需要猜测源端口，如果猜测正确，服务器会返回一个challenge，攻击者不断触发，一共可以收到99个（还有一个发给了客户端）；如果猜测错误，则一共可以收到100个challenge。
 
-![](./6-GRL-R.png)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/6-GRL-R.PNG?raw=true)
 
-![](./7-GRL-L.png)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/7-GRL-L.PNG?raw=true)
 
 **评估：** 是否建立了连接：<10s  ;  Seq：30s  ； ACK:<10s
 
@@ -132,15 +132,15 @@ Can Jeopardize Your Secrets
 之前的漏洞无论是计数器还是限速器都属于软件，很好更正，但这篇文章的漏洞利用无法修复。
 
 **TCP收包的原理：** 通常TCP收包要看这个包是否匹配了当前的某一个连接。如果连接匹配上了，就会去看这个包的序列号；如果序列号不对，会触发一个回复，说明这个序列号存在问题；如果序列号正确，但反向序列号不对，也会丢包。当连接匹配、序列号和反向序列号正确时，就会返回一个数据包。
-![](./8-收包原理.jpg)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-%E6%94%B6%E5%8C%85%E5%8E%9F%E7%90%86.jpg?raw=true)
 
 **侧信道：** 攻击者伪装成服务器给客户端发包，正确的序列号会有***回复***，错误则没有。但回复时发送给服务器的，有没有回复攻击者并不知道。那么如何去判断有没有回复，利用无线网络的  ***半双工*** 传输。
 让有回包和没有回包的时间差异放大。
 
 **判断流程：** 客户端和路由器之间wifi通信。攻击者依次发送三个数据包，第一个包用来测试正常的RTT。第2个包是伪装成服务器发送的，如果第2个包猜对了，客户端会向服务器返回数据包，这会导致占用更长时间的wifi信道，从而会使第3个包的RTT更长。
-![](./8-noTrigger.PNG)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-Trigger.PNG?raw=true)
 
-![](./8-trigger.PNG)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/8-noTrigger.PNG?raw=true)
 
 **评估：** 在本地环境下，如果发送40个包，就有20ms的RTT差别。
 
@@ -160,14 +160,14 @@ Can Jeopardize Your Secrets
 **4. 细节：**
 * **连接（四元组）推断：** 每一轮使用30个重复包测试一个端口，如果端口号正确，就会发现RTT大幅增加。如果还要完成 ***web缓存投毒***  ，还需要傀儡初始化连接来协助，根据系统不同，有不同的端口选择算法可以优化：***windows&macOS*** 使用全局和顺序端口分配策略为其TCP连接选择短暂的端口号，这意味着攻击者可以在观察到与恶意Web服务器的初始连接后推断出要使用的下一个端口号，这完全消除了对端口号推断的需要。***NAT*** 端口保留，不需要关心外部端口被转换成不可预知的内部端口。***来自同一域名的多个IP地址***，这意味着攻击者需要付出更大的代价来推断端口号。
 * **序列号推断：** 通过利用时序侧信道来判断是否存在相应的响应，从而将窗口序列号与窗外序列号区分开来。一旦我们得到一个 ***窗口内序列号***，通过进行二分搜索进一步将序列号空间缩小到单个值  ***RCV.NXT***。如果还要使用傀儡建立的连接发起web缓存投毒，可以进一步优化：***增大接收窗口的大小***，可以减少猜测的迭代次数，通常可以放大到500000(之前是65535)，而且根据RFC793,窗口放大之后就永远不会缩小。
-![](./9-序列号推断.PNG)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/9-%E5%BA%8F%E5%88%97%E5%8F%B7%E6%8E%A8%E6%96%AD.PNG?raw=true)
 * **TCP劫持：** 通过劫持傀儡初始化的连接，可以简化web缓存投毒的过程。三个os在ACK验证上都不符合规范，所以各自处理情况也不同——***windows***：客户端必须持续发送请求以防止ACK接收窗口仅为一个字节，这要求攻击者必须能准确预期下一个序列号并解决大量流量带来的噪声。
 因此，作者设计了一种新策略，该策略利用处理重叠数据的TCP行为和处理损坏的HTTP响应的浏览器行为——在Windows主机上缓冲的攻击者注入数据可能会破坏来自服务器的真实HTTP响应。 ***（1）注入***，傀儡不断从服务器上请求脚本，而攻击者发送2^23/|wnd|个欺骗性数据包，这些包的窗口序列号与RCV.NXT加上偏移量相匹配，其中|wnd|为ack接收窗口大小，第i个数据包的ACK号为i*|wnd|，payload为
     ```
     websocket.send(|wnd|*i)
     ```
     因此，这些数据包中包含有效ACK号的一个包将被缓冲，并破坏真实的HTTP响应头。浏览器执行注入的脚本时，它将通过websocket发送猜测的ACK号，提供有效的窗口内ACK号。
-![](./9-http注入.PNG)
+![](https://github.com/Cool-Y/tcp_exploit/blob/master/pic/9-http%E6%B3%A8%E5%85%A5.PNG?raw=true)
 ***（2）利用***，由于客户端已经接受了额外的欺骗payload，推进了其预期的序列号，因此客户端和服务器实际上已经被去同步。攻击者现在可以简单地发送欺骗性响应（知道预期的序列号和有效的ACK号）。如果我们只想执行一次性注入，只需用恶意脚本替换第一步中的payload就足够了。
 此外，针对Windows的注入步骤存在更加通用的替代策略，不依赖于浏览器行为。 具体来说，由于HTTP响应的前几个字节是可预先确定的（即HTTP），不破坏真实的响应，而是覆盖标题和正文以形成合法但恶意的响应。 在这种情况下，浏览器将完全忘记注入的存在。 这表明一旦序列号泄露，就存在各种方法来有效地将数据注入浏览器，而不用进行基于时间信道的慢得多的ACK号推断。
 

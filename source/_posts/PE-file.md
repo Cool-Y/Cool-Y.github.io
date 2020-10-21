@@ -194,4 +194,4 @@ typedef struct _IMAGE_IMPORT_DESCRIPTOR {
 } IMAGE_IMPORT_DESCRIPTOR;
 ```
 - 一个exe程序加载dll的IMAGE_IMPORT_DESCRIPTOR
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/1506049226526485.jpg)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1556519313/pwn/1506049226526485.jpg)
