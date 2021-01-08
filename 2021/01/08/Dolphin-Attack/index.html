@@ -89,8 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_23.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_24.png">
-<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_25.png">
-<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_26.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610080973/Dolphin%20Attack/image_25.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610080973/Dolphin%20Attack/image_26.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_271.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_281.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_27.png">
@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_40.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_41.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_42.png">
-<meta property="og:updated_time" content="2021-01-08T04:45:32.897Z">
+<meta property="og:updated_time" content="2021-01-08T04:50:09.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dolphin Attack 论文翻译">
 <meta name="twitter:description" content="海豚音攻击https://acmccs.github.io/papers/p103-zhangAemb.pdfhttps://github.com/USSLab/DolphinAttackhttps://zhuanlan.zhihu.com/p/29306026 Abstract诸如Siri或Google Now之类的语音识别（SR）系统已经成为一种越来越流行的人机交互方法，并将各种系统转变为语音">
@@ -459,8 +459,8 @@
 </ul>
 <h2 id="3-可行性分析"><a href="#3-可行性分析" class="headerlink" title="3 可行性分析"></a>3 可行性分析</h2><p>DolphinAttack的基本思想是（a）在空中传输之前在超声载波上调制低频语音信号（即基带），以及（b）在接收器处用语音捕获硬件对调制后的语音信号进行解调。由于我们无法控制语音捕获硬件，因此我们必须以一种可以使用语音捕获硬件将其解调为基带信号的方式来调制信号。假设麦克风模块始终利用LPF抑制不想要的高频信号，则解调应在LPF之前完成。<br>由于语音捕获硬件的信号路径从麦克风，一个或多个放大器LPF到ADC开始，因此解调的潜在组件是麦克风和放大器。我们研究了完成DolphinAttack的原理。尽管诸如放大器之类的电子组件被设计为线性的，但实际上它们表现出非线性。利用这种非线性特性，电子元件能够创建新的频率[25]。尽管已经报道并利用了放大器模块的非线性，但包括ECM麦克风和MEMS麦克风在内的麦克风是否具有这种特性仍是未知的。<br>为了进行研究，我们首先在理论上对麦克风模块的非线性建模，然后显示非线性对实际麦克风模块的影响。</p>
 <h3 id="3-1非线性效应建模"><a href="#3-1非线性效应建模" class="headerlink" title="3.1非线性效应建模"></a>3.1非线性效应建模</h3><p>麦克风将机械声波转换为电信号。 从本质上讲，麦克风可以粗略地视为在输入/输出信号传输特性中具有平方律非线性的组件[1、13]。 众所周知，放大器具有非线性特性，可以产生低频范围内的解调信号[20]。 在本文中，我们研究了麦克风的非线性，可以将其建模如下。 假设输入信号为sin（t），输出信号sout（t）为：</p>
-<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_25.png" alt><br>其中A是输入信号的增益，B是二次项s2 in的增益。线性分量采用频率为f的正弦输入信号，并输出具有相同频率f的正弦信号。 相比之下，电气设备的非线性会产生谐波和叉积2。尽管通常将它们视为不希望的失真[31]，但具有非线性的设备能够生成新的频率，并且通过精心设计的输入信号，它们可以将信号下变频为 以及恢复基带信号。<br>假设所需的语音控制信号为m（t），我们选择中心频率为fc的载波上的调制信号为</p>
-<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_26.png" alt><br>即，使用幅度调制。 不失一般性，设m（t）为简单基调，即m（t）= cos（2πfmt）。 应用等式后。 （2）至 （1）并进行傅立叶变换，我们可以确认输出信号包含预期的频率分量fm以及sin的基本频率分量（即fc-fm，fc + fm和fc），谐波和其他交叉 乘积（即fm，2（fc-fm），2（fc + fm），2fc，2fc + fm和2fc-fm）。 经过LPF后，所有高频成分将被删除，而fm频率成分将保留下来，从而完成了下变频，如图3所示。</p>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610080973/Dolphin%20Attack/image_25.png" alt><br>其中A是输入信号的增益，B是二次项s2 in的增益。线性分量采用频率为f的正弦输入信号，并输出具有相同频率f的正弦信号。 相比之下，电气设备的非线性会产生谐波和叉积2。尽管通常将它们视为不希望的失真[31]，但具有非线性的设备能够生成新的频率，并且通过精心设计的输入信号，它们可以将信号下变频为 以及恢复基带信号。<br>假设所需的语音控制信号为m（t），我们选择中心频率为fc的载波上的调制信号为</p>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610080973/Dolphin%20Attack/image_26.png" alt><br>即，使用幅度调制。 不失一般性，设m（t）为简单基调，即m（t）= cos（2πfmt）。 应用等式后。 （2）至 （1）并进行傅立叶变换，我们可以确认输出信号包含预期的频率分量fm以及sin的基本频率分量（即fc-fm，fc + fm和fc），谐波和其他交叉 乘积（即fm，2（fc-fm），2（fc + fm），2fc，2fc + fm和2fc-fm）。 经过LPF后，所有高频成分将被删除，而fm频率成分将保留下来，从而完成了下变频，如图3所示。</p>
 <p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_271.png" alt></p>
 <h3 id="3-2-非线性效应评估"><a href="#3-2-非线性效应评估" class="headerlink" title="3.2 非线性效应评估"></a>3.2 非线性效应评估</h3><p>考虑到麦克风模块非线性效应的理论计算及其对调制后输入信号的影响，在本节中，我们将验证对真实麦克风的非线性效应。我们测试两种类型的麦克风：ECM和MEMS麦克风。</p>
 <h4 id="3-2-1-实验设置"><a href="#3-2-1-实验设置" class="headerlink" title="3.2.1 实验设置"></a>3.2.1 实验设置</h4><p>实验设置如图5所示。我们使用iPhone SE智能手机生成2 kHz语音控制信号，即基带信号。然后将基带信号输入到矢量信号发生器[57]，该信号发生器将基带信号调制到载波上。经功率放大器放大后，调制信号由高质量的全频带超声扬声器Vifa传输[9]。请注意，我们选择的载波范围为9 kHz至20 kHz，因为信号发生器无法生成低于9 kHz频率的信号。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_281.png" alt>在接收器端，我们测试了从耳机中提取的ECM麦克风和ADMP401 MEMS麦克风[16]。如图5所示，ADMP401麦克风模块包含一个前置放大器。为了了解麦克风的特性，我们测量了麦克风而不是前置放大器输出的信号。</p>
