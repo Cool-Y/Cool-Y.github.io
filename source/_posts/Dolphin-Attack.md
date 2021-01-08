@@ -85,7 +85,7 @@ DolphinAttack的基本思想是（a）在空中传输之前在超声载波上调
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_26.png)
 即，使用幅度调制。 不失一般性，设m（t）为简单基调，即m（t）= cos（2πfmt）。 应用等式后。 （2）至 （1）并进行傅立叶变换，我们可以确认输出信号包含预期的频率分量fm以及sin的基本频率分量（即fc-fm，fc + fm和fc），谐波和其他交叉 乘积（即fm，2（fc-fm），2（fc + fm），2fc，2fc + fm和2fc-fm）。 经过LPF后，所有高频成分将被删除，而fm频率成分将保留下来，从而完成了下变频，如图3所示。
 
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_25.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_271.png)
 
 ### 3.2 非线性效应评估
 
@@ -93,7 +93,7 @@ DolphinAttack的基本思想是（a）在空中传输之前在超声载波上调
 
 #### 3.2.1 实验设置
 实验设置如图5所示。我们使用iPhone SE智能手机生成2 kHz语音控制信号，即基带信号。然后将基带信号输入到矢量信号发生器[57]，该信号发生器将基带信号调制到载波上。经功率放大器放大后，调制信号由高质量的全频带超声扬声器Vifa传输[9]。请注意，我们选择的载波范围为9 kHz至20 kHz，因为信号发生器无法生成低于9 kHz频率的信号。
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_26.png)在接收器端，我们测试了从耳机中提取的ECM麦克风和ADMP401 MEMS麦克风[16]。如图5所示，ADMP401麦克风模块包含一个前置放大器。为了了解麦克风的特性，我们测量了麦克风而不是前置放大器输出的信号。
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_281.png)在接收器端，我们测试了从耳机中提取的ECM麦克风和ADMP401 MEMS麦克风[16]。如图5所示，ADMP401麦克风模块包含一个前置放大器。为了了解麦克风的特性，我们测量了麦克风而不是前置放大器输出的信号。
 
 #### 3.2.2 结果
 我们使用两种信号来研究非线性：单音和多音语音。
