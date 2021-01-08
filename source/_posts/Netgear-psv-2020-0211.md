@@ -1,16 +1,19 @@
 ---
-title: Netgear-psv-2020-0211
+title: Netgear_栈溢出漏洞_PSV-2020-0211
 date: 2021-01-08 13:26:26
 tags:
+- Netgear
+- UPnP
+- 固件模拟
+categories:
+- IOT
 ---
-# Netgear_栈溢出漏洞_PSV-2020-0211
-
+**固件模拟与UPnP栈溢出利用**
 https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211
  https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-r8300-upnpd-preauth-rce/
 https://paper.seebug.org/1311/#1
 https://www.anquanke.com/post/id/217606
 
-**固件模拟与UPnP栈溢出利用**
 
 ## **0x00 漏洞概要**
 
