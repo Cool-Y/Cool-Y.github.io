@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="itchat,微信,">
+  <meta name="keywords" content="Netgear,UPnP,NVRAM,固件模拟,">
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
-<meta name="keywords" content="itchat,微信">
+<meta name="description" content="ARMX作者说，nvram的内容必须从正在运行的设备中提取。一种方法是转储包含nvram数据的mtdblock， /proc/mtd可能有助于识别哪个mtdblock包含nvram。另一种方法是，如果您可以通过UART进行命令行访问（当然可以访问实际的硬件），某些固件会提供nvram命令，运行“ nvram show”也可以获取nvram内容。https://github.com/thereals">
+<meta name="keywords" content="Netgear,UPnP,NVRAM,固件模拟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用itchat定时转发微信消息">
-<meta property="og:url" content="https://cool-y.github.io/2019/03/23/auto-send-WX/index.html">
+<meta property="og:title" content="自动化获取nvram配置">
+<meta property="og:url" content="https://cool-y.github.io/2021/01/08/nvram-config/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
+<meta property="og:description" content="ARMX作者说，nvram的内容必须从正在运行的设备中提取。一种方法是转储包含nvram数据的mtdblock， /proc/mtd可能有助于识别哪个mtdblock包含nvram。另一种方法是，如果您可以通过UART进行命令行访问（当然可以访问实际的硬件），某些固件会提供nvram命令，运行“ nvram show”也可以获取nvram内容。https://github.com/thereals">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T07:35:38.081Z">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094619/nvram/image_24.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094620/nvram/image_23.png">
+<meta property="og:updated_time" content="2021-01-08T08:31:40.139Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用itchat定时转发微信消息">
-<meta name="twitter:description" content="我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。这就是这片po文的由来啦！ 大杀器itchatintroduction先来一段itchat的官方介绍吧  itchat是一个开源的微">
+<meta name="twitter:title" content="自动化获取nvram配置">
+<meta name="twitter:description" content="ARMX作者说，nvram的内容必须从正在运行的设备中提取。一种方法是转储包含nvram数据的mtdblock， /proc/mtd可能有助于识别哪个mtdblock包含nvram。另一种方法是，如果您可以通过UART进行命令行访问（当然可以访问实际的硬件），某些固件会提供nvram命令，运行“ nvram show”也可以获取nvram内容。https://github.com/thereals">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094619/nvram/image_24.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/2019/03/23/auto-send-WX/">
+  <link rel="canonical" href="https://cool-y.github.io/2021/01/08/nvram-config/">
 
 
 
 
 
-  <title>利用itchat定时转发微信消息 | 混元霹雳手</title>
+  <title>自动化获取nvram配置 | 混元霹雳手</title>
   
 
 
@@ -283,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2019/03/23/auto-send-WX/">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2021/01/08/nvram-config/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cool-Y">
@@ -300,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">利用itchat定时转发微信消息</h1>
+          <h1 class="post-title" itemprop="name headline">自动化获取nvram配置</h1>
         
 
         <div class="post-meta">
@@ -312,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T19:48:46+08:00">
-                2019-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T16:27:26+08:00">
+                2021-01-08
               </time>
             
 
@@ -335,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂七杂八/" itemprop="url" rel="index">
-                    <span itemprop="name">杂七杂八</span>
+                  <a href="/categories/IOT/" itemprop="url" rel="index">
+                    <span itemprop="name">IOT</span>
                   </a>
                 </span>
 
@@ -352,7 +355,7 @@
 
           
           
-             <span id="/2019/03/23/auto-send-WX/" class="leancloud_visitors" data-flag-title="利用itchat定时转发微信消息">
+             <span id="/2021/01/08/nvram-config/" class="leancloud_visitors" data-flag-title="自动化获取nvram配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,7 +378,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  989 字
+                  1.1k 字
                 </span>
               
 
@@ -389,7 +392,7 @@
                 </span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -410,31 +413,35 @@
       
 
       
-        <p>我们实验室有个光荣传统，每天早上起床叫醒我的不是闹钟，而是群里雷打不动的安全新闻（其实我免提醒了2333）<br>而这个发送新闻的人，一代一代的传承，我没想到竟然有一天会落在我头上，哭了o(╥﹏╥)o<br>为了不暴露我的起床时间，同时能保质保量的完成任务，我决定做个机器人帮我完成。<br>这就是这片po文的由来啦！</p>
-<h1 id="大杀器itchat"><a href="#大杀器itchat" class="headerlink" title="大杀器itchat"></a>大杀器itchat</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><p>先来一段<a href="https://itchat.readthedocs.io/zh/latest/" target="_blank" rel="noopener">itchat</a>的官方介绍吧</p>
-<blockquote>
-<p>itchat是一个开源的微信个人号接口，使用python调用微信从未如此简单。<br>使用不到三十行的代码，你就可以完成一个能够处理所有信息的微信机器人。<br>当然，该api的使用远不止一个机器人，更多的功能等着你来发现，比如这些。<br>该接口与公众号接口itchatmp共享类似的操作方式，学习一次掌握两个工具。<br>如今微信已经成为了个人社交的很大一部分，希望这个项目能够帮助你扩展你的个人的微信号、方便自己的生活。</p>
-</blockquote>
-<p>实际上，itchat是对微信网页端的爬虫，所以，网页端可以实现的功能都有，那么，我想要的定时群发微信消息，自然不在话下！</p>
-<h2 id="初步尝试"><a href="#初步尝试" class="headerlink" title="初步尝试"></a>初步尝试</h2><ul>
-<li><p>安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install itchat</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个简单实例：实现给文件传输助手发送消息</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">itchat.auto_login()</span><br><span class="line">itchat.send(&apos;Hello, filehelper&apos;, toUserName=&apos;filehelper&apos;)</span><br></pre></td></tr></table></figure>
-<h1 id="实现定时转发"><a href="#实现定时转发" class="headerlink" title="实现定时转发"></a>实现定时转发</h1><p>这个的实现需要注册msg_register,逻辑很简单，当收到指定群里的指定消息时，将消息转发到另一个群。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">from datetime import datetime</span><br><span class="line">import time</span><br><span class="line">import re</span><br><span class="line">import threading</span><br><span class="line">from itchat.content import TEXT</span><br><span class="line">from itchat.content import *</span><br><span class="line">from apscheduler.schedulers.blocking import BlockingScheduler</span><br><span class="line"></span><br><span class="line">@itchat.msg_register([TEXT], isFriendChat=True, isGroupChat=True, isMpChat=True)</span><br><span class="line">def getContent(msg):</span><br><span class="line">    global g_msg</span><br><span class="line">    groups = itchat.get_chatrooms(update = True)</span><br><span class="line">    for g in groups:</span><br><span class="line">        #print(g[&apos;NickName&apos;])</span><br><span class="line">        if g[&apos;NickName&apos;] == &apos;被转发的群名&apos;:</span><br><span class="line">            from_group = g[&apos;UserName&apos;]</span><br><span class="line">    if &apos;每日安全简讯&apos; in msg[&apos;Content&apos;]:</span><br><span class="line">        print(&quot;get message from &quot; + msg[&apos;FromUserName&apos;])</span><br><span class="line">        if msg[&apos;FromUserName&apos;] == from_group:</span><br><span class="line">            g_msg = msg[&apos;Content&apos;]</span><br><span class="line">            print(&apos;成功获得群消息，等待转发&apos;)</span><br><span class="line">            print(int(time.strftime(&quot;%H%M%S&quot;)))</span><br><span class="line">            while(1):</span><br><span class="line">                if int(time.strftime(&quot;%H%M%S&quot;)) &gt; 80000:</span><br><span class="line">                    SendMessage(g_msg,&apos;发送的对象群名&apos;)</span><br><span class="line">                    g_msg = &apos;&apos;</span><br><span class="line">                    break</span><br><span class="line"></span><br><span class="line">def SendMessage(context,gname):</span><br><span class="line">    itchat.get_chatrooms(update = True)</span><br><span class="line">    users = itchat.search_chatrooms(name=gname)</span><br><span class="line">    userName = users[0][&apos;UserName&apos;]</span><br><span class="line">    itchat.send_msg(context,toUserName=userName)</span><br><span class="line">    print(&quot;\n发送时间: &quot; + datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) + &quot;\n&quot; &quot;发送到：&quot; + gname + &quot;\n&quot; + &quot;发送内容：&quot; + context + &quot;\n&quot;)</span><br><span class="line">    print(&quot;*********************************************************************************&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    itchat.auto_login(hotReload=True,enableCmdQR=2)</span><br><span class="line">    itchat.run(blockThread=False)</span><br></pre></td></tr></table></figure></p>
-<h1 id="添加周期防掉线"><a href="#添加周期防掉线" class="headerlink" title="添加周期防掉线"></a>添加周期防掉线</h1><p>据说每三十分钟发送一次消息可防止网页端微信掉线~~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def loop_send():</span><br><span class="line">    nowTime = datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">    context = &apos;现在是北京时间 :\n&apos;+ nowTime +&apos;\n\n我们还活着&apos;</span><br><span class="line">    itchat.get_chatrooms(update = True)</span><br><span class="line">    users = itchat.search_friends(name=u&apos;chengkun&apos;)</span><br><span class="line">    userName = users[0][&apos;UserName&apos;]</span><br><span class="line">    itchat.send_msg(context,toUserName=userName)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    sched = BlockingScheduler()</span><br><span class="line">    sched.add_job(loop_send,&apos;interval&apos;,minutes=30)</span><br><span class="line">    sched.start()</span><br></pre></td></tr></table></figure></p>
-<h1 id="把程序放在服务器上"><a href="#把程序放在服务器上" class="headerlink" title="把程序放在服务器上"></a>把程序放在服务器上</h1><p>我是在腾讯云有个服务器，因为自己的电脑不可能时时刻刻开机，所以就放在服务器上，方法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nohup python -u auto_Send.py &gt;&gt; auto_Send.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
+        <p>ARMX作者说，nvram的内容必须从正在运行的设备中提取。<br>一种方法是转储包含nvram数据的mtdblock， /proc/mtd可能有助于识别哪个mtdblock包含nvram。<br>另一种方法是，如果您可以通过UART进行命令行访问（当然可以访问实际的硬件），某些固件会提供nvram命令，运行“ nvram show”也可以获取nvram内容。<br><a href="https://github.com/therealsaumil/armx/issues/4" target="_blank" rel="noopener">https://github.com/therealsaumil/armx/issues/4</a></p>
+<p>知道创宇的研究人员说，nvram配置，可以查看对应的汇编代码逻辑（配置的有问题的话很容易触发段错误）。</p>
+<p>我需要无需硬件自动化的处理大批设备的nvram配置，上面两种方法都无法适用。但我发现Netgear的nvram配置有这两个te’d</p>
 <ul>
-<li>使用nohup可以让程序在后台运行</li>
-<li>然后将日志输出到auto_Send.log，方便我们后期出bug了排错</li>
-<li>-u可以防止输出到python缓冲区</li>
+<li>upnp等二进制程序通过nvram_match来匹配nvram变量与预期值</li>
+<li>libnvram在data段存储了设备的默认nvram配置，<strong>数据段</strong>（data segment）通常是指用来存放<a href="https://zh.wikipedia.org/wiki/%E7%A8%8B%E5%BA%8F" target="_blank" rel="noopener">程序</a>中已<a href="https://zh.wikipedia.org/w/index.php?title=%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%94%E4%B8%8D%E4%B8%BA0&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">初始化且不为0</a>的<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F" target="_blank" rel="noopener">全局变量</a>的一块内存区域。数据段属于<a href="https://zh.wikipedia.org/wiki/%E9%9D%99%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D" target="_blank" rel="noopener">静态内存分配</a>。</li>
 </ul>
-<h1 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h1><h2 id="线程阻塞问题"><a href="#线程阻塞问题" class="headerlink" title="线程阻塞问题"></a>线程阻塞问题</h2><p>这里有两个线程，一个是定时转发，一个是循环发送，因此要设置为itchat.run(blockThread=False)以及sched = BlockingScheduler()否则会卡在某个方法。</p>
-<h2 id="找不到群组"><a href="#找不到群组" class="headerlink" title="找不到群组"></a>找不到群组</h2><p>这是因为users = itchat.search_chatrooms(name=gname)，在搜索的是你保存到通讯录的群组。</p>
-<h2 id="二维码显示不全"><a href="#二维码显示不全" class="headerlink" title="二维码显示不全"></a>二维码显示不全</h2><p>itchat.auto_login(hotReload=True,enableCmdQR=2)，需要设置为2</p>
+<p>于是根据这两个事实做了两个实验：</p>
+<h2 id="match函数"><a href="#match函数" class="headerlink" title="match函数"></a>match函数</h2><p>该函数的逻辑如下，a1为要查询的key，a2为待比较的对应value，调用nvram_get获得nvram中a1的value，然后和a2比较，相同的话返回1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const char *__fastcall acosNvramConfig_match(int a1, const char *a2)</span><br><span class="line">&#123;</span><br><span class="line">  const char *v2; // r4</span><br><span class="line">  const char *result; // r0</span><br><span class="line">  int v4; // [sp+0h] [bp-1008h]</span><br><span class="line"></span><br><span class="line">  v2 = a2;</span><br><span class="line">  result = (const char *)j_nvram_get(a1, &amp;v4, 4096);</span><br><span class="line">  if ( result )</span><br><span class="line">    result = (const char *)(strcmp(result, v2) == 0);</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在upnp二进制程序汇编代码中，调用acosNvramConfig_match来比较nvram<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094619/nvram/image_24.png" alt><br>我做出了一个假设：所有a2都是能够使程序正常运行的nvram值，现在想要获取它。编写IDA脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">def GetAddr(func_name):</span><br><span class="line">    func_list = Functions()</span><br><span class="line">    for func in func_list:</span><br><span class="line">        name = GetFunctionName(func)</span><br><span class="line">        if func_name == name:</span><br><span class="line">            print(name,hex(func))</span><br><span class="line">            func_addr=func</span><br><span class="line">            return func_addr</span><br><span class="line"></span><br><span class="line">func_addr = GetAddr(&apos;acosNvramConfig_match&apos;)</span><br><span class="line">#func_addr=0xa3d4</span><br><span class="line"></span><br><span class="line">for x in XrefsTo(func_addr,flags=0):</span><br><span class="line">    print &quot;XrefsTo nvram-match func addr: %s&quot;%hex(x.frm)</span><br><span class="line">    match_addr = x.frm</span><br><span class="line">    val_addr = PrevHead(match_addr)</span><br><span class="line">    key_addr = PrevHead(val_addr)</span><br><span class="line">    if GetMnem(key_addr) == &apos;LDR&apos;:</span><br><span class="line">        instr = GetDisasm(prevaddr)</span><br><span class="line">        #print(&apos;LDR instruction: %s&apos;%instr)</span><br><span class="line">        addr = GetOperandValue(key_addr,1)</span><br><span class="line">        key = GetString(Dword(addr))</span><br><span class="line">        print(&apos;nvram key: %s&apos;%key)</span><br><span class="line">    if GetMnem(val_addr) == &apos;LDR&apos;:</span><br><span class="line">        instr = GetDisasm(prevaddr)</span><br><span class="line">        #print(&apos;LDR instruction: %s&apos;%instr)</span><br><span class="line">        addr = GetOperandValue(val_addr,1)</span><br><span class="line">        val = GetString(Dword(addr))</span><br><span class="line">        print(&apos;nvram value: %s&apos;%val)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>GetAddr(func_name) 根据函数名获得地址，这里获得了’acosNvramConfig_match’的地址0xa3d4；</li>
+<li>找到所有引用过该函数的地址，并且提取作为参数的数据。获取到函数的引用非常的简单，只需要使用XrefsTo()这个API函数就能达到我们的目的。</li>
+<li>value是调用match函数的前一条指令；key是调用match函数的前两条指令；操作码都是LDR;</li>
+<li>使用GetOperandValue() 这个指令得到第二个操作数的值。注意该值存放的是“存放字符串地址”的地址</li>
+<li>使用Dword(addr)获取“存放字符串地址”，使用GetString()这个API函数从该偏移提取字符串</li>
+</ol>
+<p>粘贴部分结果，有大量的重复，还有许多键值不存在，假设不成立。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">(&apos;acosNvramConfig_match&apos;, &apos;0xa3d4L&apos;)</span><br><span class="line">XrefsTo nvram-match func addr: 0xc940L</span><br><span class="line">nvram key: qos_bw_set_sel</span><br><span class="line">nvram value: 1</span><br><span class="line">XrefsTo nvram-match func addr: 0xc9b4L</span><br><span class="line">nvram key: qos_bw_enable</span><br><span class="line">nvram value: 1</span><br><span class="line">XrefsTo nvram-match func addr: 0xfbd0L</span><br><span class="line">nvram key: wlg_band</span><br><span class="line">nvram value: 2.4G</span><br><span class="line">XrefsTo nvram-match func addr: 0xfc84L</span><br><span class="line">nvram value: 5G</span><br><span class="line">XrefsTo nvram-match func addr: 0xff70L</span><br><span class="line">nvram key: wlg_band</span><br><span class="line">nvram value: 2.4G</span><br><span class="line">nvram value: static</span><br><span class="line">XrefsTo nvram-match func addr: 0x13d2cL</span><br><span class="line">nvram key: board_id</span><br><span class="line">nvram value: U12H127T00_NETGEAR</span><br></pre></td></tr></table></figure>
+<h2 id="NVRAM默认配置"><a href="#NVRAM默认配置" class="headerlink" title="NVRAM默认配置"></a>NVRAM默认配置</h2><p>如上所述，libnvram.so中data段存放着默认配置<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094620/nvram/image_23.png" alt><br>利用IDApython获取该区域存放的键值，注意：该区域并不存放字符串，而是存放“存放字符串地址处”的地址，所以也要通过Doword来获取实际地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import idautils</span><br><span class="line">for seg in idautils.Segments():</span><br><span class="line">    if SegName(seg) == &apos;.data&apos;:</span><br><span class="line">        start = idc.SegStart(seg)</span><br><span class="line">        end = idc.SegEnd(seg)</span><br><span class="line">        print idc.SegName(seg),start,end</span><br><span class="line">        while(start!=end):</span><br><span class="line">            key = GetString(Dword(start))</span><br><span class="line">            if key != None and key != &apos;0&apos;:</span><br><span class="line">                start += 4</span><br><span class="line">                val = GetString(Dword(start))</span><br><span class="line">                if &apos;upnp&apos; in key:</span><br><span class="line">                    print(&apos;%s=%s&apos;%(key,val))</span><br><span class="line">            start += 4</span><br></pre></td></tr></table></figure>
+<p>这里我们只关注有upnp特征的键值对</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.data [77868 94004](tel:7786894004)</span><br><span class="line">upnp_enable=1</span><br><span class="line">upnp_turn_on=1</span><br><span class="line">upnp_advert_period=30</span><br><span class="line">upnp_advert_ttl=4</span><br><span class="line">upnp_portmap_entry=0</span><br><span class="line">upnp_duration=3600</span><br><span class="line">upnp_DHCPServerConfigurable=1</span><br></pre></td></tr></table></figure>
+<p>另外再补充几个与网络有关的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">friendly_name=Netgear</span><br><span class="line">lan_hwaddr=AA:BB:CC:DD:EE:FF</span><br><span class="line">lan_ipaddr=192.168.2.2</span><br></pre></td></tr></table></figure>
+<p>使用这个配置成功仿真~</p>
+<h2 id="一些IDApython使用方法"><a href="#一些IDApython使用方法" class="headerlink" title="一些IDApython使用方法"></a>一些IDApython使用方法</h2><p>蒸米写的：<a href="https://wooyun.js.org/drops/IDAPython%20%E8%AE%A9%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB%E6%9B%B4%E6%BB%8B%E6%B6%A6%20part1%20and%20part2.html" target="_blank" rel="noopener">https://wooyun.js.org/drops/IDAPython%20%E8%AE%A9%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB%E6%9B%B4%E6%BB%8B%E6%B6%A6%20part1%20and%20part2.html</a><br><a href="https://cartermgj.github.io/2017/10/10/ida-python/" target="_blank" rel="noopener">https://cartermgj.github.io/2017/10/10/ida-python/</a><br><a href="https://gitee.com/it-ebooks/it-ebooks-2018-04to07/raw/master/IDAPython%20%E5%88%9D%E5%AD%A6%E8%80%85%E6%8C%87%E5%8D%97.pdf" target="_blank" rel="noopener">https://gitee.com/it-ebooks/it-ebooks-2018-04to07/raw/master/IDAPython%20%E5%88%9D%E5%AD%A6%E8%80%85%E6%8C%87%E5%8D%97.pdf</a><br><a href="https://www.0xaa55.com/thread-1586-1-1.html" target="_blank" rel="noopener">https://www.0xaa55.com/thread-1586-1-1.html</a><br><a href="https://wizardforcel.gitbooks.io/grey-hat-python/content/43.html" target="_blank" rel="noopener">https://wizardforcel.gitbooks.io/grey-hat-python/content/43.html</a></p>
 
       
     </div>
@@ -481,9 +488,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/itchat/" rel="tag"># itchat</a>
+            <a href="/tags/Netgear/" rel="tag"># Netgear</a>
           
-            <a href="/tags/微信/" rel="tag"># 微信</a>
+            <a href="/tags/UPnP/" rel="tag"># UPnP</a>
+          
+            <a href="/tags/NVRAM/" rel="tag"># NVRAM</a>
+          
+            <a href="/tags/固件模拟/" rel="tag"># 固件模拟</a>
           
         </div>
       
@@ -496,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/小米固件工具mkxqimage/" rel="next" title="小米固件工具mkxqimage">
-                <i class="fa fa-chevron-left"></i> 小米固件工具mkxqimage
+              <a href="/2021/01/08/Netgear-psv-2020-0211/" rel="next" title="Netgear_栈溢出漏洞_PSV-2020-0211">
+                <i class="fa fa-chevron-left"></i> Netgear_栈溢出漏洞_PSV-2020-0211
               </a>
             
           </div>
@@ -505,10 +516,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/25/Samba-CVE/" rel="prev" title="某厂商路由器与Samba漏洞CVE-2017-7494">
-                某厂商路由器与Samba漏洞CVE-2017-7494 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -676,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大杀器itchat"><span class="nav-text">大杀器itchat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步尝试"><span class="nav-text">初步尝试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现定时转发"><span class="nav-text">实现定时转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加周期防掉线"><span class="nav-text">添加周期防掉线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#把程序放在服务器上"><span class="nav-text">把程序放在服务器上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遇到的坑"><span class="nav-text">遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程阻塞问题"><span class="nav-text">线程阻塞问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找不到群组"><span class="nav-text">找不到群组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维码显示不全"><span class="nav-text">二维码显示不全</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#match函数"><span class="nav-text">match函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NVRAM默认配置"><span class="nav-text">NVRAM默认配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些IDApython使用方法"><span class="nav-text">一些IDApython使用方法</span></a></li></ol></div>
             
 
           </div>
