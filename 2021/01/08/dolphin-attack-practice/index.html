@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="硬件攻击,传感器,语音助手,">
 
 
 
@@ -79,16 +79,25 @@
 
 
 
-<meta name="description" content="没人比我更懂中医#MAGA">
-<meta property="og:type" content="website">
-<meta property="og:title" content="混元霹雳手">
-<meta property="og:url" content="https://cool-y.github.io/tags/微信/index.html">
+<meta name="description" content="海豚音攻击-复现文章中提到两种方案，一是具有信号发生器的强大变送器，二是带有智能手机的便携式变送器；前一种方案成本过于高，本文不做分析，后一种方案的实现成本在我们可接收的范围。但原文中对后一方案的实现没有太多介绍，于是我通过邮件咨询了作者-闫琛博士，闫博士非常友好，我是在晚上十点发送的第一封邮件，差不多在十分钟内通过几封邮件的交流，解决了我的问题，很快确定了我的具体实现路径，非常感谢大佬！  Q:">
+<meta name="keywords" content="硬件攻击,传感器,语音助手">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dolphin Attack 论文复现">
+<meta property="og:url" content="https://cool-y.github.io/2021/01/08/dolphin-attack-practice/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="没人比我更懂中医#MAGA">
+<meta property="og:description" content="海豚音攻击-复现文章中提到两种方案，一是具有信号发生器的强大变送器，二是带有智能手机的便携式变送器；前一种方案成本过于高，本文不做分析，后一种方案的实现成本在我们可接收的范围。但原文中对后一方案的实现没有太多介绍，于是我通过邮件咨询了作者-闫琛博士，闫博士非常友好，我是在晚上十点发送的第一封邮件，差不多在十分钟内通过几封邮件的交流，解决了我的问题，很快确定了我的具体实现路径，非常感谢大佬！  Q:">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/08_YW7UW_PS_TOE_LZZY.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/WGD_U453KYP3M3_2639_5I.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082051/Dolphin%20Attack/K5447O57_S___A_O_Q3V.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/OPSXK_21_7R24_I_NIWM0_8.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082051/Dolphin%20Attack/G8_K4_ZG__PE2CQ_5_UYY.png">
+<meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082508/Dolphin%20Attack/Snipaste_2021-01-08_13-06-55.png">
+<meta property="og:updated_time" content="2021-01-08T05:21:51.940Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="混元霹雳手">
-<meta name="twitter:description" content="没人比我更懂中医#MAGA">
+<meta name="twitter:title" content="Dolphin Attack 论文复现">
+<meta name="twitter:description" content="海豚音攻击-复现文章中提到两种方案，一是具有信号发生器的强大变送器，二是带有智能手机的便携式变送器；前一种方案成本过于高，本文不做分析，后一种方案的实现成本在我们可接收的范围。但原文中对后一方案的实现没有太多介绍，于是我通过邮件咨询了作者-闫琛博士，闫博士非常友好，我是在晚上十点发送的第一封邮件，差不多在十分钟内通过几封邮件的交流，解决了我的问题，很快确定了我的具体实现路径，非常感谢大佬！  Q:">
+<meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/08_YW7UW_PS_TOE_LZZY.png">
 
 
 
@@ -118,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://cool-y.github.io/tags/微信/">
+  <link rel="canonical" href="https://cool-y.github.io/2021/01/08/dolphin-attack-practice/">
 
 
 
 
 
-  <title>标签: 微信 | 混元霹雳手</title>
+  <title>Dolphin Attack 论文复现 | 混元霹雳手</title>
   
 
 
@@ -143,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -299,52 +308,257 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>微信<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cool-y.github.io/2021/01/08/dolphin-attack-practice/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cool-Y">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="混元霹雳手">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/03/23/auto-send-WX/" itemprop="url">
-              
-                <span itemprop="name">利用itchat定时转发微信消息</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Dolphin Attack 论文复现</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-23T19:48:46+08:00" content="2019-03-23">
-          03-23
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T12:54:41+08:00">
+                2021-01-08
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/顶会论文/" itemprop="url" rel="index">
+                    <span itemprop="name">顶会论文</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/01/08/dolphin-attack-practice/" class="leancloud_visitors" data-flag-title="Dolphin Attack 论文复现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="字数统计">
+                  1.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="海豚音攻击-复现"><a href="#海豚音攻击-复现" class="headerlink" title="海豚音攻击-复现"></a>海豚音攻击-复现</h1><p>文章中提到两种方案，一是具有信号发生器的强大变送器，二是带有智能手机的便携式变送器；前一种方案成本过于高，本文不做分析，后一种方案的实现成本在我们可接收的范围。<br>但原文中对后一方案的实现没有太多介绍，于是我通过邮件咨询了作者-闫琛博士，闫博士非常友好，我是在晚上十点发送的第一封邮件，差不多在十分钟内通过几封邮件的交流，解决了我的问题，很快确定了我的具体实现路径，非常感谢大佬！</p>
+<ul>
+<li>Q: 使用便携式设备攻击的时候，三星Galaxy S6 Edge发送的高频声音信号是怎么生成的呢？是预先使用专业设备调制好的信号保存为mp3吗？</li>
+<li>A: 通过软件调制，生成.wav的超声波音频文件，再通过三星手机播放的。</li>
+<li>Q: 用的是什么软件进行调制?</li>
+<li>A: 用过matlab和python，都是可以的</li>
+</ul>
+<h2 id="0x01-语音命令生成"><a href="#0x01-语音命令生成" class="headerlink" title="0x01 语音命令生成"></a>0x01 语音命令生成</h2><p><a href="https://ttstool.com/" target="_blank" rel="noopener">https://ttstool.com/</a><br>微软的TTS接口生成的是mp3格式音频，一般来说我们使用python处理音频都是针对wav格式。<br><a href="https://www.aconvert.com/cn/audio/mp3-to-wav/" target="_blank" rel="noopener">https://www.aconvert.com/cn/audio/mp3-to-wav/</a><br>我们可以通过这个网站对格式做转换。<br><a href="https://coolyim.quip.com/-/blob/OVVAAAmjZcr/Eq9qXdQ7_eD5KQaR33wCCw?name=xiaoyi.wav" target="_blank" rel="noopener">xiaoyi.wav</a><br>这个网站的采样率最高只能达到96000hz<br><a href="https://coolyim.quip.com/-/blob/OVVAAAmjZcr/aZfltfEV_ZxV1LCGznB1OA?name=6wxmu-crusr.wav" target="_blank" rel="noopener">6wxmu-crusr.wav</a></p>
+<h2 id="0x02-语音命令调制"><a href="#0x02-语音命令调制" class="headerlink" title="0x02 语音命令调制"></a>0x02 语音命令调制</h2><p>生成语音命令的基带信号后，我们需要在超声载波上对其进行调制，以使它们听不到。 为了利用麦克风的非线性，DolphinAttack必须利用幅度调制（AM）。</p>
+<h3 id="AM调制原理"><a href="#AM调制原理" class="headerlink" title="AM调制原理"></a>AM调制原理</h3><p>使载波的振幅按照所需传送信号的变化规律而变化，但频率保持不变的调制方法。调幅在有线电或无线电通信和广播中应用甚广。调幅是高频载波的振幅随信号改变的调制（AM）。其中，载波信号的振幅随着调制信号的某种特征的变换而变化。例如，0或1分别对应于无载波或有载波输出，电视的图像信号使用调幅。调频的抗干扰能力强，失真小，但服务半径小。<br>假设载波uc(t)和调制信号的频率分别为ωc和Ω，在已调波中包含三个频率成分：ωc、ωc+Ω和ωc-Ω。ωc+Ω称为上边频，ωc-Ω称为下边频。</p>
+<p><a href="https://epxx.co/artigos/ammodulation.html" target="_blank" rel="noopener">https://epxx.co/artigos/ammodulation.html</a><br><a href="http://www.chenjianqu.com/show-44.html" target="_blank" rel="noopener">http://www.chenjianqu.com/show-44.html</a><br><a href="https://zhuanlan.zhihu.com/p/54561504" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/54561504</a><br><a href="http://www.mwhitelab.com/archives/208" target="_blank" rel="noopener">http://www.mwhitelab.com/archives/208</a></p>
+<h3 id="使用python调制"><a href="#使用python调制" class="headerlink" title="使用python调制"></a>使用python调制</h3><p>现在我们已经有了基带信号，使用<a href="https://www.fosshub.com/Audacity.html" target="_blank" rel="noopener">Audacity</a>对其进行频谱分析，此语音的带宽或频谱（左图为采样频率48khz音频，右图为96khz） ：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/08_YW7UW_PS_TOE_LZZY.png" alt><br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/WGD_U453KYP3M3_2639_5I.png" alt></p>
+<p>我们可以看到带宽为8000-9000hz左右，这是女声，因此频带范围较宽。这可能导致可听范围内的频率泄露，但这里我们先不去讨论，之后再使用带宽较小的语音以创建基带语音信号。<br>wave包最多能读取的wav音频采样率为<a href="https://github.com/jiaaro/pydub/issues/134" target="_blank" rel="noopener">48khz</a>，当超过这个值时，wave就不再支持（wave.Error: unknown format: 65534）。但我们的载波频率为30khz左右，这就要求音频文件的采样率高于60khz才能保证不失真。所幸<a href="https://kite.com/python/docs/scipy.io.wavfile" target="_blank" rel="noopener"><code>scipy.io.wavfile</code></a>支持高于48khz的wav文件读取。<br>使用以下Python程序来生成调制的AM和AM-SC音频，AM是广播无线电调制的“正常”声音，它加上了载波；AM-SC则只是载波与原始信号的乘积。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> wave</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">from</span> pydub <span class="keyword">import</span> AudioSegment</span><br><span class="line"><span class="keyword">import</span> scipy.io.wavfile</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    test = scipy.io.wavfile.read(<span class="string">"xiaoyi.wav"</span>)</span><br><span class="line">    nframes = len(test[<span class="number">1</span>])</span><br><span class="line">    waveData = np.fromstring(test[<span class="number">1</span>],dtype=np.short)<span class="comment">#将原始字符数据转换为整数</span></span><br><span class="line">    <span class="comment">#音频数据归一化</span></span><br><span class="line">    maxW = max(abs(waveData))</span><br><span class="line">    waveData = waveData * <span class="number">1.0</span>/maxW</span><br><span class="line">    <span class="comment">#将音频信号规整乘每行一路通道信号的格式，即该矩阵一行为一个通道的采样点，共nchannels行</span></span><br><span class="line">    Tdata = np.reshape(waveData,[nframes,<span class="number">1</span>]).T <span class="comment"># .T 表示转置</span></span><br><span class="line">    am = wave.open(<span class="string">"am.wav"</span>, <span class="string">"w"</span>)</span><br><span class="line">    amsc = wave.open(<span class="string">"amsc.wav"</span>, <span class="string">"w"</span>)</span><br><span class="line">    carrier = wave.open(<span class="string">"carrier3000.wav"</span>, <span class="string">"w"</span>)</span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> [am,amsc,carrier]:</span><br><span class="line">        f.setnchannels(<span class="number">1</span>)</span><br><span class="line">        f.setsampwidth(<span class="number">2</span>)</span><br><span class="line">        f.setframerate(<span class="number">96000</span>)</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">0</span>, nframes):</span><br><span class="line">        carrier_sample = math.cos(<span class="number">30000.0</span> * (n / <span class="number">96000.0</span>) * math.pi * <span class="number">2</span>)</span><br><span class="line">        signal_am = signal_amsc= waveData[n] * carrier_sample</span><br><span class="line">        signal_am += carrier_sample</span><br><span class="line">        signal_am /= <span class="number">2</span></span><br><span class="line">        am.writeframes(struct.pack(<span class="string">'h'</span>, signal_am * maxW))</span><br><span class="line">        amsc.writeframes(struct.pack(<span class="string">'h'</span>, signal_amsc * maxW))</span><br><span class="line">        carrier.writeframes(struct.pack(<span class="string">'h'</span>, carrier_sample * maxW))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>分别对am.wav、amsc.wav、carrier3000.wav做频谱分析<br>carrier3000.wav的频谱的为集中在载波频率30khz上的一个脉冲<a href="https://coolyim.quip.com/-/blob/OVVAAAmjZcr/9RE4Z0lCs1WACO75zLTAhA?name=carrier3000.wav" target="_blank" rel="noopener">carrier3000.wav</a><br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082051/Dolphin%20Attack/K5447O57_S___A_O_Q3V.png" alt><br>amsc.wav的带宽约为18khz，是原来的两倍，关于f=30khz镜面对称。AM调制会创建原始信号的两个“副本”，一个在21-30kHz频段，另一个在30-39kHz。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082052/Dolphin%20Attack/OPSXK_21_7R24_I_NIWM0_8.png" alt></p>
+<p>am.wav，在这种调制中，我们可以听到载波，而在AM-SC中则听不到。频谱类似于AM-SC，但在载波频率上还有一个尖锐的“尖峰”：<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082051/Dolphin%20Attack/G8_K4_ZG__PE2CQ_5_UYY.png" alt></p>
+<h2 id="0x03-语音命令发送器"><a href="#0x03-语音命令发送器" class="headerlink" title="0x03 语音命令发送器"></a>0x03 语音命令发送器</h2><p>下图是由智能手机驱动的便携式发射器。便携式发射器利用智能手机来发射调制信号。许多设备的最佳载波频率都大于24 kHz， 大多数智能手机无法完成任务。大多数智能手机最多支持48 kHz采样率，所以只能发送载波频率最高为24 kHz的调制窄带信号。需要支持高达192 kHz的采样率的手机，而且扬声器会衰减频率大于20 kHz的信号。为了减轻这个问题，我使用窄带超声换能器作为扬声器，并在超声换能器之前添加了一个放大器，这样有效的攻击范围得以扩展。</p>
+<p><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1610082508/Dolphin%20Attack/Snipaste_2021-01-08_13-06-55.png" alt></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/Wechatpay.png" alt="Cool-Y 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/Alipay.png" alt="Cool-Y 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/硬件攻击/" rel="tag"># 硬件攻击</a>
+          
+            <a href="/tags/传感器/" rel="tag"># 传感器</a>
+          
+            <a href="/tags/语音助手/" rel="tag"># 语音助手</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/08/Dolphin-Attack/" rel="next" title="Dolphin Attack 论文翻译">
+                <i class="fa fa-chevron-left"></i> Dolphin Attack 论文翻译
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -352,6 +566,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -372,8 +597,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -462,6 +696,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#海豚音攻击-复现"><span class="nav-text">海豚音攻击-复现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-语音命令生成"><span class="nav-text">0x01 语音命令生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-语音命令调制"><span class="nav-text">0x02 语音命令调制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AM调制原理"><span class="nav-text">AM调制原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用python调制"><span class="nav-text">使用python调制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-语音命令发送器"><span class="nav-text">0x03 语音命令发送器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -625,6 +875,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -671,6 +925,28 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            
+            oauth: {
+            
+            
+                client_secret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            
+                client_id: '180955a2c3ae3d966d9a'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
