@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://cool-y.github.io/2021/01/08/Dolphin-Attack/</loc>
+    <lastmod>2021-01-08</lastmod>
+  </url>  <url>
     <loc>https://cool-y.github.io/2020/10/16/coremail/</loc>
     <lastmod>2020-10-20</lastmod>
   </url>  <url>
@@ -67,10 +70,10 @@
     <loc>https://cool-y.github.io/2019/02/22/qq%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/</loc>
     <lastmod>2019-04-15</lastmod>
   </url>  <url>
-    <loc>https://cool-y.github.io/2000/01/01/hello-world/</loc>
+    <loc>https://cool-y.github.io/2019/03/23/auto-send-WX/</loc>
     <lastmod>2019-04-15</lastmod>
   </url>  <url>
-    <loc>https://cool-y.github.io/2019/03/23/auto-send-WX/</loc>
+    <loc>https://cool-y.github.io/2000/01/01/hello-world/</loc>
     <lastmod>2019-04-15</lastmod>
   </url>
 </urlset>
