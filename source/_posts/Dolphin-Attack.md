@@ -78,11 +78,11 @@ DolphinAttack的基本思想是（a）在空中传输之前在超声载波上调
 
 麦克风将机械声波转换为电信号。 从本质上讲，麦克风可以粗略地视为在输入/输出信号传输特性中具有平方律非线性的组件[1、13]。 众所周知，放大器具有非线性特性，可以产生低频范围内的解调信号[20]。 在本文中，我们研究了麦克风的非线性，可以将其建模如下。 假设输入信号为sin（t），输出信号sout（t）为：
 
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_25.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610080973/Dolphin%20Attack/image_25.png)
 其中A是输入信号的增益，B是二次项s2 in的增益。线性分量采用频率为f的正弦输入信号，并输出具有相同频率f的正弦信号。 相比之下，电气设备的非线性会产生谐波和叉积2。尽管通常将它们视为不希望的失真[31]，但具有非线性的设备能够生成新的频率，并且通过精心设计的输入信号，它们可以将信号下变频为 以及恢复基带信号。
 假设所需的语音控制信号为m（t），我们选择中心频率为fc的载波上的调制信号为
 
-![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_26.png)
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610080973/Dolphin%20Attack/image_26.png)
 即，使用幅度调制。 不失一般性，设m（t）为简单基调，即m（t）= cos（2πfmt）。 应用等式后。 （2）至 （1）并进行傅立叶变换，我们可以确认输出信号包含预期的频率分量fm以及sin的基本频率分量（即fc-fm，fc + fm和fc），谐波和其他交叉 乘积（即fm，2（fc-fm），2（fc + fm），2fc，2fc + fm和2fc-fm）。 经过LPF后，所有高频成分将被删除，而fm频率成分将保留下来，从而完成了下变频，如图3所示。
 
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610079044/Dolphin%20Attack/image_271.png)
