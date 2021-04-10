@@ -8,11 +8,6 @@ tags:
 categories:
 - Pwn
 ---
-# VM escape-QEMU Case Study
-
-http://jiayy.me/2019/04/15/CVE-2015-5165-7504/
-http://jiayy.me/2019/04/15/CVE-2015-5165-7504/#cve-2015-5165-exp
-https://programlife.net/2020/06/30/cve-2015-5165-qemu-rtl8139-vulnerability-analysis/
 
 ## 1 Intro
 
@@ -562,3 +557,8 @@ plt=.plt
 通过 gdb 调试验证结果正确性：
 
 <img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_32.png" width="50%" height="50%">
+
+## ref
+http://jiayy.me/2019/04/15/CVE-2015-5165-7504/
+http://jiayy.me/2019/04/15/CVE-2015-5165-7504/#cve-2015-5165-exp
+https://programlife.net/2020/06/30/cve-2015-5165-qemu-rtl8139-vulnerability-analysis/
