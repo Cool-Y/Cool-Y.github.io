@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。 赛题理解目标">
+<meta name="description" content="研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。">
 <meta name="keywords" content="钓鱼邮件,phishing email">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DataCon Coremail邮件安全第三题 Writeup">
 <meta property="og:url" content="https://cool-y.github.io/2020/10/16/coremail/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。 赛题理解目标">
+<meta property="og:description" content="研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-20T13:59:55.666Z">
+<meta property="og:updated_time" content="2021-04-10T13:38:12.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DataCon Coremail邮件安全第三题 Writeup">
-<meta name="twitter:description" content="研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。 赛题理解目标">
+<meta name="twitter:description" content="研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。">
 
 
 
@@ -375,7 +375,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  2.4k 字
+                  2.3k 字
                 </span>
               
 
@@ -396,6 +396,10 @@
           
 
           
+              <div class="post-description">
+                  研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。
+              </div>
+          
 
         </div>
       </header>
@@ -410,8 +414,7 @@
       
 
       
-        <p>研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。<br>我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。</p>
-<h2 id="赛题理解"><a href="#赛题理解" class="headerlink" title="赛题理解"></a>赛题理解</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><blockquote>
+        <h2 id="赛题理解"><a href="#赛题理解" class="headerlink" title="赛题理解"></a>赛题理解</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><blockquote>
 <p>在真实的企业网络环境中，一些攻击者总能想方设法绕过邮件检测引擎，使攻击邮件抵达员工的收件箱，最终达到窃取用户登录凭证等目的。与此同时，企业网络安全管理团队的精力十分有限，不可能实现对企业的全部邮件进行逐一审查。</p>
 </blockquote>
 <blockquote>
@@ -741,7 +744,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">105.4k</span>
+    <span title="Site words total count">104.8k</span>
   
 </div>
 

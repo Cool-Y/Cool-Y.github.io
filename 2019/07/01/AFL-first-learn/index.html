@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白  0x01 模糊测试首先，模糊测试（Fuzzing）是一种测试手段，它把系统看成一个摸不清内部结构的黑盒，只是向其输入接口随机地发送合法测试用例，这些用例并不是开发者所预期的输入">
+<meta name="description" content="接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白">
 <meta name="keywords" content="AFL,模糊测试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模糊测试与AFL">
 <meta property="og:url" content="https://cool-y.github.io/2019/07/01/AFL-first-learn/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白  0x01 模糊测试首先，模糊测试（Fuzzing）是一种测试手段，它把系统看成一个摸不清内部结构的黑盒，只是向其输入接口随机地发送合法测试用例，这些用例并不是开发者所预期的输入">
+<meta property="og:description" content="接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://image.3001.net/images/20181207/1544168163_5c0a22e3eedce.jpg">
 <meta property="og:image" content="http://lcamtuf.coredump.cx/afl/afl_gzip.png">
-<meta property="og:updated_time" content="2019-07-09T09:27:22.887Z">
+<meta property="og:updated_time" content="2021-04-10T13:35:23.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模糊测试与AFL">
-<meta name="twitter:description" content="接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白  0x01 模糊测试首先，模糊测试（Fuzzing）是一种测试手段，它把系统看成一个摸不清内部结构的黑盒，只是向其输入接口随机地发送合法测试用例，这些用例并不是开发者所预期的输入">
+<meta name="twitter:description" content="接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白">
 <meta name="twitter:image" content="https://image.3001.net/images/20181207/1544168163_5c0a22e3eedce.jpg">
 
 
@@ -378,7 +378,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  11.4k 字
+                  11.3k 字
                 </span>
               
 
@@ -399,6 +399,10 @@
           
 
           
+              <div class="post-description">
+                  接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白
+              </div>
+          
 
         </div>
       </header>
@@ -413,9 +417,7 @@
       
 
       
-        <p>接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白</p>
-<hr>
-<h1 id="0x01-模糊测试"><a href="#0x01-模糊测试" class="headerlink" title="0x01 模糊测试"></a>0x01 模糊测试</h1><p>首先，模糊测试（Fuzzing）是一种测试手段，它把系统看成一个摸不清内部结构的黑盒，只是向其输入接口随机地发送合法测试用例，这些用例并不是开发者所预期的输入，所以极有可能会造成系统的崩溃，通过分析崩溃信息，测试人员（黑客）就可以评估系统是否存在可利用的漏洞。<br>模糊测试的过程，就好像是一个不断探测系统可以承受的输入极限的过程，让我想起学电子的时候对一个滤波器进行带宽的评估，如果我们知道内部电路原理，那么这个器件对于我们就是白盒了，可以直接通过公式计算理论带宽，现在系统对于我们而言是一个黑盒，我们通过在足够大频率范围内对其不断输入信号，就能测试出其实际带宽。</p>
+        <h1 id="0x01-模糊测试"><a href="#0x01-模糊测试" class="headerlink" title="0x01 模糊测试"></a>0x01 模糊测试</h1><p>首先，模糊测试（Fuzzing）是一种测试手段，它把系统看成一个摸不清内部结构的黑盒，只是向其输入接口随机地发送合法测试用例，这些用例并不是开发者所预期的输入，所以极有可能会造成系统的崩溃，通过分析崩溃信息，测试人员（黑客）就可以评估系统是否存在可利用的漏洞。<br>模糊测试的过程，就好像是一个不断探测系统可以承受的输入极限的过程，让我想起学电子的时候对一个滤波器进行带宽的评估，如果我们知道内部电路原理，那么这个器件对于我们就是白盒了，可以直接通过公式计算理论带宽，现在系统对于我们而言是一个黑盒，我们通过在足够大频率范围内对其不断输入信号，就能测试出其实际带宽。</p>
 <p><strong>模糊测试方法一览</strong></p>
 
 <table>
@@ -447,7 +449,7 @@
 
 <hr>
 <h1 id="0x02-AFL快速入门"><a href="#0x02-AFL快速入门" class="headerlink" title="0x02 AFL快速入门"></a>0x02 <a href="http://lcamtuf.coredump.cx/afl/QuickStartGuide.txt" target="_blank" rel="noopener">AFL快速入门</a></h1><p>1）用<code>make</code>编译AFL。如果构建失败，请参阅docs / INSTALL以获取提示。<br>2）查找或编写一个相当快速和简单的程序，该程序从<strong><em>文件或标准输入</em></strong>中获取数据，以一种有价值的方式处理它，然后干净地退出。如果测试网络服务，请将其修改为在前台运行并从stdin读取。在对使用校验和的格式进行模糊测试时，也要注释掉校验和验证码。<br>遇到故障时，程序必须正常崩溃。注意自定义SIGSEGV或SIGABRT处理程序和后台进程。有关检测非崩溃缺陷的提示，请参阅<code>docs/README</code>中的第11节。<br>3）使用afl-gcc编译要模糊的程序/库。一种常见的方法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ CC = /path/to/afl-gcc CXX =/path/to/afl-g++ ./configure --disable-shared</span><br><span class="line">$ make clean all</span><br></pre></td></tr></table></figure></p>
-<p>如果程序构建失败，请联系 <a href="mailto:&#97;&#102;&#x6c;&#x2d;&#x75;&#x73;&#x65;&#114;&#115;&#64;&#x67;&#111;&#x6f;&#x67;&#x6c;&#101;&#103;&#114;&#x6f;&#117;&#x70;&#x73;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#97;&#102;&#x6c;&#x2d;&#x75;&#x73;&#x65;&#114;&#115;&#64;&#x67;&#111;&#x6f;&#x67;&#x6c;&#101;&#103;&#114;&#x6f;&#117;&#x70;&#x73;&#x2e;&#x63;&#111;&#109;</a>。<br>4）获取一个对程序有意义的小而有效的输入文件。在模糊详细语法（SQL，HTTP等）时，也要创建字典，如<code>dictionaries/README.dictionaries</code>中所述。<br>5）如果程序从stdin读取，则运行<code>afl-fuzz</code>，如下所示：<br><code>./afl-fuzz -i testcase_dir -o findings_dir  -- /path/to/tested/program [... program&#39;s cmdline ...]</code><br>   如果程序从文件中获取输入，则可以在程序的命令行中输入@@; AFL会为您放置一个自动生成的文件名。</p>
+<p>如果程序构建失败，请联系 <a href="mailto:&#x61;&#102;&#x6c;&#x2d;&#x75;&#115;&#101;&#x72;&#115;&#x40;&#103;&#111;&#x6f;&#x67;&#x6c;&#x65;&#103;&#114;&#111;&#117;&#x70;&#x73;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x61;&#102;&#x6c;&#x2d;&#x75;&#115;&#101;&#x72;&#115;&#x40;&#103;&#111;&#x6f;&#x67;&#x6c;&#x65;&#103;&#114;&#111;&#117;&#x70;&#x73;&#x2e;&#x63;&#111;&#x6d;</a>。<br>4）获取一个对程序有意义的小而有效的输入文件。在模糊详细语法（SQL，HTTP等）时，也要创建字典，如<code>dictionaries/README.dictionaries</code>中所述。<br>5）如果程序从stdin读取，则运行<code>afl-fuzz</code>，如下所示：<br><code>./afl-fuzz -i testcase_dir -o findings_dir  -- /path/to/tested/program [... program&#39;s cmdline ...]</code><br>   如果程序从文件中获取输入，则可以在程序的命令行中输入@@; AFL会为您放置一个自动生成的文件名。</p>
 <p><strong>一些参考文档</strong></p>
 <blockquote>
 <p><a href="http://lcamtuf.coredump.cx/afl/README.txt" target="_blank" rel="noopener">docs/README</a>  -  AFL的一般介绍，<br><a href="https://github.com/mirrorer/afl/blob/master/docs/perf_tips.txt" target="_blank" rel="noopener">docs/perf_tips.txt</a>  - 关于如何快速模糊的简单提示，<br><a href="http://lcamtuf.coredump.cx/afl/status_screen.txt" target="_blank" rel="noopener">docs/status_screen.txt</a>  -  UI中显示的花絮的解释，<br><a href="https://github.com/mirrorer/afl/blob/master/docs/parallel_fuzzing.txt" target="_blank" rel="noopener">docs/parallel_fuzzing.txt</a>  - 关于在多个核上运行AFL的建议<br><a href="http://lcamtuf.coredump.cx/afl/demo/" target="_blank" rel="noopener">Generated test cases for common image formats</a> - 生成图像文件测试用例的demo<br><a href="http://lcamtuf.coredump.cx/afl/technical_details.txt" target="_blank" rel="noopener">Technical “whitepaper” for afl-fuzz</a> - 技术白皮书</p>
@@ -464,10 +466,10 @@
 </ol>
 <hr>
 <h1 id="0x04-AFL-README"><a href="#0x04-AFL-README" class="headerlink" title="0x04 AFL README"></a>0x04 <a href="http://lcamtuf.coredump.cx/afl/README.txt" target="_blank" rel="noopener">AFL README</a></h1><blockquote>
-<p>Written and maintained by Michal Zalewski <a href="mailto:&#108;&#x63;&#x61;&#x6d;&#x74;&#117;&#102;&#64;&#x67;&#x6f;&#111;&#x67;&#x6c;&#x65;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#108;&#x63;&#x61;&#x6d;&#x74;&#117;&#102;&#64;&#x67;&#x6f;&#111;&#x67;&#x6c;&#x65;&#46;&#99;&#111;&#109;</a></p>
+<p>Written and maintained by Michal Zalewski <a href="mailto:&#x6c;&#x63;&#97;&#109;&#x74;&#117;&#102;&#x40;&#x67;&#111;&#x6f;&#x67;&#x6c;&#x65;&#46;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x6c;&#x63;&#97;&#109;&#x74;&#117;&#102;&#x40;&#x67;&#111;&#x6f;&#x67;&#x6c;&#x65;&#46;&#99;&#111;&#x6d;</a></p>
 <p>  Copyright 2013, 2014, 2015, 2016 Google Inc. All rights reserved.<br>  Released under terms and conditions of Apache License, Version 2.0.</p>
 <p>  For new versions and additional information, check out:<br>  <a href="http://lcamtuf.coredump.cx/afl/" target="_blank" rel="noopener">http://lcamtuf.coredump.cx/afl/</a></p>
-<p>  To compare notes with other users or get notified about major new features,<br>  send a mail to <a href="mailto:&#97;&#x66;&#108;&#45;&#x75;&#115;&#x65;&#114;&#115;&#x2b;&#x73;&#117;&#x62;&#x73;&#99;&#114;&#105;&#98;&#101;&#64;&#x67;&#x6f;&#x6f;&#103;&#108;&#x65;&#103;&#114;&#x6f;&#x75;&#112;&#x73;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#97;&#x66;&#108;&#45;&#x75;&#115;&#x65;&#114;&#115;&#x2b;&#x73;&#117;&#x62;&#x73;&#99;&#114;&#105;&#98;&#101;&#64;&#x67;&#x6f;&#x6f;&#103;&#108;&#x65;&#103;&#114;&#x6f;&#x75;&#112;&#x73;&#x2e;&#99;&#111;&#x6d;</a>.</p>
+<p>  To compare notes with other users or get notified about major new features,<br>  send a mail to <a href="mailto:&#x61;&#102;&#x6c;&#x2d;&#117;&#115;&#101;&#x72;&#115;&#43;&#115;&#x75;&#x62;&#115;&#x63;&#114;&#x69;&#x62;&#x65;&#64;&#103;&#111;&#111;&#103;&#x6c;&#101;&#x67;&#x72;&#x6f;&#x75;&#112;&#x73;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#x61;&#102;&#x6c;&#x2d;&#117;&#115;&#101;&#x72;&#115;&#43;&#115;&#x75;&#x62;&#115;&#x63;&#114;&#x69;&#x62;&#x65;&#64;&#103;&#111;&#111;&#103;&#x6c;&#101;&#x67;&#x72;&#x6f;&#x75;&#112;&#x73;&#46;&#99;&#x6f;&#109;</a>.</p>
 <p>  <strong>See QuickStartGuide.txt if you don’t have time to read this file.</strong></p>
 </blockquote>
 <h2 id="1）具有导向性的模糊测试的挑战"><a href="#1）具有导向性的模糊测试的挑战" class="headerlink" title="1）具有导向性的模糊测试的挑战"></a>1）具有导向性的模糊测试的挑战</h2><p>Fuzzing是用于识别真实软件中的安全问题的最强大且经过验证的策略之一;它负责安全关键软件中迄今为止发现的绝大多数远程代码执行和权限提升漏洞。<br>不幸的是，模糊测试也不够有力。盲目的、随机的变异使得它不太可能在测试代码中达到某些代码路径，从而使一些漏洞超出了这种技术的范围。<br>已经有许多尝试来解决这个问题。早期方法之一 - 由Tavis Ormandy开创 - 是一种 <strong>语义库蒸馏（corpus distillation）</strong> 。网上找到的一些大型语料库中往往包含大量的文件，这时就需要对其精简，该方法依赖于覆盖信号从大量高质量的候选文件语料库中选择有趣种子的子集，然后通过传统方式对其进行模糊处理。该方法非常有效，但需要这样的语料库随时可用。正因为如此，<strong>代码覆盖率</strong> 也只是衡量程序执行状态的一个简单化的度量，这种方式并不适合后续引导fuzzing测试的。<br>其他更复杂的研究集中在诸如 <strong>程序流分析（“concoic execution”），符号执行或静态分析</strong> 等技术上。所有这些方法在实验环境中都非常有前景，但在实际应用中往往会遇到可靠性和性能问题 - 部分高价值的程序都有非常复杂的内部状态和执行路径，在这一方面符号执行和concolic技术往往会显得不够健壮（如路径爆炸问题），所以仍然稍逊于传统的fuzzing技术。</p>
@@ -1011,7 +1013,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">105.4k</span>
+    <span title="Site words total count">104.8k</span>
   
 </div>
 

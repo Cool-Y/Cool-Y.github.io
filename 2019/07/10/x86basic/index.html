@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。  0x00 漏洞利用开发简介（1）需要什么  Immunity Debugger -Download Mona.py -Download Metasploit框架-下载 靶机–Windows XP sp3    函数调用与栈：调用、返回 寄存器与函">
+<meta name="description" content="这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。">
 <meta name="keywords" content="二进制,Windows,漏洞">
 <meta property="og:type" content="article">
 <meta property="og:title" content="x86-basic 漏洞利用">
 <meta property="og:url" content="https://cool-y.github.io/2019/07/10/x86basic/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。  0x00 漏洞利用开发简介（1）需要什么  Immunity Debugger -Download Mona.py -Download Metasploit框架-下载 靶机–Windows XP sp3    函数调用与栈：调用、返回 寄存器与函">
+<meta property="og:description" content="这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562741903/pwn/%E6%8D%95%E8%8E%B7.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562742079/pwn/%E6%8D%95%E8%8E%B71.png">
@@ -104,10 +104,10 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744240/pwn/231.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744461/%E5%9B%BE%E7%89%8712.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562744518/pwn/%E6%8D%9511%E8%8E%B7.png">
-<meta property="og:updated_time" content="2019-10-25T13:07:23.257Z">
+<meta property="og:updated_time" content="2021-04-10T13:51:32.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="x86-basic 漏洞利用">
-<meta name="twitter:description" content="这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。  0x00 漏洞利用开发简介（1）需要什么  Immunity Debugger -Download Mona.py -Download Metasploit框架-下载 靶机–Windows XP sp3    函数调用与栈：调用、返回 寄存器与函">
+<meta name="twitter:description" content="这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。">
 <meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1562741903/pwn/%E6%8D%95%E8%8E%B7.png">
 
 
@@ -407,12 +407,16 @@
                 </span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  11 分钟
                 </span>
               
             </div>
           
 
+          
+              <div class="post-description">
+                  这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。
+              </div>
           
 
         </div>
@@ -428,9 +432,7 @@
       
 
       
-        <p>这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。</p>
-<hr>
-<h1 id="0x00-漏洞利用开发简介"><a href="#0x00-漏洞利用开发简介" class="headerlink" title="0x00 漏洞利用开发简介"></a>0x00 漏洞利用开发简介</h1><p>（1）需要什么</p>
+        <h1 id="0x00-漏洞利用开发简介"><a href="#0x00-漏洞利用开发简介" class="headerlink" title="0x00 漏洞利用开发简介"></a>0x00 漏洞利用开发简介</h1><p>（1）需要什么</p>
 <ul>
 <li>Immunity Debugger -<a href="http://debugger.immunityinc.com/ID_register.py" target="_blank" rel="noopener">Download</a></li>
 <li>Mona.py -<a href="https://github.com/corelan/mona" target="_blank" rel="noopener">Download</a></li>
@@ -833,7 +835,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">105.4k</span>
+    <span title="Site words total count">104.8k</span>
   
 </div>
 

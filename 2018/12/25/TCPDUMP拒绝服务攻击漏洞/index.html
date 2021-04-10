@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析Tcpdump介绍 tcpdump 是一个运行在命令行下的嗅探工具。它允许用户拦截和显示发送或收到过网络连接到该计算机的TCP/IP和其他数据包。tcpdump 适用于大多数的类Unix系统 操作系统：包括Linux、Solaris、BSD、Mac OS X、HP-UX和AIX 等等。在这些系统中，tcpdump 需要使用libpcap这个捕捉数据的">
+<meta name="description" content="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析">
 <meta name="keywords" content="TCPDUMP,拒绝服务攻击">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCPDUMP拒绝服务攻击漏洞">
 <meta property="og:url" content="https://cool-y.github.io/2018/12/25/TCPDUMP拒绝服务攻击漏洞/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析Tcpdump介绍 tcpdump 是一个运行在命令行下的嗅探工具。它允许用户拦截和显示发送或收到过网络连接到该计算机的TCP/IP和其他数据包。tcpdump 适用于大多数的类Unix系统 操作系统：包括Linux、Solaris、BSD、Mac OS X、HP-UX和AIX 等等。在这些系统中，tcpdump 需要使用libpcap这个捕捉数据的">
+<meta property="og:description" content="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T09:28:40.813Z">
+<meta property="og:updated_time" content="2021-04-10T13:48:18.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCPDUMP拒绝服务攻击漏洞">
-<meta name="twitter:description" content="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析Tcpdump介绍 tcpdump 是一个运行在命令行下的嗅探工具。它允许用户拦截和显示发送或收到过网络连接到该计算机的TCP/IP和其他数据包。tcpdump 适用于大多数的类Unix系统 操作系统：包括Linux、Solaris、BSD、Mac OS X、HP-UX和AIX 等等。在这些系统中，tcpdump 需要使用libpcap这个捕捉数据的">
+<meta name="twitter:description" content="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析">
 
 
 
@@ -396,6 +396,10 @@
           
 
           
+              <div class="post-description">
+                  TCPDUMP 4.5.1 拒绝服务攻击漏洞分析
+              </div>
+          
 
         </div>
       </header>
@@ -410,7 +414,7 @@
       
 
       
-        <h1 id="TCPDUMP-4-5-1-拒绝服务攻击漏洞分析"><a href="#TCPDUMP-4-5-1-拒绝服务攻击漏洞分析" class="headerlink" title="TCPDUMP 4.5.1 拒绝服务攻击漏洞分析"></a>TCPDUMP 4.5.1 拒绝服务攻击漏洞分析</h1><h2 id="Tcpdump介绍"><a href="#Tcpdump介绍" class="headerlink" title="Tcpdump介绍"></a>Tcpdump介绍</h2><ol>
+        <h2 id="Tcpdump介绍"><a href="#Tcpdump介绍" class="headerlink" title="Tcpdump介绍"></a>Tcpdump介绍</h2><ol>
 <li>tcpdump 是一个运行在命令行下的嗅探工具。它允许用户拦截和显示发送或收到过网络连接到该计算机的TCP/IP和其他数据包。tcpdump 适用于大多数的类Unix系统 操作系统：包括Linux、Solaris、BSD、Mac OS X、HP-UX和AIX 等等。在这些系统中，tcpdump 需要使用libpcap这个捕捉数据的库。其在Windows下的版本称为WinDump；它需要WinPcap驱动，相当于在Linux平台下的libpcap.</li>
 <li>tcpdump能够分析网络行为，性能和应用产生或接收网络流量。它支持针对网络层、协议、主机、网络或端口的过滤，并提供and、or、not等逻辑语句来帮助你去掉无用的信息，从而使用户能够进一步找出问题的根源。</li>
 <li>也可以使用 tcpdump 的实现特定目的，例如在路由器和网关之间拦截并显示其他用户或计算机通信。通过 tcpdump 分析非加密的流量，如Telnet或HTTP的数据包，查看登录的用户名、密码、网址、正在浏览的网站内容，或任何其他信息。因此系统中存在网络分析工具主要不是对本机安全的威胁，而是对网络上的其他计算机的安全存在威胁。</li>
@@ -703,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCPDUMP-4-5-1-拒绝服务攻击漏洞分析"><span class="nav-text">TCPDUMP 4.5.1 拒绝服务攻击漏洞分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tcpdump介绍"><span class="nav-text">Tcpdump介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析环境"><span class="nav-text">分析环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞复现"><span class="nav-text">漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装tcpdump"><span class="nav-text">编译安装tcpdump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成payload（来自exploit-db-payload）"><span class="nav-text">生成payload（来自exploit-db payload）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃分析"><span class="nav-text">崩溃分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pcap包格式"><span class="nav-text">pcap包格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb调试"><span class="nav-text">gdb调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存分析"><span class="nav-text">内存分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞总结"><span class="nav-text">漏洞总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞修补"><span class="nav-text">漏洞修补</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tcpdump介绍"><span class="nav-text">Tcpdump介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析环境"><span class="nav-text">分析环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞复现"><span class="nav-text">漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装tcpdump"><span class="nav-text">编译安装tcpdump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成payload（来自exploit-db-payload）"><span class="nav-text">生成payload（来自exploit-db payload）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃分析"><span class="nav-text">崩溃分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pcap包格式"><span class="nav-text">pcap包格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb调试"><span class="nav-text">gdb调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存分析"><span class="nav-text">内存分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞总结"><span class="nav-text">漏洞总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞修补"><span class="nav-text">漏洞修补</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -735,7 +739,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">105.4k</span>
+    <span title="Site words total count">104.8k</span>
   
 </div>
 
