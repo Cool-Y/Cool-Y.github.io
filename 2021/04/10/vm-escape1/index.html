@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_30.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_31.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_32.png">
-<meta property="og:updated_time" content="2021-04-10T10:51:58.631Z">
+<meta property="og:updated_time" content="2021-04-10T11:17:09.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VM escape-QEMU Case Study">
 <meta name="twitter:description" content="1 Intro如今，虚拟机已大量部署以供个人使用或在企业细分市场中使用。 网络安全供应商使用不同的VM在受控和受限的环境中分析恶意软件。 一个自然的问题出现了：恶意软件能否从虚拟机中逃脱并在主机上执行代码？ 2015年，来自CrowdStrike的Jason Geffner报告了QEMU中的一个严重错误（CVE-2015-3456），该错误影响了虚拟软盘驱动器代码，这可能使攻击者从VM逃脱到主机。">
@@ -103,9 +103,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -353,6 +353,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/04/10/vm-escape1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/04/10/vm-escape1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -434,8 +444,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">✗ sudo tunctl -t tap0 -u `whoami`</span><br><span class="line">✗ sudo ifconfig tap0 192.168.2.1/24</span><br><span class="line">$ ./x86_64-softmmu/qemu-system-x86_64 -enable-kvm -m 2048 -display vnc=:89 \</span><br><span class="line">-netdev user,id=t0, -device rtl8139,netdev=t0,id=nic0 -netdev user,id=t1, \</span><br><span class="line">-device pcnet,netdev=t1,id=nic1 -drive  \</span><br><span class="line">file=/home/han/VMescape/qemu/bin/debug/native/ubuntu.qcow2,\</span><br><span class="line">format=qcow2,if=ide,cache=writeback,\</span><br><span class="line">-net nic -net tap,ifname=tap0,script=no,downscript=no</span><br></pre></td></tr></table></figure>
 <p>使用vncviewer连接qemu</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`apt-get install xvnc4viewer`</span><br><span class="line">vncviewer 127.0.0.1:5989</span><br></pre></td></tr></table></figure>
-<p>###<br>2.2  QEMU Memory Layout</p>
-<p>分配给guest虚拟机的物理内存实际上是QEMU虚拟地址空间中mmapp专用的区域。 重要的是要注意，分配guest的物理内存时未启用PROT_EXEC标志。</p>
+<h3 id="2-2-QEMU-Memory-Layout"><a href="#2-2-QEMU-Memory-Layout" class="headerlink" title="2.2  QEMU Memory Layout"></a>2.2  QEMU Memory Layout</h3><p>分配给guest虚拟机的物理内存实际上是QEMU虚拟地址空间中mmapp专用的区域。 重要的是要注意，分配guest的物理内存时未启用PROT_EXEC标志。</p>
 <p>下图说明了来宾的内存和主机的内存如何共存。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">                        Guest&apos; processes</span><br><span class="line">                     +--------------------+</span><br><span class="line">Virtual addr space   |                    |</span><br><span class="line">                     +--------------------+</span><br><span class="line">                     |                    |</span><br><span class="line"> **\__   Page Table     \__</span><br><span class="line">                        \                    \**</span><br><span class="line">                         |                    |  Guest kernel</span><br><span class="line">                    +----+--------------------+----------------+</span><br><span class="line">Guest&apos;s phy. memory |    |                    |                |</span><br><span class="line">                    +----+--------------------+----------------+</span><br><span class="line">                    |                                          |</span><br><span class="line"> **\__                                        \__</span><br><span class="line">                       \                                          \**</span><br><span class="line">                        |             QEMU process                 |</span><br><span class="line">                   +----+------------------------------------------+</span><br><span class="line">Virtual addr space |    |                                          |</span><br><span class="line">                   +----+------------------------------------------+</span><br><span class="line">                   |                                               |</span><br><span class="line">                    \__                Page Table                   \__</span><br><span class="line">                       \                                               \</span><br><span class="line">                        |                                               |</span><br><span class="line">                   +----+-----------------------------------------------++</span><br><span class="line">Physical memory    |    |                                               ||</span><br><span class="line">                   +----+-----------------------------------------------++</span><br></pre></td></tr></table></figure>
 <p>此外，QEMU为BIOS和ROM保留了一个内存区域。 这些映射在QEMU映射文件中可用：</p>
@@ -576,6 +585,24 @@
       </div>
     
 
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Cool-Y
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://cool-y.github.io/2021/04/10/vm-escape1/" title="VM escape-QEMU Case Study">https://cool-y.github.io/2021/04/10/vm-escape1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -750,7 +777,7 @@
           
 
           <div id="music163player">
-                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="//music.163.com/outchain/player?type=4&id=334277093&auto=1&height=430"></iframe>
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="110" src="//music.163.com/outchain/player?type=4&id=334277093&auto=1&height=90"></iframe>
           </div>
 
 
@@ -775,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Intro"><span class="nav-text">1 Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-KVM-QEMU-Overview"><span class="nav-text">2 KVM/QEMU Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Workspace-Environment"><span class="nav-text">2.1 Workspace Environment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Address-Translation"><span class="nav-text">2.3 Address Translation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Memory-Leak-Exploitation"><span class="nav-text">3 Memory Leak Exploitation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-The-vulnerable-Code"><span class="nav-text">3.1  The vulnerable Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Setting-up-the-Card"><span class="nav-text">3.2  Setting up the Card</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Exploit"><span class="nav-text">3.3  Exploit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-遇到的几个问题"><span class="nav-text">3.4 遇到的几个问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ref"><span class="nav-text">ref</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Intro"><span class="nav-text">1 Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-KVM-QEMU-Overview"><span class="nav-text">2 KVM/QEMU Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Workspace-Environment"><span class="nav-text">2.1 Workspace Environment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-QEMU-Memory-Layout"><span class="nav-text">2.2  QEMU Memory Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Address-Translation"><span class="nav-text">2.3 Address Translation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Memory-Leak-Exploitation"><span class="nav-text">3 Memory Leak Exploitation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-The-vulnerable-Code"><span class="nav-text">3.1  The vulnerable Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Setting-up-the-Card"><span class="nav-text">3.2  Setting up the Card</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Exploit"><span class="nav-text">3.3  Exploit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-遇到的几个问题"><span class="nav-text">3.4 遇到的几个问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ref"><span class="nav-text">ref</span></a></li></ol></div>
             
 
           </div>
@@ -936,13 +963,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
@@ -987,8 +1007,8 @@
 <!-- LOCAL: You can save these files to your site and update links -->
     
         
-        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-        <script src="https://jjeejj.github.io/js/gitment.js"></script>
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
     
 <!-- END LOCAL -->
 
@@ -997,10 +1017,12 @@
     
       <script type="text/javascript">
       function renderGitment(){
-        var gitment = new Gitment({
+        var gitment = new Gitmint({
             id: window.location.pathname,
             owner: 'Cool-Y',
             repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
             
             oauth: {
             
