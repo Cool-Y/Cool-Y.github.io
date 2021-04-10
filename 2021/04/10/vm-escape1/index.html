@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="1 Intro如今，虚拟机已大量部署以供个人使用或在企业细分市场中使用。 网络安全供应商使用不同的VM在受控和受限的环境中分析恶意软件。 一个自然的问题出现了：恶意软件能否从虚拟机中逃脱并在主机上执行代码？ 2015年，来自CrowdStrike的Jason Geffner报告了QEMU中的一个严重错误（CVE-2015-3456），该错误影响了虚拟软盘驱动器代码，这可能使攻击者从VM逃脱到主机。">
+<meta name="description" content="QEMU虚拟机逃逸">
 <meta name="keywords" content="CVE,QEMU,信息泄露">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VM escape-QEMU Case Study">
 <meta property="og:url" content="https://cool-y.github.io/2021/04/10/vm-escape1/index.html">
 <meta property="og:site_name" content="混元霹雳手">
-<meta property="og:description" content="1 Intro如今，虚拟机已大量部署以供个人使用或在企业细分市场中使用。 网络安全供应商使用不同的VM在受控和受限的环境中分析恶意软件。 一个自然的问题出现了：恶意软件能否从虚拟机中逃脱并在主机上执行代码？ 2015年，来自CrowdStrike的Jason Geffner报告了QEMU中的一个严重错误（CVE-2015-3456），该错误影响了虚拟软盘驱动器代码，这可能使攻击者从VM逃脱到主机。">
+<meta property="og:description" content="QEMU虚拟机逃逸">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_29.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_30.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_31.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_32.png">
-<meta property="og:updated_time" content="2021-04-10T11:17:09.903Z">
+<meta property="og:updated_time" content="2021-04-10T13:25:44.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VM escape-QEMU Case Study">
-<meta name="twitter:description" content="1 Intro如今，虚拟机已大量部署以供个人使用或在企业细分市场中使用。 网络安全供应商使用不同的VM在受控和受限的环境中分析恶意软件。 一个自然的问题出现了：恶意软件能否从虚拟机中逃脱并在主机上执行代码？ 2015年，来自CrowdStrike的Jason Geffner报告了QEMU中的一个严重错误（CVE-2015-3456），该错误影响了虚拟软盘驱动器代码，这可能使攻击者从VM逃脱到主机。">
+<meta name="twitter:description" content="QEMU虚拟机逃逸">
 <meta name="twitter:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_29.png">
 
 
@@ -401,6 +401,10 @@
           
 
           
+              <div class="post-description">
+                  QEMU虚拟机逃逸
+              </div>
+          
 
         </div>
       </header>
@@ -698,7 +702,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Cool-Y">
             
               <p class="site-author-name" itemprop="name">Cool-Y</p>
-              <p class="site-description motion-element" itemprop="description">没人比我更懂中医#MAGA</p>
+              <p class="site-description motion-element" itemprop="description">Sauce is forever</p>
           </div>
 
           <nav class="site-state motion-element">
