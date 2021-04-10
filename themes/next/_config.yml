@@ -118,10 +118,10 @@ baidusitemap:
 # ---------------------------------------------------------------
 
 # Schemes
-#scheme: Muse
-#scheme: Mist
-#scheme: Pisces
-scheme: Gemini
+# scheme: Mist
+scheme: Muse
+# scheme: Gemini
+# scheme: Pisces
 
 
 # ---------------------------------------------------------------
@@ -190,8 +190,8 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggle.
-  display: post
-  #display: always
+  # display: post
+  display: always
   #display: hide
   #display: remove
 
@@ -256,7 +256,7 @@ alipay: /images/Alipay.png
 
 # Declare license on posts
 post_copyright:
-  enable: false
+  enable: true
   license: CC BY-NC-SA 3.0
   license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -409,7 +409,7 @@ valine:
 # You can get your Github ID from https://api.github.com/users/<Github username>
 gitment:
   enable: true
-  mint: false 		# RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
+  mint: true 		# RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
   count: true 		# Show comments count in post meta area
   lazy: false 		# Comments lazy loading with a button
   cleanly: false 	# Hide 'Powered by ...' on footer, and more

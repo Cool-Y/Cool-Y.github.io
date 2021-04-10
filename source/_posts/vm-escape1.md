@@ -82,8 +82,7 @@ format=qcow2,if=ide,cache=writeback,\
 vncviewer 127.0.0.1:5989
 ```
 
-###
-2.2  QEMU Memory Layout
+### 2.2  QEMU Memory Layout
 
 分配给guest虚拟机的物理内存实际上是QEMU虚拟地址空间中mmapp专用的区域。 重要的是要注意，分配guest的物理内存时未启用PROT_EXEC标志。
 
