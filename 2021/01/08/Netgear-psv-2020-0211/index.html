@@ -1107,6 +1107,32 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: 'Cool-Y',
+            repo: 'gitment-comments',
+            clientID: '180955a2c3ae3d966d9a',
+            clientSecret: '1c5db4da72df5e6fc318d12afe5f4406f7c54343',
+            admin: 'Cool-Y',
+            
+              distractionFreeMode: 'true'
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
 
 
 
