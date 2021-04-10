@@ -6,8 +6,8 @@ tags:
 - 拒绝服务攻击
 categories:
 - 二进制
+description: TCPDUMP 4.5.1 拒绝服务攻击漏洞分析
 ---
-# TCPDUMP 4.5.1 拒绝服务攻击漏洞分析
 
 ## Tcpdump介绍
 1. tcpdump 是一个运行在命令行下的嗅探工具。它允许用户拦截和显示发送或收到过网络连接到该计算机的TCP/IP和其他数据包。tcpdump 适用于大多数的类Unix系统 操作系统：包括Linux、Solaris、BSD、Mac OS X、HP-UX和AIX 等等。在这些系统中，tcpdump 需要使用libpcap这个捕捉数据的库。其在Windows下的版本称为WinDump；它需要WinPcap驱动，相当于在Linux平台下的libpcap.

@@ -6,6 +6,7 @@ tags:
 - 复原文件
 - 取证
 categories: "顶会论文"
+description: 再也不敢删库跑路了！
 ---
 
 # Carving Database Storage to Detect and Trace Security Breaches

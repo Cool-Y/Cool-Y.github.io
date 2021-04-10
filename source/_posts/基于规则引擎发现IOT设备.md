@@ -7,6 +7,7 @@ tags:
 - 自然语言处理
 categories:
 - 顶会论文
+description: 提前发现、登记和注释物联网设备
 ---
 ***论文来源：***USENIX SECURITY 2018：Acquisitional Rule-based Engine for Discovering Internet-of-Things Devices
 ***下载：***

@@ -8,6 +8,7 @@ tags:
 - 固件模拟
 categories:
 - IOT
+description: 还记得固件仿真吗？先试着快速解决nvram
 ---
 
 ARMX作者说，nvram的内容必须从正在运行的设备中提取。

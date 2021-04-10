@@ -5,18 +5,35 @@ type: "about"
 comments: false
 ---
 
----------------
+------
+## TL;DR
+- 🔭 I’m currently focus on IoT security and Android security.
+- 🌱 I’m currently learning VM escape.
+- 📝 My blog: https://cool-y.github.io/
+- 🏫 Bachelor: Sichuan university; Master: Wuhan university
+- 📫 Hit me up: cool.yim@foxmail.com
+- ⚡ Fun fact: ‘Fun Facts’ Are Never Fun
+- 💬 Ask me about ...
 
-<center>一只想成为hacker的菜鸡的随笔
+------
+## 论文
+### **智能家居攻击与防御方法综述**
+**信息安全学报**  , Han Yan, Guojun Peng, Luo Yuan, Side Liu
 
-自称混元霹雳手
+### **Android Data-Clone Attack via Operating System Customization**
+**IEEE Access**, Song, Wenna, Ming Jiang, Han Yan, Yi Xiang, Yuan Chen, Yuan Luo, Kun He, and Guojun Peng.
 
-本科毕业于成都七中附属大学，EE专业
+### **App’s Auto-Login Function Security Testing via Android OS-Level Virtualization**
+**ICSE'21**, Song, Wenna, Jiang Ming, Lin Jiang, Han Yan, Yi Xiang, Yuan Chen, Jianming Fu, and Guojun Peng.
 
-现于街道口樱花大学攻读IS硕士
+-------
+## 学术服务
+**Journal Sub Reviewer：** 信息安全学报，Cyber Security
 
-偶尔分享踩过的坑
-
-以及一些乱七八糟的想法
-
-***欢迎交流~***</center>
+-------
+## Vulnerabilities Disclosure
+- PSV-2018-0020(duplicate)
+- PSV-2019-0164
+- CVE-2019-15843
+- PSV-2020-0211(extended)
+- CVE-2020-15893(extended)

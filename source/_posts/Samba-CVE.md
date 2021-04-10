@@ -7,6 +7,7 @@ tags:
 - CVE
 categories:
 - IOT
+description: Samba漏洞臭名昭著
 ---
 
 # 漏洞描述

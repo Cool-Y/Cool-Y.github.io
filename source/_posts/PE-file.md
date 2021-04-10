@@ -6,6 +6,7 @@ tags:
 - 文件格式
 categories:
 - 二进制
+description: 庖丁解牛.jpg
 ---
 
 # PE文件格式

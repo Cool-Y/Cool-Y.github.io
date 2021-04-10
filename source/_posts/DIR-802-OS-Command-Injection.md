@@ -7,6 +7,7 @@ tags:
 - 固件模拟
 categories:
 - IOT
+description: 提交个漏洞
 ---
 ### D-LINK DIR-802 命令注入漏洞
 > by Cool

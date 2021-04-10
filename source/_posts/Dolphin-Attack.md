@@ -5,6 +5,9 @@ tags:
 - 硬件攻击
 - 传感器
 - 语音助手
+categories:
+- 顶会论文
+description: 算是进入安全领域以来第一篇看懂的论文QAQ
 ---
 
 # 海豚音攻击

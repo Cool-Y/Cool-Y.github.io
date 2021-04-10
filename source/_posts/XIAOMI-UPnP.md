@@ -6,6 +6,7 @@ tags:
 - 路由器
 - MiniUPnP
 categories: IOT
+description: 非常经典的UPnP，Classic~
 ---
 
 # 概述

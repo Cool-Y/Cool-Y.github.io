@@ -7,6 +7,7 @@ tags:
 - 固件模拟
 categories:
 - IOT
+description: 复现一个漏洞
 ---
 **固件模拟与UPnP栈溢出利用**
 https://kb.netgear.com/000062158/Security-Advisory-for-Pre-Authentication-Command-Injection-on-R8300-PSV-2020-0211

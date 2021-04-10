@@ -7,8 +7,9 @@ tags:
 - 栈溢出
 categories:
 - Pwn
+description: 之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。
 ---
-之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。
+
 
 **ref：**
 > CTF-WIKI：https://ctf-wiki.github.io/ctf-wiki/pwn/readme-zh/

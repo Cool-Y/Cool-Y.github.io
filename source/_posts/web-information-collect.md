@@ -6,6 +6,7 @@ tags:
 - ctf
 categories:
 - web
+description: 信息收集+常规owasp top 10+逻辑漏洞
 ---
 
 信息收集+常规owasp top 10+逻辑漏洞

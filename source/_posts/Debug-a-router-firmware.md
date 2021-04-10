@@ -7,6 +7,7 @@ tags:
 - 调试
 categories:
 - IOT
+description: 如果能够调试一个IoT设备，那挖漏洞将会简单很多
 ---
 
 # 0x00 背景与简介

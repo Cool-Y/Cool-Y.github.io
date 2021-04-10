@@ -7,6 +7,7 @@ tags:
 - SSH
 categories:
 - IOT
+description: 小米基于 trx 改了个打包解包固件的工具
 ---
 # 小米固件工具mkxqimage
 
