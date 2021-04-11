@@ -4,8 +4,8 @@
 
 # Site
 title: 混元霹雳手
-subtitle:
-description: Sauce is forever
+subtitle: Battle⚔️ 2 the world🌎
+description: Juice is temporary but Sauce is forever
 keywords:
 author: Cool-Y
 language: zh-Hans
@@ -33,6 +33,21 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+
+# RSS
+# https://github.com/hexojs/hexo-generator-feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: icon.png
+  autodiscovery: true
+  template:
 
 # Writing
 new_post_name: :title.md # File name of new posts

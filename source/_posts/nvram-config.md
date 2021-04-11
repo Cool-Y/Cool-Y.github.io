@@ -29,7 +29,7 @@ https://github.com/therealsaumil/armx/issues/4
 
 该函数的逻辑如下，a1为要查询的key，a2为待比较的对应value，调用nvram_get获得nvram中a1的value，然后和a2比较，相同的话返回1。
 
-```
+```c
 const char *__fastcall acosNvramConfig_match(int a1, const char *a2)
 {
   const char *v2; // r4
@@ -48,7 +48,7 @@ const char *__fastcall acosNvramConfig_match(int a1, const char *a2)
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094619/nvram/image_24.png)
 我做出了一个假设：所有a2都是能够使程序正常运行的nvram值，现在想要获取它。编写IDA脚本如下：
 
-```
+```c
 def GetAddr(func_name):
     func_list = Functions()
     for func in func_list:
@@ -88,7 +88,7 @@ for x in XrefsTo(func_addr,flags=0):
 
 粘贴部分结果，有大量的重复，还有许多键值不存在，假设不成立。
 
-```
+```shell
 ('acosNvramConfig_match', '0xa3d4L')
 XrefsTo nvram-match func addr: 0xc940L
 nvram key: qos_bw_set_sel
@@ -116,7 +116,7 @@ nvram value: U12H127T00_NETGEAR
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610094620/nvram/image_23.png)
 利用IDApython获取该区域存放的键值，注意：该区域并不存放字符串，而是存放“存放字符串地址处”的地址，所以也要通过Doword来获取实际地址
 
-```
+```python
 import idautils
 for seg in idautils.Segments():
     if SegName(seg) == '.data':
@@ -135,7 +135,7 @@ for seg in idautils.Segments():
 
 这里我们只关注有upnp特征的键值对
 
-```
+```shell
 .data [77868 94004](tel:7786894004)
 upnp_enable=1
 upnp_turn_on=1
@@ -148,7 +148,7 @@ upnp_DHCPServerConfigurable=1
 
 另外再补充几个与网络有关的配置
 
-```
+```shell
 friendly_name=Netgear
 lan_hwaddr=AA:BB:CC:DD:EE:FF
 lan_ipaddr=192.168.2.2

@@ -40,7 +40,7 @@ s.close()
 
 #### 漏洞复现
 使用firmadyne进行固件模拟，运行UPnP服务
-<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665628/cve/carbon.png" width="50%" height="50%">
+<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665628/cve/carbon.png">
 
 攻击者可以是连接到路由器局域网内并且能够向UPnP端口发送请求的任何人。可以通过编写简单的python脚本将精心制作的数据包发送到特定的upnp端口，该脚本随后将作为精心制作的请求的一部分执行提供的命令。共享的POC将打开端口8089上的telnet服务。
-<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665899/cve/carbon_1.png" width="50%" height="50%">
+<img src="https://res.cloudinary.com/dozyfkbg3/image/upload/v1614665899/cve/carbon_1.png">

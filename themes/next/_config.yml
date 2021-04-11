@@ -101,7 +101,7 @@ menu:
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
   bookmarks: /bookmarks/ || map
-  HACK之外: /hack之外/ || heartbeat
+  album: /album/ || heartbeat
 
 # Enable/Disable menu icons.
 menu_icons:
@@ -145,6 +145,7 @@ social:
   #YouTube: https://youtube.com/yourname || youtube
   Instagram: https://www.instagram.com/yan__han/ || instagram
   #Skype: skype:yourname?call|chat || skype
+  RSS: /atom.xml || fas fa-rss
 
 social_icons:
   enable: true
@@ -205,7 +206,7 @@ sidebar:
   scrollpercent: true
 
   # Enable sidebar on narrow view (only for Muse | Mist).
-  onmobile: false
+  onmobile: true
 
 
 # ---------------------------------------------------------------
@@ -266,7 +267,7 @@ post_copyright:
 # ---------------------------------------------------------------
 
 # Reduce padding / margin indents on devices with narrow width.
-mobile_layout_economy: false
+mobile_layout_economy: true
 
 # Android Chrome header panel color ($black-deep).
 android_chrome_color: "#222"
