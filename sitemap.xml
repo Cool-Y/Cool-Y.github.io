@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cool-y.github.io/about/index.html</loc>
+    
+    <lastmod>2021-04-11T07:05:11.037Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cool-y.github.io/album/index.html</loc>
     
     <lastmod>2021-04-11T06:39:47.544Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://cool-y.github.io/2021/03/02/DIR-802-OS-Command-Injection/</loc>
     
     <lastmod>2021-04-11T06:09:45.266Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cool-y.github.io/about/index.html</loc>
-    
-    <lastmod>2021-04-10T20:07:53.323Z</lastmod>
     
   </url>
   
