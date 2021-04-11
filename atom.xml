@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>混元霹雳手</title>
+  <icon>https://cool-y.github.io/icon.png</icon>
+  <subtitle>Battle⚔️ 2 the world🌎</subtitle>
+  <link href="https://cool-y.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://cool-y.github.io/"/>
+  <updated>2021-04-11T06:19:26.805Z</updated>
+  <id>https://cool-y.github.io/</id>
+  
+  <author>
+    <name>Cool-Y</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VM escape-QEMU Case Study</title>
+    <link href="https://cool-y.github.io/2021/04/10/vm-escape1/"/>
+    <id>https://cool-y.github.io/2021/04/10/vm-escape1/</id>
+    <published>2021-04-10T10:25:46.000Z</published>
+    <updated>2021-04-11T06:19:26.805Z</updated>
+    
+    
+    <summary type="html">进入QEMU虚拟机逃逸的世界</summary>
+    
+    
+    
+    <category term="Pwn" scheme="https://cool-y.github.io/categories/Pwn/"/>
+    
+    
+    <category term="CVE" scheme="https://cool-y.github.io/tags/CVE/"/>
+    
+    <category term="QEMU" scheme="https://cool-y.github.io/tags/QEMU/"/>
+    
+    <category term="信息泄露" scheme="https://cool-y.github.io/tags/信息泄露/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DIR-802 OS Command Injection</title>
+    <link href="https://cool-y.github.io/2021/03/02/DIR-802-OS-Command-Injection/"/>
+    <id>https://cool-y.github.io/2021/03/02/DIR-802-OS-Command-Injection/</id>
+    <published>2021-03-02T05:36:32.000Z</published>
+    <updated>2021-04-11T06:09:45.266Z</updated>
+    
+    
+    <summary type="html">提交个漏洞</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="D-LINK" scheme="https://cool-y.github.io/tags/D-LINK/"/>
+    
+    <category term="UPnP" scheme="https://cool-y.github.io/tags/UPnP/"/>
+    
+    <category term="固件模拟" scheme="https://cool-y.github.io/tags/固件模拟/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动化获取nvram配置</title>
+    <link href="https://cool-y.github.io/2021/01/08/nvram-config/"/>
+    <id>https://cool-y.github.io/2021/01/08/nvram-config/</id>
+    <published>2021-01-08T08:27:26.000Z</published>
+    <updated>2021-04-11T06:10:57.032Z</updated>
+    
+    
+    <summary type="html">还记得固件仿真吗？先试着快速解决nvram</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="UPnP" scheme="https://cool-y.github.io/tags/UPnP/"/>
+    
+    <category term="固件模拟" scheme="https://cool-y.github.io/tags/固件模拟/"/>
+    
+    <category term="Netgear" scheme="https://cool-y.github.io/tags/Netgear/"/>
+    
+    <category term="NVRAM" scheme="https://cool-y.github.io/tags/NVRAM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Netgear_栈溢出漏洞_PSV-2020-0211</title>
+    <link href="https://cool-y.github.io/2021/01/08/Netgear-psv-2020-0211/"/>
+    <id>https://cool-y.github.io/2021/01/08/Netgear-psv-2020-0211/</id>
+    <published>2021-01-08T05:26:26.000Z</published>
+    <updated>2021-04-11T06:19:14.576Z</updated>
+    
+    
+    <summary type="html">复现一个漏洞</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="UPnP" scheme="https://cool-y.github.io/tags/UPnP/"/>
+    
+    <category term="固件模拟" scheme="https://cool-y.github.io/tags/固件模拟/"/>
+    
+    <category term="Netgear" scheme="https://cool-y.github.io/tags/Netgear/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dolphin Attack 论文复现</title>
+    <link href="https://cool-y.github.io/2021/01/08/dolphin-attack-practice/"/>
+    <id>https://cool-y.github.io/2021/01/08/dolphin-attack-practice/</id>
+    <published>2021-01-08T04:54:41.000Z</published>
+    <updated>2021-04-10T13:41:53.589Z</updated>
+    
+    
+    <summary type="html">眼前一亮的工作！海豚音攻击，试着复现看看（贫穷版）</summary>
+    
+    
+    
+    <category term="顶会论文" scheme="https://cool-y.github.io/categories/顶会论文/"/>
+    
+    
+    <category term="硬件攻击" scheme="https://cool-y.github.io/tags/硬件攻击/"/>
+    
+    <category term="传感器" scheme="https://cool-y.github.io/tags/传感器/"/>
+    
+    <category term="语音助手" scheme="https://cool-y.github.io/tags/语音助手/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dolphin Attack 论文翻译</title>
+    <link href="https://cool-y.github.io/2021/01/08/Dolphin-Attack/"/>
+    <id>https://cool-y.github.io/2021/01/08/Dolphin-Attack/</id>
+    <published>2021-01-08T03:58:55.000Z</published>
+    <updated>2021-04-10T13:42:46.870Z</updated>
+    
+    
+    <summary type="html">算是进入安全领域以来第一篇看懂的论文QAQ</summary>
+    
+    
+    
+    <category term="顶会论文" scheme="https://cool-y.github.io/categories/顶会论文/"/>
+    
+    
+    <category term="硬件攻击" scheme="https://cool-y.github.io/tags/硬件攻击/"/>
+    
+    <category term="传感器" scheme="https://cool-y.github.io/tags/传感器/"/>
+    
+    <category term="语音助手" scheme="https://cool-y.github.io/tags/语音助手/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DataCon Coremail邮件安全第三题 Writeup</title>
+    <link href="https://cool-y.github.io/2020/10/16/coremail/"/>
+    <id>https://cool-y.github.io/2020/10/16/coremail/</id>
+    <published>2020-10-16T03:07:33.000Z</published>
+    <updated>2021-04-10T13:38:12.227Z</updated>
+    
+    
+    <summary type="html">研一的时候参加了第一届datacon，可惜因为课程任务太重了，最后连答案都没提交。今年和研一两位师弟师妹组队参加，本以为又要躺过去了，最后被两位的热情感染，完成了比赛还取得不错的成绩，也算是完成了研究生阶段的一个小遗憾。我之前没做过数据分析也没接触过邮件安全，借这次赛题好好的补了一课，第一题是识别发件人伪造，第二题是垃圾邮件分类，第三题是识别威胁邮件，全部是真实数据，难度层层递进。</summary>
+    
+    
+    
+    <category term="杂七杂八" scheme="https://cool-y.github.io/categories/杂七杂八/"/>
+    
+    
+    <category term="钓鱼邮件" scheme="https://cool-y.github.io/tags/钓鱼邮件/"/>
+    
+    <category term="phishing email" scheme="https://cool-y.github.io/tags/phishing-email/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【web】信息收集</title>
+    <link href="https://cool-y.github.io/2019/11/12/web-information-collect/"/>
+    <id>https://cool-y.github.io/2019/11/12/web-information-collect/</id>
+    <published>2019-11-12T13:04:37.000Z</published>
+    <updated>2021-04-10T13:49:16.555Z</updated>
+    
+    
+    <summary type="html">信息收集+常规owasp top 10+逻辑漏洞</summary>
+    
+    
+    
+    <category term="web" scheme="https://cool-y.github.io/categories/web/"/>
+    
+    
+    <category term="web" scheme="https://cool-y.github.io/tags/web/"/>
+    
+    <category term="ctf" scheme="https://cool-y.github.io/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Pwnable.tw】start</title>
+    <link href="https://cool-y.github.io/2019/10/25/PWNtw-start/"/>
+    <id>https://cool-y.github.io/2019/10/25/PWNtw-start/</id>
+    <published>2019-10-25T13:04:14.000Z</published>
+    <updated>2021-04-10T13:46:47.397Z</updated>
+    
+    
+    <summary type="html">我怎么还在start？？</summary>
+    
+    
+    
+    <category term="Pwn" scheme="https://cool-y.github.io/categories/Pwn/"/>
+    
+    
+    <category term="二进制" scheme="https://cool-y.github.io/tags/二进制/"/>
+    
+    <category term="Linux" scheme="https://cool-y.github.io/tags/Linux/"/>
+    
+    <category term="CTF" scheme="https://cool-y.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>远程调试小米路由器固件</title>
+    <link href="https://cool-y.github.io/2019/07/25/Debug-a-router-firmware/"/>
+    <id>https://cool-y.github.io/2019/07/25/Debug-a-router-firmware/</id>
+    <published>2019-07-25T14:17:08.000Z</published>
+    <updated>2021-04-10T13:39:05.082Z</updated>
+    
+    
+    <summary type="html">如果能够调试一个IoT设备，那挖漏洞将会简单很多</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="小米" scheme="https://cool-y.github.io/tags/小米/"/>
+    
+    <category term="路由器" scheme="https://cool-y.github.io/tags/路由器/"/>
+    
+    <category term="调试" scheme="https://cool-y.github.io/tags/调试/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>获取固件的几种方法</title>
+    <link href="https://cool-y.github.io/2019/07/24/%E8%8E%B7%E5%8F%96%E5%9B%BA%E4%BB%B6/"/>
+    <id>https://cool-y.github.io/2019/07/24/%E8%8E%B7%E5%8F%96%E5%9B%BA%E4%BB%B6/</id>
+    <published>2019-07-24T03:49:28.000Z</published>
+    <updated>2021-04-10T13:33:17.285Z</updated>
+    
+    
+    <summary type="html">固件有几种获取方法？</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="IoT" scheme="https://cool-y.github.io/tags/IoT/"/>
+    
+    <category term="硬件层" scheme="https://cool-y.github.io/tags/硬件层/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DVWA黑客攻防平台</title>
+    <link href="https://cool-y.github.io/2019/07/24/web-dvwa/"/>
+    <id>https://cool-y.github.io/2019/07/24/web-dvwa/</id>
+    <published>2019-07-24T03:46:51.000Z</published>
+    <updated>2021-04-10T13:48:51.989Z</updated>
+    
+    
+    <summary type="html">WEB安全的START</summary>
+    
+    
+    
+    <category term="web" scheme="https://cool-y.github.io/categories/web/"/>
+    
+    
+    <category term="web" scheme="https://cool-y.github.io/tags/web/"/>
+    
+    <category term="ctf" scheme="https://cool-y.github.io/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux Pwn-缓冲区溢出利用</title>
+    <link href="https://cool-y.github.io/2019/07/16/linux-pwn-32/"/>
+    <id>https://cool-y.github.io/2019/07/16/linux-pwn-32/</id>
+    <published>2019-07-16T09:11:42.000Z</published>
+    <updated>2021-04-10T13:43:18.149Z</updated>
+    
+    
+    <summary type="html">之前介绍了Windows x86平台下栈溢出漏洞的开放与利用，鉴于CTF基本都是Linux，还有实际开发环境，很多智能设备的系统都是基于Linux，所以从很现实的需求出发，一定要学习学习Linux下漏洞的分析。</summary>
+    
+    
+    
+    <category term="Pwn" scheme="https://cool-y.github.io/categories/Pwn/"/>
+    
+    
+    <category term="linux" scheme="https://cool-y.github.io/tags/linux/"/>
+    
+    <category term="pwn" scheme="https://cool-y.github.io/tags/pwn/"/>
+    
+    <category term="栈溢出" scheme="https://cool-y.github.io/tags/栈溢出/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>x86-basic 漏洞利用</title>
+    <link href="https://cool-y.github.io/2019/07/10/x86basic/"/>
+    <id>https://cool-y.github.io/2019/07/10/x86basic/</id>
+    <published>2019-07-10T09:00:36.000Z</published>
+    <updated>2021-04-10T13:51:32.349Z</updated>
+    
+    
+    <summary type="html">这部分是对Window x86平台下的几个典型漏洞利用方式的介绍，从最基础的、没有开启任何保护的漏洞程序入手，然后开启GS，最后通过rop绕过DEP。</summary>
+    
+    
+    
+    <category term="Pwn" scheme="https://cool-y.github.io/categories/Pwn/"/>
+    
+    
+    <category term="二进制" scheme="https://cool-y.github.io/tags/二进制/"/>
+    
+    <category term="Windows" scheme="https://cool-y.github.io/tags/Windows/"/>
+    
+    <category term="漏洞" scheme="https://cool-y.github.io/tags/漏洞/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AFL-爱之初体验</title>
+    <link href="https://cool-y.github.io/2019/07/09/afl-first-try/"/>
+    <id>https://cool-y.github.io/2019/07/09/afl-first-try/</id>
+    <published>2019-07-09T06:46:07.000Z</published>
+    <updated>2021-04-10T13:35:35.911Z</updated>
+    
+    
+    <summary type="html">这篇文章是对afl的简单使用，可大致分为黑盒测试和白盒测试两个部分。白盒测试从对目标程序的插桩编译开始，然后使用fuzzer对其模糊测试发现崩溃，最后对测试的代码覆盖率进行评估。黑盒测试则演示得较简略。</summary>
+    
+    
+    
+    <category term="二进制" scheme="https://cool-y.github.io/categories/二进制/"/>
+    
+    
+    <category term="AFL" scheme="https://cool-y.github.io/tags/AFL/"/>
+    
+    <category term="模糊测试" scheme="https://cool-y.github.io/tags/模糊测试/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>模糊测试与AFL</title>
+    <link href="https://cool-y.github.io/2019/07/01/AFL-first-learn/"/>
+    <id>https://cool-y.github.io/2019/07/01/AFL-first-learn/</id>
+    <published>2019-07-01T09:25:36.000Z</published>
+    <updated>2021-04-10T13:35:23.942Z</updated>
+    
+    
+    <summary type="html">接触这个词语已经有一年了，但还没有学习过更没有上手实践过，正好趁这个机会好好弄弄AFL。提起模糊测试，我们总会联想起这样或那样的专业术语——测试用例、代码覆盖率、执行路径等等，你可能和我一样一头雾水，这次我们就来看个明白</summary>
+    
+    
+    
+    <category term="二进制" scheme="https://cool-y.github.io/categories/二进制/"/>
+    
+    
+    <category term="AFL" scheme="https://cool-y.github.io/tags/AFL/"/>
+    
+    <category term="模糊测试" scheme="https://cool-y.github.io/tags/模糊测试/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>加壳与脱壳</title>
+    <link href="https://cool-y.github.io/2019/05/14/pack-and-unpack/"/>
+    <id>https://cool-y.github.io/2019/05/14/pack-and-unpack/</id>
+    <published>2019-05-14T03:20:59.000Z</published>
+    <updated>2021-04-10T13:45:39.726Z</updated>
+    
+    
+    <summary type="html">壳是最早出现的一种专用加密软件技术。一些软件会采取加壳保护的方式。</summary>
+    
+    
+    
+    <category term="二进制" scheme="https://cool-y.github.io/categories/二进制/"/>
+    
+    
+    <category term="逆向" scheme="https://cool-y.github.io/tags/逆向/"/>
+    
+    <category term="破解" scheme="https://cool-y.github.io/tags/破解/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PE文件格式学习</title>
+    <link href="https://cool-y.github.io/2019/05/13/PE-file/"/>
+    <id>https://cool-y.github.io/2019/05/13/PE-file/</id>
+    <published>2019-05-13T12:37:00.000Z</published>
+    <updated>2021-04-10T13:46:18.806Z</updated>
+    
+    
+    <summary type="html">庖丁解牛.jpg</summary>
+    
+    
+    
+    <category term="二进制" scheme="https://cool-y.github.io/categories/二进制/"/>
+    
+    
+    <category term="文件格式" scheme="https://cool-y.github.io/tags/文件格式/"/>
+    
+    <category term="PE" scheme="https://cool-y.github.io/tags/PE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>小米路由器_MiniUPnP协议</title>
+    <link href="https://cool-y.github.io/2019/04/21/XIAOMI-UPnP/"/>
+    <id>https://cool-y.github.io/2019/04/21/XIAOMI-UPnP/</id>
+    <published>2019-04-21T06:51:45.000Z</published>
+    <updated>2021-04-10T13:52:11.589Z</updated>
+    
+    
+    <summary type="html">非常经典的UPnP，Classic~</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="小米" scheme="https://cool-y.github.io/tags/小米/"/>
+    
+    <category term="路由器" scheme="https://cool-y.github.io/tags/路由器/"/>
+    
+    <category term="MiniUPnP" scheme="https://cool-y.github.io/tags/MiniUPnP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>复原数据库存储以检测和跟踪安全漏洞</title>
+    <link href="https://cool-y.github.io/2019/04/15/Caving-db-storage/"/>
+    <id>https://cool-y.github.io/2019/04/15/Caving-db-storage/</id>
+    <published>2019-04-15T07:38:47.000Z</published>
+    <updated>2021-04-10T13:37:48.593Z</updated>
+    
+    
+    <summary type="html">再也不敢删库跑路了！</summary>
+    
+    
+    
+    <category term="顶会论文" scheme="https://cool-y.github.io/categories/顶会论文/"/>
+    
+    
+    <category term="数据库" scheme="https://cool-y.github.io/tags/数据库/"/>
+    
+    <category term="复原文件" scheme="https://cool-y.github.io/tags/复原文件/"/>
+    
+    <category term="取证" scheme="https://cool-y.github.io/tags/取证/"/>
+    
+  </entry>
+  
+</feed>
