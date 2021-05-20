@@ -13,6 +13,7 @@ description: 提交个漏洞
 > by Cool
 #### 漏洞已提交厂商
 https://supportannouncement.us.dlink.com/announcement/publication.aspx?name=SAP10206
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-29379
 #### 漏洞类型
 CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
 

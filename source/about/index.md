@@ -7,12 +7,12 @@ comments: false
 
 ------
 ## TL;DR
-- 🔭 I’m currently focus on IoT security and Android security.
-- 🌱 I’m currently learning VM escape.
+- 🔭 Focus on IoT security and Android security.
+- 🌱 Learning VM escape.
 - 📝 My blog: https://cool-y.github.io/
 - 🏫 Bachelor: Sichuan university; Master: Wuhan university
 - 📫 Hit me up: cool.yim@foxmail.com
-- ⚡ Fun fact: ‘Fun Facts’ Are Never Fun
+- ⚡ Fun fact: 'Fun Facts' Are Never Fun
 - 💬 Ask me about ...
 
 ------
@@ -23,7 +23,7 @@ comments: false
 ### **Android Data-Clone Attack via Operating System Customization**
 **IEEE Access**, Song, Wenna, Ming Jiang, Han Yan, Yi Xiang, Yuan Chen, Yuan Luo, Kun He, and Guojun Peng.
 
-### **App’s Auto-Login Function Security Testing via Android OS-Level Virtualization**
+### **App's Auto-Login Function Security Testing via Android OS-Level Virtualization**
 **ICSE'21**, Song, Wenna, Jiang Ming, Lin Jiang, Han Yan, Yi Xiang, Yuan Chen, Jianming Fu, and Guojun Peng.
 
 -------
@@ -36,4 +36,4 @@ comments: false
 - PSV-2019-0164
 - CVE-2019-15843
 - PSV-2020-0211(extended)
-- CVE-2020-15893(extended)
+- CVE-2021-29379

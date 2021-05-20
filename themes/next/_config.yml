@@ -145,7 +145,7 @@ social:
   #YouTube: https://youtube.com/yourname || youtube
   Instagram: https://www.instagram.com/yan__han/ || instagram
   #Skype: skype:yourname?call|chat || skype
-  RSS: /atom.xml || fas fa-rss
+  # RSS: /atom.xml || fas fa-rss
 
 social_icons:
   enable: true
