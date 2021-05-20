@@ -40,7 +40,7 @@ AFL是基于变异的模糊测试方法的代表工作，其主要应用于非�
 ## 黑盒方案
 
 在aflnw的基础上，对辅助程序的工作方式进行了修改，从而实现在不对AFL和被测程序进行修改的条件下，使用一个辅助程序接收AFL从标准输入传递进来的数据，然后通过网络转发给UPnP服务，辅助程序会间隔性地与UPnP端口建立TCP连接，从而判断测试用例是否导致程序崩溃。
-
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1621510535/ufuzzer/image_33.png)
 ## 如何安装
 ```
 git clone https://github.com/LyleMi/aflnw.gitcd aflnw
@@ -53,12 +53,14 @@ mkdir build && cd build && cmake .. && make
 ## 如何使用
 
 1. 使用wireshark采集种子输入（Follow→TCP Stream，保存为raw文件）
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1621510534/ufuzzer/image_35.png)
 2. 确定通信协议（udp/tcp）、服务端监控地址、服务端监控端口、socket本地绑定地址
 3. fuzz，以UPnP协议为例
 ```
 afl-fuzz -t 1000+ -i ./soap_input/ -o ./soap_out/ -- ./build/aflnw -a 192.168.2.2 -p 5000 -m tcp
 afl-fuzz -t 2000+ -i ./ssdp_input/ -o ./ssdp_out/ -- ./build/aflnw -a 239.255.255.250 -p 1900 -m udp
 ```
+![](https://res.cloudinary.com/dozyfkbg3/image/upload/v1621510535/ufuzzer/image_34.png)
 4. 崩溃重放
 ```
 ./build/aflnw -a 239.255.255.250 -p 1900 -m udp < soap_out/crashes/id:00000....
