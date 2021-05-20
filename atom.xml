@@ -6,7 +6,7 @@
   <link href="https://cool-y.github.io/atom.xml" rel="self"/>
   
   <link href="https://cool-y.github.io/"/>
-  <updated>2021-04-11T06:19:26.805Z</updated>
+  <updated>2021-05-20T11:36:30.265Z</updated>
   <id>https://cool-y.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利用AFL黑盒测试网络协议</title>
+    <link href="https://cool-y.github.io/2021/05/20/aflnw-blackbox/"/>
+    <id>https://cool-y.github.io/2021/05/20/aflnw-blackbox/</id>
+    <published>2021-05-20T11:26:35.000Z</published>
+    <updated>2021-05-20T11:36:30.265Z</updated>
+    
+    
+    <summary type="html">做对比实验用的小工具，在拿不到固件的情况下，可以用AFL的变异策略尝试fuzz</summary>
+    
+    
+    
+    <category term="IOT" scheme="https://cool-y.github.io/categories/IOT/"/>
+    
+    
+    <category term="模糊测试" scheme="https://cool-y.github.io/tags/模糊测试/"/>
+    
+  </entry>
   
   <entry>
     <title>VM escape-QEMU Case Study</title>
@@ -44,7 +63,7 @@
     <link href="https://cool-y.github.io/2021/03/02/DIR-802-OS-Command-Injection/"/>
     <id>https://cool-y.github.io/2021/03/02/DIR-802-OS-Command-Injection/</id>
     <published>2021-03-02T05:36:32.000Z</published>
-    <updated>2021-04-11T06:09:45.266Z</updated>
+    <updated>2021-04-12T05:07:52.191Z</updated>
     
     
     <summary type="html">提交个漏洞</summary>
@@ -347,9 +366,9 @@
     <category term="二进制" scheme="https://cool-y.github.io/categories/二进制/"/>
     
     
-    <category term="AFL" scheme="https://cool-y.github.io/tags/AFL/"/>
-    
     <category term="模糊测试" scheme="https://cool-y.github.io/tags/模糊测试/"/>
+    
+    <category term="AFL" scheme="https://cool-y.github.io/tags/AFL/"/>
     
   </entry>
   
@@ -368,9 +387,9 @@
     <category term="二进制" scheme="https://cool-y.github.io/categories/二进制/"/>
     
     
-    <category term="AFL" scheme="https://cool-y.github.io/tags/AFL/"/>
-    
     <category term="模糊测试" scheme="https://cool-y.github.io/tags/模糊测试/"/>
+    
+    <category term="AFL" scheme="https://cool-y.github.io/tags/AFL/"/>
     
   </entry>
   
@@ -436,29 +455,6 @@
     <category term="路由器" scheme="https://cool-y.github.io/tags/路由器/"/>
     
     <category term="MiniUPnP" scheme="https://cool-y.github.io/tags/MiniUPnP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>复原数据库存储以检测和跟踪安全漏洞</title>
-    <link href="https://cool-y.github.io/2019/04/15/Caving-db-storage/"/>
-    <id>https://cool-y.github.io/2019/04/15/Caving-db-storage/</id>
-    <published>2019-04-15T07:38:47.000Z</published>
-    <updated>2021-04-10T13:37:48.593Z</updated>
-    
-    
-    <summary type="html">再也不敢删库跑路了！</summary>
-    
-    
-    
-    <category term="顶会论文" scheme="https://cool-y.github.io/categories/顶会论文/"/>
-    
-    
-    <category term="数据库" scheme="https://cool-y.github.io/tags/数据库/"/>
-    
-    <category term="复原文件" scheme="https://cool-y.github.io/tags/复原文件/"/>
-    
-    <category term="取证" scheme="https://cool-y.github.io/tags/取证/"/>
     
   </entry>
   
